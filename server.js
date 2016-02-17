@@ -1,4 +1,4 @@
-// server.js
+ // server.js
 
     // set up ========================
     var express  = require('express');
@@ -17,7 +17,16 @@ var db = require('./config/db');
 var port = process.env.PORT || 8080; 
 
 // connect to our mongoDB database 
-mongoose.connect(db.url); 
+// mongoose.connect(db.url);
+
+mongoose.connect('mongodb://admin:juromil@ds054118.mongolab.com:54118/excel_fit', function(err) {
+    if (err) {
+    	console.log("aha");
+        console.log(err);
+    } else {
+        console.log('Connected');
+    }    
+}); 
 
 // log every request to the console
 app.use(morgan('dev'));

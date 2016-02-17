@@ -1,12 +1,14 @@
 // public/js/controllers/NerdCtrl.js
 angular.module('NerdCtrl', []).controller('NerdController', function($scope,$http) {
 
+    console.log("ahoj"); 
     $scope.formData = {};
-
+    
     // when landing on the page, get all todos and show them
     $http.get('/api/nerds')
         .success(function(data) {
             $scope.nerds = data;
+            console.log("ahoj"); 
             console.log(data);
         })
         .error(function(data) {
