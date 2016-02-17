@@ -1,0 +1,31 @@
+.BGGrey {
+    background-color: #EBEBEB !important;
+}
+
+.BGOrange{
+	background-color: #F49200 !important;
+}
+
+.BGGreyDark{
+	background-color: #666666 !important;
+}
+
+.fontWhite{
+	color: white !important;
+}
+
+.fontOrange{
+	color: #F49200;
+}
+
+.fontBlue{
+	color: #15548C;
+}
+
+.fontBlue2{
+	color: #428BCA;
+}
+
+.height100{
+	 height: 100%;
+} 

@@ -1,5 +1,5 @@
 // config/db.js
 
 module.exports = {
-    url : 'mongodb://admin:juromil@ds040888.mongolab.com:40888/excel_fit'
+    url : 'mongodb://admin:juromil@ds054118.mongolab.com:54118/excel_fit'
 }
