@@ -1,20 +1,25 @@
 // public/js/appRoutes.js
-    angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 
-    $routeProvider
+    app.config( function($stateProvider, $urlRouterProvider) {
 
-        // home page
-        .when('/', {
-            templateUrl: 'views/home.html',
-            controller: 'MainController'
+        $urlRouterProvider.otherwise('/login');
+        $stateProvider
+
+        // login to app
+        .state('login', {
+            url: '/login',
+            templateUrl: 'views/login.html'
         })
 
-        // nerds page that will use the NerdController
-        .when('/nerds', {
-            templateUrl: 'views/nerd.html',
-            controller: 'NerdController'
+        .state('dashboard', {
+            url: '/dashboard',
+            templateUrl: 'views/dashboard.html'
+        })
+
+        .state('users',{
+            url: '/users',
+            templateUrl: 'view/users.html'
         });
+   // $locationProvider.html5Mode(true);
 
-    $locationProvider.html5Mode(true);
-
-}]);
+});

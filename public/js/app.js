@@ -1,3 +1,3 @@
 // public/js/app.js
 
-angular.module('sampleApp', ['ngRoute', 'appRoutes', 'MainCtrl', 'NerdCtrl', 'NerdService']);
+var app = angular.module('conferenceApp', ['ui.router', 'MainCtrl', 'NerdCtrl', 'LoginCtrl', 'DashboardCtrl', 'NerdService']);

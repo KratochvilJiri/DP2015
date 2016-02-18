@@ -19,17 +19,24 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     
     <!-- JS -->
-	  <script src="libs/jquery/dist/jquery.min.js"></script><!-- load jquery -->
+	<script src="libs/jquery/dist/jquery.min.js"></script><!-- load jquery -->
     <script src="libs/angular/angular.min.js"></script><!-- load angular -->
-    <script src="libs/angular-route/angular-route.min.js"></script>
+    <script src="libs/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="libs/semantic-ui/dist/semantic.min.js"></script>
 
     <!-- ANGULAR CUSTOM -->
+    <!-- Controllers -->
     <script src="js/controllers/MainCtrl.js"></script>
     <script src="js/controllers/NerdCtrl.js"></script>
+    <script src="js/controllers/LoginCtrl.js"></script>
+    <script src="js/controllers/DashboardCtrl.js"></script>
+
+     <!-- Services -->
     <script src="js/services/NerdService.js"></script>
-    <script src="js/appRoutes.js"></script>
+
+     <!-- Other -->
     <script src="js/app.js"></script>
+    <script src="js/appRoutes.js"></script>
 
 
 </head>
@@ -77,42 +84,8 @@
     </div>
 </body> -->
 
-<body>
-Hlavička
-<div class="ui middle aligned center aligned grid BGGrey height100">
-  <div class="five wide column">
-    <h3 class="ui teal image header">
-      <div class="content fontBlue">
-        Nástroj pro podporu komunikace externích účastníků akce - přihlášení:
-      </div>
-    </h3>
-    <form class="ui large form">
-      <div class="ui stacked segment">
-        <div class="field">
-          <div class="ui left icon input">
-            <i class="user icon"></i>
-            <input type="text" name="login" placeholder="Uživatelské jméno">
-          </div>
-        </div>
-        <div class="field">
-          <div class="ui left icon input">
-            <i class="lock icon"></i>
-            <input type="password" name="password" placeholder="Heslo">
-          </div>
-        </div>
-        <div class="ui fluid large submit button BGOrange fontWhite">Login</div>
-      </div>
-
-      <div class="ui error message"></div>
-
-    </form>
-
-    <div class="ui message">
-      Zapomněl jste heslo? <a href="#" class="fontBlue2">Obnovit.</a>
-    </div>
-  </div>
-</div>
-Patička
+<body ng-app="conferenceApp">
+<div ui-view class="height100"></div>
 </body>
 
 
