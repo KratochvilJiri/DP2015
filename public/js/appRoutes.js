@@ -18,7 +18,12 @@
 
         .state('users',{
             url: '/users',
-            templateUrl: 'view/users.html'
+            templateUrl: 'views/a_users.html'
+        })
+
+        .state('newUser',{
+            url: '/newUser',
+            templateUrl: 'views/a_newUser.html'
         });
    // $locationProvider.html5Mode(true);
 
