@@ -48,7 +48,10 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static(__dirname + '/public')); 
 
 // routes ==================================================
-require('./app/routes/nerdRoutes')(app); // configure our routes
+require('./app/routes/nerdRoutes')(app);
+require('./app/routes/UserRoutes')(app);
+
+ // configure our routes
 
 // start app ===============================================
 // startup our app at http://localhost:8080
