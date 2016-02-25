@@ -24,17 +24,26 @@ module.exports = function(app) {
 
         // create nerd and send back all nerds after creation
         app.get('/api/user', function(req, res) {
- 			res.send("wtf");
+ 			User.find(function(err,users){
+        				if (err)
+        					res.json({validation: "false", data: "null", error: err});
+        				res.json({validation: "true", data: users, error: err});
+        			});
         });
 
+        app.delete('/api/user/:user_id', function(req, res){
+        	User.remove({
+        		_id : req.params.user_id
+        	}, function(err, user){
+        		if (err)
+        			res.json({validation: "false", data: "null", error: err});
+        		User.find(function(err, users){
+        			if (err)
+        				res.json({validation: "false", data: "null", error: err});
+        			res.json({validation: "true", data: users, error: err});
+        		});
+        	});
+        });
 
-
-        	//res.send(req.body);
-
-        // frontend routes =========================================================
-        // route to handle all angular requests
-        //app.get('*', function(req, res) {
-          //  res.sendfile('./public/views/index.html'); // load our public/index.html file
-        //});
 
     };

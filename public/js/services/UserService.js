@@ -8,6 +8,10 @@ angular.module("UserSrvc", []).factory("UserService", ["$http", function($http){
 		getAll: function(){
 			console.log("getAll");
 			return $http.get("/api/user");
+		},
+
+		delete: function(userID){
+			return $http.delete("/api/user/" + userID);
 		}
 	}
 

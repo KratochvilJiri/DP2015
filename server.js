@@ -50,6 +50,7 @@ app.use(express.static(__dirname + '/public'));
 // routes ==================================================
 require('./app/routes/nerdRoutes')(app);
 require('./app/routes/UserRoutes')(app);
+require('./app/routes/XRoutes')(app);
 
  // configure our routes
 
