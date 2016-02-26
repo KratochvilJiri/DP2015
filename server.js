@@ -1,15 +1,15 @@
  // server.js
 
-    // set up ========================
-    var express  = require('express');
-    var app      = express();                               // create our app w/ express
-    var mongoose = require('mongoose');                     // mongoose for mongodb
-    var morgan = require('morgan');             // log requests to the console (express4)
-    var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
-    var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
+// set up ========================
+var express         = require('express');
+var app             = express();                    // create our app w/ express
+var mongoose        = require('mongoose');          // mongoose for mongodb
+var morgan          = require('morgan');            // log requests to the console (express4)
+var bodyParser      = require('body-parser');       // pull information from HTML POST (express4)
+var methodOverride  = require('method-override');   // simulate DELETE and PUT (express4)
 
 // configuration ===========================================
-    
+
 // config files
 var db = require('./config/db');
 
@@ -21,7 +21,6 @@ var port = process.env.PORT || 8080;
 
 mongoose.connect('mongodb://admin:juromil@ds054118.mongolab.com:54118/excel_fit', function(err) {
     if (err) {
-    	console.log("aha");
         console.log(err);
     } else {
         console.log('Connected');
@@ -48,11 +47,8 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static(__dirname + '/public')); 
 
 // routes ==================================================
-require('./app/routes/nerdRoutes')(app);
 require('./app/routes/UserRoutes')(app);
 require('./app/routes/XRoutes')(app);
-
- // configure our routes
 
 // start app ===============================================
 // startup our app at http://localhost:8080

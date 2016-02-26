@@ -1,7 +1,9 @@
+<!-- admin header -->
 <div ng-include="" src="'views/headers/adminHeader.html'"></div>
+<!-- admin header -end -->
 
 <div ng-controller="AUsersController">
-<div class="ui internally celled grid">
+<div class="ui grid">
   <div class="row">
     <div class="three wide column">
       <div class="ui button" ui-sref="newUser">Nový uživatel</div>
@@ -16,6 +18,7 @@
 </div>
 
 
+<!-- all users table -->
 <table class="ui unstackable striped table">
   <thead>
     <tr>
@@ -36,5 +39,6 @@
     </tr>
   </tbody>
 </table>
+<!-- all users table - end -->
 
 </div>

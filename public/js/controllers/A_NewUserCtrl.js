@@ -1,21 +1,19 @@
 angular.module('ANewUserCtrl',[]).controller('ANewUserController', ['$scope', 'UserService', function($scope, UserService){
- console.log("ready");
 
- $scope.user = {};
+	// define user for binding
+	$scope.user = {};
 
- UserService.getAll()
- 	.success(function(data,status,headers,config){
- 		$scope.users = data.result;
- 	})
- 	.error(function(data, status){
- 		console.error('Repos error', status, data);
- 	});
+	// clear form
+	// $scope.formData = {};
 
- $scope.createUser = function () {
- 	UserService.create($scope.user)
- 	.success(function(data, status, headers, config){
- 		console.log(data);
- 	});
- }
-
+	// create new User
+	$scope.createUser = function () {
+		UserService.create($scope.user)
+		.success(function(data, status, headers, config){
+			console.log(data);
+		})
+		.error(function(data, status){
+			console.error('Error', status, data);
+		});
+	}
 }]);

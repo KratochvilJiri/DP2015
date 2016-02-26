@@ -1,7 +1,7 @@
 {
-  "name"         : "excel-fit",
+  "name"         : "coomunication-tool",
   "version"      : "0.0.0",
-  "description"  : "Simple todo application.",
+  "description"  : "Tool for Communication Support Extern Participants of Event.",
   "main"         : "server.js",
   "author"       : "Jiri Kratochvil",
   "dependencies" : {

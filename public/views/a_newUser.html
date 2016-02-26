@@ -1,15 +1,21 @@
+<!-- admin header -->
 <div ng-include="" src="'views/headers/adminHeader.html'"></div>
+<!-- admin header -end -->
 
-<div class="ui small form" ng-controller="ANewUserController">
-  <div class="two fields">
-    <div class="field">
-      <label>First Name</label>
-      <input placeholder="Jméno" type="text" ng-model="user.firstName">
+<!-- new user form -->
+<div class="ui grid" ng-controller="ANewUserController">
+  <div class="ui small form">
+    <div class="two fields">
+      <div class="field">
+        <label>First Name</label>
+        <input placeholder="Jméno" type="text" ng-model="user.firstName">
+      </div>
+      <div class="field">
+        <label>Last Name</label>
+        <input placeholder="Přijmení" type="text" ng-model="user.lastName">
+      </div>
     </div>
-    <div class="field">
-      <label>Last Name</label>
-      <input placeholder="Přijmení" type="text" ng-model="user.lastName">
-    </div>
+    <div class="ui submit button" ng-click="createUser()" >Odeslat</div>
   </div>
-  <div class="ui submit button" ng-click="createUser()" >Submit</div>
+  <!-- new user form - end -->
 </div>

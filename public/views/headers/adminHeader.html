@@ -1,12 +1,12 @@
 <div class="ui grid">
   <!-- desktop/tablet menu -->
   <div class="computer tablet only row">
-    <div class="ui inverted menu navbar">
-      <a href="" class="brand item">NÁSTĚNKA</a>
+    <div class="ui menu navbar">
+      <a ui-sref="dashboard" class="item">NÁSTĚNKA</a>
       <a href="" class="active item">KONFERENCE</a>
       <a href="" class="item">HELPDESK</a>
       <a href="" class="item">ÚČASTNÍCI</a>
-      <a href="" class="item">UŽIVATELÉ</a>
+      <a ui-sref="users"  class="item">UŽIVATELÉ</a>
 
       <!-- DROP-DOWN ITEM (funkcni) - kdyby bylo potreba -->
                 <!--
@@ -32,7 +32,7 @@
 
   <!-- mobile menu -->
   <div class="mobile only narrow row">
-    <div class="ui inverted navbar menu">
+    <div class="ui navbar menu">
       <a ui-sref="dashboard" class="brand item">NÁSTĚNKA</a>
       <div class="right menu open">
         <a ng-model="collapsed" ng-click="collapsed=!collapsed" href="" class="menu item">
@@ -44,7 +44,7 @@
       <a href="" class="active item">KONFERENCE</a>
       <a href="" class="item">HELPDESK</a>
       <a href="" class="item">ÚČASTNÍCI</a>
-      <a href="" class="item">UŽIVATELÉ</a>
+      <a ui-sref="users"  class="item">UŽIVATELÉ</a>
       <a href="" class="item">[UŽIVATEL]<i class="setting icon floatNone"></i> </a>
 
       <!-- DROP-DOWN ITEM (funkcni) - kdyby bylo potreba -->
