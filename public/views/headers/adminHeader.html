@@ -1,4 +1,4 @@
-<div class="ui page grid">
+<div class="ui grid">
         <div class="computer tablet only row">
             <div class="ui inverted menu navbar">
                 <a href="" class="brand item">Project Name</a>
@@ -27,12 +27,12 @@
             <div class="ui inverted navbar menu">
                 <a href="" class="brand item">Project Name</a>
                 <div class="right menu open">
-                    <a href="" class="menu item">
+                    <a ng-model="collapsed" ng-click="collapsed=!collapsed" href="" class="menu item">
                         <i class="sidebar icon"></i>
                     </a>
                 </div>
             </div>
-            <div class="ui vertical navbar menu">
+            <div ng-show="collapsed" class="ui vertical navbar menu">
                 <a href="" class="active item">Link</a>
                 <a href="" class="item">Link</a>
                 <a href="" class="item">Linkkk</a>
@@ -64,7 +64,6 @@
             </div>
         </div>
     </div>
-
 
 
 
