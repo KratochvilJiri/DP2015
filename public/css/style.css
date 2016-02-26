@@ -75,3 +75,7 @@ body{
 a.whiteLink {
 	color: white;
 }
+
+.floatNone{
+	float: none !important;
+}
