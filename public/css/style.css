@@ -84,4 +84,12 @@ a.whiteLink {
 	float: none !important;
 }
 
+.floatLeft{
+	float: left;
+}
+
+.displayInline{
+	display: inline;
+}
+
 /* Other - end */
