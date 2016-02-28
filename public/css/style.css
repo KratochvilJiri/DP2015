@@ -40,6 +40,10 @@ body{
 
 
 /* Other */
+.BGWhite {
+    background-color: white !important;
+}
+
 .BGGrey {
     background-color: #EBEBEB !important;
 }
@@ -48,8 +52,16 @@ body{
 	background-color: #F49200 !important;
 }
 
-.BGGreyDark{
+.BGDarkGrey{
 	background-color: #666666 !important;
+}
+
+.BGBlue{
+	background-color: #428BCA !important;
+}
+
+.BGBlueDark{
+	background-color: #15548C !important;
 }
 
 .fontWhite{
@@ -68,12 +80,20 @@ body{
 	color: #428BCA;
 }
 
+.fontGrey{
+	color: #EBEBEB !important;
+}
+
 .height100{
 	 height: 100%;
 } 
 
 .maxWidth30{
 	max-width: 30em;
+}
+
+.maxHeight12{
+	max-height: 12.5em; 
 }
 
 a.whiteLink {
@@ -92,4 +112,20 @@ a.whiteLink {
 	display: inline;
 }
 
+.marginRight075{
+	margin-right: 0.75em !important;
+}
+
+.paddingLeft0{
+	padding-left: 0em !important;
+}
+
+.paddingTopAndBot3{
+	padding-top: 3em !important;
+	padding-bottom: 3em !important;
+}
+
+.paddingBot3{
+	padding-bottom: 3em !important;
+}
 /* Other - end */
