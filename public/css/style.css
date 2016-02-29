@@ -50,15 +50,15 @@ body{
 .ui.menu.navbar .item .icon {
 	margin-left: 0.5rem;
 }
-
-.grid-container{
-	padding-left: 1rem;
-	padding-right: 1rem;
-}
 /* Reposive menu - end */
 
 
 /* Other */
+.grid-container{
+	padding-left: 1rem !important;
+	padding-right: 1rem !important;
+}
+
 .BGWhite {
     background-color: white !important;
 }
@@ -145,6 +145,6 @@ a.whiteLink {
 }
 
 .paddingBot3{
-	padding-bottom: 3em !important;
+	padding-bottom: 3rem !important;
 }
 /* Other - end */

@@ -8,22 +8,33 @@
         // login to app
         .state('login', {
             url: '/login',
-            templateUrl: 'views/login.html'
+            templateUrl: 'views/login.html',
+            controller: 'LoginController'
         })
 
-        .state('dashboard', {
-            url: '/dashboard',
-            templateUrl: 'views/dashboard.html'
+        .state('home', {
+            url: '/',
+            abstract: true,
+            templateUrl: 'views/home.html'
+        })    
+
+
+        .state('home.dashboard', {
+            url: '',
+            templateUrl: 'views/dashboard.html',
+            controller: 'DashboardController'
         })
 
-        .state('users',{
-            url: '/users',
-            templateUrl: 'views/a_users.html'
+        .state('home.users',{
+            url: 'users',
+            templateUrl: 'views/a_users.html',
+            controller: 'AUsersController'
         })
 
-        .state('newUser',{
-            url: '/newUser',
-            templateUrl: 'views/a_newUser.html'
+        .state('home.user',{
+            url: 'user',
+            templateUrl: 'views/a_newUser.html',
+            controller: 'ANewUserController'
         });
    // $locationProvider.html5Mode(true);
 

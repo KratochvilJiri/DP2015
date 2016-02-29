@@ -1,13 +1,14 @@
+<div class="grid-container">
 <div class="ui grid">
   <!-- desktop/tablet menu -->
   <div class="computer tablet only row">
     <div class="ui menu navbar">
-      <span ui-sref="dashboard" class="item">eConference</span>
-      <a ui-sref-active="active" ui-sref="dashboard" class="item">nástěnka</a>
-      <a ui-sref-active="active" ui-sref="" class="item">konference</a>
-      <a ui-sref-active="active" ui-sref="" class="item">helpdesk</a>
-      <a ui-sref-active="active" ui-sref="" class="item">účastníci</a>
-      <a ui-sref-active="active" ui-sref="users"  class="item">uživatelé</a>
+      <span class="item">eConference</span>
+      <a ui-sref-active="active" ui-sref="home.dashboard" class="item">nástěnka</a>
+      <a ui-sref-active="active" class="item">konference</a>
+      <a ui-sref-active="active" class="item">helpdesk</a>
+      <a ui-sref-active="active" class="item">účastníci</a>
+      <a ui-sref-active="active" ui-sref="home.users"  class="item">uživatelé</a>
 
       <!-- DROP-DOWN ITEM (funkcni) - kdyby bylo potreba -->
                 <!--
@@ -25,7 +26,7 @@
               -->
 
       <div class="right menu">
-        <a ui-sref-active="active" ui-sref="" class="item">uživatel<i class="user icon"></i></a>
+        <a ui-sref-active="active" class="item">uživatel<i class="user icon"></i></a>
         <a ui-sref-active="active" ui-sref="login" class="item"><i class="sign out icon"></i></a>
       </div>
     </div>
@@ -35,7 +36,7 @@
   <!-- mobile menu -->
   <div class="mobile only narrow row">
     <div class="ui navbar menu">
-      <a ui-sref-active="active" ui-sref="dashboard" class="brand item">nástěnka</a>
+      <a ui-sref-active="active" ui-sref="home.dashboard" class="brand item">nástěnka</a>
       <div class="right menu open">
         <a ng-model="collapsed" ng-click="collapsed=!collapsed" href="" class="menu item">
           <i class="sidebar icon"></i>
@@ -43,11 +44,11 @@
       </div>
     </div>
     <div ng-show="collapsed" class="ui vertical navbar menu">
-      <a ui-sref-active="active" ui-sref="" class="item">konference</a>
-      <a ui-sref-active="active" ui-sref="" class="item">helpdesk</a>
-      <a ui-sref-active="active" ui-sref="" class="item">účastníci</a>
-      <a ui-sref-active="active" ui-sref="users"  class="item">uživatelé</a>
-      <a ui-sref-active="active" ui-sref="" class="item">uživatel<i class="user icon floatNone"></i> </a>
+      <a ui-sref-active="active" class="item">konference</a>
+      <a ui-sref-active="active" class="item">helpdesk</a>
+      <a ui-sref-active="active" class="item">účastníci</a>
+      <a ui-sref-active="active" ui-sref="home.users"  class="item">uživatelé</a>
+      <a ui-sref-active="active" class="item">uživatel<i class="user icon floatNone"></i> </a>
       <a ui-sref-active="active" ui-sref="login" class="item">logout<i class="sign out icon floatNone"></i></a>
 
       <!-- DROP-DOWN ITEM (funkcni) - kdyby bylo potreba -->
@@ -68,6 +69,38 @@
   </div>
   <!-- mobile menu - end -->
 </div>
+</div>
+
+
+<div class="grid-container">
+    <div class="ui grid">
+        <div class="row one column">
+            <div class="column">
+                <div ui-view></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  <div class="grid-container BGBlueDark paddingTopAndBot3">
+    <div class="ui grid"> 
+      <div class="four column stackable row">
+        <div class="column">
+          <i class="inverted big send outline icon floatLeft"></i>
+          <h1 class="ui header fontWhite displayInline">Sociální sítě</h1>
+        </div>
+
+        <div class="column middle aligned">
+          <i class="inverted big facebook icon"></i>
+        <i class="inverted big google plus icon"></i>
+        <i class="inverted big twitter icon"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
 
 
