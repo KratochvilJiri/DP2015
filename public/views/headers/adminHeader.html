@@ -2,13 +2,12 @@
   <!-- desktop/tablet menu -->
   <div class="computer tablet only row">
     <div class="ui menu navbar">
-            <span ui-sref="dashboard" class="item"></span>
-      <span ui-sref="dashboard" class="item">Aplikace logo</span>
-      <a ui-sref="dashboard" class="active item">NÁSTĚNKA</a>
-      <a href="" class="item">KONFERENCE</a>
-      <a href="" class="item">HELPDESK</a>
-      <a href="" class="item">ÚČASTNÍCI</a>
-      <a ui-sref="users"  class="item">UŽIVATELÉ</a>
+      <span ui-sref="dashboard" class="item">eConference</span>
+      <a ui-sref-active="active" ui-sref="dashboard" class="item">nástěnka</a>
+      <a ui-sref-active="active" ui-sref="" class="item">konference</a>
+      <a ui-sref-active="active" ui-sref="" class="item">helpdesk</a>
+      <a ui-sref-active="active" ui-sref="" class="item">účastníci</a>
+      <a ui-sref-active="active" ui-sref="users"  class="item">uživatelé</a>
 
       <!-- DROP-DOWN ITEM (funkcni) - kdyby bylo potreba -->
                 <!--
@@ -26,8 +25,8 @@
               -->
 
       <div class="right menu">
-        <a href="" class="item">UŽIVATEL<i class="setting icon"></i></a>
-        <a ui-sref="login" class="item"><i class="sign out icon"></i></a>
+        <a ui-sref-active="active" ui-sref="" class="item">uživatel<i class="user icon"></i></a>
+        <a ui-sref-active="active" ui-sref="login" class="item"><i class="sign out icon"></i></a>
       </div>
     </div>
   </div>
@@ -36,7 +35,7 @@
   <!-- mobile menu -->
   <div class="mobile only narrow row">
     <div class="ui navbar menu">
-      <a ui-sref="dashboard" class="brand item">NÁSTĚNKA</a>
+      <a ui-sref-active="active" ui-sref="dashboard" class="brand item">nástěnka</a>
       <div class="right menu open">
         <a ng-model="collapsed" ng-click="collapsed=!collapsed" href="" class="menu item">
           <i class="sidebar icon"></i>
@@ -44,12 +43,12 @@
       </div>
     </div>
     <div ng-show="collapsed" class="ui vertical navbar menu">
-      <a href="" class="active item">KONFERENCE</a>
-      <a href="" class="item">HELPDESK</a>
-      <a href="" class="item">ÚČASTNÍCI</a>
-      <a ui-sref="users"  class="item">UŽIVATELÉ</a>
-      <a href="" class="item">UŽIVATEL<i class="setting icon floatNone"></i> </a>
-      <a ui-sref="login" class="item">LOGOUT<i class="sign out icon floatNone"></i></a>
+      <a ui-sref-active="active" ui-sref="" class="item">konference</a>
+      <a ui-sref-active="active" ui-sref="" class="item">helpdesk</a>
+      <a ui-sref-active="active" ui-sref="" class="item">účastníci</a>
+      <a ui-sref-active="active" ui-sref="users"  class="item">uživatelé</a>
+      <a ui-sref-active="active" ui-sref="" class="item">uživatel<i class="user icon floatNone"></i> </a>
+      <a ui-sref-active="active" ui-sref="login" class="item">logout<i class="sign out icon floatNone"></i></a>
 
       <!-- DROP-DOWN ITEM (funkcni) - kdyby bylo potreba -->
       <!--

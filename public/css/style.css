@@ -6,12 +6,11 @@
 
 body{
 	background-color: #EBEBEB;
-	margin-bottom: 60px;
 }
 
 .ui.navbar {
-	margin-top: 20px !important;
 	width: 100%;
+	border-radius: 0rem;
 }
 
 .padding-reset{
@@ -35,6 +34,26 @@ body{
 
 .ui.menu .active.item {
 	background-color: #F49200;
+	color: white;
+}
+
+.ui.vertical.menu .active.item{
+	background-color: #F49200;
+	color: white;
+}
+
+.ui.menu.navbar a.item{
+	text-transform: uppercase;
+	border-radius: 0rem;
+}
+
+.ui.menu.navbar .item .icon {
+	margin-left: 0.5rem;
+}
+
+.grid-container{
+	padding-left: 1rem;
+	padding-right: 1rem;
 }
 /* Reposive menu - end */
 
