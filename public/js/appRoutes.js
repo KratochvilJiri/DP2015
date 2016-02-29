@@ -31,6 +31,21 @@
             controller: 'AUsersController'
         })
 
+        .state('home.conference',{
+            url: 'conference',
+            templateUrl: 'views/conference.html'
+        })
+
+        .state('home.helpdesk',{
+            url:'helpdesk',
+            templateUrl: 'views/helpdesk.html'
+        })
+
+        .state('home.participants',{
+            url:'participants',
+            templateUrl: 'views/participants.html'
+        })
+
         .state('home.user',{
             url: 'user',
             templateUrl: 'views/a_newUser.html',
