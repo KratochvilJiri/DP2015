@@ -147,4 +147,12 @@ a.whiteLink {
 .paddingBot3{
 	padding-bottom: 3rem !important;
 }
+
+.width100{
+    width: 100%;
+}
+
+.paddingTop0{
+   padding-top: 0rem !important; 
+}
 /* Other - end */
