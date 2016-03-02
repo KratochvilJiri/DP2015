@@ -54,9 +54,14 @@ body{
 
 
 /* Other */
+table a{
+  color: black;  
+}
+
 .grid-container{
 	padding-left: 1rem !important;
 	padding-right: 1rem !important;
+    padding-bottom: 3rem;
 }
 
 .BGWhite {
