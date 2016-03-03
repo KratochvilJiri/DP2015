@@ -67,13 +67,10 @@ h1, h2, h3, h4, h5{
     font-size: 1.85rem;
 }
 
-table a{
+a, a:hover{
   color: black;  
 }
 
-.ui.grid a{
-    color: black;
-}
 
 .grid-container{
 	padding-left: 1rem !important;
