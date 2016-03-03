@@ -1,16 +1,16 @@
 <div class="grid-container">
-<div class="ui grid">
-  <!-- desktop/tablet menu -->
-  <div class="computer tablet only row">
-    <div class="ui menu navbar">
-      <span class="item">eConference</span>
-      <a ui-sref-active="active" ui-sref="home.dashboard" class="item">nástěnka</a>
-      <a ui-sref-active="active" ui-sref="home.conference" class="item">konference</a>
-      <a ui-sref-active="active" ui-sref="home.helpdesk" class="item">helpdesk</a>
-      <a ui-sref-active="active" ui-sref="home.participants" class="item">účastníci</a>
-      <a ui-sref-active="active" ui-sref="home.users"  class="item">uživatelé</a>
+    <div class="ui grid">
+        <!-- desktop/tablet menu -->
+        <div class="computer tablet only row">
+            <div class="ui menu navbar">
+                <span class="item">eConference</span>
+                <a ui-sref-active="active" ui-sref="home.dashboard" class="item">nástěnka</a>
+                <a ui-sref-active="active" ui-sref="home.conference" class="item">konference</a>
+                <a ui-sref-active="active" ui-sref="home.helpdesk" class="item">helpdesk</a>
+                <a ui-sref-active="active" ui-sref="home.participants" class="item">účastníci</a>
+                <a ui-sref-active="active" ui-sref="home.users" class="item">uživatelé</a>
 
-      <!-- DROP-DOWN ITEM (funkcni) - kdyby bylo potreba -->
+                <!-- DROP-DOWN ITEM (funkcni) - kdyby bylo potreba -->
                 <!--
                 <a class="ui dropdown item">Dropdown
                   <i class="dropdown icon"></i>
@@ -25,34 +25,34 @@
                 </a>
               -->
 
-      <div class="right menu">
-        <a ui-sref-active="active" class="item">uživatel<i class="user icon"></i></a>
-        <a ui-sref-active="active" ui-sref="login" class="item"><i class="sign out icon"></i></a>
-      </div>
-    </div>
-  </div>
-  <!-- desktop/tablet menu - end -->
+                <div class="right menu">
+                    <a ui-sref-active="active" class="item">uživatel<i class="user icon"></i></a>
+                    <a ui-sref-active="active" ui-sref="login" class="item"><i class="sign out icon"></i></a>
+                </div>
+            </div>
+        </div>
+        <!-- desktop/tablet menu - end -->
 
-  <!-- mobile menu -->
-  <div class="mobile only narrow row">
-    <div class="ui navbar menu">
-      <a ui-sref-active="active" ui-sref="home.dashboard" class="brand item">nástěnka</a>
-      <div class="right menu open">
-        <a ng-model="collapsed" ng-click="collapsed=!collapsed" href="" class="menu item">
-          <i class="sidebar icon"></i>
-        </a>
-      </div>
-    </div>
-    <div ng-show="collapsed" class="ui vertical navbar menu">
-      <a ui-sref-active="active" ui-sref="home.conference" class="item">konference</a>
-      <a ui-sref-active="active" ui-sref="home.helpdesk" class="item">helpdesk</a>
-      <a ui-sref-active="active" ui-sref="home.participants" class="item">účastníci</a>
-      <a ui-sref-active="active" ui-sref="home.users"  class="item">uživatelé</a>
-      <a ui-sref-active="active" class="item">uživatel<i class="user icon floatNone"></i> </a>
-      <a ui-sref-active="active" ui-sref="login" class="item">logout<i class="sign out icon floatNone"></i></a>
+        <!-- mobile menu -->
+        <div class="mobile only narrow row">
+            <div class="ui navbar menu">
+                <a ui-sref-active="active" ui-sref="home.dashboard" class="brand item">nástěnka</a>
+                <div class="right menu open">
+                    <a ng-model="collapsed" ng-click="collapsed=!collapsed" href="" class="menu item">
+                        <i class="sidebar icon"></i>
+                    </a>
+                </div>
+            </div>
+            <div ng-show="collapsed" class="ui vertical navbar menu">
+                <a ui-sref-active="active" ui-sref="home.conference" class="item">konference</a>
+                <a ui-sref-active="active" ui-sref="home.helpdesk" class="item">helpdesk</a>
+                <a ui-sref-active="active" ui-sref="home.participants" class="item">účastníci</a>
+                <a ui-sref-active="active" ui-sref="home.users" class="item">uživatelé</a>
+                <a ui-sref-active="active" class="item">uživatel<i class="user icon floatNone"></i> </a>
+                <a ui-sref-active="active" ui-sref="login" class="item">logout<i class="sign out icon floatNone"></i></a>
 
-      <!-- DROP-DOWN ITEM (funkcni) - kdyby bylo potreba -->
-      <!--
+                <!-- DROP-DOWN ITEM (funkcni) - kdyby bylo potreba -->
+                <!--
       <div class="ui item">
         <div class="text">Dropdown</div>
         <div class="menu">
@@ -65,10 +65,10 @@
         </div>
       </div>
       -->
+            </div>
+        </div>
+        <!-- mobile menu - end -->
     </div>
-  </div>
-  <!-- mobile menu - end -->
-</div>
 </div>
 
 
@@ -83,26 +83,26 @@
 </div>
 
 
-  <div class="grid-container BGBlueDark paddingTopAndBot3">
-    <div class="ui grid"> 
-      <div class="three column stackable row">
-        <div class="column">
-          <i class="inverted big send outline icon floatLeft"></i>
-          <h1 class="ui header fontWhite displayInline">Sociální sítě</h1>
-        </div>
+<div class="grid-container BGBlueDark paddingTopAndBot3">
+    <div class="ui grid">
+        <div class="three column stackable row">
+            <div class="column">
+                <i class="inverted big send outline icon floatLeft"></i>
+                <p class="fontWhite fontS185">Sociální sítě</p>
+            </div>
 
-        <div class="column middle aligned">
-          <i class="inverted big facebook icon"></i>
-        <i class="inverted big google plus icon"></i>
-        <i class="inverted big twitter icon"></i>
+            <div class="column middle aligned">
+                <a href="https://www.facebook.com/events/551347568356406/" class="ui circular facebook icon button">
+                    <i class="facebook icon large"></i>
+                </a>
+                <a href="https://plus.google.com/+FIT_VUT/posts" class="ui circular twitter icon button">
+                    <i class="twitter icon large"></i>
+                </a>
+                <a href="https://twitter.com/FIT_VUT" class="ui circular google plus icon button">
+                    <i class="google plus icon large"></i>
+                </a>
+
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-
-
-
-
-
-
-
+</div>

@@ -1,29 +1,131 @@
 <div class="ui grid">
-  <div class="row">
-    <div class="three wide column">
-      <div class="ui button" ui-sref="newUser">Nový uživatel</div>
+    <!-- mobile filters -->
+    <div class="mobile only sixteen wide column">
+        <div class="ui medium icon input width100">
+            <input type="text" placeholder="Hledat...">
+            <i class="search icon"></i>
+        </div>
     </div>
-    <div class="ten wide column">
-      <p></p>
+
+    <div class="mobile only sixteen wide column paddingTop0">
+        <button class="ui button fontWhite BGBlue width100">
+            Přidat
+        </button>
     </div>
-    <div class="three wide column">
-      <img>
+
+    <div class="mobile only sixteen wide column paddingTop0">
+        <div class="ui floating labeled icon dropdown button width100">
+            <i class="filter icon"></i>
+            <span class="text">Konference</span>
+            <div class="menu">
+                <div class="item">
+                    Vše
+                </div>
+                <div class="item">
+                    Excel@FIT 2015
+                </div>
+                <div class="item">
+                    Excel@FIT 2014
+                </div>
+                <div class="item">
+                    Glorius 2014
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+    <!-- mobile filters end -->
+    <!-- comupter/tablet filters -->
+  <div class="tablet only computer only four wide column">
+        <div class="ui medium icon input width100">
+            <input type="text" placeholder="Hledat...">
+            <i class="search icon"></i>
+        </div>
+    </div>
+    <div class="tablet only computer only twelve wide column right aligned">
+        <button class="ui button fontWhite BGBlue">
+            Přidat
+        </button>
+    </div>
+
+    <div class="tablet only computer only sixteen wide column paddingTop0">
+        <div class="ui floating labeled icon dropdown button">
+            <i class="filter icon"></i>
+            <span class="text">Role</span>
+            <div class="menu">
+                <div class="item">
+                    Vše
+                </div>
+                <div class="item">
+                    Kontaktní osoba
+                </div>
+                <div class="item">
+                    Zástupce firmy
+                </div>
+                <div class="item">
+                    Administrátor
+                </div>
+            </div>
+        </div>
+        </div>
+
+    <!-- all users table -->
+    <table class="ui celled selectable striped table">
+        <thead>
+            <tr>
+                <th>Jméno</th>
+                <th>Email</th>
+                <th>Telefon</th>
+                <th>Role</th>
+                <th></th>
+            </tr>
+        </thead>
 
 
-<!-- all users table -->
-<table class="ui celled striped table">
-  <thead>
-    <tr>
-      <th>Jméno</th>
-      <th>Email</th>
-      <th>Telefon</th>
-      <th>Role</th>
-      <th>Odstranit</th>
-    </tr>
-  </thead>
+        <tr>
+            <td>Josef Novotný</td>
+            <td>novotny@fit.vutbr.cz</td>
+            <td>765436864</td>
+            <td>Kontaktní osoba</td>
+            <td>
+                <a href=""><i class="large remove user icon"></i></a>
+                <a href=""><i class="large edit icon"></i></a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Ing. Petr Novák</td>
+            <td>ibm@europe.cz</td>
+            <td>666777342</td>
+            <td>Zástupce firmy</td>
+            <td>
+                <a href=""><i class="large remove user icon"></i></a>
+                <a href=""><i class="large edit icon"></i></a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Petr Dorval</td>
+            <td>dorvaP@fit.vutbr.cz</td>
+            <td>765477864</td>
+            <td>Administrator</td>
+            <td>
+                <a href=""><i class="large remove user icon"></i></a>
+                <a href=""><i class="large edit icon"></i></a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Josef Novotný</td>
+            <td>novotny@fit.vutbr.cz</td>
+            <td>765436864</td>
+            <td>Kontaktní osoba</td>
+            <td>
+                <a href=""><i class="large remove user icon"></i></a>
+                <a href=""><i class="large edit icon"></i></a>
+            </td>
+        </tr>
+
+        <!-- database
   <tbody ng-repeat="user in users">
     <tr>
       <td>{{user.name}}</td>
@@ -33,6 +135,7 @@
       <td><i class="remove user icon" ng-click="removeUser(user._id)"></i></td>
     </tr>
   </tbody>
-</table>
-<!-- all users table - end -->
+  konec -->
 
+    </table>
+    <!-- all users table - end -->

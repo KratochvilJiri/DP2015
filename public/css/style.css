@@ -6,6 +6,14 @@
 
 body{
 	background-color: #EBEBEB;
+     font-family: 'Ubuntu', sans-serif;
+}
+
+h1, h2, h3, h4, h5{
+     font-family: 'Ubuntu', sans-serif !important;
+}
+.ui.button{
+    font-family: 'Ubuntu', sans-serif !important;
 }
 
 .ui.navbar {
@@ -54,8 +62,17 @@ body{
 
 
 /* Other */
+
+.fontS185{
+    font-size: 1.85rem;
+}
+
 table a{
   color: black;  
+}
+
+.ui.grid a{
+    color: black;
 }
 
 .grid-container{
