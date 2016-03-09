@@ -1,4 +1,4 @@
-angular.module('ANewUserCtrl',[]).controller('ANewUserController', ['$scope', 'UserService', function($scope, UserService){
+angular.module('UserCtrl',[]).controller('UserController', ['$scope', 'UserService', function($scope, UserService){
 
 	// define user for binding
 	$scope.user = {};

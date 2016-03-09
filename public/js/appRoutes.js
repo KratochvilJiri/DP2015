@@ -47,14 +47,14 @@
         })
         
        .state('home.invitation',{
-            url: '/invitation',
+            url: 'invitation',
             templateUrl: 'views/invitation.html'
         })
 
         .state('home.user',{
             url: 'user',
-            templateUrl: 'views/a_newUser.html',
-            controller: 'ANewUserController'
+            templateUrl: 'views/user.html',
+            controller: 'UserController'
         });
    // $locationProvider.html5Mode(true);
 

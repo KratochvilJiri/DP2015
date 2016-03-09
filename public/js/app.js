@@ -1,7 +1,7 @@
 // public/js/app.js
 
 var app = angular.module('conferenceApp', ['ui.router', 
-	'MainCtrl', 'LoginCtrl', 'DashboardCtrl', 'AUsersCtrl', 'ANewUserCtrl',
+	'MainCtrl', 'LoginCtrl', 'DashboardCtrl', 'AUsersCtrl', 'UserCtrl',
 	'UserSrvc']);
 
 
