@@ -45,6 +45,11 @@
             url:'participants',
             templateUrl: 'views/participants.html'
         })
+        
+       .state('home.invitation',{
+            url: '/invitation',
+            templateUrl: 'views/invitation.html'
+        })
 
         .state('home.user',{
             url: 'user',
