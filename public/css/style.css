@@ -175,6 +175,14 @@ a.whiteLink {
     width: 100%;
 }
 
+.width90{
+    width: 90%;
+}
+
+.row .column .message{
+    padding: 1em !important;
+}
+
 .paddingTop0{
    padding-top: 0rem !important; 
 }
