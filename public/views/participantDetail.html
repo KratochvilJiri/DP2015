@@ -1,5 +1,5 @@
 <div class="ui grid">
-    <!-- mobile only filters -->
+
     <div class="ten wide column">
         <h1> IBM </h1>
     </div>
@@ -15,6 +15,7 @@
         </button>
     </div>
 
+    <!-- mobile filter -->
     <div class="mobile only sixteen wide column paddingTop0">
         <div class="ui floating labeled icon dropdown button width100">
             <i class="filter icon"></i>
@@ -33,6 +34,7 @@
         </div>
     </div>
 
+    <!-- computer/tablet filter -->
     <div class="tablet only computer only sixteen wide column paddingTop0">
         <div class="ui floating labeled icon dropdown button">
             <i class="filter icon"></i>
@@ -54,70 +56,117 @@
         </div>
     </div>
 
-</div>
+    <!-- tabs - names -->
+    <div class="ui top attached tabular menu">
+        <a class="item active" data-tab="first">Info</a>
+        <a class="item" data-tab="second">Dokumenty</a>
+        <a class="item" data-tab="third">Zástupci</a>
+        <a class="item" data-tab="communication">Komunikace</a>
+    </div>
+    
+    <!-- tabs - content -->
+    <div class="ui bottom attached tab segment active" data-tab="first">
+        <div class="ui grid grid-container row">
+            
+            <!-- informations - tablet/computer - content -->
+            <div class="tablet only computer only six wide column">
+                <h5> IČO:</h5>
+                <div> 738728382332 </div>
 
+                <h5> Sídlo firmy: </h5>
+                <div> Praha 4 </div>
+                <div> V Parku 229/4 </div>
+                <div> Česká republika </div>
 
-<div class="ui top attached tabular menu">
-    <a class="item active" data-tab="first">Info</a>
-    <a class="item" data-tab="second">Dokumenty</a>
-    <a class="item" data-tab="third">Zástupci</a>
-    <a class="item" data-tab="communication">Komunikace</a>
-</div>
-<div class="ui bottom attached tab segment active" data-tab="first">
-    <div class="ui grid grid-container row">
-        <div class="six wide column">
-            <h5> IČO:</h5>
-            <div> 738728382332 </div>
+                <h5> Kontakt: </h5>
+                <div> Ing. Petr Novák </div>
+                <div> ibm@europe.com </div>
+                <div> 666777342 </div>
+            </div>
 
-            <h5> Sídlo firmy: </h5>
-            <div> Praha 4 </div>
-            <div> V Parku 229/4 </div>
-            <div> Česká republika </div>
-
-            <h5> Kontakt: </h5>
-            <div> Ing. Petr Novák </div>
-            <div> ibm@europe.com </div>
-            <div> 666777342 </div>
-        </div>
-
-        <div class="ten wide column">
-            <h5> Sponzorství: </h5>
-            <div class="ui right labeled input">
-                <input type="text" placeholder="Částka">
-                <div class="ui basic label">
-                    Kč
+            <div class="tablet only computer only ten wide column">
+                <h5> Sponzorství: </h5>
+                <div class="ui right labeled input">
+                    <input type="text" placeholder="Částka">
+                    <div class="ui basic label">
+                        Kč
+                    </div>
+                </div>
+                <h5> Stav účasti: </h5>
+                <div class="field">
+                    <label></label>
+                    <select class="ui dropdown">
+                        <option value="0">Odmítnuto</option>
+                        <option value="1">Přislíbeno</option>
+                        <option value="0">Potvrzeno</option>
+                        <option value="0">Smlouva v jednání</option>
+                        <option value="0">Smouva podepsána</option>
+                    </select>
+                </div>
+                <h5> Shrnutí komunikace: </h5>
+                <div class="ui form">
+                    <div class="field">
+                        <textarea>
+                            Zde bude přehledně a jasně shrnuto jak probíhala komunikace s firmou v daném roce.
+                        </textarea>
+                    </div>
                 </div>
             </div>
-            <h5> Stav účasti: </h5>
-            <div class="field">
-                <label></label>
-                <select class="ui dropdown">
-                    <option value="0">Odmítnuto</option>
-                    <option value="1">Přislíbeno</option>
-                    <option value="0">Potvrzeno</option>
-                    <option value="0">Smlouva v jednání</option>
-                    <option value="0">Smouva podepsána</option>
-                </select>
-            </div>
-            <h5> Shrnutí komunikace: </h5>
-            <div class="ui form">
+
+            <!-- informations - mobile - content -->
+            <div class="mobile only sixteen wide column">
+                <h5> IČO:</h5>
+                <div> 738728382332 </div>
+
+                <h5> Sídlo firmy: </h5>
+                <div> Praha 4 </div>
+                <div> V Parku 229/4 </div>
+                <div> Česká republika </div>
+
+                <h5> Kontakt: </h5>
+                <div> Ing. Petr Novák </div>
+                <div> ibm@europe.com </div>
+                <div> 666777342 </div>
+
+                <h5> Sponzorství: </h5>
+                <div class="ui right labeled input width100">
+                    <input type="text" placeholder="Částka">
+                    <span class="ui basic label">
+                    Kč
+                </span>
+                </div>
+                <h5> Stav účasti: </h5>
                 <div class="field">
-                    <textarea>
-Zde bude přehledně a jasně shrnuto jak probíhala komunikace s firmou v daném roce.                        
-                    </textarea>
+                    <label></label>
+                    <select class="ui dropdown width100">
+                        <option value="0">Odmítnuto</option>
+                        <option value="1">Přislíbeno</option>
+                        <option value="0">Potvrzeno</option>
+                        <option value="0">Smlouva v jednání</option>
+                        <option value="0">Smouva podepsána</option>
+                    </select>
+                </div>
+                <h5> Shrnutí komunikace: </h5>
+                <div class="ui form">
+                    <div class="field">
+                        <textarea>
+                            Zde bude přehledně a jasně shrnuto jak probíhala komunikace s firmou v daném roce.
+                        </textarea>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="ui bottom attached tab segment" data-tab="second">
-    Second
-</div>
-<div class="ui bottom attached tab segment" data-tab="third">
-    Third
-</div>
-<div class="ui bottom attached tab segment" data-tab="communication">
-    Comm
+
+    <div class="ui bottom attached tab segment" data-tab="second">
+        Second
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="third">
+        Third
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="communication">
+        Comm
+    </div>
 </div>
 
 <script>
