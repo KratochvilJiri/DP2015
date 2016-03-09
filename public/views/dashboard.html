@@ -1,73 +1,107 @@
 <div class="ui grid">
-	<div class="row bottom aligned">
-		<div class="ten wide column">
-			<h1 class="ui header displayInline">Excel@FIT 2016 </h1>
-			<p class="displayInline">24.5.2016</p>
-		</div>
-		<div class="six wide column right aligned">
-			<h5 class="ui displayInline">Zbývá 123 dnů</h5>
-		</div>
-	</div>
-	<div class="row">
-		<div class="column">
-			<i class="large configure icon floatLeft"></i>
-			<h3 class="ui header displayInline">Nevyřešených problémů: 32</h3>
-		</div>
-	</div>
-	<div class="row">
-		<div class="column">
-			<i class="mail large outline icon floatLeft"></i>
-			<h3 class="ui header displayInline">Nezodpovězených zpráv: helpdesk (10), komunikace (21)</h3>
-		</div>
-	</div>
-	<div class="row">
-		<div class="column">
-			<i class="users large floatLeft icon"></i>
-			<h3 class="ui header displayInline">Účastníků: potvrzeno (7), potvrzeno(5), odmítnuto (8) </h3>
-		</div>
-	</div>
-	<div class="row">
-		<div class="column">
-			<i class="money large floatLeft icon"></i>
-			<h3 class="ui header displayInline">Sponzoské dary: přislíbeno (450 000 Kč), přijato (20 000 Kč)</h3>
-		</div>
-	</div>
-	<div class="row">
-		<div class="column">
-			<i class="trophy large icon floatLeft"></i>
-			<h3 class="ui header displayInline">Úrovně sponzorství: zlatá (12), stříbrná (14), bronzová (5)</h3>
-		</div>
-	</div>
-	<div class="row">
-		<div class="column">
-			<button ui-sref= "home.user" class="ui right floated button BGBlue fontGrey">Registrovat</button>
-			<button ui-sref="home.invitation" class="ui right floated button BGBlue fontGrey">Pozvat</button>
-		</div>
-	</div>
+    <div class="row bottom aligned">
+        <div class="ten wide column">
+            <h1 class="ui header displayInline">Excel@FIT 2016 </h1>
+            <p class="displayInline">24.5.2016</p>
+        </div>
+        <div class="six wide column right aligned">
+            <h5 class="ui displayInline">Zbývá 123 dnů</h5>
+        </div>
+    </div>
+
+    <table class="ui very basic table">
+        <tbody>
+            <tr>
+                <td class="collapsing paddingRight0">
+                    <i class="mail large icon"></i>
+                </td>
+                <td class="collapsing paddingLeft0">
+                    <h4>Nezodpovězených zpráv:</h4>
+                </td>
+                <td>
+                    <a href=""> komunikace (21)</a> / <a href=""> helpdesk (10) </a>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="collapsing paddingRight0">
+                    <i class="configure large icon"></i>
+                </td>
+                <td class="collapsing paddingLeft0">
+                    <h4>Nevyřešených problémů:</h4>
+                </td>
+                <td>
+                    <a href="">4</a>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="collapsing paddingRight0">
+                    <i class="users large icon"></i>
+                </td>
+                <td class="collapsing paddingLeft0">
+                    <h4>Účastníků:</h4>
+                </td>
+                <td>
+                    <a href="">potvrzeno (7)</a> / <a href="">přislíbeno (5)</a> / <a href="">odmítnuto (8)</a>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="collapsing paddingRight0">
+                    <i class="money large icon"></i>
+                </td>
+                <td class="collapsing paddingLeft0">
+                    <h4>Sponzoské dary:</h4>
+                </td>
+                <td>
+                     <a href="">přislíbeno (450 000 Kč)</a> /  <a href="">přijato (20 000 Kč)</a>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="collapsing paddingRight0">
+                    <i class="trophy large icon"></i>
+                </td>
+                <td class="collapsing paddingLeft0">
+                    <h4>Úrovně sponzorství:</h4>
+                </td>
+                <td>
+                    <a href="">zlatá (12)</a> / <a href="">stříbrná (14)</a> / <a href="">bronzová (5)</a>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="column">
+            <button ui-sref="home.user" class="ui right floated button BGBlue fontGrey">Registrovat</button>
+            <button ui-sref="home.invitation" class="ui right floated button BGBlue fontGrey">Pozvat</button>
+        </div>
+    </div>
 
 </div>
 
-	<div class="ui grid BGWhite paddingBot3">
-		<div class="row">
-			<div class="column">
-				<h3 class="ui header displayInline">Předchozí konference:</h3>
-			</div>
-		</div>
-		<div class="stackable seven column row grid-container">
-			<a href="" class="column BGBlue ui segment marginRight075">
-				<h4 class="ui header fontGrey">Excel@FIT 2015</h4>
-				<span class="bottom alligned fontGrey">25.5.2015</span>	
-			</a>
-			<a href="" class="column BGBlue ui segment marginRight075">
-				<h4 class="ui header fontGrey">Excel@FIT 2014</h4>
-				<span class="bottom alligned fontGrey">23.5.2014</span>	
-			</a>
-			<a href="" class="column BGBlue ui segment marginRight075">
-				<h4 class="ui header fontGrey">Glorius 2014</h4>
-				<span class="bottom alligned fontGrey">30.3.2014</span>	
-			</a>
-		</div>
-	</div>
-
-
-
+<div class="ui grid BGWhite paddingBot3">
+    <div class="row">
+        <div class="column">
+            <h3 class="ui header displayInline">Předchozí konference:</h3>
+        </div>
+    </div>
+    <div class="stackable seven column row grid-container">
+        <a href="" class="column BGBlue ui segment marginRight075">
+            <h4 class="ui header fontGrey">Excel@FIT 2015</h4>
+            <span class="bottom alligned fontGrey">25.5.2015</span>
+        </a>
+        <a href="" class="column BGBlue ui segment marginRight075">
+            <h4 class="ui header fontGrey">Excel@FIT 2014</h4>
+            <span class="bottom alligned fontGrey">23.5.2014</span>
+        </a>
+        <a href="" class="column BGBlue ui segment marginRight075">
+            <h4 class="ui header fontGrey">Glorius 2014</h4>
+            <span class="bottom alligned fontGrey">30.3.2014</span>
+        </a>
+    </div>
+</div>
