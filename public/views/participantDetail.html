@@ -1,11 +1,128 @@
+<div class="ui grid">
+    <!-- mobile only filters -->
+    <div class="ten wide column">
+        <h1> IBM </h1>
+    </div>
+    <div class="tablet only computer only six wide column right aligned">
+        <button class="ui button fontWhite BGOrange">
+            Uložit
+        </button>
+    </div>
+
+    <div class="mobile only sixteen wide column paddingTop0">
+        <button class="ui button fontWhite BGOrange width100">
+            Uložit
+        </button>
+    </div>
+
+    <div class="mobile only sixteen wide column paddingTop0">
+        <div class="ui floating labeled icon dropdown button width100">
+            <i class="filter icon"></i>
+            <span class="text">Konference</span>
+            <div class="menu">
+                <div class="item">
+                    Excel@FIT 2015
+                </div>
+                <div class="item">
+                    Excel@FIT 2014
+                </div>
+                <div class="item">
+                    Glorius 2014
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tablet only computer only sixteen wide column paddingTop0">
+        <div class="ui floating labeled icon dropdown button">
+            <i class="filter icon"></i>
+            <span class="text">Konference</span>
+            <div class="menu">
+                <div class="item">
+                    Vše
+                </div>
+                <div class="item">
+                    Excel@FIT 2015
+                </div>
+                <div class="item">
+                    Excel@FIT 2014
+                </div>
+                <div class="item">
+                    Glorius 2014
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
 <div class="ui top attached tabular menu">
-  <a class="active item">
-    Tab 1
-  </a>
-  <a class="item">
-    Tab 2
-  </a>
+    <a class="item active" data-tab="first">Info</a>
+    <a class="item" data-tab="second">Dokumenty</a>
+    <a class="item" data-tab="third">Zástupci</a>
+    <a class="item" data-tab="communication">Komunikace</a>
 </div>
-<div class="ui bottom attached segment">
-  There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
+<div class="ui bottom attached tab segment active" data-tab="first">
+    <div class="ui grid grid-container row">
+        <div class="six wide column">
+            <h5> IČO:</h5>
+            <div> 738728382332 </div>
+
+            <h5> Sídlo firmy: </h5>
+            <div> Praha 4 </div>
+            <div> V Parku 229/4 </div>
+            <div> Česká republika </div>
+
+            <h5> Kontakt: </h5>
+            <div> Ing. Petr Novák </div>
+            <div> ibm@europe.com </div>
+            <div> 666777342 </div>
+        </div>
+
+        <div class="ten wide column">
+            <h5> Sponzorství: </h5>
+            <div class="ui right labeled input">
+                <input type="text" placeholder="Částka">
+                <div class="ui basic label">
+                    Kč
+                </div>
+            </div>
+            <h5> Stav účasti: </h5>
+            <div class="field">
+                <label></label>
+                <select class="ui dropdown">
+                    <option value="0">Odmítnuto</option>
+                    <option value="1">Přislíbeno</option>
+                    <option value="0">Potvrzeno</option>
+                    <option value="0">Smlouva v jednání</option>
+                    <option value="0">Smouva podepsána</option>
+                </select>
+            </div>
+            <h5> Shrnutí komunikace: </h5>
+            <div class="ui form">
+                <div class="field">
+                    <textarea>
+Zde bude přehledně a jasně shrnuto jak probíhala komunikace s firmou v daném roce.                        
+                    </textarea>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<div class="ui bottom attached tab segment" data-tab="second">
+    Second
+</div>
+<div class="ui bottom attached tab segment" data-tab="third">
+    Third
+</div>
+<div class="ui bottom attached tab segment" data-tab="communication">
+    Comm
+</div>
+
+<script>
+    $('.menu .item')
+  .tab()
+;
+
+</script>
