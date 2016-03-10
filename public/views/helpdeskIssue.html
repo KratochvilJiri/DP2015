@@ -3,8 +3,15 @@
     <div class="fourteen wide column">
         <h3>Nelze změnit uživatelské heslo: </h3>
         <p> Po změně uživatelského hesla, nelze provést uložení nastavení.... </p>
-
         <p>Otevřeno před: 30 dny.</p>
+    </div>
+
+    <div class="tablet only computer only two wide column">
+        <button class="ui button fontWhite BGOrange right floated">
+            Uložit
+        </button>
+    </div>
+    <div class="tablet only computer only fourteen wide column">
         <div class="ui selection dropdown">
             <input type="hidden" name="state">
             <i class="dropdown icon"></i>
@@ -81,10 +88,89 @@
             </div>
         </div>
     </div>
-    <div class="two wide column">
+
+    <div class="mobile only sixteen wide column">
         <button class="ui button fontWhite BGOrange fluid right floated">
             Uložit
         </button>
+    </div>
+
+    <div class=" mobile only sixteen wide column">
+        <div class="ui selection dropdown fluid">
+            <input type="hidden" name="state">
+            <i class="dropdown icon"></i>
+            <div class="text">
+                <div class="ui red empty circular label"></div> V řešení
+            </div>
+            <div class="menu">
+                <div class="item" data-value="inProgress">
+                    <div class="ui red empty circular label"></div> V řešení
+                </div>
+                <div class="item" data-value="done">
+                    <div class="ui green empty circular label"></div> Vyřešeno
+                </div>
+            </div>
+        </div>
+
+        <div class="ui selection dropdown fluid">
+            <input type="hidden" name="state">
+            <i class="dropdown icon"></i>
+            <div class="text">
+                <div class="ui red empty circular label"></div> Chyba v systému
+            </div>
+            <div class="menu">
+                <div class="item" data-value="systemErr">
+                    <div class="ui red empty circular label"></div> Chyba v systému
+                </div>
+                <div class="item" data-value="improvement">
+                    <div class="ui blue empty circular label"></div> Návrh na zlepšení
+                </div>
+                <div class="item" data-value="question">
+                    <div class="ui black empty circular label"></div> Question
+                </div>
+            </div>
+        </div>
+
+        <div class="ui selection dropdown fluid">
+            <input type="hidden" name="state">
+            <i class="dropdown icon"></i>
+            <div class="text">
+                <div class="ui red empty circular label"></div> Vysoká
+            </div>
+            <div class="menu">
+                <div class="item" data-value="low">
+                    <div class="ui yellow empty circular label"></div> Nízká
+                </div>
+                <div class="item" data-value="meddium">
+                    <div class="ui orange empty circular label"></div> Střední
+                </div>
+                <div class="item" data-value="high">
+                    <div class="ui red empty circular label"></div> Vysoká
+                </div>
+            </div>
+        </div>
+
+        <div class="ui selection dropdown fluid">
+            <input type="hidden" name="state">
+            <i class="dropdown icon"></i>
+            <div class="text">
+                Kratochvíl
+            </div>
+            <div class="menu">
+                <div class="item" data-value="low">
+                    Kratochvíl
+                </div>
+                <div class="item" data-value="low">
+                    Sadovská
+                </div>
+                <div class="item" data-value="meddium">
+                    Kreslíková
+                </div>
+                <div class="item" data-value="high">
+                    Zemčík
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
