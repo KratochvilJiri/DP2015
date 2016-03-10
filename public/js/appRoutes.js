@@ -40,6 +40,11 @@
             url:'helpdesk',
             templateUrl: 'views/helpdesk.html'
         })
+        
+        .state('home.helpdeskIssue', {
+            url:'helpdesk/issueXY',
+            templateUrl: 'views/helpdeskIssue.html'
+        })
 
         .state('home.participants',{
             url:'participants',
