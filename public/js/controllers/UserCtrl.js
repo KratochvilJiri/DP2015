@@ -8,12 +8,14 @@ angular.module('UserCtrl',[]).controller('UserController', ['$scope', 'UserServi
 
 	// create new User
 	$scope.createUser = function () {
-		UserService.create($scope.user)
+		
+        console.log($scope.user);
+        UserService.create($scope.user)
 		.success(function(data, status, headers, config){
 			console.log(data);
 		})
 		.error(function(data, status){
 			console.error('Error', status, data);
-		});
+		 });
 	}
 }]);

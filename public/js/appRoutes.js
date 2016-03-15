@@ -15,7 +15,8 @@
         .state('home', {
             url: '/',
             abstract: true,
-            templateUrl: 'views/home.html'
+            templateUrl: 'views/home.html',
+            controller: 'HomeController'
         })    
 
 

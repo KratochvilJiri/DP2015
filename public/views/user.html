@@ -6,7 +6,7 @@
 
     <!-- submit button - computer -->
     <div class="tablet only computer only six wide column right aligned">
-        <button ui-sref="home.invitation" class="ui button fontWhite BGOrange" ng-click="createUser()">
+        <button  class="ui button fontWhite BGOrange" ng-click="createUser()">
             Vytvořit uživatele
         </button>
     </div>
@@ -16,23 +16,23 @@
         <div class="ui form">
             <div class="field">
                 <label>Role</label>
-                <select class="ui dropdown">
-                    <option value="1">Administrátor</option>
-                    <option value="0">Účastník</option>
-                    <option value="0">Kontaktní osoba</option>
+                <select class="ui dropdown" ng-model="user.role">
+                    <option value="ADMINISTRATOR">Administrátor</option>
+                    <option value="PARTICIPANT">Účastník</option>
+                    <option value="CONTACT_PERSON">Kontaktní osoba</option>
                 </select>
             </div>
             <div class="field">
                 <label>Jméno</label>
-                <input placeholder="Jméno" type="text" ng-model="user.firstName">
+                <input placeholder="Jméno" type="text" ng-model="user.name">
             </div>
             <div class="field">
                 <label>Email</label>
-                <input placeholder="Email" type="text" ng-model="user.lastName">
+                <input placeholder="Email" type="text" ng-model="user.email">
             </div>
             <div class="field">
                 <label>Telefon</label>
-                <input placeholder="Telefon" type="text" ng-model="user.lastName">
+                <input placeholder="Telefon" type="text" ng-model="user.phone">
             </div>
         </div>
     </div>
@@ -42,23 +42,23 @@
         <div class="ui form">
             <div class="field">
                 <label>Role</label>
-                <select class="ui dropdown">
-                    <option value="">Administrátor</option>
-                    <option value="1">Účastník</option>
-                    <option value="0">Kontaktní osoba</option>
+                <select class="ui dropdown" ng-model="user.role">
+                    <option value="ADMINISTRATOR">Administrátor</option>
+                    <option value="PARTICIPANT">Účastník</option>
+                    <option value="CONTACT_PERSON">Kontaktní osoba</option>
                 </select>
             </div>
             <div class="field">
                 <label>Jméno</label>
-                <input placeholder="Jméno" type="text" ng-model="user.firstName">
+                <input placeholder="Jméno" type="text" ng-model="user.name">
             </div>
             <div class="field">
                 <label>Email</label>
-                <input placeholder="Email" type="text" ng-model="user.lastName">
+                <input placeholder="Email" type="text" ng-model="user.email">
             </div>
             <div class="field">
                 <label>Telefon</label>
-                <input placeholder="Telefon" type="text" ng-model="user.lastName">
+                <input placeholder="Telefon" type="text" ng-model="user.phone">
             </div>
         </div>
     </div>

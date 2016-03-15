@@ -5,26 +5,31 @@ module.exports = function(app) {
         // create user and send back all users after creation
         app.post('/api/user', function(req, res) {
     		// user create
+            console.log(req.body);
         	User.create({
-        		email: 'abc',
-        		password: '123',
-        		role: 'ADMINISTRATOR',
-        		name: req.body.firstName,
-        		phone: 'saasd'},
+        		email: req.body.email,
+        		password: "1234",
+        		role: req.body.role,
+        		name: req.body.name,
+        		phone: req.body.phone},
         		// user creation error
         		function(err,user){
         			if (err)
-        				res.json({validation: "false", data: "null", error: err});
+        				res.json({validation: false, data: null, error: err});
         			// user created - getAll users
-        			User.find(function(err,users){
+        			// User.find(function(err,users){
         				// getAll users error --> error response
-        				if (err)
-        					res.json({validation: "false", data: "null", error: err});
+        			//	if (err)
+        			//		res.json({validation: "false", data: "null", error: err});
         				// getAll users - ok --> response
-        				res.json({validation: "true", data: users, error: err});
-        			});
+        				res.json({validation: true, data: user, error: err});
+        			//});
         		});
         	});
+            
+        app.post('/api/user/auth', function(req,res) {
+            res.json({validation: "false", data: "null", error: "nothing"});
+        });
 
         // get all users
         app.get('/api/user', function(req, res) {

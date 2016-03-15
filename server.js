@@ -2,6 +2,7 @@
 
 // set up ========================
 var express         = require('express');
+var session         = require('express-session');
 var app             = express();                    // create our app w/ express
 var mongoose        = require('mongoose');          // mongoose for mongodb
 var morgan          = require('morgan');            // log requests to the console (express4)
@@ -27,6 +28,9 @@ mongoose.connect('mongodb://admin:juromil@ds054118.mongolab.com:54118/excel_fit'
     }    
 }); 
 
+// session initialization
+app.use(session({resave: true, saveUninitialized: true, secret: '1234strawberries', cookie: { maxAge: 6000000 }}));
+
 // log every request to the console
 app.use(morgan('dev'));
 
@@ -48,6 +52,8 @@ app.use(express.static(__dirname + '/public'));
 
 // routes ==================================================
 require('./app/routes/UserRoutes')(app);
+require('./app/routes/AuthorizationRoutes')(app);
+require('./app/routes/SessionRoutes')(app);
 require('./app/routes/XRoutes')(app);
 
 // start app ===============================================
