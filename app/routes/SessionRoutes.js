@@ -1,5 +1,6 @@
 module.exports = function (app) {
     var User = require('./../models/UserModel');
+    var Permissions = require('./../security/Permissions');
 
     // is session set?
     app.get('/api/session', function (req, res) {
@@ -16,7 +17,13 @@ module.exports = function (app) {
         
         // if session is set - return role and name
         if (req.session.role) {
-            res.json({ isValid: true, data: {name: req.session.name,role: req.session.role}, error: null });
+            res.json({ 
+                isValid: true, 
+                data: {
+                    name: req.session.name,
+                    role: req.session.role, 
+                    permissions: req.session.permissions}, 
+                error: null });
         }
         // if session is not set - return null
         else {

@@ -1,4 +1,4 @@
-<div class="ui grid">
+<div class="ui grid" ng-if="session.currentUser.permissions.AdministatorDashboardModule">
     <div class="row bottom aligned">
         <div class="ten wide column">
             <h1 class="ui header displayInline">Excel@FIT 2016 </h1>
@@ -55,7 +55,7 @@
                     <h4>Sponzoské dary:</h4>
                 </td>
                 <td>
-                     <a href="">přislíbeno (450 000 Kč)</a> /  <a href="">přijato (20 000 Kč)</a>
+                    <a href="">přislíbeno (450 000 Kč)</a> / <a href="">přijato (20 000 Kč)</a>
                 </td>
             </tr>
 
@@ -83,6 +83,23 @@
     </div>
 
 </div>
+
+<!-- participant - dashboard -->
+<div class="ui grid" ng-if="session.currentUser.permissions.ParticipantDashboardModule">
+    <div class="row bottom aligned">
+        <div class="ten wide column">
+            <h1 class="ui header displayInline">Excel@FIT 2016 </h1>
+            <p class="displayInline">24.5.2016</p>
+        </div>
+        <div class="six wide column right aligned">
+            <h5 class="ui displayInline">Zbývá 123 dnů</h5>
+        </div>
+    </div>
+</div>
+
+<!-- participant - dashboard -->
+
+
 
 <div class="ui grid BGWhite paddingBot3">
     <div class="row">

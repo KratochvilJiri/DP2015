@@ -60,6 +60,16 @@ h1, h2, h3, h4, h5{
 }
 /* Reposive menu - end */
 
+/*footer*/
+.ui.inverted.vertical.footer.segment{
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+
 
 /* Other */
 

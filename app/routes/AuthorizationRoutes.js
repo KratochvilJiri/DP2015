@@ -1,5 +1,6 @@
 module.exports = function (app) {
     var User = require('./../models/UserModel');
+    var Permissions = require('./../security/Permissions');
     
     
     
@@ -23,7 +24,8 @@ module.exports = function (app) {
                 else{
                     req.session.name = user.name;
                     req.session.role = user.role;
-                    res.json({isValid: true, data: true, error: null});
+                    req.session.permissions = Permissions[req.session.role];
+                    res.json({isValid: true, data: null, error: null});
                     
                 }    
             }
@@ -34,6 +36,7 @@ module.exports = function (app) {
     app.get("/api/authorization/deauthorize", function (req, res) {
         req.session.name = null;
         req.session.role = null;
+        req.session.permissions = null;
         res.json({isValid: true, data: null, error: null});
     });
 }
