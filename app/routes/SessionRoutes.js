@@ -1,25 +1,26 @@
 module.exports = function (app) {
     var User = require('./../models/UserModel');
 
-    //isSet
+    // is session set?
     app.get('/api/session', function (req, res) {
         if (req.session.role) {
-             res.json({ isValid: true, data: true, error: null });
+             res.json({ isValid: true, data: null, error: null });
         }
         else {
-            res.json({ isValid: true, data: false, error: null });
+            res.json({ isValid: false, data: null, error: null });
         }
     });
 
-    // update
+    // update session 
     app.get('/api/session/update', function (req, res) {
         
-        console.log(req.session.role);
+        // if session is set - return role and name
         if (req.session.role) {
             res.json({ isValid: true, data: {name: req.session.name,role: req.session.role}, error: null });
         }
+        // if session is not set - return null
         else {
-            res.json({ isValid: true, data: false, error: null });
+            res.json({ isValid: false, data: null, error: null });
         }
     });
 

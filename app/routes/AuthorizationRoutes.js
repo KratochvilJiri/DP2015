@@ -6,18 +6,18 @@ module.exports = function (app) {
     app.post("/api/authorization/authorize", function (req, res) {
         User.findOne({ 'email': req.body.email }, function (err, user) {
             if (err){
-              throw err;
+              //throw err;
               res.json({isValid: false, data: null, error: err }); 
             } 
             
             // user not found
             if(!user){
-                res.json({isValid: true, data: "user not found", error: null });
+                res.json({isValid: false, data: null, error: ["user not found"] });
             }
             else if(user){
                 // check if password matches
                 if(user.password != req.body.password){
-                    res.json({isValid: true, data: "wrong password", error: null});
+                    res.json({isValid: false, data: null, error: ["wrong password"]});
                 }
                 // user found and password is right
                 else{
@@ -30,9 +30,10 @@ module.exports = function (app) {
         });     
     });
 
+    // deauthorization - set session to null
     app.get("/api/authorization/deauthorize", function (req, res) {
-        res.session.name = null;
-        res.session.role = null;
+        req.session.name = null;
+        req.session.role = null;
         res.json({isValid: true, data: null, error: null});
     });
 }

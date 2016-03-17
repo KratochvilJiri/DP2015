@@ -1,17 +1,15 @@
-angular.module('HomeCtrl',[]).controller('HomeController',['$scope','SessionService' ,function($scope, SessionService){
+angular.module('HomeCtrl',[]).controller('HomeController',['$scope','SessionService','AuthorizationService' ,function($scope, SessionService, AuthorizationService){
 	
     $scope.session = SessionService;
     
-    
-	console.log("Ready");
-    
-            $scope.$watch('session.currentUser', function (data) {     
-            //console.log(data);
-            console.log($scope.session.currentUser);
-            //SessionService.isSet()
-              //  .success(function (data) {
-                //    console.log(data);
-                //})
+    $scope.deauthorize = function () {
+         AuthorizationService.deauthorize()
+        .success(function (data) {
+            SessionService.removeCurrentUser()
         })
+        .error(function(data, status){
+			console.error('Error', status, data.error);
+		 });
+    }
     
 }]);

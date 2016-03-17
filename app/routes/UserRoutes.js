@@ -8,7 +8,7 @@ module.exports = function(app) {
             console.log(req.body);
         	User.create({
         		email: req.body.email,
-        		password: "1234",
+        		password: "123",
         		role: req.body.role,
         		name: req.body.name,
         		phone: req.body.phone},
@@ -16,14 +16,8 @@ module.exports = function(app) {
         		function(err,user){
         			if (err)
         				res.json({validation: false, data: null, error: err});
-        			// user created - getAll users
-        			// User.find(function(err,users){
-        				// getAll users error --> error response
-        			//	if (err)
-        			//		res.json({validation: "false", data: "null", error: err});
-        				// getAll users - ok --> response
-        				res.json({validation: true, data: user, error: err});
-        			//});
+
+        		    res.json({validation: true, data: user, error: err});
         		});
         	});
             
@@ -54,6 +48,4 @@ module.exports = function(app) {
         		});
         	});
         });
-
-
     };

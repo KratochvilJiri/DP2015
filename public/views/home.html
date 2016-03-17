@@ -10,24 +10,9 @@
                 <a ui-sref-active="active" ui-sref="home.participants" class="item">účastníci</a>
                 <a ui-sref-active="active" ui-sref="home.users" class="item">uživatelé</a>
 
-                <!-- DROP-DOWN ITEM (funkcni) - kdyby bylo potreba -->
-                <!--
-                <a class="ui dropdown item">Dropdown
-                  <i class="dropdown icon"></i>
-                  <div class="menu">
-                    <div class="item">Action</div>
-                    <div class="item">Another action</div>
-                    <div class="item">Something else here</div>
-                    <div class="ui divider"></div>
-                    <div class="item">Seperated link</div>
-                    <div class="item">One more seperated link</div>
-                  </div>
-                </a>
-              -->
-
                 <div class="right menu">
                     <a ui-sref-active="active" class="item">{{session.currentUser.name}}<i class="user icon"></i></a>
-                    <a ui-sref-active="active" ui-sref="login" class="item"><i class="sign out icon"></i></a>
+                    <a ui-sref-active="active" ui-sref="login" class="item" ng-click="deauthorize()"><i class="sign out icon"></i></a>
                 </div>
             </div>
         </div>
@@ -49,22 +34,7 @@
                 <a ui-sref-active="active" ui-sref="home.participants" class="item">účastníci</a>
                 <a ui-sref-active="active" ui-sref="home.users" class="item">uživatelé</a>
                 <a ui-sref-active="active" class="item">uživatel<i class="user icon floatNone"></i> </a>
-                <a ui-sref-active="active" ui-sref="login" class="item">logout<i class="sign out icon floatNone"></i></a>
-
-                <!-- DROP-DOWN ITEM (funkcni) - kdyby bylo potreba -->
-                <!--
-      <div class="ui item">
-        <div class="text">Dropdown</div>
-        <div class="menu">
-          <a class="item">Action</a>
-          <a class="item">Another action</a>
-          <a class="item">Something else here</a>
-          <a class="ui aider"></a>
-          <a class="item">Seperated link</a>
-          <a class="item">One more seperated link</a>
-        </div>
-      </div>
-      -->
+                <a ui-sref-active="active" ui-sref="login" class="item" ng-click="deauthorize()">logout<i class="sign out icon floatNone"></i></a>
             </div>
         </div>
         <!-- mobile menu - end -->

@@ -80,62 +80,18 @@
             </tr>
         </thead>
 
-
-        <tr>
-            <td>Josef Novotný</td>
-            <td>novotny@fit.vutbr.cz</td>
-            <td>765436864</td>
-            <td>Kontaktní osoba</td>
-            <td>
-                <a href=""><i class="large edit icon"></i></a>
-                <a href=""><i class="large remove icon"></i></a>
-            </td>
-        </tr>
-
-        <tr>
-            <td>Ing. Petr Novák</td>
-            <td>ibm@europe.cz</td>
-            <td>666777342</td>
-            <td>Zástupce firmy</td>
-            <td>
-                <a href=""><i class="large edit icon"></i></a>
-                <a href=""><i class="large remove icon"></i></a>
-            </td>
-        </tr>
-
-        <tr>
-            <td>Petr Dorval</td>
-            <td>dorvaP@fit.vutbr.cz</td>
-            <td>765477864</td>
-            <td>Administrator</td>
-            <td>
-                <a href=""><i class="large edit icon"></i></a>
-                <a href=""><i class="large remove icon"></i></a>
-            </td>
-        </tr>
-
-        <tr>
-            <td>Josef Novotný</td>
-            <td>novotny@fit.vutbr.cz</td>
-            <td>765436864</td>
-            <td>Kontaktní osoba</td>
-            <td>
-                <a href=""><i class="large edit icon"></i></a>
-                <a href=""><i class="large remove icon"></i></a>
-            </td>
-        </tr>
-
-        <!-- database
-  <tbody ng-repeat="user in users">
-    <tr>
-      <td>{{user.name}}</td>
-      <td>{{user.email}}</td>
-      <td>{{user.phone}}</td>
-      <td>{{user.role}}</td>
-      <td><i class="remove user icon" ng-click="removeUser(user._id)"></i></td>
-    </tr>
-  </tbody>
-  konec -->
+        <tbody ng-repeat="user in users">
+            <tr>
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.phone}}</td>
+                <td>{{user.role}}</td>
+                <td>
+                    <a href=""><i class="large edit icon"></i></a>
+                    <a href="" ng-click="removeUser(user._id)"><i class="large remove icon"></i></a>
+                </td>
+            </tr>
+        </tbody>
 
     </table>
     <!-- all users table - end -->

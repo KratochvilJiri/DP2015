@@ -1,30 +1,30 @@
-angular.module("SessionSrvc", []).factory("SessionService", ["$http", function ($http) {
-    
-   
+angular.module("SessionSrvc", []).factory("SessionService", ["$http", function($http) {
+
+
     var Session = {
         // currentUser 
         currentUser: null,
-        
-        isSet: function(){
+
+        // isSet user-session on server?
+        isSet: function() {
             return $http.get("api/session");
         },
-        
+
+        // update frontend session form server-session
         updateCurrentUser: function() {
             console.log("service-updateCurrentUser");
             $http.get("/api/session/update")
-                .success(function (data) {
+                .success(function(data) {
                     return Session.currentUser = data.data;
                 });
         },
-        
-        removeCurrentUser: function () {
-            $http.get("/api/session/remove")
-             .then(function (result) {
-                 return Session.currentUser = result.data;
-             })
+
+        // remove frontend session
+        removeCurrentUser: function() {
+            return Session.currentUser = null;
         }
     };
-    return Session;  
-       
+    return Session;
+
 
 }]);
