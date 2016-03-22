@@ -1,4 +1,4 @@
-<div class="ui grid" ng-if="session.currentUser.permissions.AdministatorDashboardModule">
+<div class="ui grid">
     <div class="row bottom aligned">
         <div class="ten wide column">
             <h1 class="ui header displayInline">Excel@FIT 2016 </h1>
@@ -9,7 +9,7 @@
         </div>
     </div>
 
-    <table class="ui very basic table">
+    <table class="ui very basic table" ng-if="session.currentUser.permissions.AdministatorDashboardModule">
         <tbody>
             <tr>
                 <td class="collapsing paddingRight0">
@@ -75,27 +75,49 @@
         </tbody>
     </table>
 
-    <div class="row">
+    <div class="row" ng-if="session.currentUser.permissions.AdministatorDashboardModule">
         <div class="column">
             <button ui-sref="home.user" class="ui right floated button BGBlue fontGrey">Registrovat</button>
             <button ui-sref="home.invitation" class="ui right floated button BGBlue fontGrey">Pozvat</button>
         </div>
     </div>
 
+    <!-- participant - dashboard -->
+
+    <table class="ui very basic table" ng-if="session.currentUser.permissions.ParticipantDashboardModule">
+        <tbody>
+            <tr>
+                <td>
+                    <h4 class="ui header"><i class="fitted mail icon"></i>Máte novou zprávu: Sadovská Sylva.</h4>
+                </td>
+                <td class="eight wide">
+                    <h4 class="ui header"><i class="fitted trophy large icon"></i>Úroveň sponzorství: zlaté</h4>
+                </td>
+            </tr>
+
+            <tr class="top aligned">
+                <td>
+                    <div class="paddingBot1">Dokumenty:</div>
+                    <div class="paddingLeft2 paddingBot1">Logo - odevzdáno</div>
+                    <div class="paddingLeft2 paddingBot1">Logo - odevzdáno</div>
+                    <div class="paddingLeft2 paddingBot1">Logo - odevzdáno</div>
+                    <div class="paddingLeft2 paddingBot1">Logo - odevzdáno</div>
+                </td>
+                <td>
+                    <div class="paddingBot1">Logo - odevzdáno</div>
+                    <div class="paddingLeft2 paddingBot1">Petr Filip</div>
+                    <div class="paddingLeft2 paddingBot1">Petr Filip</div>
+                    <div class="paddingLeft2 paddingBot1">Petr Filip</div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
 </div>
 
-<!-- participant - dashboard -->
-<div class="ui grid" ng-if="session.currentUser.permissions.ParticipantDashboardModule">
-    <div class="row bottom aligned">
-        <div class="ten wide column">
-            <h1 class="ui header displayInline">Excel@FIT 2016 </h1>
-            <p class="displayInline">24.5.2016</p>
-        </div>
-        <div class="six wide column right aligned">
-            <h5 class="ui displayInline">Zbývá 123 dnů</h5>
-        </div>
-    </div>
-</div>
+
+
 
 <!-- participant - dashboard -->
 
