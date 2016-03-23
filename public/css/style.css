@@ -195,6 +195,10 @@ a.whiteLink {
     padding-right: 0em !important;
 }
 
+.paddingTop5{
+    padding-top: 5em !important;
+}
+
 .paddingTopAndBot3{
 	padding-top: 3em !important;
 	padding-bottom: 3em !important;
