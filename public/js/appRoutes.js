@@ -1,9 +1,9 @@
 // public/js/appRoutes.js
 
-    app.config( function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider) {
 
-        $urlRouterProvider.otherwise('/login');
-        $stateProvider
+    $urlRouterProvider.otherwise('/login');
+    $stateProvider
 
         // login to app
         .state('login', {
@@ -17,7 +17,7 @@
             abstract: true,
             templateUrl: 'views/home.html',
             controller: 'HomeController'
-        })    
+        })
 
 
         .state('home.dashboard', {
@@ -26,47 +26,72 @@
             controller: 'DashboardController'
         })
 
-        .state('home.users',{
-            url: 'users',
-            templateUrl: 'views/a_users.html',
-            controller: 'AUsersController'
-        })
-
-        .state('home.conference',{
-            url: 'conference',
-            templateUrl: 'views/conference.html'
-        })
-
-        .state('home.helpdesk',{
-            url:'helpdesk',
+        .state('home.helpdesk', {
+            url: 'helpdesk',
             templateUrl: 'views/helpdesk.html'
         })
-        
+
         .state('home.helpdeskIssue', {
-            url:'helpdesk/issueXY',
+            url: 'helpdesk/issueXY',
             templateUrl: 'views/helpdeskIssue.html'
         })
 
-        .state('home.participants',{
-            url:'participants',
+        .state('home.participants', {
+            url: 'participants',
             templateUrl: 'views/participants.html'
         })
-        
-        .state('home.participant',{
-            url:'participantXY',
-            templateUrl: 'views/participantDetail.html'
+
+        .state('home.administration', {
+            url: 'administration',
+            templateUrl: 'views/administration/'
         })
-        
-       .state('home.invitation',{
+
+        .state('home.administration.users', {
+            url: '/users',
+            templateUrl: 'views/administration/users.html',
+            controller: 'AUsersController'
+        })
+
+        .state('home.administration.conference', {
+            url: '/conference',
+            templateUrl: 'views/administration/conference.html'
+        })
+
+        .state('home.participant', {
+            url: 'participantXY',
+            templateUrl: 'views/participant/'
+        })
+
+        .state('home.participant.communication', {
+            url: '/communication',
+            templateUrl: 'views/participant/communication.html'
+        })
+
+        .state('home.participant.documents', {
+            url: '/documents',
+            templateUrl: 'views/participant/documents.html'
+        })
+
+        .state('home.participant.information', {
+            url: '/information',
+            templateUrl: 'views/participant/information.html'
+        })
+
+        .state('home.participant.representatives', {
+            url: '/representatives',
+            templateUrl: 'views/participant/representatives.html'
+        })
+
+        .state('home.invitation', {
             url: 'invitation',
             templateUrl: 'views/invitation.html'
         })
 
-        .state('home.user',{
+        .state('home.user', {
             url: 'user',
             templateUrl: 'views/user.html',
             controller: 'UserController'
         });
-   // $locationProvider.html5Mode(true);
+    // $locationProvider.html5Mode(true);
 
 });

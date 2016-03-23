@@ -7,6 +7,7 @@ module.exports = {
         AdministatorDashboardModule: true,
         ParticipantDashboardModule: false,
         ParticipantAdministration: true,
+        Administration: true,
     },
     'CONTACT_PERSON': {
         UserModuleRead: false,
@@ -16,6 +17,7 @@ module.exports = {
         AdministatorDashboardModule: true,
         ParticipantDashboardModule: false,
         ParticipantAdministration: true,
+        Administration: false,
     },
     'PARTICIPANT': {
         UserModuleRead: false,
@@ -25,5 +27,6 @@ module.exports = {
         AdministatorDashboardModule: false,
         ParticipantDashboardModule: true,
         ParticipantAdministration: false,
+        Administration: false,
     }
 }

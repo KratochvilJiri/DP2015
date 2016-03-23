@@ -1,0 +1,67 @@
+<div class="ui grid grid-container">
+
+    <div class="ten wide column">
+        <h1> IBM </h1>
+    </div>
+    <div class="tablet only computer only six wide column right aligned">
+        <button class="ui button fontWhite BGOrange">
+            Uložit
+        </button>
+    </div>
+
+    <div class="mobile only sixteen wide column paddingTop0">
+        <button class="ui button fontWhite BGOrange fluid">
+            Uložit
+        </button>
+    </div>
+
+    <!-- mobile filter -->
+    <div class="mobile only sixteen wide column paddingTop0">
+        <div class="ui floating labeled icon dropdown button fluid">
+            <i class="filter icon"></i>
+            <span class="text">Konference</span>
+            <div class="menu">
+                <div class="item">
+                    Excel@FIT 2015
+                </div>
+                <div class="item">
+                    Excel@FIT 2014
+                </div>
+                <div class="item">
+                    Glorius 2014
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- computer/tablet filter -->
+    <div class="tablet only computer only sixteen wide column paddingTop0">
+        <div class="ui floating labeled icon dropdown button">
+            <i class="filter icon"></i>
+            <span class="text">Konference</span>
+            <div class="menu">
+                <div class="item">
+                    Vše
+                </div>
+                <div class="item">
+                    Excel@FIT 2015
+                </div>
+                <div class="item">
+                    Excel@FIT 2014
+                </div>
+                <div class="item">
+                    Glorius 2014
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="ui four item stackable tabs menu">
+        <a ui-sref-active="active" ui-sref="home.participant.information" class="item">Informace</a>
+        <a ui-sref-active="active" ui-sref="home.participant.documents" class="item">Dokumenty</a>
+        <a ui-sref-active="active" ui-sref="home.participant.representatives" class="item">Zástupci</a>
+        <a ui-sref-active="active" ui-sref="home.participant.communication" class="item">Komunikace</a>
+    </div>
+
+   <div class="ui grid-container"> <ui-view></ui-view></div>
+

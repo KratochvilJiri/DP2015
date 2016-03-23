@@ -6,12 +6,10 @@
                 <span class="item">eConference</span>
                 <a ui-sref-active="active" ui-sref="home.dashboard" class="item">nástěnka</a>
                 <a class="item" ui-sref="home.participant" ng-if="session.currentUser.permissions.ConferenceParticipantModuleRead"> správa konference</a>
-                <a ui-sref-active="active" ui-sref="home.conference" class="item" ng-if="session.currentUser.permissions.ConferenceAdministrationModuleRead">konference</a>
                 <a ui-sref-active="active" ui-sref="home.helpdesk" class="item">helpdesk</a>
                 <a ui-sref-active="active" ui-sref="home.participants" class="item" ng-if="session.currentUser.permissions.ParticipantsModuleRead">účastníci</a>
-                <a ui-sref-active="active" ui-sref="home.users" class="item" ng-if="session.currentUser.permissions.UserModuleRead">uživatelé</a>
-
                 <div class="right menu">
+                    <a ui-sref-active="active" ui-sref="home.administration.conference" class="item" ng-if="session.currentUser.permissions.Administration">administrace</a>
                     <a ui-sref-active="active" class="item">{{session.currentUser.name}}<i class="user icon"></i></a>
                     <a ui-sref-active="active" ui-sref="login" class="item" ng-click="deauthorize()"><i class="sign out icon"></i></a>
                 </div>
@@ -31,11 +29,10 @@
             </div>
             <div ng-show="collapsed" class="ui vertical navbar menu">
                 <a class="item" ui-sref="home.participant" ng-if="session.currentUser.permissions.ConferenceParticipantModuleRead"> správa konference</a>
-                <a ui-sref-active="active" ui-sref="home.conference" class="item" ng-if="session.currentUser.permissions.ConferenceAdministrationModuleRead">konference</a>
                 <a ui-sref-active="active" ui-sref="home.helpdesk" class="item">helpdesk</a>
-                <a ui-sref-active="active" ui-sref="home.participants" class="item" ng-if="session.currentUser.permissions.ParticipantsModuleRead">účastníci</a>
                 <a ui-sref-active="active" ui-sref="home.users" class="item" ng-if="session.currentUser.permissions.UserModuleRead">uživatelé</a>
-                <a ui-sref-active="active" class="item">uživatel<i class="user icon floatNone"></i> </a>
+                <a ui-sref-active="active" ui-sref="home.administration.conference" class="item" ng-if="session.currentUser.permissions.Administration">administrace</a>
+                <a ui-sref-active="active" class="item">{{session.currentUser.name}}<i class="user icon floatNone"></i> </a>
                 <a ui-sref-active="active" ui-sref="login" class="item" ng-click="deauthorize()">logout<i class="sign out icon floatNone"></i></a>
             </div>
         </div>
@@ -48,7 +45,7 @@
     <div class="ui grid">
         <div class="row one column">
             <div class="column">
-                <div ui-view class="content"></div>
+                <div ui-view class="app-content"></div>
             </div>
         </div>
     </div>

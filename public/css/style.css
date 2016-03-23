@@ -18,8 +18,13 @@ h1, h2, h3, h4, h5{
     position: relative;
 }
 
-div.content {
-    padding-bottom: 5rem;
+textarea {
+    text-align: justify;
+    margin-bottom: 1em !important;    
+}
+
+div.app-content {
+    padding-bottom: 7rem;
 }
 
 .ui.button{

@@ -10,6 +10,7 @@ app.run(function ($rootScope, $timeout) {
         $timeout(function () {
             $('.ui.dropdown').dropdown();
             $('.menu .item').tab();
+            $('.ui.basic.icon.button').popup();
         }, 500);
     })
 });
