@@ -85,15 +85,19 @@
             </div>
 
             <div class="tablet only computer only ten wide column">
-                <h5> Sponzorství: </h5>
-                <div class="ui right labeled input">
+                <h5> Sponzorství:</h5>
+                <div> zlaté (50 000 Kč)</div>
+                <h5 ng-if="session.currentUser.permissions.ParticipantAdministration"> Sponzorství: </h5>
+                <div ng-if="session.currentUser.permissions.ParticipantAdministration" class="ui right labeled input">
                     <input type="text" placeholder="Částka">
                     <div class="ui basic label">
                         Kč
                     </div>
                 </div>
                 <h5> Stav účasti: </h5>
-                <div class="field">
+                <div> potvrzeno </div>
+                <h5 ng-if="session.currentUser.permissions.ParticipantAdministration"> Stav účasti: </h5>
+                <div ng-if="session.currentUser.permissions.ParticipantAdministration" class="field">
                     <label></label>
                     <select class="ui dropdown">
                         <option value="0">Odmítnuto</option>
@@ -103,8 +107,8 @@
                         <option value="0">Smouva podepsána</option>
                     </select>
                 </div>
-                <h5> Shrnutí komunikace: </h5>
-                <div class="ui form">
+                <h5 ng-if="session.currentUser.permissions.ParticipantAdministration"> Shrnutí komunikace: </h5>
+                <div ng-if="session.currentUser.permissions.ParticipantAdministration"  class="ui form">
                     <div class="field">
                         <textarea>
                             Zde bude přehledně a jasně shrnuto jak probíhala komunikace s firmou v daném roce.
@@ -128,15 +132,15 @@
                 <div> ibm@europe.com </div>
                 <div> 666777342 </div>
 
-                <h5> Sponzorství: </h5>
-                <div class="ui right labeled input fluid">
+                <h5 ng-if="session.currentUser.permissions.ParticipantAdministration"> Sponzorství: </h5>
+                <div ng-if="session.currentUser.permissions.ParticipantAdministration" class="ui right labeled input fluid">
                     <input type="text" placeholder="Částka">
                     <span class="ui basic label">
                     Kč
                 </span>
                 </div>
-                <h5> Stav účasti: </h5>
-                <div class="field">
+                <h5 ng-if="session.currentUser.permissions.ParticipantAdministration"> Stav účasti: </h5>
+                <div ng-if="session.currentUser.permissions.ParticipantAdministration" class="field">
                     <label></label>
                     <select class="ui dropdown fluid">
                         <option value="0">Odmítnuto</option>
@@ -146,8 +150,8 @@
                         <option value="0">Smouva podepsána</option>
                     </select>
                 </div>
-                <h5> Shrnutí komunikace: </h5>
-                <div class="ui form">
+                <h5 ng-if="session.currentUser.permissions.ParticipantAdministration"> Shrnutí komunikace: </h5>
+                <div ng-if="session.currentUser.permissions.ParticipantAdministration" class="ui form">
                     <div class="field">
                         <textarea>
                             Zde bude přehledně a jasně shrnuto jak probíhala komunikace s firmou v daném roce.

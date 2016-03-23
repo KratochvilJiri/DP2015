@@ -5,7 +5,7 @@
             <div class="ui menu navbar">
                 <span class="item">eConference</span>
                 <a ui-sref-active="active" ui-sref="home.dashboard" class="item">nástěnka</a>
-                <a class="item" ng-if="session.currentUser.permissions.ConferenceParticipantModuleRead"> správa konference</a>
+                <a class="item" ui-sref="home.participant" ng-if="session.currentUser.permissions.ConferenceParticipantModuleRead"> správa konference</a>
                 <a ui-sref-active="active" ui-sref="home.conference" class="item" ng-if="session.currentUser.permissions.ConferenceAdministrationModuleRead">konference</a>
                 <a ui-sref-active="active" ui-sref="home.helpdesk" class="item">helpdesk</a>
                 <a ui-sref-active="active" ui-sref="home.participants" class="item" ng-if="session.currentUser.permissions.ParticipantsModuleRead">účastníci</a>
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div ng-show="collapsed" class="ui vertical navbar menu">
-                <a class="item" ng-if="session.currentUser.permissions.ConferenceParticipantModuleRead"> správa konference</a>
+                <a class="item" ui-sref="home.participant" ng-if="session.currentUser.permissions.ConferenceParticipantModuleRead"> správa konference</a>
                 <a ui-sref-active="active" ui-sref="home.conference" class="item" ng-if="session.currentUser.permissions.ConferenceAdministrationModuleRead">konference</a>
                 <a ui-sref-active="active" ui-sref="home.helpdesk" class="item">helpdesk</a>
                 <a ui-sref-active="active" ui-sref="home.participants" class="item" ng-if="session.currentUser.permissions.ParticipantsModuleRead">účastníci</a>
