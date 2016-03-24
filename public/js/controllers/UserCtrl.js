@@ -1,4 +1,4 @@
-angular.module('UserCtrl',[]).controller('UserController', ['$scope', 'UserService', function($scope, UserService){
+angular.module('UserCtrl',[]).controller('UserController', ['$scope', '$state', 'UserService', function($scope, $state, UserService){
 
 	// define user for binding
 	$scope.user = {};
@@ -9,10 +9,14 @@ angular.module('UserCtrl',[]).controller('UserController', ['$scope', 'UserServi
 	// create new User
 	$scope.createUser = function () {
 		
-        console.log($scope.user);
         UserService.create($scope.user)
 		.success(function(data, status, headers, config){
-			console.log(data);
+			if(data.isValid){
+                $state.go('home.administration.users');
+            }
+            else{
+                // hlaska
+            }
 		})
 		.error(function(data, status){
 			console.error('Error', status, data);
