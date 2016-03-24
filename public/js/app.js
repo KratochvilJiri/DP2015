@@ -11,6 +11,9 @@ app.run(function ($rootScope, $timeout) {
             $('.ui.dropdown').dropdown();
             $('.menu .item').tab();
             $('.ui.basic.icon.button').popup();
+            $('.message .close').on('click', function(){
+               $(this).closest('.message').fadeOut(200); 
+            });
         }, 500);
     })
 });
@@ -27,9 +30,6 @@ app.run(['$rootScope', '$state', 'SessionService', function ($rootScope, $state,
                 }
                 else if(!data.isValid){
                     $state.go('login');
-                }
-                else{
-                    console.log("nic");
                 }
             });
     });

@@ -73,3 +73,30 @@
         </div>
     </div>
 </div>
+
+<!-- error message -->
+<div class="ui icon negative message status-alert" style="display: none">
+    <i class="warning circle icon"></i>
+    <i class="close icon"></i>
+    <div class="content">
+        <div class="header">
+            Operace selhala
+        </div>
+        <ul class="list">
+            <li ng-repeat="error in errors">{{error}}</li>
+        </ul>
+    </div>
+</div>
+
+
+<!-- success message -->
+<div class="ui icon positive message status-success" style="display: none">
+    <i class="check circle outline icon"></i>
+    <i class="close icon"></i>
+    <div class="content">
+        <div class="header">
+            Operace proběhla úspěšně
+        </div>
+        <p>{{message}}</p>
+    </div>
+</div>

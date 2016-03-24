@@ -1,5 +1,6 @@
 angular.module('HomeCtrl',[]).controller('HomeController',['$scope','SessionService','AuthorizationService' ,function($scope, SessionService, AuthorizationService){
 	
+    $scope.errors = [];
     $scope.session = SessionService;
     
     $scope.deauthorize = function () {
@@ -11,5 +12,18 @@ angular.module('HomeCtrl',[]).controller('HomeController',['$scope','SessionServ
 			console.error('Error', status, data.error);
 		 });
     }
+    
+    // showing errors
+    $scope.showErrors = function(errors){
+        $scope.errors = errors;
+        $('.message.status-alert').fadeIn();
+    }
+    
+    // showing success operation
+      $scope.showSuccess = function (message) {
+       $scope.message = message;
+       $('html,body').animate({ scrollTop: 0 }, 'slow');
+       $('.message.status-success').fadeIn().delay(2000).fadeOut();
+   }
     
 }]);

@@ -22,10 +22,10 @@ angular.module('AUsersCtrl',[]).controller('AUsersController',['$scope', 'UserSe
  		.success(function(data){
              if(data.isValid){
                  loadUsers();
-                 // to do - hlaska
+                 $scope.showSuccess("Uživatel byl úspěčně odstraněn");
              }
              else{
-                 // chyba
+                 $scope.showError(data.errors);
              }
  			$scope.users = data.data;
  		})

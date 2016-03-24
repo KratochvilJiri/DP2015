@@ -23,6 +23,14 @@ textarea {
     margin-bottom: 1em !important;    
 }
 
+.ui.message.status-alert, .ui.message.status-success {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    margin-left: -25%;
+    width: 50%;
+}
+
 div.app-content {
     padding-bottom: 7rem;
 }

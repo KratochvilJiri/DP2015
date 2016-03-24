@@ -15,7 +15,7 @@ angular.module('UserCtrl',[]).controller('UserController', ['$scope', '$state', 
                 $state.go('home.administration.users');
             }
             else{
-                // hlaska
+                $scope.showErrors(data.errors);
             }
 		})
 		.error(function(data, status){
