@@ -6,7 +6,6 @@ angular.module("UserSrvc", []).factory("UserService", ["$http", function($http){
 		},
 
 		getAll: function(){
-			console.log("getAll");
 			return $http.get("/api/user");
 		},
 

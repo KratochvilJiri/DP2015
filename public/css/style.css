@@ -18,6 +18,16 @@ h1, h2, h3, h4, h5{
     position: relative;
 }
 
+a.ui.basic.button.my-orange{
+    color: #F49200 !important;
+    box-shadow: 0 0 0 1px #F49200 inset!important;
+}
+
+a.ui.basic.button.my-orange:hover{
+    color: #f26202 !important;
+    box-shadow: 0 0 0 1px #f26202 inset!important;
+}
+
 textarea {
     text-align: justify;
     margin-bottom: 1em !important;    

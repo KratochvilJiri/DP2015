@@ -1,8 +1,8 @@
 // public/js/app.js
 
 var app = angular.module('conferenceApp', ['ui.router',
-    'MainCtrl', 'LoginCtrl', 'DashboardCtrl', 'AUsersCtrl', 'UserCtrl','HomeCtrl',
-    'UserSrvc', 'SessionSrvc', 'AuthorizationSrvc']);
+    'MainCtrl', 'LoginCtrl', 'DashboardCtrl', 'AUsersCtrl', 'UserCtrl','HomeCtrl','ConferenceCtrl',
+    'UserSrvc', 'SessionSrvc', 'AuthorizationSrvc', 'ConferenceSrvc']);
 
 
 app.run(function ($rootScope, $timeout) {

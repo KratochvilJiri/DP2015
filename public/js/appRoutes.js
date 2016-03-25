@@ -54,7 +54,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
         .state('home.administration.conference', {
             url: '/conference',
-            templateUrl: 'views/administration/conference.html'
+            templateUrl: 'views/administration/conference.html',
+            controller: 'ConferenceController'
         })
 
         .state('home.participant', {
