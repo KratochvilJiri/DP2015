@@ -24,7 +24,8 @@ angular.module('ConferenceCtrl',[]).controller('ConferenceController',['$scope',
         if(!$scope.conference.attachementTypes)
             $scope.conference.attachementTypes = [];
         
-        $scope.conference.attachementTypes.push({});
+        $scope.conference.attachementTypes.push({
+        });
     }
     
     // remove document
@@ -49,6 +50,11 @@ angular.module('ConferenceCtrl',[]).controller('ConferenceController',['$scope',
  			console.error('Error: ', status, data.error);
  		}); */
     }
+    
+    // watcher for dynamic changes - attechementTypes
+    $scope.$watch('conference.attachementTypes',function () {
+        $('.ui.dropdown').dropdown();
+    }, true);
     
        
 }]);
