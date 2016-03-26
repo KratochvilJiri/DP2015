@@ -1,5 +1,7 @@
-angular.module('ConferenceCtrl',[]).controller('ConferenceController',['$scope', 'ConferenceService' ,function($scope, ConferenceService){
+angular.module('ConferenceCtrl',[]).controller('ConferenceController',['$scope','$timeout', 'ConferenceService' ,function($scope,$timeout, ConferenceService){
     $scope.conference = {};
+    $scope.conference.active = false;
+    $scope.conference.sponsorshipLevels = [];
     $scope.allConference = [];
     
     var loadAllConference = function() {
@@ -24,18 +26,22 @@ angular.module('ConferenceCtrl',[]).controller('ConferenceController',['$scope',
         if(!$scope.conference.attachementTypes)
             $scope.conference.attachementTypes = [];
         
+        var GUID = guid();
         $scope.conference.attachementTypes.push({
+            hash: GUID
         });
     }
     
     // remove document
     $scope.removeAttachementType = function (index){
+        removeAttachTypeFromSponsorshipLvl(index);
         $scope.conference.attachementTypes.splice(index,1);
     }
     
     // save conference
     $scope.save = function () {
         console.log($scope.conference);
+        //console.log($scope.conference.attachementTypes);
         /*ConferenceService.save($scope.conference)
         .success = function (data) {
             if(data.isValid){
@@ -51,10 +57,28 @@ angular.module('ConferenceCtrl',[]).controller('ConferenceController',['$scope',
  		}); */
     }
     
-    // watcher for dynamic changes - attechementTypes
-    $scope.$watch('conference.attachementTypes',function () {
-        $('.ui.dropdown').dropdown();
-    }, true);
-    
+    // remove deleted Attachement from SponsorshipLevels
+    var removeAttachTypeFromSponsorshipLvl = function (index) {     
+        $scope.conference.sponsorshipLevels.forEach(function(sponsorShipLevel) {
+            if(sponsorShipLevel.attachementTypes){
+                sponsorShipLevel.attachementTypes.forEach(function (attachementType, index, attachementTypes) {
+                    if(attachementType.hash === $scope.conference.attachementTypes[index].hash){
+                        attachementTypes.splice(index,1);
+                    }
+                })
+            }
+        })
+    }
+   
+  // unique hash creator
+  function guid() {
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+  }
        
 }]);

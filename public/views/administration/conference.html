@@ -41,6 +41,40 @@
 
 <div class="ui attached message">
     <div class="header">
+        Přílohy:
+    </div>
+</div>
+<div class="ui attached fluid segment">
+    <div class="field">
+        <a class="ui basic button" ng-click="addAttachementType()">
+            <i class="add icon"></i>Přidat přílohu
+        </a>
+    </div>
+</div>
+<form ng-repeat="attachementType in conference.attachementTypes" class="ui form attached fluid segment">
+    <div class="two fields">
+        <div class="field required">
+            <label>Název přílohy:</label>
+            <input placeholder="Jméno" type="text" ng-model="attachementType.name">
+        </div>
+        <div class="field required">
+            <label>Konečný termín odevzdání:</label>
+            <input type="date" ng-model="attachementType.date">
+        </div>
+    </div>
+    <div class="field required">
+        <label>Popis přílohy:</label>
+        <textarea ng-model="attachementType.description"></textarea>
+    </div>
+    <div class="field">
+        <a ng-click="removeAttachementType($index)" class="ui button basic">
+            <i class="remove red icon"></i> Odstranit přílohu
+        </a>
+    </div>
+</form>
+
+<div class="ui attached message">
+    <div class="header">
         Úrovně sponzorství:
     </div>
 </div>
@@ -59,7 +93,7 @@
             <input type="text" ng-model="sponsorshipLevel.name">
         </div>
         <div class="field">
-            <label>Hodnota sponzorství:</label>
+            <label>Hodnota úrovně:</label>
             <div class="ui right labeled input">
                 <input type="text" placeholder="Cena" ng-model="sponsorshipLevel.value">
                 <div class="ui basic label">
@@ -69,11 +103,10 @@
         </div>
     </div>
     <div class="field">
-        <label>Přílohy:</label>
-        <select class="ui selection dropdown" multiple="" ng-model="conference.sponsorshipLevel.attachementTypes" ng-options="attachementType.name for attachementType in conference.attachementTypes">
-        </select>
+        <label>Povinné přílohy:</label>
+        <multiple-autocomplete ng-model="sponsorshipLevel.attachementTypes" object-property="name" suggestions-arr="conference.attachementTypes">
+        </multiple-autocomplete>
     </div>
-
     <div class="field">
         <a ng-click="removeSponsorshipLevel($index)" class="ui button basic">
             <i class="remove red icon"></i> Odstranit úroveň
@@ -81,40 +114,6 @@
     </div>
 </form>
 
-
-<div class="ui attached message">
-    <div class="header">
-        Dokumenty:
-    </div>
-</div>
-<div class="ui attached fluid segment">
-    <div class="field">
-        <a class="ui basic button" ng-click="addAttachementType()">
-            <i class="add icon"></i>Přidat dokument
-        </a>
-    </div>
-</div>
-<form ng-repeat="attachementType in conference.attachementTypes" class="ui form attached fluid segment">
-    <div class="two fields">
-        <div class="field required">
-            <label>Název dokumentu:</label>
-            <input placeholder="Jméno" type="text" ng-model="attachementType.name">
-        </div>
-        <div class="field required">
-            <label>Datum odevzdání:</label>
-            <input type="date" ng-model="attachementType.date">
-        </div>
-    </div>
-    <div class="field required">
-        <label>Popis dokumentu:</label>
-        <textarea ng-model="attachementType.description"></textarea>
-    </div>
-    <div class="field">
-        <a ng-click="removeAttachementType($index)" class="ui button basic">
-            <i class="remove red icon"></i> Odstranit dokument
-        </a>
-    </div>
-</form>
 <div class="ui bottom attached warning message">
     <a ng-click="save()" class="ui button basic my-orange">
         <i class="save icon"></i> Uložit

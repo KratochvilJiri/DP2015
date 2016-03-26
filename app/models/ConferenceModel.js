@@ -18,6 +18,9 @@ module.exports = mongoose.model('Conference',{
     description: {
         type: String
     },
+    notification: {
+        type: Number
+    },
     active: {
         type: Boolean,
         required: true
