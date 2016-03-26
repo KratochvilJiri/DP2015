@@ -6,7 +6,7 @@ module.exports = {
         type: String, 
         required: true
     },
-	deadline: {
+	date: {
         type: Date, 
         required: true
     },

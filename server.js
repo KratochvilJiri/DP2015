@@ -54,6 +54,7 @@ app.use(express.static(__dirname + '/public'));
 require('./app/routes/UserRoutes')(app);
 require('./app/routes/AuthorizationRoutes')(app);
 require('./app/routes/SessionRoutes')(app);
+require('./app/routes/ConferenceRoutes')(app);
 require('./app/routes/XRoutes')(app);
 
 // start app ===============================================

@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var AtachementTypeStructure = require('./AtachementTypeStructure');
+var AttachementTypeStructure = require('./AttachementTypeStructure');
 var SponsorshipLevelStructure = require('./SponsorshipLevelStructure'); 
 
 // attachement general(type) model
@@ -28,7 +28,7 @@ module.exports = mongoose.model('Conference',{
     sponsorshipLevels: 
         [SponsorshipLevelStructure],
     attachementTypes: 
-        [AtachementTypeStructure],
+        [AttachementTypeStructure],
     participations: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Participation'

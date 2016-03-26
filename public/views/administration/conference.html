@@ -8,7 +8,7 @@
     <div class="two fields">
         <div class="field">
             <label>Aktuální konference:</label>
-            <select class="ui dropdown" ng-model="conference.notification">
+            <select class="ui dropdown" ng-options="conference.name for conference in allConference track by conference._id" ng-model="conference">
             </select>
         </div>
         <div class="field required">

@@ -1,11 +1,23 @@
 angular.module('ConferenceCtrl',[]).controller('ConferenceController',['$scope','$timeout', 'ConferenceService' ,function($scope,$timeout, ConferenceService){
     $scope.conference = {};
-    $scope.conference.active = false;
+    $scope.conference.active = true;
     $scope.conference.sponsorshipLevels = [];
     $scope.allConference = [];
     
     var loadAllConference = function() {
-        // to do
+        ConferenceService.getAll()
+        .success(function(data){
+            if(data.isValid){
+                $scope.allConference = data.data;
+                console.log($scope.allConference);
+            }
+            else{
+                $scope.showErrors(data.errors);
+            }
+        })
+        .error(function(data,status) {
+            console.log('Error: ', status, data.error);
+        });
     }
     
     // add sponsorShipLevel
@@ -42,19 +54,19 @@ angular.module('ConferenceCtrl',[]).controller('ConferenceController',['$scope',
     $scope.save = function () {
         console.log($scope.conference);
         //console.log($scope.conference.attachementTypes);
-        /*ConferenceService.save($scope.conference)
-        .success = function (data) {
+        ConferenceService.save($scope.conference)
+        .success(function(data){
             if(data.isValid){
-                loadAllConference;
+                //loadAllConference;
                 $scope.showSuccess("Konference byla úspěšně aktualizována/přidána");
             }
             else{
-                $scope.showErros(data.errors);
+                $scope.showErrors(data.errors);
             }
-        }
+        })
         .error(function(data, status){
- 			console.error('Error: ', status, data.error);
- 		}); */
+ 			console.log('Error: ', status, data.error);
+ 		});
     }
     
     // remove deleted Attachement from SponsorshipLevels
@@ -69,6 +81,9 @@ angular.module('ConferenceCtrl',[]).controller('ConferenceController',['$scope',
             }
         })
     }
+    
+    loadAllConference();
+    
    
   // unique hash creator
   function guid() {

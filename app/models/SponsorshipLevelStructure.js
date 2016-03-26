@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var attachementTypeStructure = require('./AttachementGeneralStructure');
+var attachementTypeStructure = require('./AttachementTypeStructure');
 
 
 // attendee model
