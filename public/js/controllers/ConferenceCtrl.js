@@ -1,6 +1,5 @@
-angular.module('ConferenceCtrl',[]).controller('ConferenceController',['$scope','$timeout', 'ConferenceService' ,function($scope,$timeout, ConferenceService){
+angular.module('ConferenceCtrl',[]).controller('ConferenceController',['$scope','$timeout','$state', 'ConferenceService' ,function($scope,$timeout,$state, ConferenceService){
     $scope.conference = {};
-    $scope.conference.active = true;
     $scope.conference.sponsorshipLevels = [];
     $scope.allConference = [];
     
@@ -9,7 +8,7 @@ angular.module('ConferenceCtrl',[]).controller('ConferenceController',['$scope',
         .success(function(data){
             if(data.isValid){
                 $scope.allConference = data.data;
-                console.log($scope.allConference);
+                setActiveConference();
             }
             else{
                 $scope.showErrors(data.errors);
@@ -18,6 +17,18 @@ angular.module('ConferenceCtrl',[]).controller('ConferenceController',['$scope',
         .error(function(data,status) {
             console.log('Error: ', status, data.error);
         });
+    }
+    
+    var setActiveConference = function () {
+       $scope.allConference.forEach(function (conference) {
+           if(conference.active){
+               $scope.conference = conference;
+           }
+       }) 
+    }
+    
+    $scope.addConference = function () {
+        $scope.conference = {};
     }
     
     // add sponsorShipLevel
@@ -53,12 +64,13 @@ angular.module('ConferenceCtrl',[]).controller('ConferenceController',['$scope',
     // save conference
     $scope.save = function () {
         console.log($scope.conference);
+        $scope.conference.active = true;
         //console.log($scope.conference.attachementTypes);
         ConferenceService.save($scope.conference)
         .success(function(data){
             if(data.isValid){
-                //loadAllConference;
                 $scope.showSuccess("Konference byla úspěšně aktualizována/přidána");
+                loadAllConference();
             }
             else{
                 $scope.showErrors(data.errors);

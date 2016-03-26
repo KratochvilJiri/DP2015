@@ -5,10 +5,15 @@
 </div>
 
 <form class="ui form attached fluid segment">
+    <div class="field">
+        <a class="ui basic button" ng-click="addConference()">
+            <i class="add icon"></i>Přidat konferenci
+        </a>
+    </div>
     <div class="two fields">
         <div class="field">
             <label>Aktuální konference:</label>
-            <select class="ui dropdown" ng-options="conference.name for conference in allConference track by conference._id" ng-model="conference">
+            <select class="" ng-options="item.name for item in allConference track by item._id" ng-model="conference">
             </select>
         </div>
         <div class="field required">
@@ -29,7 +34,7 @@
         </div>
         <div class="field required">
             <label>Datum začátku:</label>
-            <input type="date" ng-model="conference.date">
+            <input type="date" ng-model="conference.date" format-date>
         </div>
     </div>
     </div>
@@ -59,7 +64,7 @@
         </div>
         <div class="field required">
             <label>Konečný termín odevzdání:</label>
-            <input type="date" ng-model="attachementType.date">
+            <input type="date" ng-model="attachementType.date" format-date>
         </div>
     </div>
     <div class="field required">

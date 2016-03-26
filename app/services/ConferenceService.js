@@ -15,9 +15,36 @@ module.exports = {
         
         
        this.deactivateAll(validation, function(validation){   
-            // check if _Id is set
-            if (conference._id) {
-                // to do
+                //  conference already exists
+                if (conference._id) {
+                    ConferenceModel.findById(conference._id, function (err, dbConference) {
+                    // error check
+                    if (err) {
+                        validation.addError("Konferenci se nezdařilo nalézt v databázi");
+                        callback(validation);
+                        return;
+                    }
+
+                    // Update and save conference
+                    dbConference.name = conference.name;
+                    dbConference.date = conference.date;
+                    dbConference.notification = conference.notification;
+                    dbConference.active = conference.active;
+                    dbConference.sponsorshipLevels = conference.sponsorshipLevels;
+                    dbConference.attachementTypes = conference.attachementTypes;
+
+                    // Save conference
+                    dbConference.save(function (err) {
+                        if (err) {
+                            validation.addError("Konferenci se nezdařilo uložit");
+                            callback(validation);
+                            return;
+                        }
+
+                        callback(validation);
+                        return;
+                    });
+                })    
             }
             else {
                 ConferenceModel.create(conference, function(err, dbConference) {
