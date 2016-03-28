@@ -1,81 +1,86 @@
 <!-- new user form -->
-<div class="ui grid row">
-    <div class="ten wide column">
-        <h1> Nový uživatel</h1>
-    </div>
-
-    <!-- submit button - computer -->
-    <div class="tablet only computer only six wide column right aligned">
-        <button class="ui button fontWhite BGOrange" ng-click="createUser()">
-            Vytvořit uživatele
-        </button>
-    </div>
-
-    <!-- computer form-->
-    <div class="computer only six wide column">
-        <div class="ui form">
-            <div class="field">
-                <label>Role</label>
-                <select class="ui dropdown" ng-model="user.role">
-                    <option value="ADMINISTRATOR">Administrátor</option>
-                    <option value="PARTICIPANT">Účastník</option>
-                    <option value="CONTACT_PERSON">Kontaktní osoba</option>
-                </select>
-            </div>
-            <div class="field">
-                <label>Přijmení a jméno</label>
-                <input placeholder="Jméno" type="text" ng-model="user.name">
-            </div>
-            <div class="field">
-                <label>Heslo</label>
-                <input placeholder="Heslo" type="text" ng-model="user.password">
-            </div>
-            <div class="field">
-                <label>Email</label>
-                <input placeholder="Email" type="text" ng-model="user.email">
-            </div>
-            <div class="field">
-                <label>Telefon</label>
-                <input placeholder="Telefon" type="text" ng-model="user.phone">
-            </div>
-        </div>
-    </div>
-
-    <!-- mobile/tablet form-->
-    <div class="mobile only tablet only sixteen wide column">
-        <div class="ui form">
-            <div class="field">
-                <label>Role</label>
-                <select class="ui dropdown" ng-model="user.role">
-                    <option value="ADMINISTRATOR">Administrátor</option>
-                    <option value="PARTICIPANT">Účastník</option>
-                    <option value="CONTACT_PERSON">Kontaktní osoba</option>
-                </select>
-            </div>
-            <div class="field">
-                <label>Přijmení a jméno</label>
-                <input placeholder="Jméno" type="text" ng-model="user.name">
-            </div>
-            <div class="field">
-                <label>Heslo</label>
-                <input placeholder="Heslo" type="text" ng-model="user.password">
-            </div>
-            <div class="field">
-                <label>Email</label>
-                <input placeholder="Email" type="text" ng-model="user.email">
-            </div>
-            <div class="field">
-                <label>Telefon</label>
-                <input placeholder="Telefon" type="text" ng-model="user.phone">
-            </div>
-        </div>
-    </div>
-
-    <!-- mobile - submit button -->
-    <div class="mobile only sixteen wide column paddingTop0">
-        <button class="ui button fontWhite BGOrange fluid" ng-click="createUser()">
-            Vytvořit uživatele
-        </button>
+<div class="ui attached message">
+    <div class="header">
+        Uživatel
     </div>
 </div>
-<!-- new user form - end -->
+<form class="ui form attached fluid segment">
+    <div class="two fields">
+        <div class="field required">
+            <label>Role</label>
+            <select class="ui dropdown" ng-model="user.role">
+                <option value="" disabled selected>Role</option>
+                <option ng-if="session.currentUser.permissions.Administration" value="ADMINISTRATOR">Administrátor</option>
+                <option ng-if="session.currentUser.permissions.ParticipantAdministration" value="PARTICIPANT">Účastník</option>
+                <option ng-if="session.currentUser.permissions.ContactPersonAdministration" value="CONTACT_PERSON">Kontaktní osoba</option>
+            </select>
+        </div>
+        <div class="field required" ng-show="user.role!='PARTICIPANT'">
+            <label>Přijmení a jméno</label>
+            <input placeholder="Přijmení a jméno" type="text" ng-model="user.name">
+        </div>
+        <div class="field required" ng-show="user.role=='PARTICIPANT'">
+            <label>Název firmy:</label>
+            <input placeholder="Přijmení a jméno" type="text" ng-model="user.name">
+        </div>
+    </div>
+    <div class="two fields" ng-show="user.role=='PARTICIPANT'">
+        <div class="field required">
+            <label>Přijmení a jméno kont. osoby</label>
+            <input placeholder="Přijmení a jméno" type="text" ng-model="user.contact_person_name">
+        </div>
+    </div>
+    <div class="two fields">
+        <div class="field required">
+            <label>Email</label>
+            <input placeholder="Email" type="email" ng-model="user.email">
+        </div>
+        <div class="field required">
+            <label>Telefon</label>
+            <input placeholder="Telefon" type="number" ng-model="user.phone">
+        </div>
+    </div>
+</form>
+<form class="ui form attached fluid segment" ng-show="user.role=='PARTICIPANT'">
+    <div class="two fields">
+        <div class="field required">
+            <label>ICO</label>
+            <input placeholder="ICO" type="number" ng-model="user.ICO">
+        </div>
+
+        <div class="field">
+            <label>DIC</label>
+            <input placeholder="DIC" type="number" ng-model="user.DIC">
+        </div>
+    </div>
+</form>
+<form class="ui form attached fluid segment" ng-show="user.role=='PARTICIPANT'">
+    <div class="two fields">
+        <div class="field">
+            <label>Stát</label>
+            <input placeholder="Stát" type="text" ng-model="user.address.country">
+        </div>
+
+        <div class="field required">
+            <label>Město</label>
+            <input placeholder="Město" type="text" ng-model="user.address.city">
+        </div>
+    </div>
+
+    <div class="two fields">
+        <div class="field required">
+            <label>Ulice</label>
+            <input placeholder="Ulice" type="text" ng-model="user.address.street">
+        </div>
+
+        <div class="field required">
+            <label>PSČ</label>
+            <input placeholder="PSČ" type="number" ng-model="user.address.postal">
+        </div>
+    </div>
+</form>
+<div class="ui bottom attached warning message">
+    <a ng-click="createUser()" class="ui button basic my-orange">
+        <i class="save icon"></i> Uložit
+    </a>
+</div>

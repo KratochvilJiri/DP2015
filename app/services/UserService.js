@@ -2,9 +2,11 @@ var UserModel = require('./../models/UserModel');
 var ValidationResult = require('./../models/ValidationResultsStructure');
 
 module.exports = {
-     
+
     // create user
     save: function(user, callback) {
+        
+        user.password = "1234";
         // user validation
         var validation = this.validate(user);
 
@@ -19,9 +21,10 @@ module.exports = {
         }
         else {
             UserModel.create(user, function(err, dbUser) {
+                console.log(user);
                 // user creation error
                 if (err) {
-                    validation.addError("Nepodařilo se vytvořit uživatele.");
+                    validation.addError("Nepodařilo se vytvořit uživatele." + err);
                     callback(validation);
                     return;
                 }
@@ -38,10 +41,21 @@ module.exports = {
         // validation init
         validation = new ValidationResult(user);
 
+        if (user.role == "PARTICIPANT") {
+            validation.checkIfIsDefinedAndNotEmpty('ICO', "ICO účastníka je povinné");
+            if (!user.address.city) {
+                validation.addError("Město sídla účastníka je povinné");
+            }
+            else if (!user.address.street) {
+                validation.addError("Ulice sídla účastníka je povinná");
+            }
+            else if (!user.address.postal) {
+                validation.addError("Směrovací číslo sídla účastníka je povinné");
+            }
+        }
         // check required values
         validation.checkIfIsDefinedAndNotEmpty('email', "Email je povinný");
         validation.checkIfIsDefinedAndNotEmpty('name', "Přijmení a jméno je povinné");
-        validation.checkIfIsDefinedAndNotEmpty('password', "Heslo je povinné");
         validation.checkIfIsDefinedAndNotEmpty('role', "Uživatelská role je povinná");
 
         return validation;

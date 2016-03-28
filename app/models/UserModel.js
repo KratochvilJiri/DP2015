@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var AddressStructure = require('./AddressStructure'); 
 
 // user model
 module.exports = mongoose.model('User', {
@@ -30,7 +31,7 @@ module.exports = mongoose.model('User', {
         type: String
     },
     address: {
-        type: String
+        type: AddressStructure
     },
     contactName: {
         type: String
@@ -38,6 +39,7 @@ module.exports = mongoose.model('User', {
     contactPhone: {
         type: String
     },
+    
     participantions: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Participant'
