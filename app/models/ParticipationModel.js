@@ -15,9 +15,9 @@ module.exports = mongoose.model('Participation',{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Message' 
     }],
-    participant: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Participant',
+        ref: 'User',
         required: true
     },
     sponsorshipLevel: {

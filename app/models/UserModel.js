@@ -1,32 +1,47 @@
 var mongoose = require('mongoose');
 
 // user model
-module.exports = mongoose.model('User',{
-	email: {
-        type: String, 
-        required: true, 
+module.exports = mongoose.model('User', {
+    email: {
+        type: String,
+        required: true,
         unique: true
     },
-	password: {
-        type: String, 
+    password: {
+        type: String,
         required: true
     },
-	role: {
-        type: String, 
-        enum: ['ADMINISTRATOR', 'CONTACT_PERSON', 'PARTICIPANT'], 
+    role: {
+        type: String,
+        enum: ['ADMINISTRATOR', 'CONTACT_PERSON', 'PARTICIPANT'],
         required: true
     },
-	name: {
-        type: String, 
+    name: {
+        type: String,
         required: true
     },
-	phone: {
+    phone: {
         type: String
     },
-    participant: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Participant'  
+    ICO: {
+        type: String
     },
+    DIC: {
+        type: String
+    },
+    address: {
+        type: String
+    },
+    contactName: {
+        type: String
+    },
+    contactPhone: {
+        type: String
+    },
+    participantions: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Participant'
+    }],
     assignedIssues: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Issue'
