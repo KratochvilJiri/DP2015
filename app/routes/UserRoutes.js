@@ -11,8 +11,8 @@ module.exports = function(app) {
             
 
         // get all users
-        app.get('/api/user', function(req, res) {
- 			UserService.getList(function(validation){
+        app.get('/api/user/:filter', function(req, res) {
+ 			UserService.getList(req.params.filter, function(validation){
                 res.json(validation);     
              });
         });

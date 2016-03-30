@@ -5,8 +5,8 @@ angular.module("UserSrvc", []).factory("UserService", ["$http", function($http){
 			return $http.post("/api/user", user);
 		},
 
-		getAll: function(){
-			return $http.get("/api/user");
+		getAll: function(filter){
+			return $http.get("/api/user/" + filter);
 		},
 
 		delete: function(userID){

@@ -12,9 +12,8 @@ angular.module('UserCtrl', []).controller('UserController', ['$scope', '$state',
         UserService.create($scope.user)
             .success(function(data, status, headers, config) {
                 if (data.isValid) {
-                    console.log($scope.previousState);
                     if($scope.previousState == "participants")
-                        $state.go('home.participants');
+                        $state.go('home.administration.participants');
                     else
                         $state.go('home.administration.users');
                 }

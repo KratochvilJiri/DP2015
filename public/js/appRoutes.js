@@ -38,7 +38,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
         .state('home.participants', {
             url: 'participants',
-            templateUrl: 'views/participants.html'
+            templateUrl: 'views/participants.html',
+            controller: 'ParticipantsController'
         })
 
         .state('home.administration', {

@@ -5,7 +5,7 @@ module.exports = {
 
     // create user
     save: function(user, callback) {
-        
+
         user.password = "1234";
         // user validation
         var validation = this.validate(user);
@@ -62,23 +62,42 @@ module.exports = {
     },
 
     // get users
-    getList: function(callback) {
+    getList: function(filter, callback) {
         var validation = new ValidationResult([]);
 
-        // find all users
-        UserModel.find(function(err, users) {
-            // get all users error
-            if (err) {
-                validation.addError("Nepodařilo se získat seznam uživatelů");
+        if (filter == "PARTICIPANTS") {
+            UserModel.find({ 'role': 'PARTICIPANT' }, function(err, users) {
+                // get all users error
+                if (err) {
+                    validation.addError("Nepodařilo se získat seznam účastníků");
+                    callback(validation);
+                    return;
+                }
+                // all users obtained
+                validation.data = users;
+
                 callback(validation);
                 return;
-            }
-            // all users obtained
-            validation.data = users;
+            });
 
-            callback(validation);
-            return;
-        });
+        }
+
+        else {
+            // find all users
+            UserModel.find(function(err, users) {
+                // get all users error
+                if (err) {
+                    validation.addError("Nepodařilo se získat seznam uživatelů");
+                    callback(validation);
+                    return;
+                }
+                // all users obtained
+                validation.data = users;
+
+                callback(validation);
+                return;
+            });
+        }
     },
 
     // remove use by id
