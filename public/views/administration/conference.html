@@ -23,21 +23,39 @@
     </div>
     <div class="two fields">
         <div class="field required">
+            <label>Datum začátku:</label>
+            <input type="date" ng-model="conference.date" format-date>
+        </div>
+        <div class="field">
+            <label>Místo konání:</label>
+            <input type="text" ng-model="conference.place" placeholder="Místo konání">
+        </div>
+    </div>
+    </div>
+    <div class="two fields">
+        <div class="field required">
+            <label>Maximální počet účastníků:</label>
+            <input type="number" ng-model="conference.attendeNumber" placeholder="Maximální počet účastníků">
+        </div>
+        <div class="field required">
             <label> Upozornění na odevzdání dokumentů:</label>
             <select class="ui dropdown" ng-model="conference.notification">
                 <option value="" disabled selected>Vyberte počet dnů</option>
                 <option value="5">5 dnů</option>
                 <option value="10">10 dnů</option>
-                <option value="30">20 dnů</option>
-                <option value="5">30 dnů</option>
+                <option value="20">20 dnů</option>
+                <option value="30">30 dnů</option>
             </select>
         </div>
-        <div class="field required">
-            <label>Datum začátku:</label>
-            <input type="date" ng-model="conference.date" format-date>
+    </div>
+    <div class="two fields">
+        <div class="field">
+            <label> Konferenční email:</label>
+            <input type="email" ng-model="conference.email" placeholder="Konferenční email">
         </div>
     </div>
-    </div>
+    
+    
     <div class="field">
         <label>Zvací email:</label>
         <textarea ng-model="conference.invitation"></textarea>

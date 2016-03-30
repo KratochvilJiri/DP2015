@@ -23,6 +23,7 @@ angular.module('ConferenceCtrl',[]).controller('ConferenceController',['$scope',
        $scope.allConference.forEach(function (conference) {
            if(conference.active){
                $scope.conference = conference;
+               console.log($scope.conference);
            }
        }) 
     }
@@ -63,7 +64,6 @@ angular.module('ConferenceCtrl',[]).controller('ConferenceController',['$scope',
     
     // save conference
     $scope.save = function () {
-        console.log($scope.conference);
         $scope.conference.active = true;
         //console.log($scope.conference.attachementTypes);
         ConferenceService.save($scope.conference)

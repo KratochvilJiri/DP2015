@@ -30,8 +30,13 @@ module.exports = {
                     dbConference.date = conference.date;
                     dbConference.notification = conference.notification;
                     dbConference.active = conference.active;
+                    dbConference.invitation = conference.invitation;
+                    dbConference.place = conference.place;
+                    dbConference.email = conference.email;
+                    dbConference.attendeNumber = conference.attendeNumber;
                     dbConference.sponsorshipLevels = conference.sponsorshipLevels;
                     dbConference.attachementTypes = conference.attachementTypes;
+                    
 
                     // Save conference
                     dbConference.save(function (err) {
@@ -113,7 +118,7 @@ module.exports = {
         var validation = new ValidationResult([]);
 
         // find all conference
-        ConferenceModel.find({}, 'name date notification active sponsorshipLevels attachementTypes', function(err, allConference) {
+        ConferenceModel.find({}, 'name date notification active sponsorshipLevels attachementTypes place attendeNumber invitation email', function(err, allConference) {
             // get all conference error
             if (err) {
                 validation.addError("Nepodařilo se získat seznam konferencí");

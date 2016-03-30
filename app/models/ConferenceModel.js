@@ -19,11 +19,17 @@ module.exports = mongoose.model('Conference',{
         type: String
     },
     notification: {
-        type: Number
+        type: String
     },
     active: {
         type: Boolean,
         required: true
+    },
+    invitation: {
+        type: String,
+    },
+    attendeNumber: {
+        type: Number,  
     },
     sponsorshipLevels: 
         [SponsorshipLevelStructure],
