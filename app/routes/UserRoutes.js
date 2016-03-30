@@ -7,15 +7,24 @@ module.exports = function(app) {
             UserService.save(req.body, function(validation){
                 res.json(validation);
             });    
-        });
-            
+        }); 
 
         // get all users
-        app.get('/api/user/:filter', function(req, res) {
+        app.get('/api/user/getAll/:filter', function(req, res) {
  			UserService.getList(req.params.filter, function(validation){
                 res.json(validation);     
              });
         });
+        
+        // get user by ID
+        app.post('/api/user/:user_id', function(req,res){
+           UserService.get({
+               _id: req.params.user_id},
+               function (validation){
+                   res.json(validation);
+               }); 
+        });
+        
 
         // delete user by ID and get back all users
         app.delete('/api/user/:user_id', function(req, res){

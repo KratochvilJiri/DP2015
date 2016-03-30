@@ -2,7 +2,7 @@ var ConferenceModel = require('./../models/ConferenceModel');
 var ValidationResult = require('./../models/ValidationResultsStructure');
 
 module.exports = {
-     
+
     // save or create conference
     save: function(conference, callback) {
         // conference validation
@@ -12,12 +12,12 @@ module.exports = {
             callback(validation);
             return;
         }
-        
-        
-       this.deactivateAll(validation, function(validation){   
-                //  conference already exists
-                if (conference._id) {
-                    ConferenceModel.findById(conference._id, function (err, dbConference) {
+
+
+        this.deactivateAll(validation, function(validation) {
+            //  conference already exists
+            if (conference._id) {
+                ConferenceModel.findById(conference._id, function(err, dbConference) {
                     // error check
                     if (err) {
                         validation.addError("Konferenci se nezdařilo nalézt v databázi");
@@ -36,10 +36,10 @@ module.exports = {
                     dbConference.attendeNumber = conference.attendeNumber;
                     dbConference.sponsorshipLevels = conference.sponsorshipLevels;
                     dbConference.attachementTypes = conference.attachementTypes;
-                    
+
 
                     // Save conference
-                    dbConference.save(function (err) {
+                    dbConference.save(function(err) {
                         if (err) {
                             validation.addError("Konferenci se nezdařilo uložit");
                             callback(validation);
@@ -49,7 +49,7 @@ module.exports = {
                         callback(validation);
                         return;
                     });
-                })    
+                })
             }
             else {
                 ConferenceModel.create(conference, function(err, dbConference) {
@@ -63,7 +63,7 @@ module.exports = {
                     // conference created
                     callback(validation);
                     return
-                 });
+                });
             }
         });
     },
@@ -76,40 +76,40 @@ module.exports = {
         // check required values
         validation.checkIfIsDefinedAndNotEmpty('date', "Datum začátku konference je povinné");
         validation.checkIfIsDefinedAndNotEmpty('name', "Název konference je povinný");
-        
-        if(validation.data.attachementTypes){
-            validation.data.attachementTypes.forEach(function (attachementType) {
-                if (!attachementType.name){
+
+        if (validation.data.attachementTypes) {
+            validation.data.attachementTypes.forEach(function(attachementType) {
+                if (!attachementType.name) {
                     validation.addError("Název typu přílohy je povinný");
                 }
-                else if(!attachementType.date){
+                else if (!attachementType.date) {
                     validation.addError("Datum odevzdání přílohy je povinné");
                 }
             });
         }
-        
-        if(validation.data.sponsorshipLevels){
+
+        if (validation.data.sponsorshipLevels) {
             validation.data.sponsorshipLevels.forEach(function(sponsorshipLevel) {
-                if(!sponsorshipLevel.name){
+                if (!sponsorshipLevel.name) {
                     validation.addError("Název úrovně sponzorství je povinné");
                 }
             });
-        }    
+        }
         return validation;
     },
-    
-    deactivateAll: function (validation, callback) {
-        ConferenceModel.update({}, {active: false}, {multi: true}, function (err,conferences) {
-           if (err){
-               validation.addError("Nepodařila se nastavit neaktivita konferencí");
-               callback(validation);
-               return;
-           }
-           else{
-               console.log("Neaktivni:", conferences);
-               callback(validation);
-               return;
-           } 
+
+    deactivateAll: function(validation, callback) {
+        ConferenceModel.update({}, { active: false }, { multi: true }, function(err, conferences) {
+            if (err) {
+                validation.addError("Nepodařila se nastavit neaktivita konferencí");
+                callback(validation);
+                return;
+            }
+            else {
+                console.log("Neaktivni:", conferences);
+                callback(validation);
+                return;
+            }
         });
     },
 

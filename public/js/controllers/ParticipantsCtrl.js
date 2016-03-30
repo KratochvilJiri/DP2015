@@ -1,4 +1,3 @@
-// probably useless
 angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$scope', '$state', 'UserService', function($scope, $state, UserService) {
 
 $scope.participants = [];

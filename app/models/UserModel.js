@@ -33,10 +33,7 @@ module.exports = mongoose.model('User', {
     address: {
         type: AddressStructure
     },
-    contactName: {
-        type: String
-    },
-    contactPhone: {
+    contactPerson: {
         type: String
     },
     

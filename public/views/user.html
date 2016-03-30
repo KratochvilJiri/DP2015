@@ -7,7 +7,7 @@
 <form class="ui form attached fluid segment">
     <div class="two fields">
         <div class="field required">
-            <label>Role</label>
+            <label>Role:</label>
             <select class="ui dropdown" ng-model="user.role">
                 <option value="" disabled selected>Role</option>
                 <option ng-if="session.currentUser.permissions.Administration" value="ADMINISTRATOR">Administrátor</option>
@@ -16,27 +16,27 @@
             </select>
         </div>
         <div class="field required" ng-show="user.role!='PARTICIPANT'">
-            <label>Přijmení a jméno</label>
+            <label>Přijmení a jméno:</label>
             <input placeholder="Přijmení a jméno" type="text" ng-model="user.name">
         </div>
         <div class="field required" ng-show="user.role=='PARTICIPANT'">
             <label>Název firmy:</label>
-            <input placeholder="Přijmení a jméno" type="text" ng-model="user.name">
+            <input placeholder="Název firmy" type="text" ng-model="user.name">
         </div>
     </div>
     <div class="two fields" ng-show="user.role=='PARTICIPANT'">
         <div class="field required">
-            <label>Přijmení a jméno kont. osoby</label>
-            <input placeholder="Přijmení a jméno" type="text" ng-model="user.contact_person_name">
+            <label>Kontaktní osoba:</label>
+            <input placeholder="Přijmení a jméno" type="text" ng-model="user.contactPerson">
         </div>
     </div>
     <div class="two fields">
         <div class="field required">
-            <label>Email</label>
-            <input placeholder="Email" type="email" ng-model="user.email">
+            <label>Email:</label>
+            <input placeholder="Email" type="text" ng-model="user.email">
         </div>
         <div class="field required">
-            <label>Telefon</label>
+            <label>Telefon:</label>
             <input placeholder="Telefon" type="number" ng-model="user.phone">
         </div>
     </div>
@@ -44,43 +44,43 @@
 <form class="ui form attached fluid segment" ng-show="user.role=='PARTICIPANT'">
     <div class="two fields">
         <div class="field required">
-            <label>ICO</label>
-            <input placeholder="ICO" type="number" ng-model="user.ICO">
+            <label>IČO:</label>
+            <input placeholder="IČO" type="number" ng-model="user.ICO">
         </div>
 
         <div class="field">
-            <label>DIC</label>
-            <input placeholder="DIC" type="number" ng-model="user.DIC">
+            <label>DIČ:</label>
+            <input placeholder="DIČ" type="number" ng-model="user.DIC">
         </div>
     </div>
 </form>
 <form class="ui form attached fluid segment" ng-show="user.role=='PARTICIPANT'">
     <div class="two fields">
         <div class="field">
-            <label>Stát</label>
+            <label>Stát:</label>
             <input placeholder="Stát" type="text" ng-model="user.address.country">
         </div>
 
         <div class="field required">
-            <label>Město</label>
+            <label>Město:</label>
             <input placeholder="Město" type="text" ng-model="user.address.city">
         </div>
     </div>
 
     <div class="two fields">
         <div class="field required">
-            <label>Ulice</label>
+            <label>Ulice:</label>
             <input placeholder="Ulice" type="text" ng-model="user.address.street">
         </div>
 
         <div class="field required">
-            <label>PSČ</label>
+            <label>PSČ:</label>
             <input placeholder="PSČ" type="number" ng-model="user.address.postal">
         </div>
     </div>
 </form>
 <div class="ui bottom attached warning message">
-    <a ng-click="createUser()" class="ui button basic my-orange">
+    <a ng-click="save()" class="ui button basic my-orange">
         <i class="save icon"></i> Uložit
     </a>
 </div>

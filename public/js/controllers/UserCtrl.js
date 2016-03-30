@@ -2,14 +2,15 @@ angular.module('UserCtrl', []).controller('UserController', ['$scope', '$state',
 
     // define user for binding
     $scope.user = {};
+    $scope.user.address = {};
 
     // clear form
     // $scope.formData = {};
 
     // create new User
-    $scope.createUser = function() {
+    $scope.save = function() {
 
-        UserService.create($scope.user)
+        UserService.save($scope.user)
             .success(function(data, status, headers, config) {
                 if (data.isValid) {
                     if($scope.previousState == "participants")

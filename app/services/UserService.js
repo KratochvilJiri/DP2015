@@ -17,14 +17,47 @@ module.exports = {
 
         // check if _Id is set
         if (user._id) {
-            // to do
+            UserModel.findById(user._id, function(err, dbUser) {
+                // error check
+                if (err) {
+                    validation.addError("Uživatele se nezdařilo nalézt v databázi");
+                    callback(validation);
+                    return;
+                }
+
+                // Update and save conference
+                dbUser.name = user.name;
+                dbUser.role = user.role;
+                dbUser.email = user.email;
+                dbUser.phone = user.phone;
+
+                if (user.role == "PARTICIPANT") {
+                    dbUser.contactPerson = user.contactPerson;
+                    dbUser.ICO = user.ICO;
+                    dbUser.DIC = user.DIC;
+                    dbUser.address = user.address;
+                }
+                
+                console.log(dbUser);
+
+                // Save user
+                dbUser.save(function(err) {
+                    if (err) {
+                        validation.addError("Uživatele se nepodařilo uložit");
+                        callback(validation);
+                        return;
+                    }
+
+                    callback(validation);
+                    return;
+                });
+            })
         }
         else {
             UserModel.create(user, function(err, dbUser) {
-                console.log(user);
                 // user creation error
                 if (err) {
-                    validation.addError("Nepodařilo se vytvořit uživatele." + err);
+                    validation.addError("Nepodařilo se vytvořit uživatele.");
                     callback(validation);
                     return;
                 }
@@ -43,6 +76,7 @@ module.exports = {
 
         if (user.role == "PARTICIPANT") {
             validation.checkIfIsDefinedAndNotEmpty('ICO', "ICO účastníka je povinné");
+            validation.checkIfIsDefinedAndNotEmpty('contactPerson', "Jméno kontaktní osoby je povinné");
             if (!user.address.city) {
                 validation.addError("Město sídla účastníka je povinné");
             }
@@ -100,13 +134,36 @@ module.exports = {
         }
     },
 
+    // get user by ID
+    get: function(user, callback) {
+        var validation = new ValidationResult(user);
+        // _id is needed for get user
+        if (!user._id) {
+            validation.addError("Uživatele nelze získat bez identifikátoru");
+            callback(validation);
+            return;
+        }
+
+        UserModel.findById(user._id, function(err, dbUser) {
+            if (err) {
+                validation.addError("Uživatele se nepodařilo získat");
+                callback(validation);
+                return;
+            }
+            // user obtained
+            validation.data = dbUser;
+            callback(validation);
+        })
+
+    },
+
     // remove use by id
     remove: function(user, callback) {
         var validation = new ValidationResult(user);
 
         // _id is needed for remove
         if (!user._id) {
-            validation.addError("Položku nelze smazat bez identifikátoru");
+            validation.addError("Uživatele nelze smazat bez identifikátoru");
             callback(validation);
             return;
         }

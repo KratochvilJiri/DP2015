@@ -60,8 +60,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('home.participant', {
-            url: 'participantXY',
-            templateUrl: 'views/participant/'
+            url: 'participant/{participantId}',
+            templateUrl: 'views/participant/',
+            controller: 'ParticipantController'
         })
 
         .state('home.participant.communication', {

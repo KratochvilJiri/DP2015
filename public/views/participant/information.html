@@ -1,22 +1,89 @@
+<div class="ui attached message">
+    <div class="header">
+        Účastník:
+    </div>
+</div>
+<form class="ui form attached fluid segment">
+    <div class="two fields">
+        <div class="field required">
+            <label>Název firmy:</label>
+            <input placeholder="Název firmy" type="text" ng-model="participant.name">
+        </div>
+        <div class="field required">
+            <label>ICO:</label>
+            <input placeholder="ICO" type="text" ng-model="participant.ICO">
+        </div>
+    </div>
+    <div class="two fields">
+        <div class="field">
+            <label>DIC:</label>
+            <input placeholder="DIC" type="text" ng-model="participant.DIC">
+        </div>
+    </div>
+</form>
+<div class="ui attached message">
+    <div class="header">
+        <h5>Adresa:</h5>
+    </div>
+</div>
+<form class="ui form attached fluid segment">
+    <div class="two fields">
+        <div class="field">
+            <label>Stát:</label>
+            <input placeholder="Stát" type="text" ng-model="participant.address.country">
+        </div>
+        <div class="field required">
+            <label>Město:</label>
+            <input placeholder="Město" type="text" ng-model="participant.address.city">
+        </div>
+    </div>
+    <div class="two fields">
+        <div class="field required">
+            <label>Ulice, č.p.:</label>
+            <input placeholder="Ulice, č.p." type="text" ng-model="participant.address.street">
+        </div>
+        <div class="field required">
+            <label>PSČ:</label>
+            <input placeholder="PSČ" type="text" ng-model="participant.address.postal">
+        </div>
+    </div>
+</form>
+<div class="ui attached message">
+    <div class="header">
+        <h5>Kontakt:</h5>
+    </div>
+</div>
+<form class="ui form attached fluid segment">
+    <div class="two fields">
+        <div class="field required">
+            <label>Kontaktní osoba:</label>
+            <input placeholder="Kontaktní osoba" type="text" ng-model="participant.contactPerson">
+        </div>
+        <div class="field required">
+            <label>Email:</label>
+            <input placeholder="Email" type="text" ng-model="participant.email">
+        </div>
+    </div>
+    <div class="two fields">
+        <div class="field required">
+            <label>Telefon:</label>
+            <input placeholder="Telefon" type="text" ng-model="participant.phone">
+        </div>
+    </div>
+</form>
+<div class="ui bottom attached warning message">
+    <a ng-click="saveParticipant()" class="ui button basic my-orange">
+        <i class="save icon"></i> Uložit
+    </a>
+</div>
+
+
+
 <table class="ui very basic table">
     <thead>
     </thead>
     <tbody>
         <tr class="top aligned">
-            <td class="six wide">
-                <h5> IČO:</h5>
-                <div> 738728382332 </div>
-
-                <h5> Sídlo firmy: </h5>
-                <div> Praha 4 </div>
-                <div> V Parku 229/4 </div>
-                <div> Česká republika </div>
-
-                <h5> Kontakt: </h5>
-                <div> Ing. Petr Novák </div>
-                <div> ibm@europe.com </div>
-                <div> 666777342 </div>
-            </td>
 
             <td>
                 <h5 ng-if="session.currentUser.permissions.ParticipantDashboardModule"> Sponzorství:</h5>
