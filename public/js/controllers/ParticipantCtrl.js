@@ -3,9 +3,9 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     // participant (user)
     $scope.participant = {};
     // participantion that is currently showed
-    $scope.partipation = {};
+    $scope.participation = {};
     // all participations of user
-    $scope.partipations = [];
+    $scope.participations = [];
     // participant(user) - address initialization
     $scope.participant.address = {};
     // currently showed conference (participation of participant)
@@ -16,6 +16,25 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     $scope.ParticipatedConferences = [];
     // all not participated conference
     $scope.otherConferences = [];
+
+
+    var setConference = function(){
+
+        $scope.participations.forEach(function(participation){
+            $scope.ParticipatedConferences.push(participation.conference);
+            if(participation.conference.active){
+                $scope.conference = participation.conference;
+                $scope.participation = participation;
+            }
+        })
+        if(!$scope.conference){
+            $scope.conference = $scope.ParticipatedConferences[0];
+            $scope.participation = $scope.participations[0];
+        }
+        console.log($scope.ParticipatedConferences);
+        console.log($scope.conference);
+        console.log($scope.participation)
+    }
 
     // create new participation of participant
     $scope.addParticipation = function() {
@@ -58,6 +77,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             .success(function(data, status, headers, config) {
                 if (data.isValid) {
                     $scope.otherConferences = data.data;
+                    console.log( $scope.otherConferences);
                 }
                 else {
                     $scope.showErrors(data.errors);
@@ -83,7 +103,9 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             .success(function(data, status, headers, config) {
                 if (data.isValid) {
                     $scope.participations = data.data;
+                    console.log("participations");
                     console.log($scope.participations);
+                    setConference();
                     loadOtherConferences();
                 }
                 else {

@@ -15,11 +15,6 @@
                 <option value="CONTRACT_SIGNED">Smouva podepsána</option>
             </select>
         </div>
-        <div class="field">
-            <label>Smlouva:</label>
-            <input placeholder="ICO" type="text" ng-model="participant.ICO">
-        </div>
-
     </div>
     <div class="two fields">
         <div class="field">
@@ -44,7 +39,7 @@
 </form>
 <div class="ui attached message">
     <div class="header">
-        <h5>Zástupci (4/6):</h5>
+        <h5>Zástupci (4/{{conference.attendeNumber}}):</h5>
     </div>
 </div>
 

@@ -25,6 +25,10 @@ module.exports = mongoose.model('Conference',{
         type: Boolean,
         required: true
     },
+    email: {
+        type: String,
+        required: true  
+    },
     invitation: {
         type: String,
     },

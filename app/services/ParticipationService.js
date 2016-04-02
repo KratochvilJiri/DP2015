@@ -37,19 +37,17 @@ module.exports = {
                             callback(validation);
                             return;
                         }
-                        else {
-                            console.log(dbUser);
-                            
-                            dbUser.participations.push(dbParticipation._id);
+                        else {                       
+                            //dbUser.participations.push(dbParticipation._id);
 
-                            dbUser.save(function(err) {
+                            //dbUser.save(function(err) {
                                 // error check
-                                if (err) {
-                                    validation.addError("Nepodařilo se uložit uživatele po přidání účasti");
-                                    callback(validation);
-                                    return;
-                                }
-                                else {
+                              //  if (err) {
+                                //    validation.addError("Nepodařilo se uložit uživatele po přidání účasti");
+                                 //   callback(validation);
+                                //    return;
+                               // }
+                             //   else {
                                     // add participant to conference
                                     // find conference by ID
                                     ConferenceModel.findById(participation.conference, function(err, dbConference) {
@@ -78,8 +76,8 @@ module.exports = {
                                             });
                                         }
                                     });
-                                }
-                            });
+                              //  }
+                            //});
                         }
                     });
                 }
@@ -91,13 +89,15 @@ module.exports = {
         var validation = new ValidationResult([]);
         ParticipationModel
             .find({'user': participantID})
-            .populate('conference', 'name')
+            .populate('conference', 'name date notification active sponsorshipLevels attachementTypes place attendeNumber invitation email')
             .exec(function(err,participations) {
              if (err) {
                 validation.addError("Účasti se nepodařilo získat");
                 callback(validation);
                 return;
             }
+            
+            console.log(participations);
             // user obtained
             validation.data = participations;
             callback(validation);

@@ -20,9 +20,11 @@ module.exports = mongoose.model('Participation',{
         ref: 'User',
         required: true
     },
-    sponsorshipLevel: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'SponsorshipLevel'
+    communicationSummary: {
+      type: String  
+    },
+    donationValue: {
+        type: Number
     },
     conference: {
         type: mongoose.Schema.Types.ObjectId,

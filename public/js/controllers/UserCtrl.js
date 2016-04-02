@@ -14,7 +14,7 @@ angular.module('UserCtrl', []).controller('UserController', ['$scope', '$state',
             .success(function(data, status, headers, config) {
                 if (data.isValid) {
                     if($scope.previousState == "participants")
-                        $state.go('home.administration.participants');
+                        $state.go('home.participants');
                     else
                         $state.go('home.administration.users');
                 }

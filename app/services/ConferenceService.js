@@ -138,7 +138,7 @@ module.exports = {
         var validation = new ValidationResult([]);
 
         // find all conference
-        ConferenceModel.find({ "_id": { $nin: participations } }, function(err, conference) {
+        ConferenceModel.find({ "_id": { $nin: conferenceIDs } }, function(err, conference) {
             // erro check
             if (err) {
                 validation.addError("Nepodařilo se získat upřesněný seznam konferencí (getFilteredList)");
