@@ -26,6 +26,7 @@ angular.module('UserCtrl', []).controller('UserController', ['$scope', '$state',
                 console.error('Error', status, data);
             });
     }
+   
 
     //save the previous state
     $scope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {

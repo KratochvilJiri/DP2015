@@ -37,7 +37,7 @@ module.exports = mongoose.model('User', {
         type: String
     },
     
-    participantions: [{
+    participations: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Participant'
     }],

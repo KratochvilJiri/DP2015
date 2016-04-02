@@ -1,27 +1,42 @@
+<div class="ui attached message">
+    <div class="header">
+        Konference:
+    </div>
+</div>
+<form class="ui form attached fluid segment">
+    <div class="two fields">
+        <div class="field">
+            <label>Zvolená konference:</label>
+            <select class="ui dropdown" ng-options="item.conference.name for item in participations track by item.conference._id" ng-model="activeConf">
+                <option value="" disabled selected> Vyberte konferenci</option>
+            </select>
+        </div>
+    </div>
+    <div class="two fields">
+        <div class="field">
+            <label>Nová účast:</label>
+            <div class="ui action input">
+                <select class="ui  dropdown" ng-options="item.name for item in otherConferences track by item._id" ng-model="newParticipantion.conference">
+                    <option value="" disabled selected> Vyberte konferenci</option>
+            
+                </select>
+                <a class="ui basic button" ng-click="addParticipation()">
+                    <i class="add icon"></i>Přidat účast
+                </a>
+            </div>
+        </div>
+    </div>
+</form>
+
 <div class="ui four item stackable tabs menu">
     <a ui-sref-active="active" ui-sref="home.participant.information" class="item">Informace</a>
     <a ui-sref-active="active" ui-sref="home.participant.documents" class="item">Dokumenty</a>
-    <a ui-sref-active="active" ui-sref="home.participant.representatives" class="item">Zástupci</a>
+    <a ui-sref-active="active" ui-sref="home.participant.representatives" class="item">Účast</a>
     <a ui-sref-active="active" ui-sref="home.participant.communication" class="item">Komunikace</a>
 </div>
 
 
 
 <div class="ui grid-container">
-    <div class="ui floating labeled icon dropdown button fluid">
-        <i class="filter icon"></i>
-        <span class="text">Konference</span>
-        <div class="menu">
-            <div class="item">
-                Excel@FIT 2015
-            </div>
-            <div class="item">
-                Excel@FIT 2014
-            </div>
-            <div class="item">
-                Glorius 2014
-            </div>
-        </div>
-    </div>
     <ui-view></ui-view>
 </div>

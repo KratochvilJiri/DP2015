@@ -1,14 +1,63 @@
-angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$scope', '$state', '$stateParams', 'UserService', function($scope, $state, $stateParams, UserService) {
+angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$scope', '$state', '$stateParams', 'UserService', 'ConferenceService', 'ParticipationService', function($scope, $state, $stateParams, UserService, ConferenceService, ParticipationService) {
 
-$scope.participant = {};
-$scope.participant.address = {};
+    // participant (user)
+    $scope.participant = {};
+    // participantion that is currently showed
+    $scope.partipation = {};
+    // all participations of user
+    $scope.partipations = [];
+    // participant(user) - address initialization
+    $scope.participant.address = {};
+    // currently showed conference (participation of participant)
+    $scope.conference = {};
+    // new participantion of user
+    $scope.newParticipation = {};
+    // all participated conference
+    $scope.ParticipatedConferences = [];
+    // all not participated conference
+    $scope.otherConferences = [];
 
+    // create new participation of participant
+    $scope.addParticipation = function() {
+        $scope.newParticipation.user = $scope.participant._id;
+        $scope.newParticipation.state = "APPROVED";
+        ParticipationService.save($scope.newParticipation)
+            .success(function(data, status, headers, config) {
+                if (data.isValid) {
+                    $scope.showSuccess("Účastník byl úspěšně přidán na konferenci.");
+                }
+                else {
+                    $scope.showErrors(data.errors);
+                }
+            })
+            .error(function(data, status) {
+                console.error('Error', status, data);
+            });
+    }
 
+    // load participant detail
     var loadParticipant = function() {
         UserService.get($stateParams.participantId)
             .success(function(data, status, headers, config) {
                 if (data.isValid) {
                     $scope.participant = data.data;
+                    loadParticipations();
+                }
+                else {
+                    $scope.showErrors(data.errors);
+                }
+            })
+            .error(function(data, status) {
+                console.error('Error', status, data);
+            });
+    }
+
+    // load conferences, which participant didnt participate
+    var loadOtherConferences = function() {
+        ConferenceService.getFilteredList(getConferencesIDs($scope.participations))
+            .success(function(data, status, headers, config) {
+                if (data.isValid) {
+                    $scope.otherConferences = data.data;
                 }
                 else {
                     $scope.showErrors(data.errors);
@@ -19,16 +68,25 @@ $scope.participant.address = {};
             });
     }
     
-    $scope.saveParticipant = function () {
-        if(!$scope.participant.address){
-            $scope.participant.address = {};
-        }
-        UserService.save($scope.participant)
-            .success(function(data) {
-                if(data.isValid){
-                    $scope.showSuccess("Účastník byl úspěšně aktualizován");
+    // get conferences IDs from participations
+    var getConferencesIDs = function(array){
+        var IDsArray = [];
+        array.forEach(function(object){
+            IDsArray.push(object.conference._id);
+        });
+        return IDsArray;
+    }
+
+    // get all pariticipations of user
+    var loadParticipations = function() {
+        ParticipationService.getList($scope.participant._id)
+            .success(function(data, status, headers, config) {
+                if (data.isValid) {
+                    $scope.participations = data.data;
+                    console.log($scope.participations);
+                    loadOtherConferences();
                 }
-                else{
+                else {
                     $scope.showErrors(data.errors);
                 }
             })
@@ -36,7 +94,25 @@ $scope.participant.address = {};
                 console.error('Error', status, data);
             });
     }
-    
+
+    // save changes in participant(user)
+    $scope.saveParticipant = function() {
+        if (!$scope.participant.address) {
+            $scope.participant.address = {};
+        }
+        UserService.save($scope.participant)
+            .success(function(data) {
+                if (data.isValid) {
+                    $scope.showSuccess("Účastník byl úspěšně aktualizován");
+                }
+                else {
+                    $scope.showErrors(data.errors);
+                }
+            })
+            .error(function(data, status) {
+                console.error('Error', status, data);
+            });
+    }
+
     loadParticipant();
-    
 }]);

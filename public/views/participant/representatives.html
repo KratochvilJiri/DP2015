@@ -1,48 +1,66 @@
-<div class="ui grid grid-container row">
-    <div class="sixteen wide column">
-        <h3>Kapacita 4/6 </h3>
-        <a class="ui basic button">
-            <i class="add icon"></i>Přidat
-        </a>
-        <table class="ui very basic table">
-            <tbody>
-                <tr>
-                    <td class="collapsing">
-                        Ing. Petr Slezák
-                    </td>
-                    <td>
-                        <button class="ui basic icon button" data-content="Editovat"><i class="edit icon"></i></button>
-                        <button class="ui basic icon button" data-content="Odebrat"><i class="remove red icon"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="collapsing">
-                        Jan Novotný
-                    </td>
-                    <td>
-                        <button class="ui basic icon button" data-content="Editovat"><i class="edit icon"></i></button>
-                        <button class="ui basic icon button" data-content="Odebrat"><i class="remove red icon"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="collapsing">
-                        Eliška Dvořáková
-                    </td>
-                    <td>
-                        <button class="ui basic icon button" data-content="Editovat"><i class="edit icon"></i></button>
-                        <button class="ui basic icon button" data-content="Odebrat"><i class="remove red icon"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="collapsing">
-                        Přemysl Oráč
-                    </td>
-                    <td>
-                        <button class="ui basic icon button" data-content="Editovat"><i class="edit icon"></i></button>
-                        <button class="ui basic icon button" data-content="Odebrat"><i class="remove red icon"></i></button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+<div class="ui attached message">
+    <div class="header">
+        Účast:
     </div>
+</div>
+<form class="ui form attached fluid segment">
+    <div class="two fields">
+        <div class="field required">
+            <label>Stav:</label>
+            <select class="ui dropdown" ng-model="participation.state">
+                <option value="CANCELLED">Odmítnuto</option>
+                <option value="APPROVED">Přislíbeno</option>
+                <option value="COMPLETE0">Potvrzeno</option>
+                <option value="CONTRACT_IN_PROGRESS0">Smlouva v jednání</option>
+                <option value="CONTRACT_SIGNED">Smouva podepsána</option>
+            </select>
+        </div>
+        <div class="field">
+            <label>Smlouva:</label>
+            <input placeholder="ICO" type="text" ng-model="participant.ICO">
+        </div>
+
+    </div>
+    <div class="two fields">
+        <div class="field">
+            <label>Částka:</label>
+            <div ng-if="session.currentUser.permissions.ParticipantAdministration" class="ui right labeled input">
+                <input type="text" placeholder="Částka">
+                <div class="ui basic label">
+                    Kč
+                </div>
+            </div>
+        </div>
+        <div class="field required">
+            <label>Úroveň sponzorství:</label>
+            <input disabled="" value="Zlaté" type="text">
+        </div>
+    </div>
+    <div class="field">
+        <label> Shrnutí komunikace: </label>
+        <textarea>
+        </textarea>
+    </div>
+</form>
+<div class="ui attached message">
+    <div class="header">
+        <h5>Zástupci (4/6):</h5>
+    </div>
+</div>
+
+<form class="ui form attached fluid segment">
+    <div class="field">
+        <div class="ui labeled left icon action input">
+            <i class="user icon"></i>
+            <input type="text" placeholder="Přijmení a jméno účastníka">
+            <a ng-click="removeAttachementType($index)" class="ui button basic">
+                <i class="remove red icon"></i> Odebrat
+            </a>
+        </div>
+    </div>
+</form>
+<div class="ui bottom attached warning message">
+    <a ng-click="saveParticipant()" class="ui button basic my-orange">
+        <i class="save icon"></i> Uložit
+    </a>
 </div>

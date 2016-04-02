@@ -121,12 +121,32 @@ module.exports = {
         ConferenceModel.find({}, 'name date notification active sponsorshipLevels attachementTypes place attendeNumber invitation email', function(err, allConference) {
             // get all conference error
             if (err) {
-                validation.addError("Nepodařilo se získat seznam konferencí");
+                validation.addError("Nepodařilo se získat seznam konferencí (getList)");
                 callback(validation);
                 return;
             }
             // all conference obtained
             validation.data = allConference;
+
+            callback(validation);
+            return;
+        });
+    },
+
+    // get conference, which arent in conferenceIDs collection 
+    getFilteredList: function(conferenceIDs, callback) {
+        var validation = new ValidationResult([]);
+
+        // find all conference
+        ConferenceModel.find({ "_id": { $nin: participations } }, function(err, conference) {
+            // erro check
+            if (err) {
+                validation.addError("Nepodařilo se získat upřesněný seznam konferencí (getFilteredList)");
+                callback(validation);
+                return;
+            }
+            //conference obtained
+            validation.data = conference;
 
             callback(validation);
             return;
