@@ -17,23 +17,36 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     // all not participated conference
     $scope.otherConferences = [];
 
+    // save updated participation
+    $scope.updateParticipation = function() {
+        console.log($scope.participation);
+        ParticipationService.save($scope.participation)
+            .success(function(data, status, headers, config) {
+                if (data.isValid) {
+                    $scope.showSuccess("Účast byla úspěšně atualizována.");
+                }
+                else {
+                    $scope.showErrors(data.errors);
+                }
+            })
+            .error(function(data, status) {
+                console.error('Error', status, data);
+            }); 
+    } 
 
-    var setConference = function(){
-
-        $scope.participations.forEach(function(participation){
+    // set selected conference and its participation
+    var setConferenceAndParticipation = function() {
+        $scope.participations.forEach(function(participation) {
             $scope.ParticipatedConferences.push(participation.conference);
-            if(participation.conference.active){
+            if (participation.conference.active) {
                 $scope.conference = participation.conference;
                 $scope.participation = participation;
             }
         })
-        if(!$scope.conference){
+        if (!$scope.conference) {
             $scope.conference = $scope.ParticipatedConferences[0];
             $scope.participation = $scope.participations[0];
         }
-        console.log($scope.ParticipatedConferences);
-        console.log($scope.conference);
-        console.log($scope.participation)
     }
 
     // create new participation of participant
@@ -77,7 +90,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             .success(function(data, status, headers, config) {
                 if (data.isValid) {
                     $scope.otherConferences = data.data;
-                    console.log( $scope.otherConferences);
+                    console.log($scope.otherConferences);
                 }
                 else {
                     $scope.showErrors(data.errors);
@@ -87,11 +100,11 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                 console.error('Error', status, data);
             });
     }
-    
+
     // get conferences IDs from participations
-    var getConferencesIDs = function(array){
+    var getConferencesIDs = function(array) {
         var IDsArray = [];
-        array.forEach(function(object){
+        array.forEach(function(object) {
             IDsArray.push(object.conference._id);
         });
         return IDsArray;
@@ -105,7 +118,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                     $scope.participations = data.data;
                     console.log("participations");
                     console.log($scope.participations);
-                    setConference();
+                    setConferenceAndParticipation();
                     loadOtherConferences();
                 }
                 else {

@@ -20,7 +20,7 @@
         <div class="field">
             <label>Částka:</label>
             <div ng-if="session.currentUser.permissions.ParticipantAdministration" class="ui right labeled input">
-                <input type="text" placeholder="Částka">
+                <input type="text" placeholder="Částka" ng-model="participation.sponsorshipLevel.value">
                 <div class="ui basic label">
                     Kč
                 </div>
@@ -28,7 +28,9 @@
         </div>
         <div class="field required">
             <label>Úroveň sponzorství:</label>
-            <input disabled="" value="Zlaté" type="text">
+            <select class="ui dropdown" ng-model="participation.sponsorshipLevel.name" ng-options="item.name as item.name for item in conference.sponsorshipLevels">
+                <option value="" select disabled>Vyberte úroveň sponzorství</option>
+            </select>
         </div>
     </div>
     <div class="field">
@@ -55,7 +57,7 @@
     </div>
 </form>
 <div class="ui bottom attached warning message">
-    <a ng-click="saveParticipant()" class="ui button basic my-orange">
+    <a ng-click="updateParticipation()" class="ui button basic my-orange">
         <i class="save icon"></i> Uložit
     </a>
 </div>

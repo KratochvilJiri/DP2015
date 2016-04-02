@@ -18,7 +18,33 @@ module.exports = {
 
         // check if _Id is set
         if (participation._id) {
+            ParticipationModel.findById(participation._id, function(err, dbParticipation) {
+                // error check
+                if (err) {
+                    validation.addError("Uživatele se nezdařilo nalézt v databázi");
+                    callback(validation);
+                    return;
+                }
+                // Update and save conference
 
+                dbParticipation.atendees = participation.atendees;
+                dbParticipation.attachements = participation.attachements;
+                dbParticipation.messages = participation.messages;
+                dbParticipation.sponsorshipLevel = participation.sponsorshipLevel;
+                dbParticipation.state = participation.state;
+
+                // Save user
+                dbParticipation.save(function(err) {
+                    if (err) {
+                        validation.addError("Účast se nepodařilo uložit" + err);
+                        callback(validation);
+                        return;
+                    }
+
+                    callback(validation);
+                    return;
+                });
+            })
         }
         else {
             ParticipationModel.create(participation, function(err, dbParticipation) {
@@ -37,46 +63,46 @@ module.exports = {
                             callback(validation);
                             return;
                         }
-                        else {                       
+                        else {
                             //dbUser.participations.push(dbParticipation._id);
 
                             //dbUser.save(function(err) {
+                            // error check
+                            //  if (err) {
+                            //    validation.addError("Nepodařilo se uložit uživatele po přidání účasti");
+                            //   callback(validation);
+                            //    return;
+                            // }
+                            //   else {
+                            // add participant to conference
+                            // find conference by ID
+                            ConferenceModel.findById(participation.conference, function(err, dbConference) {
                                 // error check
-                              //  if (err) {
-                                //    validation.addError("Nepodařilo se uložit uživatele po přidání účasti");
-                                 //   callback(validation);
-                                //    return;
-                               // }
-                             //   else {
-                                    // add participant to conference
-                                    // find conference by ID
-                                    ConferenceModel.findById(participation.conference, function(err, dbConference) {
+                                if (err) {
+                                    validation.addError("Nepodařilo se získat konferenci pro přidání účastníka");
+                                    callback(validation);
+                                    return;
+                                }
+                                else {
+
+                                    // push participation to conference
+                                    dbConference.participations.push(dbParticipation._id);
+
+                                    // save conference      
+                                    dbConference.save(function(err) {
                                         // error check
                                         if (err) {
-                                            validation.addError("Nepodařilo se získat konferenci pro přidání účastníka");
+                                            validation.addError("Nepodařilo se uložit konferenci po přidání účastníka");
                                             callback(validation);
                                             return;
                                         }
-                                        else {
-
-                                            // push participation to conference
-                                            dbConference.participations.push(dbParticipation._id);
-
-                                            // save conference      
-                                            dbConference.save(function(err) {
-                                                // error check
-                                                if (err) {
-                                                    validation.addError("Nepodařilo se uložit konferenci po přidání účastníka");
-                                                    callback(validation);
-                                                    return;
-                                                }
-                                                // participation created and pushed to the conference
-                                                callback(validation);
-                                                return;
-                                            });
-                                        }
+                                        // participation created and pushed to the conference
+                                        callback(validation);
+                                        return;
                                     });
-                              //  }
+                                }
+                            });
+                            //  }
                             //});
                         }
                     });
@@ -84,24 +110,24 @@ module.exports = {
             });
         }
     },
-    
-    getList: function(participantID, callback){
+
+    getList: function(participantID, callback) {
         var validation = new ValidationResult([]);
         ParticipationModel
-            .find({'user': participantID})
+            .find({ 'user': participantID })
             .populate('conference', 'name date notification active sponsorshipLevels attachementTypes place attendeNumber invitation email')
-            .exec(function(err,participations) {
-             if (err) {
-                validation.addError("Účasti se nepodařilo získat");
+            .exec(function(err, participations) {
+                if (err) {
+                    validation.addError("Účasti se nepodařilo získat");
+                    callback(validation);
+                    return;
+                }
+
+                console.log(participations);
+                // user obtained
+                validation.data = participations;
                 callback(validation);
-                return;
-            }
-            
-            console.log(participations);
-            // user obtained
-            validation.data = participations;
-            callback(validation);
-        });        
+            });
     },
 
     // user structure validation

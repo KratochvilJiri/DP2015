@@ -2,11 +2,10 @@ var mongoose = require('mongoose');
 var attachementTypeStructure = require('./AttachementTypeStructure');
 
 
-// attendee model
+// sponsorship model
 module.exports = {
 	name: {
-        type: String,  
-        required: true
+        type: String  
     },
     value: {
         type: Number
