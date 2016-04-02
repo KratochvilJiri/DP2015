@@ -116,6 +116,9 @@ module.exports = {
         ParticipationModel
             .find({ 'user': participantID })
             .populate('conference', 'name date notification active sponsorshipLevels attachementTypes place attendeesNumber invitation email')
+            .populate({
+                path: 'messages', model: 'Message', populate: { path: 'author', model: 'User', select: 'name'}
+            })
             .exec(function(err, participations) {
                 if (err) {
                     validation.addError("Účasti se nepodařilo získat");

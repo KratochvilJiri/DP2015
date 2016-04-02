@@ -56,6 +56,7 @@ require('./app/routes/AuthorizationRoutes')(app);
 require('./app/routes/SessionRoutes')(app);
 require('./app/routes/ConferenceRoutes')(app);
 require('./app/routes/ParticipationRoutes')(app);
+require('./app/routes/MessageRoutes')(app);
 require('./app/routes/XRoutes')(app);
 
 // start app ===============================================

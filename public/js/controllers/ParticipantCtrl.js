@@ -1,4 +1,4 @@
-angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$scope', '$state', '$stateParams', 'UserService', 'ConferenceService', 'ParticipationService','SessionService', function($scope, $state, $stateParams, UserService, ConferenceService, ParticipationService, SessionService) {
+angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$scope', '$state', '$stateParams', 'UserService', 'ConferenceService', 'ParticipationService', 'SessionService', 'MessageService', function($scope, $state, $stateParams, UserService, ConferenceService, ParticipationService, SessionService, MessageService) {
     // session structure
     $scope.session = SessionService;
     // participant (user)
@@ -27,12 +27,24 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
         $scope.message.author = $scope.session.currentUser._id;
         $scope.message.participation = $scope.participation._id;
         console.log($scope.message);
-    } 
+        MessageService.save($scope.message)
+            .success(function(data, status, headers, config) {
+                if (data.isValid) {
+                    $scope.showSuccess("Zpráva byla úspěšně odeslána.");
+                }
+                else {
+                    $scope.showErrors(data.errors);
+                }
+            })
+            .error(function(data, status) {
+                console.error('Error', status, data);
+            });
+    }
 
     // get sponsorshipLevel documents
-    var getAttachementTypes =  function () {
-        $scope.conference.sponsorshipLevels.forEach(function(sponsorshipLevel){
-            if(sponsorshipLevel.name === $scope.participation.sponsorshipLevel.name)
+    var getAttachementTypes = function() {
+        $scope.conference.sponsorshipLevels.forEach(function(sponsorshipLevel) {
+            if (sponsorshipLevel.name === $scope.participation.sponsorshipLevel.name)
                 $scope.attachementTypes = sponsorshipLevel.attachementTypes;
         })
         console.log($scope.attachementTypes);
@@ -45,10 +57,10 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
 
         $scope.participation.attendees.push({});
     }
-    
-        // remove sponsorShipLevel
-    $scope.removeAttendee = function (index){
-        $scope.participation.attendees.splice(index,1);
+
+    // remove sponsorShipLevel
+    $scope.removeAttendee = function(index) {
+        $scope.participation.attendees.splice(index, 1);
     }
 
     // save updated participation
@@ -80,6 +92,8 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             $scope.conference = $scope.ParticipatedConferences[0];
             $scope.participation = $scope.participations[0];
         }
+        $scope.participation.messages = $scope.participation.messages.slice().reverse()
+        console.log($scope.participation);
         getAttachementTypes();
     }
 
