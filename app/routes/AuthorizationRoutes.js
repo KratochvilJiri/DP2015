@@ -22,6 +22,7 @@ module.exports = function (app) {
                 }
                 // user found and password is right
                 else{
+                    req.session._id = user._id;
                     req.session.name = user.name;
                     req.session.role = user.role;
                     req.session.permissions = Permissions[req.session.role];
@@ -34,6 +35,7 @@ module.exports = function (app) {
 
     // deauthorization - set session to null
     app.get("/api/authorization/deauthorize", function (req, res) {
+        req.session._id = null;
         req.session.name = null;
         req.session.role = null;
         req.session.permissions = null;

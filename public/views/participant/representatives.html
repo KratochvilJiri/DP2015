@@ -5,7 +5,7 @@
 </div>
 <form class="ui form attached fluid segment">
     <div class="two fields">
-        <div class="field required">
+        <div class="field required" ng-if="session.currentUser.permissions.ParticipantAdministration">
             <label>Stav:</label>
             <select class="ui dropdown" ng-model="participation.state">
                 <option value="CANCELLED">Odmítnuto</option>
@@ -19,8 +19,8 @@
     <div class="two fields">
         <div class="field">
             <label>Částka:</label>
-            <div ng-if="session.currentUser.permissions.ParticipantAdministration" class="ui right labeled input">
-                <input type="text" placeholder="Částka" ng-model="participation.sponsorshipLevel.value">
+            <div class="ui right labeled input">
+                <input ng-disabled="session.currentUser.permissions.ParticipantDashboardModule" type="number" placeholder="Částka" ng-model="participation.sponsorshipLevel.value">
                 <div class="ui basic label">
                     Kč
                 </div>
@@ -28,29 +28,37 @@
         </div>
         <div class="field required">
             <label>Úroveň sponzorství:</label>
-            <select class="ui dropdown" ng-model="participation.sponsorshipLevel.name" ng-options="item.name as item.name for item in conference.sponsorshipLevels">
+            <select ng-disabled="session.currentUser.permissions.ParticipantDashboardModule" class="ui dropdown" ng-model="participation.sponsorshipLevel.name" ng-options="item.name as item.name for item in conference.sponsorshipLevels">
                 <option value="" select disabled>Vyberte úroveň sponzorství</option>
             </select>
         </div>
     </div>
-    <div class="field">
+    <div class="field" ng-if="session.currentUser.permissions.ParticipantAdministration">
         <label> Shrnutí komunikace: </label>
-        <textarea>
+        <textarea ng-model="participation.communicationSummary">
         </textarea>
     </div>
 </form>
 <div class="ui attached message">
     <div class="header">
-        <h5>Zástupci (4/{{conference.attendeNumber}}):</h5>
+        <h5>Zástupci ({{participation.attendees.length}}/{{conference.attendeesNumber}}):</h5>
     </div>
 </div>
 
-<form class="ui form attached fluid segment">
+<div class="ui attached fluid segment" ng-if="participation.attendees.length<conference.attendeesNumber">
     <div class="field">
+        <a class="ui basic button" ng-click="addAttendee()">
+            <i class="add icon"></i>Přidat zástupce
+        </a>
+    </div>
+</div>
+<form class="ui form attached fluid segment" ng-repeat="attendee in participation.attendees">
+    <div class="field required">
+        <label> Přijmení a jméno: </label>
         <div class="ui labeled left icon action input">
             <i class="user icon"></i>
-            <input type="text" placeholder="Přijmení a jméno účastníka">
-            <a ng-click="removeAttachementType($index)" class="ui button basic">
+            <input placeholder="Přijmení a jméno zástupce" type="text" ng-model="attendee.name">
+            <a ng-click="removeAttendee($index)" class="ui button basic">
                 <i class="remove red icon"></i> Odebrat
             </a>
         </div>

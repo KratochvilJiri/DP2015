@@ -37,8 +37,6 @@ module.exports = {
                     dbUser.DIC = user.DIC;
                     dbUser.address = user.address;
                 }
-                
-                console.log(dbUser);
 
                 // Save user
                 dbUser.save(function(err) {

@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="two fields">
-        <div class="field">
+        <div class="field" ng-if="session.currentUser.permissions.ParticipantAdministration">
             <label>Nová účast:</label>
             <div class="ui action input">
                 <select class="ui  dropdown" ng-options="item._id as item.name for item in otherConferences track by item._id" ng-model="newParticipation.conference">
@@ -31,7 +31,7 @@
 <div class="ui four item stackable tabs menu">
     <a ui-sref-active="active" ui-sref="home.participant.information" class="item">Informace</a>
     <a ui-sref-active="active" ui-sref="home.participant.documents" class="item">Dokumenty</a>
-    <a ui-sref-active="active" ui-sref="home.participant.representatives" class="item">Účast</a>
+    <a ui-sref-active="active" ui-sref="home.participant.representatives" class="item">Obecné</a>
     <a ui-sref-active="active" ui-sref="home.participant.communication" class="item">Komunikace</a>
 </div>
 

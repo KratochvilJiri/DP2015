@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
-var SponsorshipLevelStructure = require('./SponsorshipLevelStructure'); 
+var SponsorshipLevelStructure = require('./SponsorshipLevelStructure');
+var Attendee = require('./AttendeeStructure');  
 
 // attendee model
 module.exports = mongoose.model('Participation', {
@@ -20,18 +21,13 @@ module.exports = mongoose.model('Participation', {
     communicationSummary: {
         type: String
     },
-    donationValue: {
-        type: Number
-    },
     sponsorshipLevel: SponsorshipLevelStructure,
     conference: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Conference',
         require: true
     },
-    atendees: [{
-        type: String,
-    }],
+    attendees: [Attendee],
     attachements: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Attachement'

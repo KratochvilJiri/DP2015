@@ -32,7 +32,7 @@ module.exports = mongoose.model('Conference',{
     invitation: {
         type: String,
     },
-    attendeNumber: {
+    attendeesNumber: {
         type: Number,  
     },
     sponsorshipLevels: 

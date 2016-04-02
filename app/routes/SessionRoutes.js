@@ -21,7 +21,8 @@ module.exports = function (app) {
                 isValid: true, 
                 data: {
                     name: req.session.name,
-                    role: req.session.role, 
+                    role: req.session.role,
+                    _id: req.session._id, 
                     permissions: req.session.permissions}, 
                 error: null });
         }

@@ -26,12 +26,12 @@ module.exports = {
                     return;
                 }
                 // Update and save conference
-
-                dbParticipation.atendees = participation.atendees;
+                dbParticipation.attendees = participation.attendees;
                 dbParticipation.attachements = participation.attachements;
                 dbParticipation.messages = participation.messages;
                 dbParticipation.sponsorshipLevel = participation.sponsorshipLevel;
                 dbParticipation.state = participation.state;
+                dbParticipation.communicationSummary = participation.communicationSummary;
 
                 // Save user
                 dbParticipation.save(function(err) {
@@ -115,7 +115,7 @@ module.exports = {
         var validation = new ValidationResult([]);
         ParticipationModel
             .find({ 'user': participantID })
-            .populate('conference', 'name date notification active sponsorshipLevels attachementTypes place attendeNumber invitation email')
+            .populate('conference', 'name date notification active sponsorshipLevels attachementTypes place attendeesNumber invitation email')
             .exec(function(err, participations) {
                 if (err) {
                     validation.addError("Účasti se nepodařilo získat");
@@ -131,11 +131,19 @@ module.exports = {
     },
 
     // user structure validation
-    validate: function(user) {
+    validate: function(participation) {
         // validation init
-        validation = new ValidationResult(user);
+        validation = new ValidationResult(participation);
+        
+        if (validation.data.attendees) {
+            validation.data.attendees.forEach(function(attendee, index) {
+                if (!attendee.name) {
+                    validation.addError("Jméno účastnika " + (index+1) + " je povinné");
+                }
+            });
+        }
 
-
+        validation.checkIfIsDefinedAndNotEmpty('state', "Stav účasti je povinný");
         validation.checkIfIsDefinedAndNotEmpty('conference', "Vyběr konference, kde proběhne účast je povinná");
 
         return validation;

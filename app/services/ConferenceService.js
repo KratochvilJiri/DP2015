@@ -33,7 +33,7 @@ module.exports = {
                     dbConference.invitation = conference.invitation;
                     dbConference.place = conference.place;
                     dbConference.email = conference.email;
-                    dbConference.attendeNumber = conference.attendeNumber;
+                    dbConference.attendeesNumber = conference.attendeesNumber;
                     dbConference.sponsorshipLevels = conference.sponsorshipLevels;
                     dbConference.attachementTypes = conference.attachementTypes;
 
@@ -118,7 +118,7 @@ module.exports = {
         var validation = new ValidationResult([]);
 
         // find all conference
-        ConferenceModel.find({}, 'name date notification active sponsorshipLevels attachementTypes place attendeNumber invitation email', function(err, allConference) {
+        ConferenceModel.find({}, 'name date notification active sponsorshipLevels attachementTypes place attendeesNumber invitation email', function(err, allConference) {
             // get all conference error
             if (err) {
                 validation.addError("Nepodařilo se získat seznam konferencí (getList)");

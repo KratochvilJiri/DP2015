@@ -4,7 +4,6 @@ module.exports = function(app) {
 
         // save participation and send back all users after creation
         app.post('/api/participation', function(req, res) {
-            console.log("here");
             ParticipationService.save(req.body, function(validation){
                 res.json(validation);
             });    

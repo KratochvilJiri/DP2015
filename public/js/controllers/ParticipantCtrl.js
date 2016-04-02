@@ -17,6 +17,21 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     // all not participated conference
     $scope.otherConferences = [];
 
+
+    // add attendee to the array
+    $scope.addAttendee = function() {
+        if (!$scope.participation.attendees)
+            $scope.participation.attendees = [];
+
+        $scope.participation.attendees.push({});
+        console.log($scope.participation.attendees);
+    }
+    
+        // remove sponsorShipLevel
+    $scope.removeAttendee = function (index){
+        $scope.participation.attendees.splice(index,1);
+    }
+
     // save updated participation
     $scope.updateParticipation = function() {
         console.log($scope.participation);
@@ -31,8 +46,8 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             })
             .error(function(data, status) {
                 console.error('Error', status, data);
-            }); 
-    } 
+            });
+    }
 
     // set selected conference and its participation
     var setConferenceAndParticipation = function() {

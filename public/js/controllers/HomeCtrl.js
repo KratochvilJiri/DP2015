@@ -3,6 +3,8 @@ angular.module('HomeCtrl',[]).controller('HomeController',['$scope','SessionServ
     $scope.errors = [];
     $scope.session = SessionService;
     
+    console.log($scope.session.currentUser);
+    
     $scope.deauthorize = function () {
          AuthorizationService.deauthorize()
         .success(function (data) {
