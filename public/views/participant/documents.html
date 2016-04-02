@@ -1,52 +1,27 @@
-
-<div class="ui grid grid-container row">
-        <div class="field">
-        <label>Smlouva:</label>
-                <a class="ui basic button" ng-click="addAttachementType()">
+<div class="ui attached message">
+    <div class="header">
+        Přílohy:
+    </div>
+</div>
+<form class="ui form attached fluid segment">
+    <div class="field">
+        <label><i class="ui red empty circular label"></i> Smlouva:</label>
+        <a class="ui basic button" ng-click="addAttachementType()">
             <i class="upload icon"></i>Nahrát
         </a>
-                <a class="ui basic button" ng-click="addAttachementType()">
-            <i class="download icon"></i>Stáhnout
-        </a>
-                <a class="ui basic button" ng-click="addAttachementType()">
-            <i class="remove red icon"></i>Odebrat
+    </div>
+</form>
+<form class="ui form attached fluid segment" ng-repeat="attachementType in attachementTypes">
+    <div class="field">
+        <label><i class="ui red empty circular label"></i> {{attachementType.name}}:</label>
+        <p>{{attachementType.description}}:</p>
+        <a class="ui basic button" ng-click="addAttachementType()">
+            <i class="upload icon"></i>Nahrát
         </a>
     </div>
-    <div class="sixteen wide column">
-        <h3><i class="ui green empty circular label"></i> Logo: </h3>
-        <p>
-            Popis - požadovaný formát pdf nebo kvalitní jpg/png s rozlišením nejméně 400x400px Cílové umístění: elektronický sborník
-            a webové Stránky konference, jmenovka Termín: průběžně, nejpozději do 15. 2. 2016
-        </p>
-        <p class="ui tiny header"> logoIBM.jpg - 24.5.2015 14:32:45 - 400x400px </p>
-        <a class="ui basic button">
-            <i class="remove red icon"></i>Odebrat
-        </a>
-        <a class="ui basic button">
-            <i class="unhide icon"></i>Zobrazit
-        </a>
-    </div>
-
-    <div class="sixteen wide column">
-        <h3><i class="ui red empty circular label"></i> Propagační stránka: </h3>
-        <p>
-            Popis - požadovaný formát pdf, Velikost: 1 x A4 Termín do 31.3.2016
-        </p>
-        <p class="ui tiny header"></p>
-        <a class="ui basic button">
-            <i class="add icon"></i>Přidat dokument
-        </a>
-    </div>
-
-    <div class="sixteen wide column">
-        <h3><i class="ui red empty circular label"></i> Video prezentace: </h3>
-        <p>
-            Popis - požadovaný formát avi/mp4 (doporučujeme doplnit o titulky, jelikož při promítání bude vypnuto audio) Maximální délka
-            video prezentace: 60 vteřin, nemělo by mít audio stopu. Termín: do 31. 3. 2016
-        </p>
-        <p class="ui tiny header"></p>
-        <a class="ui basic button">
-            <i class="add icon"></i>Přidat dokument
-        </a>
-    </div>
+</form>
+<div class="ui bottom attached warning message">
+    <a ng-click="" class="ui button basic my-orange">
+        <i class="save icon"></i> Uložit
+    </a>
 </div>

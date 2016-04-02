@@ -10,7 +10,7 @@ module.exports = mongoose.model('Message',{
         type: String,
         required: true
     },
-    autor: {
+    author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true

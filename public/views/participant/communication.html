@@ -1,3 +1,30 @@
+<div class="ui attached message">
+    <div class="header">
+        Komunikace:
+    </div>
+</div>
+<form class="ui form attached fluid segment">
+    <div class=" aligned">
+        <label> Nová zpráva: </label>
+        <textarea ng-model="message.content">
+        </textarea>
+        <a ng-click="sendMessage()" class="ui right floated button basic my-orange">
+            <i class="save icon"></i> Odeslat
+        </a>
+        <div class="field"></div>
+    </div>
+</form>
+<form class="ui form attached fluid segment" ng-repeat="message in participation.messages">
+     <div class="ui small floating message">
+            <div class="header">
+                {{message.author}} - {{message.date}}
+            </div>
+            <p>{{message.content}}</p>
+        </div>
+</form>
+
+
+
 <div class="ui grid row">
     <div class="sixteen wide column">
         <h4> Nová zpráva </h4>
@@ -21,7 +48,8 @@
             </div>
             <p>Dobrý den, vítám Vás v našem komunikačním nástroji pro podporu organizace. Na základě kliknutí na odkaz v pozvánce
                 byla Vaše firma přidána do aplikace. Nyní bychom se zde měli dohodnout na detailech účasti Vaší firmy na
-                konferenci.</p>
+                konferenci.
+            </p>
         </div>
     </div>
 

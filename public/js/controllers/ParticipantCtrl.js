@@ -1,5 +1,6 @@
-angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$scope', '$state', '$stateParams', 'UserService', 'ConferenceService', 'ParticipationService', function($scope, $state, $stateParams, UserService, ConferenceService, ParticipationService) {
-
+angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$scope', '$state', '$stateParams', 'UserService', 'ConferenceService', 'ParticipationService','SessionService', function($scope, $state, $stateParams, UserService, ConferenceService, ParticipationService, SessionService) {
+    // session structure
+    $scope.session = SessionService;
     // participant (user)
     $scope.participant = {};
     // participantion that is currently showed
@@ -16,7 +17,26 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     $scope.ParticipatedConferences = [];
     // all not participated conference
     $scope.otherConferences = [];
+    // new message
+    $scope.message = {};
 
+
+    // send new message to the server
+    $scope.sendMessage = function() {
+        $scope.message.date = new Date();
+        $scope.message.author = $scope.session.currentUser._id;
+        $scope.message.participation = $scope.participation._id;
+        console.log($scope.message);
+    } 
+
+    // get sponsorshipLevel documents
+    var getAttachementTypes =  function () {
+        $scope.conference.sponsorshipLevels.forEach(function(sponsorshipLevel){
+            if(sponsorshipLevel.name === $scope.participation.sponsorshipLevel.name)
+                $scope.attachementTypes = sponsorshipLevel.attachementTypes;
+        })
+        console.log($scope.attachementTypes);
+    }
 
     // add attendee to the array
     $scope.addAttendee = function() {
@@ -24,7 +44,6 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             $scope.participation.attendees = [];
 
         $scope.participation.attendees.push({});
-        console.log($scope.participation.attendees);
     }
     
         // remove sponsorShipLevel
@@ -34,7 +53,6 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
 
     // save updated participation
     $scope.updateParticipation = function() {
-        console.log($scope.participation);
         ParticipationService.save($scope.participation)
             .success(function(data, status, headers, config) {
                 if (data.isValid) {
@@ -62,6 +80,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             $scope.conference = $scope.ParticipatedConferences[0];
             $scope.participation = $scope.participations[0];
         }
+        getAttachementTypes();
     }
 
     // create new participation of participant
@@ -105,7 +124,6 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             .success(function(data, status, headers, config) {
                 if (data.isValid) {
                     $scope.otherConferences = data.data;
-                    console.log($scope.otherConferences);
                 }
                 else {
                     $scope.showErrors(data.errors);
@@ -131,8 +149,6 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             .success(function(data, status, headers, config) {
                 if (data.isValid) {
                     $scope.participations = data.data;
-                    console.log("participations");
-                    console.log($scope.participations);
                     setConferenceAndParticipation();
                     loadOtherConferences();
                 }
