@@ -8,6 +8,8 @@ var mongoose        = require('mongoose');          // mongoose for mongodb
 var morgan          = require('morgan');            // log requests to the console (express4)
 var bodyParser      = require('body-parser');       // pull information from HTML POST (express4)
 var methodOverride  = require('method-override');   // simulate DELETE and PUT (express4)
+var path = require('path');
+
 
 // configuration ===========================================
 
@@ -34,6 +36,7 @@ app.use(session({resave: true, saveUninitialized: true, secret: '1234strawberrie
 // log every request to the console
 app.use(morgan('dev'));
 
+
 // get all data/stuff of the body (POST) parameters
 // parse application/json 
 app.use(bodyParser.json()); 
@@ -57,6 +60,7 @@ require('./app/routes/SessionRoutes')(app);
 require('./app/routes/ConferenceRoutes')(app);
 require('./app/routes/ParticipationRoutes')(app);
 require('./app/routes/MessageRoutes')(app);
+require('./app/routes/AttachementRoutes')(app);
 require('./app/routes/XRoutes')(app);
 
 // start app ===============================================

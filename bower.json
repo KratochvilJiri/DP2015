@@ -7,6 +7,7 @@
         "animate.css": "latest",
         "angular": "latest",
         "angular-ui-router": "latest",
-        "semantic-ui": "latest"   
+        "angular-filepicker": "latest",
+        "semantic-ui": "latest" 
     }
 }

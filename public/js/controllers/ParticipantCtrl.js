@@ -1,4 +1,4 @@
-angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$scope', '$state', '$stateParams', 'UserService', 'ConferenceService', 'ParticipationService', 'SessionService', 'MessageService', function($scope, $state, $stateParams, UserService, ConferenceService, ParticipationService, SessionService, MessageService) {
+angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$scope', '$state', '$stateParams', '$timeout', 'UserService', 'ConferenceService', 'ParticipationService', 'SessionService', 'MessageService', 'filepickerService', 'AttachementService', function($scope, $state, $stateParams, $timeout, UserService, ConferenceService, ParticipationService, SessionService, MessageService, filepickerService, AttachementService) {
     // session structure
     $scope.session = SessionService;
     // participant (user)
@@ -19,6 +19,8 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     $scope.otherConferences = [];
     // new message
     $scope.message = {};
+    //
+    $scope.attachement = {};
 
 
     // send new message to the server
@@ -26,7 +28,6 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
         $scope.message.date = new Date();
         $scope.message.author = $scope.session.currentUser._id;
         $scope.message.participation = $scope.participation._id;
-        console.log($scope.message);
         MessageService.save($scope.message)
             .success(function(data, status, headers, config) {
                 if (data.isValid) {
@@ -41,13 +42,27 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             });
     }
 
+    function checkHash(hash) {
+        return
+    }
+
     // get sponsorshipLevel documents
     var getAttachementTypes = function() {
         $scope.conference.sponsorshipLevels.forEach(function(sponsorshipLevel) {
             if (sponsorshipLevel.name === $scope.participation.sponsorshipLevel.name)
                 $scope.attachementTypes = sponsorshipLevel.attachementTypes;
         })
-        console.log($scope.attachementTypes);
+        assignAttachement();
+    }
+
+    var assignAttachement = function() {
+
+        $scope.participation.attachements.forEach(function(attachement) {
+            $scope.attachementTypes.forEach(function(attachementType) {
+                if (attachementType.hash === attachement.hash)
+                    attachementType.attachement = attachement;
+            })
+        })
     }
 
     // add attendee to the array
@@ -63,20 +78,100 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
         $scope.participation.attendees.splice(index, 1);
     }
 
+    $scope.removeAttachement = function(attachement) {
+        console.log(attachement.data);
+
+
+        filepickerService.remove(
+            attachement.data,
+            function() {
+                console.log("Removed");
+                console.log(attachement);
+                AttachementService.remove(attachement)
+                    .success(function(data, status, headers, config) {
+                        if (data.isValid) {
+                            $scope.showSuccess("Příloha byla úspěšně odstraněna.");
+                        }
+                        else {
+                            $scope.showErrors(data.errors);
+                        }
+                    })
+                    .error(function(data, status) {
+                        console.error('Error', status, data);
+                    });
+            },
+            function(){
+                console.log("error");
+            }
+        );
+    }
+
+    $scope.downloadAttachement = function(attachement) {
+        console.log(attachement);
+        filepickerService.exportFile(
+            attachement,
+            { language: 'cs' },
+            function(Blob) {
+                console.log(Blob.url);
+            }
+        );
+    }
+
+    $scope.uploadAttachement = function(attachementTypeHash) {
+        filepickerService.pick(
+            {
+                mimetype: 'application/pdf',
+                language: 'cs',
+                services: ['COMPUTER', 'DROPBOX', 'GOOGLE_DRIVE'],
+                openTo: 'COMPUTER'
+            },
+            //attachement saved to filestack
+            function(Blob) {
+                console.log(JSON.stringify(Blob));
+                $scope.attachement.data = Blob;
+                $scope.attachement.hash = attachementTypeHash;
+                $scope.attachement.date = Date.now();
+                $scope.attachement.participation = $scope.participation._id;
+                $scope.participation.attachements.push($scope.attachement);
+                console.log($scope.attachement);
+                console.log($scope.participation);
+                //$scope.$apply();
+
+                // save attachement to MongoDB
+                AttachementService.save($scope.attachement)
+                    .success(function(data, status, headers, config) {
+                        if (data.isValid) {
+                            $scope.showSuccess("Příloha byla úspěšně uložena.");
+                        }
+                        else {
+                            $scope.showErrors(data.errors);
+                        }
+                    })
+                    .error(function(data, status) {
+                        console.error('Error', status, data);
+                    });
+
+
+            }
+        );
+    };
+
     // save updated participation
     $scope.updateParticipation = function() {
-        ParticipationService.save($scope.participation)
-            .success(function(data, status, headers, config) {
-                if (data.isValid) {
-                    $scope.showSuccess("Účast byla úspěšně atualizována.");
-                }
-                else {
-                    $scope.showErrors(data.errors);
-                }
-            })
-            .error(function(data, status) {
-                console.error('Error', status, data);
-            });
+        console.log($scope.picFile);
+        console.log($scope.myForm);
+        /* ParticipationService.save($scope.participation)
+             .success(function(data, status, headers, config) {
+                 if (data.isValid) {
+                     $scope.showSuccess("Účast byla úspěšně atualizována.");
+                 }
+                 else {
+                     $scope.showErrors(data.errors);
+                 }
+             })
+             .error(function(data, status) {
+                 console.error('Error', status, data);
+             });*/
     }
 
     // set selected conference and its participation
@@ -86,6 +181,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             if (participation.conference.active) {
                 $scope.conference = participation.conference;
                 $scope.participation = participation;
+                console.log($scope.participation);
             }
         })
         if (!$scope.conference) {
@@ -93,7 +189,6 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             $scope.participation = $scope.participations[0];
         }
         $scope.participation.messages = $scope.participation.messages.slice().reverse()
-        console.log($scope.participation);
         getAttachementTypes();
     }
 

@@ -1,6 +1,8 @@
 // public/js/appRoutes.js
 
-app.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider, filepickerProvider) {
+    
+    filepickerProvider.setKey('ACDqZHX5DTLWEBMNdU2Jpz');
 
     $urlRouterProvider.otherwise('/login');
     $stateProvider

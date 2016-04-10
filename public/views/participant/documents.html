@@ -3,25 +3,30 @@
         Přílohy:
     </div>
 </div>
-<form class="ui form attached fluid segment">
-    <div class="field">
-        <label><i class="ui red empty circular label"></i> Smlouva:</label>
-        <a class="ui basic button" ng-click="addAttachementType()">
-            <i class="upload icon"></i>Nahrát
-        </a>
-    </div>
-</form>
 <form class="ui form attached fluid segment" ng-repeat="attachementType in attachementTypes">
     <div class="field">
-        <label><i class="ui red empty circular label"></i> {{attachementType.name}}:</label>
-        <p>{{attachementType.description}}:</p>
-        <a class="ui basic button" ng-click="addAttachementType()">
+        <label>
+            <i class="ui red empty circular label" ng-if="!attachementType.attachement"></i> 
+            <i class="ui green empty circular label" ng-if="attachementType.attachement"></i>
+            {{attachementType.name}}:
+        </label>
+        <p>{{attachementType.description}}</p>
+        <a class="ui basic button" ng-click="uploadAttachement(attachementType.hash)" ng-if="!attachementType.attachement">
             <i class="upload icon"></i>Nahrát
+        </a>
+        <a class="ui basic button" ng-click="downloadAttachement(attachementType.attachement.data)" ng-if="attachementType.attachement">
+            <i class="download icon"></i>Stáhnout
+        </a>
+        <a class="ui basic button" href="{{attachementType.attachement.data.url}}" target="_blank" ng-if="attachementType.attachement">
+            <i class="unhide icon"></i>Zobrazit
+        </a>
+        <a class="ui basic button" ng-click="removeAttachement(attachementType.attachement)" ng-if="attachementType.attachement">
+            <i class="remove red icon"></i>Smazat
         </a>
     </div>
 </form>
 <div class="ui bottom attached warning message">
-    <a ng-click="" class="ui button basic my-orange">
+    <a ng-click="updateParticipation()" class="ui button basic my-orange">
         <i class="save icon"></i> Uložit
     </a>
 </div>

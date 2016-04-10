@@ -17,7 +17,7 @@
     "tag": "3.5.1",
     "commit": "c7084f820bf65063b4e3fb6293ffe5df9eed1398"
   },
-  "_source": "git://github.com/daneden/animate.css.git",
+  "_source": "https://github.com/daneden/animate.css.git",
   "_target": "*",
   "_originalSource": "animate.css"
 }

@@ -7,12 +7,15 @@ module.exports = mongoose.model('Attachement',{
         required: true
     },
     data: {
-        type: Buffer,
+        type: mongoose.Schema.Types.Mixed,
         required: true
     },
     participation: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Participation',
         required: true 
+    },
+    hash: {
+        type: String
     }
 });

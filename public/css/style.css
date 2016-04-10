@@ -33,6 +33,7 @@ textarea {
     margin-bottom: 1em !important;    
 }
 
+
 .ui.message.status-alert, .ui.message.status-success {
     position: absolute;
     top: 10%;

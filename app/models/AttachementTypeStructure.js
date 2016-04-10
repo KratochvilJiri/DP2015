@@ -12,5 +12,8 @@ module.exports = {
     },
     description: {
         type: String
+    },
+    hash: {
+        type: String
     }
 };

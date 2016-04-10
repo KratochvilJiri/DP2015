@@ -119,6 +119,7 @@ module.exports = {
             .populate({
                 path: 'messages', model: 'Message', populate: { path: 'author', model: 'User', select: 'name'}
             })
+            .populate({path: 'attachements', model: 'Attachement'})
             .exec(function(err, participations) {
                 if (err) {
                     validation.addError("Účasti se nepodařilo získat");

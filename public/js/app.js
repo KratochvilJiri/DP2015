@@ -1,8 +1,8 @@
 // public/js/app.js
 
-var app = angular.module('conferenceApp', ['ui.router', 'multipleSelect','formatters',
+var app = angular.module('conferenceApp', ['ui.router', 'multipleSelect','formatters','angular-filepicker',
     'MainCtrl', 'LoginCtrl', 'DashboardCtrl', 'AUsersCtrl', 'UserCtrl','HomeCtrl','ConferenceCtrl','ParticipantsCtrl','ParticipantCtrl',
-    'UserSrvc', 'SessionSrvc', 'AuthorizationSrvc', 'ConferenceSrvc', 'ParticipationSrvc', 'MessageSrvc']);
+    'UserSrvc', 'SessionSrvc', 'AuthorizationSrvc', 'ConferenceSrvc', 'ParticipationSrvc', 'MessageSrvc', 'AttachementSrvc']);
 
 
 app.run(function ($rootScope, $timeout) {
