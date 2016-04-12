@@ -53,9 +53,19 @@
             <label> Konferenční email:</label>
             <input type="email" ng-model="conference.email" placeholder="email">
         </div>
+        <div class="field required">
+            <label> Heslo - konferenční email:</label>
+            <input type="password" ng-model="conference.emailPassword" placeholder="password">
+        </div>
     </div>
-    
-    
+    <div class="two fields">
+        <div class="field required">
+            <label> IMAP port (běžně 993):</label>
+            <input type="number" ng-model="conference.emailPort" placeholder="Port">
+        </div>
+    </div>
+
+
     <div class="field">
         <label>Zvací email:</label>
         <textarea ng-model="conference.invitation"></textarea>

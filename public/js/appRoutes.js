@@ -27,6 +27,12 @@ app.config(function($stateProvider, $urlRouterProvider, filepickerProvider) {
             templateUrl: 'views/dashboard.html',
             controller: 'DashboardController'
         })
+        
+        .state('home.invitationAnswers', {
+            url: 'invitationAnswers',
+            templateUrl: 'views/invitationAnswers.html',
+            controller: 'InvitationAnswersController'
+        })
 
         .state('home.helpdesk', {
             url: 'helpdesk',

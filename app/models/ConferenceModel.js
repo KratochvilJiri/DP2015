@@ -29,6 +29,14 @@ module.exports = mongoose.model('Conference',{
         type: String,
         required: true  
     },
+    emailPassword: {
+        type: String,
+        required: true
+    },
+    emailPort: {
+        type: Number,
+        required: true
+    },
     invitation: {
         type: String,
     },

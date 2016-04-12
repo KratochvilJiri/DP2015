@@ -33,6 +33,8 @@ module.exports = {
                     dbConference.invitation = conference.invitation;
                     dbConference.place = conference.place;
                     dbConference.email = conference.email;
+                    dbConference.emailPassword = conference.emailPassword;
+                    dbConference.emailPort = conference.emailPort;
                     dbConference.attendeesNumber = conference.attendeesNumber;
                     dbConference.sponsorshipLevels = conference.sponsorshipLevels;
                     dbConference.attachementTypes = conference.attachementTypes;
@@ -76,6 +78,9 @@ module.exports = {
         // check required values
         validation.checkIfIsDefinedAndNotEmpty('date', "Datum začátku konference je povinné");
         validation.checkIfIsDefinedAndNotEmpty('name', "Název konference je povinný");
+        validation.checkIfIsDefinedAndNotEmpty('email', "Email konference je povinný");
+        validation.checkIfIsDefinedAndNotEmpty('emailPassword', "Heslo k emailu konference je povinný");
+        validation.checkIfIsDefinedAndNotEmpty('emailPort', "Port k emailu konference je povinný");
 
         if (validation.data.attachementTypes) {
             validation.data.attachementTypes.forEach(function(attachementType) {
@@ -118,7 +123,7 @@ module.exports = {
         var validation = new ValidationResult([]);
 
         // find all conference
-        ConferenceModel.find({}, 'name date notification active sponsorshipLevels attachementTypes place attendeesNumber invitation email', function(err, allConference) {
+        ConferenceModel.find({}, 'name date notification active sponsorshipLevels attachementTypes place attendeesNumber invitation email emailPassword emailPort', function(err, allConference) {
             // get all conference error
             if (err) {
                 validation.addError("Nepodařilo se získat seznam konferencí (getList)");
