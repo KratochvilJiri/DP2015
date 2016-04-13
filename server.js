@@ -9,8 +9,6 @@ var morgan          = require('morgan');            // log requests to the conso
 var bodyParser      = require('body-parser');       // pull information from HTML POST (express4)
 var methodOverride  = require('method-override');   // simulate DELETE and PUT (express4)
 var path            = require('path');
-var Imap            = require('imap');
-var inspect         = require('util').inspect;
 
 
 

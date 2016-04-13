@@ -11,9 +11,6 @@
         "morgan": "~1.2.2",
         "body-parser": "~1.5.2",
         "method-override": "~2.1.2",
-        "imap": "latest",
-        "mail-listener2": "latest",
-        "html-to-text": "latest",
         "inbox": "latest",
         "mailparser": "latest"
     }
