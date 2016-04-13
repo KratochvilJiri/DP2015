@@ -15,9 +15,6 @@ module.exports = {
     getAll: function(callback) {
 
         var validation = new ValidationResult([]);
-        var chunks = [];
-        var chunklength = 0;
-        var messageStream;
 
         // create connection
         var client = inbox.createConnection(993, "imap.gmail.com", {
@@ -37,12 +34,12 @@ module.exports = {
         function parseEmail(email) {
             return new Promise(function(resolve, reject) {
                 var mailparser = new MailParser();
-                delete messageStream;
+                var chunks = [];
+                var chunklength = 0;
                 console.log(email.UID);
 
                 client.fetchData(email.UID, function(error, messageData) {
 
-                    console.log(messageData.flags);
                     var messageStream = client.createMessageStream(email.UID);
 
                     // fetch a part of data
@@ -58,19 +55,13 @@ module.exports = {
                         var body = Buffer.concat(chunks);
                         var emailStr = body.toString();
 
-                        chunks = [];
-                        chunklength = 0;
-
                         // send the email source to the parser
-                        //console.log(emailStr);
                         mailparser.end(emailStr);
                     });
 
                 });
 
                 mailparser.on("end", function(mail_object) {
-                    //console.log("From:", mail_object.from); //[{address:'sender@example.com',name:'Sender Name'}]
-                    //console.log(mail_object.from);
                     resolve(mail_object);
                 });
 
@@ -86,11 +77,10 @@ module.exports = {
 
             function next() {
                 if (index < emails.length) {
-                    
                     parseEmail(emails[index]).then(function(parsedEmail) {
                         //console.log(parsedEmail);
                         // do something with parsed email
-                        console.log(parsedEmail.flags);
+                        console.log(parsedEmail.text);
                         index++;
                         next();
                     })
