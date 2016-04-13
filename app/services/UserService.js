@@ -6,7 +6,7 @@ module.exports = {
     // create user
     save: function(user, callback) {
 
-        user.password = "1234";
+        user.password = "1";
         // user validation
         var validation = this.validate(user);
 
