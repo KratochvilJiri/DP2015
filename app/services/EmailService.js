@@ -8,7 +8,6 @@ var MailListener = require("mail-listener2");
 var htmlToText = require('html-to-text');
 var inbox = require("inbox");
 var MailParser = require("mailparser").MailParser;
-var mailparser = new MailParser();
 
 module.exports = {
 
@@ -31,27 +30,55 @@ module.exports = {
         // connect to client
         client.connect();
 
-        mailparser.on("end", function(mail_object) {
-            //console.log("From:", mail_object.from); //[{address:'sender@example.com',name:'Sender Name'}]
-            //console.log("----------------------");
-            //console.log("Text:", mail_object.text); // Hello world!
-            console.log("----------------------");
-            console.log(mail_object);
-            console.log("----------------------");
-            //console.log("Text body:", mail_object.text); // How are you today?
-            //return mail_object.text;
-        });
+        var xy;
 
-        var parseEmail = new Promise(function(email,resolve, reject) {
-            // do a thing, possibly async, then…
-            
-            console.log(email.UID);
-            // parse email - to do
-            resolve(email);
 
-           // if error
-           //reject("Error");
-        });
+
+        function parseEmail(email) {
+            return new Promise(function(resolve, reject) {
+                var mailparser = new MailParser();
+                delete messageStream;
+                console.log(email.UID);
+
+                client.fetchData(email.UID, function(error, messageData) {
+
+                    console.log(messageData.flags);
+                    var messageStream = client.createMessageStream(email.UID);
+
+                    // fetch a part of data
+                    messageStream.on("data", function(chunk) {
+                        // push chunk to chunks
+                        chunks.push(chunk);
+                        chunklength += chunk.length;
+                    });
+
+                    // all data fetched
+                    messageStream.on("end", function() {
+                        // concatenate to Buffer and convert to string
+                        var body = Buffer.concat(chunks);
+                        var emailStr = body.toString();
+
+                        chunks = [];
+                        chunklength = 0;
+
+                        // send the email source to the parser
+                        //console.log(emailStr);
+                        mailparser.end(emailStr);
+                    });
+
+                });
+
+                mailparser.on("end", function(mail_object) {
+                    //console.log("From:", mail_object.from); //[{address:'sender@example.com',name:'Sender Name'}]
+                    //console.log(mail_object.from);
+                    resolve(mail_object);
+                });
+
+
+                // if error
+                //reject("Error");
+            });
+        }
 
 
         function parseEmails(emails) {
@@ -59,14 +86,18 @@ module.exports = {
 
             function next() {
                 if (index < emails.length) {
-                    parseEmail(emails[index++]).then(function(parsedEmail){
+                    
+                    parseEmail(emails[index]).then(function(parsedEmail) {
+                        //console.log(parsedEmail);
                         // do something with parsed email
+                        console.log(parsedEmail.flags);
+                        index++;
                         next();
                     })
                 }
             }
             next();
-            
+
             //return emails;
         }
 
@@ -81,47 +112,47 @@ module.exports = {
                     callback(validation);
                     return;
                 }
-                
+
                 client.listFlags(-20, function(err, messages) {
                     //console.log(messages);
                     var emails = parseEmails(messages);
                 });
-                
+
 
                 // get last 20 emails
-              /*  client.listFlags(-20, function(err, messages) {
-                    // for every email
-                    messages.forEach(function(message) {
-                        // fetch data
-                        client.fetchData(message.UID, function(error, messageData) {
-                            console.log(message.UID + "asdasd" + messageData.UID);
-                            console.log("-----------------fu");
-
-                            // fetch whole message (because of body/text)
-                            messageStream = client.createMessageStream(messageData.UID);
-
-                            // fetch a part of data
-                            messageStream.on("data", function(chunk) {
-                                // push chunk to chunks
-                                chunks.push(chunk);
-                                chunklength += chunk.length;
-                            });
-
-                            // all data fetched
-                            messageStream.on("end", function() {
-                                // concatenate to Buffer and convert to string
-                                var body = Buffer.concat(chunks);
-                                var email = body.toString();
-
-                                chunks = [];
-                                chunklength = 0;
-
-                                // send the email source to the parser
-                                var text = mailparser.end(email);
-                            });
-                        });
-                    });
-                }); */
+                /*  client.listFlags(-20, function(err, messages) {
+                      // for every email
+                      messages.forEach(function(message) {
+                          // fetch data
+                          client.fetchData(message.UID, function(error, messageData) {
+                              console.log(message.UID + "asdasd" + messageData.UID);
+                              console.log("-----------------fu");
+  
+                              // fetch whole message (because of body/text)
+                              messageStream = client.createMessageStream(messageData.UID);
+  
+                              // fetch a part of data
+                              messageStream.on("data", function(chunk) {
+                                  // push chunk to chunks
+                                  chunks.push(chunk);
+                                  chunklength += chunk.length;
+                              });
+  
+                              // all data fetched
+                              messageStream.on("end", function() {
+                                  // concatenate to Buffer and convert to string
+                                  var body = Buffer.concat(chunks);
+                                  var email = body.toString();
+  
+                                  chunks = [];
+                                  chunklength = 0;
+  
+                                  // send the email source to the parser
+                                  var text = mailparser.end(email);
+                              });
+                          });
+                      });
+                  }); */
 
             });
 
