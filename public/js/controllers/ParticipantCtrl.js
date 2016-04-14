@@ -160,7 +160,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     $scope.updateParticipation = function() {
         console.log($scope.picFile);
         console.log($scope.myForm);
-        /* ParticipationService.save($scope.participation)
+         ParticipationService.save($scope.participation)
              .success(function(data, status, headers, config) {
                  if (data.isValid) {
                      $scope.showSuccess("Účast byla úspěšně atualizována.");
@@ -171,7 +171,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
              })
              .error(function(data, status) {
                  console.error('Error', status, data);
-             });*/
+             });
     }
 
     // set selected conference and its participation
