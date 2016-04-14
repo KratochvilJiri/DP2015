@@ -1,205 +1,30 @@
-<div class="ui grid row">
-    <!-- mobile header -->
-    <div class="mobile only sixteen wide column">
-        <div class="ui medium icon input fluid">
-            <input type="text" placeholder="Hledat...">
-            <i class="search icon"></i>
-        </div>
-    </div>
-
-    <div class="mobile only sixteen wide column paddingTop0">
-        <div class="ui floating labeled icon dropdown button fluid">
-            <i class="filter icon"></i>
-            <span class="text">Pozván</span>
-            <div class="menu">
-                <div class="item">
-                    Vše
-                </div>
-                <div class="item">
-                    Ano
-                </div>
-                <div class="item">
-                    Ne
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="mobile only sixteen wide column paddingTop0">
-        <button class="ui button fontWhite BGOrange fluid">
-            Pozvat vybrané
-        </button>
-    </div>
-    <!-- mobile header - end -->
-
-    <div class="tablet only computer only four wide column">
-        <div class="ui medium icon input fluid">
-            <input type="text" placeholder="Hledat...">
-            <i class="search icon"></i>
-        </div>
-    </div>
-
-    <div class="tablet only computer only twelve wide column right aligned">
-        <button class="ui button fontWhite BGOrange">
-            Pozvat vybrané
-        </button>
-    </div>
-
-    <div class="tablet only computer only sixteen wide column paddingTop0">
-        <div class="ui floating labeled icon dropdown button">
-            <i class="filter icon"></i>
-            <span class="text">Pozván</span>
-            <div class="menu">
-                <div class="item">
-                    Vše
-                </div>
-                <div class="item">
-                    Ano
-                </div>
-                <div class="item">
-                    Ne
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="sixteen wide column">
-        <h3> Pozvánka na konferenci: </h3>
-        <div class="ui form">
-            <div class="field">
-                <textarea class="paddingTop0">
-                    
-Zdee bude text pozvánky zasílaný potencionálnímu účastníkovi akce, který je nastaven v detailech konference (admin-konference).
-Je možné jej upravit.
-                </textarea>
-            </div>
-        </div>
+<div class="ui attached message">
+    <div class="header">
+        Pozvání účastníků
     </div>
 </div>
+<form class="ui form attached fluid segment">
+    <div class="field">
+        <label>Pozvaní účastníci:</label>
+        <select class="ui fluid search dropdown" multiple="">
+            <option value="">Vyberte účastníky</option>
+            <option value="AL">Alabama</option>
+            <option value="AK">Alaska</option>
+            <option value="AZ">Arizona</option>
+            <option value="AR">Arkansas</option>
+            <option value="CA">California</option>
+            <option value="CO">Colorado</option>
+        </select>
+    </div>
+    <div class="field">
+        <label> Text pozvánky: </label>
+        <textarea>{{invitation}}</textarea>
+    </div>
+</form>
+<div class="ui bottom attached warning message">
+    <a ng-click="save()" class="ui button basic my-orange">
+        <i class="send outline icon"></i> Odeslat pozvánky
+    </a>
+</div>
 
-<table class="ui selectable celled striped table">
-    <thead>
-        <tr>
-            <th>Firma</th>
-            <th>Identifikační číslo</th>
-            <th>Kontaktní osoba</th>
-            <th>Přiřazená osoba</th>
-            <th>Email</th>
-            <th>Telefon</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>IBM</td>
-            <td>738728382332</td>
-            <td>Ing. Petr Novák</td>
-            <td>Mgr. Sylva Sadovská</td>
-            <td>ibm@europe.com</td>
-            <td>666777342</td>
-            <td>
-                <div class="ui checkbox">
-                    <input type="checkbox" name="example"><label></label>
-                </div>
-            </td>
-        </tr>
 
-        <tr>
-            <td>IBM</td>
-            <td>738728382332</td>
-            <td>Ing. Petr Novák</td>
-            <td>Mgr. Sylva Sadovská</td>
-            <td>ibm@europe.com</td>
-            <td>666777342</td>
-            <td>
-                <div class="ui checkbox">
-                    <input type="checkbox" name="example"><label></label>
-                </div>
-            </td>
-        </tr>
-
-        <tr>
-            <td>IBM</td>
-            <td>738728382332</td>
-            <td>Ing. Petr Novák</td>
-            <td>Mgr. Sylva Sadovská</td>
-            <td>ibm@europe.com</td>
-            <td>666777342</td>
-            <td>
-                <div class="ui checkbox">
-                    <input type="checkbox" name="example"><label></label>
-                </div>
-            </td>
-        </tr>
-
-        <tr>
-            <td>IBM</td>
-            <td>738728382332</td>
-            <td>Ing. Petr Novák</td>
-            <td>Mgr. Sylva Sadovská</td>
-            <td>ibm@europe.com</td>
-            <td>666777342</td>
-            <td>
-                <div class="ui checkbox">
-                    <input type="checkbox" name="example" checked="checked"><label></label>
-                </div>
-            </td>
-        </tr>
-
-        <tr>
-            <td>IBM</td>
-            <td>738728382332</td>
-            <td>Ing. Petr Novák</td>
-            <td>Mgr. Sylva Sadovská</td>
-            <td>ibm@europe.com</td>
-            <td>666777342</td>
-            <td>
-                <div class="ui checkbox">
-                    <input type="checkbox" name="example"><label></label>
-                </div>
-            </td>
-        </tr>
-
-        <tr>
-            <td>IBM</td>
-            <td>738728382332</td>
-            <td>Ing. Petr Novák</td>
-            <td>Mgr. Sylva Sadovská</td>
-            <td>ibm@europe.com</td>
-            <td>666777342</td>
-            <td>
-                <div class="ui checkbox">
-                    <input type="checkbox" name="example" checked="checked"><label></label>
-                </div>
-            </td>
-        </tr>
-
-        <tr>
-            <td>IBM</td>
-            <td>738728382332</td>
-            <td>Ing. Petr Novák</td>
-            <td>Mgr. Sylva Sadovská</td>
-            <td>ibm@europe.com</td>
-            <td>666777342</td>
-            <td>
-                <div class="ui checkbox">
-                    <input type="checkbox" name="example"><label></label>
-                </div>
-            </td>
-        </tr>
-
-        <tr>
-            <td>IBM</td>
-            <td>738728382332</td>
-            <td>Ing. Petr Novák</td>
-            <td>Mgr. Sylva Sadovská</td>
-            <td>ibm@europe.com</td>
-            <td>666777342</td>
-            <td>
-                <div class="ui checkbox">
-                    <input type="checkbox" name="example"><label></label>
-                </div>
-            </td>
-        </tr>
-    </tbody>
-</table>

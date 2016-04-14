@@ -1,7 +1,7 @@
 // public/js/app.js
 
 var app = angular.module('conferenceApp', ['ui.router', 'multipleSelect', 'formatters', 'angular-filepicker',
-    'MainCtrl', 'LoginCtrl', 'DashboardCtrl', 'AUsersCtrl', 'UserCtrl', 'HomeCtrl', 'ConferenceCtrl', 'ParticipantsCtrl', 'ParticipantCtrl', 'InvitationAnswersCtrl',
+    'MainCtrl', 'LoginCtrl', 'DashboardCtrl', 'AUsersCtrl', 'UserCtrl', 'HomeCtrl', 'ConferenceCtrl', 'ParticipantsCtrl', 'ParticipantCtrl', 'InvitationAnswersCtrl','InvitationCtrl',
     'UserSrvc', 'SessionSrvc', 'AuthorizationSrvc', 'ConferenceSrvc', 'ParticipationSrvc', 'MessageSrvc', 'AttachementSrvc', 'EmailSrvc']);
 
 

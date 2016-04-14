@@ -156,5 +156,21 @@ module.exports = {
             callback(validation);
             return;
         });
+    },
+    
+    getActive: function(callback){
+        var validation = new ValidationResult({});
+        ConferenceModel.findOne({ "active": true }, "invitation", function(err, conferenceDB) {
+            if (err) {
+                validation.addError(err);
+                callback(validation);
+                return;
+            }
+            else {
+                validation.data = conferenceDB;
+                callback(validation);
+                return;
+            }
+        });
     }
 }

@@ -9,6 +9,12 @@ module.exports = function(app) {
         });
     });
 
+    app.post('/api/email/newEmailsCount', function(req, res) {
+        EmailService.getNewEmailsCount(function(validation) {
+            res.json(validation);
+        });
+    });
+
     app.post('/api/email/mark/:emailUID', function(req, res) {
         EmailService.mark(req.params.emailUID, function(validation) {
             res.json(validation);

@@ -51,6 +51,7 @@ module.exports = {
                                 return;
                             }
                             else {
+                                client.close();
                                 callback(validation);
                                 return;
                             }
@@ -106,6 +107,7 @@ module.exports = {
                                 return;
                             }
                             else {
+                                client.close();
                                 callback(validation);
                                 return;
                             }
@@ -114,6 +116,77 @@ module.exports = {
                 });
             }
         })
+    },
+
+    getNewEmailsCount: function(callback) {
+        var validation = new ValidationResult({});
+
+        // get conference-email info
+        ConferenceModel.findOne({ "active": true }, "email emailPort emailPassword", function(err, conferenceDB) {
+            if (err) {
+                validation.addError(err);
+                callback(validation);
+                return;
+            }
+            else {
+                // get imap server
+                var temp = conferenceDB.email.split("@");
+                var imapServer = temp[1];
+
+
+                // create connection
+                var client = inbox.createConnection(conferenceDB.emailPort, ("imap." + imapServer), {
+                    secureConnection: true,
+                    auth: {
+                        user: conferenceDB.email,
+                        pass: conferenceDB.emailPassword
+                    }
+                });
+                // connect to client
+                client.connect();
+
+                // if connected
+                client.on("connect", function() {
+                    // open INBOX
+                    client.openMailbox("INBOX", function(error, info) {
+
+                        // can not open INBOX
+                        if (error) {
+                            validation.addError(error);
+                            callback(validation);
+                            return;
+                        }
+
+                        var counter = 0;
+                        // get last 20 email
+                        client.listFlags(-20, function(err, messages) {
+                            messages.forEach(function(message) {
+                                if (!isSeen(message.flags)) {
+                                    counter++;
+                                }
+
+                            });
+                            validation.data.newEmailsCount = counter;
+                            callback(validation);
+                            return;
+                        });
+                    });
+
+                });
+            }
+        })
+
+        function isSeen(flags) {
+            var seen = false;
+            flags.forEach(function(flag) {
+                //console.log(flag);
+                if (flag === "\\Seen") {
+                    seen = true;
+                }
+            });
+            return seen;
+        }
+
     },
 
     getAll: function(callback) {

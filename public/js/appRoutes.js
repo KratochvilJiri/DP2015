@@ -95,7 +95,8 @@ app.config(function($stateProvider, $urlRouterProvider, filepickerProvider) {
 
         .state('home.invitation', {
             url: 'invitation',
-            templateUrl: 'views/invitation.html'
+            templateUrl: 'views/invitation.html',
+            controller: 'InvitationController'
         })
 
         .state('home.user', {

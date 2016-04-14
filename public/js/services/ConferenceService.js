@@ -1,15 +1,19 @@
-angular.module('ConferenceSrvc', []).factory('ConferenceService',["$http", function ($http){
+angular.module('ConferenceSrvc', []).factory('ConferenceService', ["$http", function($http) {
     return {
-        getAll: function(){
+        getAll: function() {
             return $http.get("/api/conference");
         },
-        
-        getFilteredList: function (conferenceIDs) {
+
+        getFilteredList: function(conferenceIDs) {
             return $http.post("/api/conference/getFilteredList", conferenceIDs);
         },
-        
-        save: function (conference) {
+
+        save: function(conference) {
             return $http.post("/api/conference", conference);
-        }           
-    }    
+        },
+
+        getActive: function() {
+            return $http.post("/api/conference/active");
+        }
+    }
 }]);

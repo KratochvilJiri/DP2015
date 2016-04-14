@@ -22,5 +22,11 @@ module.exports = function(app) {
         });
     });
 
+    app.post('/api/conference/active', function(req, res) {
+        ConferenceService.getActive(function(validation) {
+            res.json(validation);
+        });
+    })
+
 
 };
