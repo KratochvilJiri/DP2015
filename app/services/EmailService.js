@@ -6,6 +6,116 @@ var MailParser = require("mailparser").MailParser;
 
 module.exports = {
 
+    remove: function(emailUID, callback) {
+        var validation = new ValidationResult([]);
+
+        ConferenceModel.findOne({ "active": true }, "email emailPort emailPassword", function(err, conferenceDB) {
+            if (err) {
+                validation.addError(err);
+                callback(validation);
+                return;
+            }
+            else {
+                // get imap server
+                var temp = conferenceDB.email.split("@");
+                var imapServer = temp[1];
+
+
+                // create connection
+                var client = inbox.createConnection(conferenceDB.emailPort, ("imap." + imapServer), {
+                    secureConnection: true,
+                    auth: {
+                        user: conferenceDB.email,
+                        pass: conferenceDB.emailPassword
+                    }
+                });
+                // connect to client
+                client.connect();
+
+                client.on("connect", function() {
+                    // open INBOX
+                    client.openMailbox("INBOX", function(error, info) {
+
+                        // can not open INBOX
+                        if (error) {
+                            validation.addError(error);
+                            callback(validation);
+                            return;
+                        }
+
+                        // get last 20 email
+                        client.deleteMessage(emailUID, function(err) {
+                            if (err) {
+                                validation.addError(err);
+                                callback(validation);
+                                return;
+                            }
+                            else {
+                                callback(validation);
+                                return;
+                            }
+                        });
+                    });
+                });
+            }
+        })
+    },
+
+    mark: function(emailUID, callback) {
+        var validation = new ValidationResult([]);
+
+        ConferenceModel.findOne({ "active": true }, "email emailPort emailPassword", function(err, conferenceDB) {
+            if (err) {
+                validation.addError(err);
+                callback(validation);
+                return;
+            }
+            else {
+                // get imap server
+                var temp = conferenceDB.email.split("@");
+                var imapServer = temp[1];
+
+
+                // create connection
+                var client = inbox.createConnection(conferenceDB.emailPort, ("imap." + imapServer), {
+                    secureConnection: true,
+                    auth: {
+                        user: conferenceDB.email,
+                        pass: conferenceDB.emailPassword
+                    }
+                });
+                // connect to client
+                client.connect();
+
+                client.on("connect", function() {
+                    // open INBOX
+                    client.openMailbox("INBOX", function(error, info) {
+
+                        // can not open INBOX
+                        if (error) {
+                            validation.addError(error);
+                            callback(validation);
+                            return;
+                        }
+
+                        // get last 20 email
+                        client.addFlags(emailUID, ["\\Seen"], function(err, flags) {
+                            if (err) {
+                                validation.addError(err);
+                                callback(validation);
+                                return;
+                            }
+                            else {
+                                callback(validation);
+                                return;
+                            }
+                        })
+                    });
+                });
+            }
+        })
+    },
+
     getAll: function(callback) {
 
         var validation = new ValidationResult([]);
@@ -85,7 +195,9 @@ module.exports = {
                                         from: parsedEmail.from,
                                         date: parsedEmail.date,
                                         subject: parsedEmail.subject,
-                                        content: parsedEmail.text
+                                        content: parsedEmail.text,
+                                        flags: emailData.flags,
+                                        UID: emailData.UID
                                     };
                                     // add email to validation data
                                     validation.data.push(mailToSend);

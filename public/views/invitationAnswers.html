@@ -1,11 +1,38 @@
 <div class="ui attached message">
     <div class="header">
-        Konference
+        Odpovědi na pozvání
     </div>
 </div>
 <div class="form attached fluid segment">
-  <div ng-class="{ active: isActive(true)}" class="ui dimmer">
-    <div class="ui indeterminate text loader">Stahování emailů</div>
-  </div>
-  <p></p>
+    <div ng-class="{ active: isActive(true)}" class="ui dimmer">
+        <div class="ui indeterminate text loader">Stahování emailů</div>
+    </div>
+
+    <div class="ui accordion" ng-repeat="email in emails">
+        <form class="ui form attached fluid segment">
+            <div class="field">
+                <div class="active title">
+                    <h5>
+                        <i ng-if="!isSeen(email.flags)" class="mail icon"></i>
+                        <i ng-if="isSeen(email.flags)" class="unhide icon"></i>
+                        {{email.from[0].name}} [{{email.from[0].address}}] 
+                    </h5> 
+                    {{email.date | date:'dd/MM/yyyy HH:mm:ss'}}
+                </div>
+
+                <div class="content">
+                    <textarea readonly>{{email.content}}</textarea>
+                </div>
+            </div>
+            <div class="field">
+                <a ng-if="!isSeen(email.flags)" ng-click="markAsSeen(email.UID)" class="ui small button basic">
+                    <i class="unhide icon"></i> Označit jako přečtené
+                </a>
+                <a ng-click="remove(email.UID)" class="ui small button basic">
+                    <i class="remove red icon"></i> Odstranit
+                </a>
+            </div>
+        </form>
+    </div>
+
 </div>
