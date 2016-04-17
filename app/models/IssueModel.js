@@ -19,6 +19,16 @@ module.exports = mongoose.model('Issue',{
         enum: ['DONE', 'IN_PROGRESS'], 
         required: true
     },
+    type: {
+        type: String,
+        enum: ['SYS_ERR', 'QUESTION', 'IMPROVEMENT_SUGG'],
+        required: true  
+    },
+    priority: {
+        type: String,
+        enum: ['LOW', 'NORMAL', 'HIGH'],
+        required: true  
+    },
     creator: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -26,12 +36,10 @@ module.exports = mongoose.model('Issue',{
     },
     supervisor: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        require: true
+        ref: 'User'
     },
      messages: [{
        type: mongoose.Schema.Types.ObjectId,
-       ref: 'Message',
-       required: true  
+       ref: 'Message'
      }]
 });

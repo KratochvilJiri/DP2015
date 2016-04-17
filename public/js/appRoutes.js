@@ -1,7 +1,7 @@
 // public/js/appRoutes.js
 
 app.config(function($stateProvider, $urlRouterProvider, filepickerProvider) {
-    
+
     filepickerProvider.setKey('ACDqZHX5DTLWEBMNdU2Jpz');
 
     $urlRouterProvider.otherwise('/login');
@@ -27,21 +27,27 @@ app.config(function($stateProvider, $urlRouterProvider, filepickerProvider) {
             templateUrl: 'views/dashboard.html',
             controller: 'DashboardController'
         })
-        
+
         .state('home.invitationAnswers', {
             url: 'invitationAnswers',
             templateUrl: 'views/invitationAnswers.html',
             controller: 'InvitationAnswersController'
         })
 
-        .state('home.helpdesk', {
+        .state('home.helpdeskOverview', {
             url: 'helpdesk',
-            templateUrl: 'views/helpdesk.html'
+            templateUrl: 'views/helpdesk/overview.html'
         })
 
         .state('home.helpdeskIssue', {
-            url: 'helpdesk/issueXY',
-            templateUrl: 'views/helpdeskIssue.html'
+            url: 'helpdesk/issueDetail',
+            templateUrl: 'views/helpdesk/issueDetail.html'
+        })
+
+        .state('home.helpdeskIssueCreation', {
+            url: 'helpdesk/issueCreation',
+            templateUrl: 'views/helpdesk/issueCreation.html',
+            controller: 'IssueCreationController'
         })
 
         .state('home.participants', {

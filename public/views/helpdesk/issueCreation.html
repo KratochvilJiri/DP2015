@@ -1,0 +1,46 @@
+<div class="ui attached message">
+    <div class="header">
+        Vytvořit nový problém
+    </div>
+</div>
+<form class="ui form attached fluid segment">
+    <div class="field required">
+        <label>Název problému:</label>
+        <input placeholder="Název problému" ng-model="issue.name">
+    </div>
+    <div class="two fields">
+        <div class="field required">
+            <label>Priorita problému:</label>
+            <div class="ui fluid search selection dropdown">
+                <input type="hidden" name="country">
+                <i class="dropdown icon"></i>
+                <div class="default text">Priorita problému</div>
+                <div class="menu">
+                    <div ng-repeat="priority in priorities" class="item" ng-click="setPriority(priority.constant)">
+                        <div class="ui {{priority.color}} empty circular label"></div>{{priority.name}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="field required">
+            <label> Typ problému:</label>
+            <div class="ui fluid search selection dropdown">
+                <input type="hidden" name="country">
+                <i class="dropdown icon"></i>
+                <div class="default text">Typ problému</div>
+                <div class="menu">
+                    <div ng-repeat="type in types" class="item" ng-click="setType(type.constant)">
+                        <div class="ui {{type.color}} empty circular label"></div>{{type.name}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="field required">
+        <label>Popis problému:</label>
+        <textarea placeholder="Popis problému" ng-model="issue.description"> </textarea>
+    </div>
+</form>
+<div class="ui bottom attached warning message">
+    <a ng-click="save()" class="ui button basic my-orange">
+        <i class="save icon"></i> Uložit
+    </a>
+</div>
