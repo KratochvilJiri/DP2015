@@ -36,7 +36,8 @@ app.config(function($stateProvider, $urlRouterProvider, filepickerProvider) {
 
         .state('home.helpdeskOverview', {
             url: 'helpdesk',
-            templateUrl: 'views/helpdesk/overview.html'
+            templateUrl: 'views/helpdesk/overview.html',
+            controller: 'OverviewController'
         })
 
         .state('home.helpdeskIssue', {
