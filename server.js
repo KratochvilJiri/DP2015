@@ -63,6 +63,7 @@ require('./app/routes/ParticipationRoutes')(app);
 require('./app/routes/MessageRoutes')(app);
 require('./app/routes/AttachementRoutes')(app);
 require('./app/routes/EmailRoutes')(app);
+require('./app/routes/IssueRoutes')(app);
 require('./app/routes/XRoutes')(app);
 
 // start app ===============================================
