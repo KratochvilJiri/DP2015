@@ -1,6 +1,11 @@
 angular.module("UserSrvc", []).factory("UserService", ["$http", function($http){
 
 	return{
+        
+        getUninvited: function(conferenceID) {
+            return $http.post("/api/user/uninvited/" + conferenceID);    
+        },
+        
 		save: function(user){
 			return $http.post("/api/user", user);
 		},

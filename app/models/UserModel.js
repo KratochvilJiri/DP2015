@@ -39,7 +39,7 @@ module.exports = mongoose.model('User', {
     
     participations: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Participant'
+        ref: 'Participantion'
     }],
     assignedIssues: [{
         type: mongoose.Schema.Types.ObjectId,

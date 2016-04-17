@@ -2,6 +2,13 @@ module.exports = function(app) {
 
 		var UserService = require('./../services/UserService');
 
+        app.post('/api/user/uninvited/:conferenceID', function(req, res) {
+            UserService.getUninvited(req.params.conferenceID, function(validation){
+                res.json(validation);
+            });    
+        }); 
+
+
         // create user and send back all users after creation
         app.post('/api/user', function(req, res) {
             UserService.save(req.body, function(validation){

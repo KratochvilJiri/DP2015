@@ -7,13 +7,17 @@ angular.module('ConferenceSrvc', []).factory('ConferenceService', ["$http", func
         getFilteredList: function(conferenceIDs) {
             return $http.post("/api/conference/getFilteredList", conferenceIDs);
         },
+        
+        getLast5: function () {
+            return $http.post("/api/conference/getLast5");
+        },
 
         save: function(conference) {
             return $http.post("/api/conference", conference);
         },
 
-        getActive: function() {
-            return $http.post("/api/conference/active");
+        getActive: function(attributes) {
+            return $http.post("/api/conference/active/" + attributes);
         }
     }
 }]);

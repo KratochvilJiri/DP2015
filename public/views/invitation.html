@@ -4,25 +4,23 @@
     </div>
 </div>
 <form class="ui form attached fluid segment">
-    <div class="field">
+    <div class="field required">
         <label>Pozvaní účastníci:</label>
-        <select class="ui fluid search dropdown" multiple="">
+        <select class="ui fluid search dropdown" ng-options="participant.name for participant in uninvited" ng-model="invitation.addressees" multiple="">
             <option value="">Vyberte účastníky</option>
-            <option value="AL">Alabama</option>
-            <option value="AK">Alaska</option>
-            <option value="AZ">Arizona</option>
-            <option value="AR">Arkansas</option>
-            <option value="CA">California</option>
-            <option value="CO">Colorado</option>
         </select>
     </div>
-    <div class="field">
+    <div class="field required">
+        <label>Předmět pozvánky:</label>
+        <input type="text" ng-model="invitation.subject" placeholder="Předmět pozvánky">
+    </div>
+    <div class="field required">
         <label> Text pozvánky: </label>
-        <textarea>{{invitation}}</textarea>
+        <textarea ng-model="invitation.text"></textarea>
     </div>
 </form>
 <div class="ui bottom attached warning message">
-    <a ng-click="save()" class="ui button basic my-orange">
+    <a ng-click="sendInvitations()" class="ui button basic my-orange">
         <i class="send outline icon"></i> Odeslat pozvánky
     </a>
 </div>

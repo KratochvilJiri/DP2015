@@ -22,8 +22,14 @@ module.exports = function(app) {
         });
     });
 
-    app.post('/api/conference/active', function(req, res) {
-        ConferenceService.getActive(function(validation) {
+    app.post('/api/conference/active/:attributes', function(req, res) {
+        ConferenceService.getActive(req.params.attributes, function(validation) {
+            res.json(validation);
+        });
+    })
+
+    app.post("/api/conference/getLast5", function(req, res) {
+        ConferenceService.getLast5(function(validation) {
             res.json(validation);
         });
     })

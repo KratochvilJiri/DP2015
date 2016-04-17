@@ -6,7 +6,7 @@ var Attendee = require('./AttendeeStructure');
 module.exports = mongoose.model('Participation', {
     state: {
         type: String,
-        enum: ['CANCELLED', 'APPROVED', 'COMPLETE', 'CONTRACT_IN_PROGRESS', 'CONTRACT_SIGNED'],
+        enum: ['INVITED', 'CANCELLED', 'APPROVED', 'COMPLETE', 'CONTRACT_IN_PROGRESS', 'CONTRACT_SIGNED'],
         required: true
     },
     messages: [{
@@ -21,7 +21,10 @@ module.exports = mongoose.model('Participation', {
     communicationSummary: {
         type: String
     },
-    sponsorshipLevel: SponsorshipLevelStructure,
+    sponsorshipLevel: {
+        value: Number,
+        type: SponsorshipLevelStructure
+    },
     conference: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Conference',

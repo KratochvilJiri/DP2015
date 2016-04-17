@@ -26,4 +26,10 @@ module.exports = function(app) {
             res.json(validation);
         });
     });
+    
+        app.post('/api/email/send', function(req, res) {
+        EmailService.send(req.body, function(validation) {
+            res.json(validation);
+        });
+    });
 };

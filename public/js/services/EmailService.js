@@ -12,7 +12,10 @@ angular.module("EmailSrvc", []).factory("EmailService", ["$http", function($http
 		},
         remove: function(emailID){
 			return $http.post("/api/email/remove/"  + emailID);
-		}
+		},
+        send: function(emailStructure){
+            return $http.post("/api/email/send", emailStructure);
+        }
 	}
 
 }]);

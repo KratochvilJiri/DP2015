@@ -49,6 +49,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     // get sponsorshipLevel documents
     var getAttachementTypes = function() {
         $scope.conference.sponsorshipLevels.forEach(function(sponsorshipLevel) {
+            console.log(sponsorshipLevel);
             if (sponsorshipLevel.name === $scope.participation.sponsorshipLevel.name)
                 $scope.attachementTypes = sponsorshipLevel.attachementTypes;
         })
@@ -158,8 +159,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
 
     // save updated participation
     $scope.updateParticipation = function() {
-        console.log($scope.picFile);
-        console.log($scope.myForm);
+        console.log($scope.participation);
          ParticipationService.save($scope.participation)
              .success(function(data, status, headers, config) {
                  if (data.isValid) {
@@ -188,8 +188,12 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             $scope.conference = $scope.ParticipatedConferences[0];
             $scope.participation = $scope.participations[0];
         }
-        $scope.participation.messages = $scope.participation.messages.slice().reverse()
-        getAttachementTypes();
+        if($scope.participation.messages){
+            $scope.participation.messages = $scope.participation.messages.slice().reverse()
+        }
+        if($scope.conference._id){
+            getAttachementTypes();
+        }
     }
 
     // create new participation of participant

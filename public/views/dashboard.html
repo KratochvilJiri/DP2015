@@ -1,11 +1,11 @@
 <div class="ui grid">
     <div class="row bottom aligned">
         <div class="ten wide column">
-            <h1 class="ui header displayInline">Excel@FIT 2016 </h1>
-            <p class="displayInline">24.5.2016</p>
+            <h1 class="ui header displayInline">{{conference.name}} </h1>
+            <p class="displayInline">{{conference.date | date:'dd/MM/yyyy'}}</p>
         </div>
         <div class="six wide column right aligned">
-            <h5 class="ui displayInline">Zbývá 123 dnů</h5>
+            <h5 class="ui displayInline">Zbývá {{dayRemaining}} dnů</h5>
         </div>
     </div>
 
@@ -43,7 +43,7 @@
                     <h4>Účastníků:</h4>
                 </td>
                 <td>
-                    <a href="">potvrzeno (7)</a> / <a href="">přislíbeno (5)</a> / <a href="">odmítnuto (8)</a>
+                    <a href="">pozváno ({{conference.invited}})</a> / <a href="">přislíbeno ({{conference.approved}})</a> / <a href="">potvrzeno ({{conference.complete}})</a> / <a href="">odmítnuto ({{conference.cancelled}})</a>
                 </td>
             </tr>
 
@@ -55,7 +55,7 @@
                     <h4>Sponzoské dary:</h4>
                 </td>
                 <td>
-                    <a href="">přislíbeno (450 000 Kč)</a> / <a href="">přijato (20 000 Kč)</a>
+                    <a href="">přislíbeno ({{conference.approvedMoney}} Kč)</a> / <a href="">přijato ({{conference.receivedMoney}} Kč)</a>
                 </td>
             </tr>
 
@@ -137,21 +137,13 @@
 <div class="ui grid BGWhite paddingBot3">
     <div class="row">
         <div class="column">
-            <h3 class="ui header displayInline">Předchozí konference:</h3>
+            <h3 class="ui header displayInline">Ostatní akce:</h3>
         </div>
     </div>
-    <div class="stackable seven column row grid-container">
+    <div class="stackable seven column row grid-container" ng-repeat="conference in otherConferences">
         <a href="" class="column BGBlue ui segment marginRight075">
-            <h4 class="ui header fontGrey">Excel@FIT 2015</h4>
-            <span class="bottom alligned fontGrey">30.4.2015</span>
-        </a>
-        <a href="" class="column BGBlue ui segment marginRight075">
-            <h4 class="ui header fontGrey">EEICT 2014</h4>
-            <span class="bottom alligned fontGrey">24.4.2015</span>
-        </a>
-        <a href="" class="column BGBlue ui segment marginRight075">
-            <h4 class="ui header fontGrey">EEICT 2013</h4>
-            <span class="bottom alligned fontGrey">26.4.2014</span>
+            <h4 class="ui header fontGrey">{{conference.name}}</h4>
+            <span class="bottom alligned fontGrey">{{conference.date | date:'dd/MM/yyyy'}}</span>
         </a>
     </div>
 </div>

@@ -1,25 +1,69 @@
-   // probably useless
-angular.module('InvitationCtrl', []).controller('InvitationController',['$scope', 'ConferenceService', function($scope, ConferenceService) {
+// probably useless
+angular.module('InvitationCtrl', []).controller('InvitationController', ['$scope', 'ConferenceService', 'UserService', 'EmailService', function($scope, ConferenceService, UserService, EmailService) {
 
-$scope.invitation
+    $scope.addressees = [];
+    $scope.uninvited = [];
+    $scope.invitation = {};
+    $scope.invitationEmail = {};
 
 
-        ConferenceService.getActive()
-        .success(function(data) {
-            if (data.isValid) {
-                $scope.invitation = data.data.invitation;
-                console.log(data);
-                console.log($scope.invitation);
-            }
-            else {
-                $scope.showErrors(data.errors);
-            }
+    var getUninvited = function(participants) {
+        participants.forEach(function(participant) {
+            if (participant.participations.length == 0)
+                $scope.uninvited.push(participant);
         })
-        .error(function(data, status) {
-            console.log('Error: ', status, data.error);
-        });
-   
+    }
+
+    var loadParticipants = function(conferenceID) {
+        UserService.getUninvited(conferenceID)
+            .success(function(data, status, headers, config) {
+                if (data.isValid) {
+                    getUninvited(data.data);
+                }
+                else {
+                    $scope.showErrors(data.errors);
+                }
+            })
+            .error(function(data, status) {
+                console.error('Error', status, data);
+            });
+    }
+
+
+    var getInvitation = function() {
+        ConferenceService.getActive()
+            .success(function(data) {
+                if (data.isValid) {
+                    $scope.invitation.text = data.data.invitation;
+                    loadParticipants(data.data._id);
+                }
+                else {
+                    $scope.showErrors(data.errors);
+                }
+            })
+            .error(function(data, status) {
+                console.log('Error: ', status, data.error);
+            });
+    }
+
+    $scope.sendInvitations = function() {
+        EmailService.send($scope.invitation)
+            .success(function(data) {
+                if (data.isValid) {
+                    $scope.showSuccess("Zvací email byl úspěšně odeslán.");
+                }
+                else {
+                    $scope.showErrors(data.errors);
+                }
+            })
+            .error(function(data, status) {
+                console.log('Error: ', status, data.error);
+            });
+    }
+
+    getInvitation();
+
+
 
 }]);
-   
-  
+

@@ -8,9 +8,10 @@
         <div class="field required" ng-if="session.currentUser.permissions.ParticipantAdministration">
             <label>Stav:</label>
             <select class="ui dropdown" ng-model="participation.state">
+                <option value="INVITED">Pozván</option>
                 <option value="CANCELLED">Odmítnuto</option>
                 <option value="APPROVED">Přislíbeno</option>
-                <option value="COMPLETE0">Potvrzeno</option>
+                <option value="COMPLETE">Potvrzeno</option>
                 <option value="CONTRACT_IN_PROGRESS0">Smlouva v jednání</option>
                 <option value="CONTRACT_SIGNED">Smouva podepsána</option>
             </select>
@@ -28,7 +29,7 @@
         </div>
         <div class="field required">
             <label>Úroveň sponzorství:</label>
-            <select ng-disabled="session.currentUser.permissions.ParticipantDashboardModule" class="ui dropdown" ng-model="participation.sponsorshipLevel.name" ng-options="item.name as item.name for item in conference.sponsorshipLevels">
+            <select ng-disabled="session.currentUser.permissions.ParticipantDashboardModule" class="ui dropdown" ng-model="participation.sponsorshipLevel.type" ng-options="item as item.name for item in conference.sponsorshipLevels track by item._id">
                 <option value="" select disabled>Vyberte úroveň sponzorství</option>
             </select>
         </div>

@@ -157,20 +157,63 @@ module.exports = {
             return;
         });
     },
-    
-    getActive: function(callback){
+
+    getActive: function(attributes, callback) {
         var validation = new ValidationResult({});
-        ConferenceModel.findOne({ "active": true }, "invitation", function(err, conferenceDB) {
+
+        if (attributes == "PARTICIPANTS") {
+            ConferenceModel.findOne({ "active": true }, "name date place sponsorshipLevels participations")
+                .populate({
+                    path: 'participations', model: 'Participation', select: "state sponsorshipLevel"
+                })
+                .exec(function(err, conferenceDB) {
+                    if (err) {
+                        validation.addError(err);
+                        callback(validation);
+                        return;
+                    }
+                    else {
+                        validation.data = conferenceDB;
+                        callback(validation);
+                        return;
+                    }
+                });
+        }
+
+        else {
+            ConferenceModel.findOne({ "active": true }, "invitation", function(err, conferenceDB) {
+                if (err) {
+                    validation.addError(err);
+                    callback(validation);
+                    return;
+                }
+                else {
+                    validation.data = conferenceDB;
+                    callback(validation);
+                    return;
+                }
+            });
+        }
+    },
+
+    getLast5: function(callback) {
+        var validation = new ValidationResult({});
+
+        ConferenceModel.find({"active": false },'name date')
+            .limit(5)
+            .sort('-date')
+            .exec(function(err, allConference) {
+            // get all conference error
             if (err) {
-                validation.addError(err);
+                validation.addError("Nepodařilo se získat seznam konferencí (getList)");
                 callback(validation);
                 return;
             }
-            else {
-                validation.data = conferenceDB;
-                callback(validation);
-                return;
-            }
+            // all conference obtained
+            validation.data = allConference;
+
+            callback(validation);
+            return;
         });
     }
 }
