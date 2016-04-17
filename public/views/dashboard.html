@@ -3,7 +3,9 @@
         <div class="ten wide column">
             <h1 class="ui header displayInline">{{conference.name}} </h1>
             <p class="displayInline">{{conference.date | date:'dd/MM/yyyy'}}</p>
+            <p> {{conference.place}} </p>
         </div>
+
         <div class="six wide column right aligned">
             <h5 class="ui displayInline">Zbývá {{dayRemaining}} dnů</h5>
         </div>
@@ -68,7 +70,7 @@
                     <h4>Úrovně sponzorství:</h4>
                 </td>
                 <td>
-                    <a href="">zlatá (12)</a> / <a href="">stříbrná (14)</a> / <a href="">bronzová (5)</a>
+                    <a ng-repeat="sponsorshipLevel in conference.sponsorshipLevels" href="">{{sponsorshipLevel.name}}({{sponsorshipLevel.count}}) / </a>
                 </td>
             </tr>
 

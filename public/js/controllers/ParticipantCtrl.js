@@ -50,7 +50,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     var getAttachementTypes = function() {
         $scope.conference.sponsorshipLevels.forEach(function(sponsorshipLevel) {
             console.log(sponsorshipLevel);
-            if (sponsorshipLevel.name === $scope.participation.sponsorshipLevel.name)
+            if (sponsorshipLevel._id === $scope.participation.sponsorshipLevel.type._id)
                 $scope.attachementTypes = sponsorshipLevel.attachementTypes;
         })
         assignAttachement();
