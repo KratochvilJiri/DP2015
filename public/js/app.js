@@ -2,7 +2,7 @@
 
 var app = angular.module('conferenceApp', ['ui.router', 'multipleSelect', 'formatters', 'angular-filepicker',
     'MainCtrl', 'LoginCtrl', 'DashboardCtrl', 'AUsersCtrl', 'UserCtrl', 'HomeCtrl', 'ConferenceCtrl', 'ParticipantsCtrl', 'ParticipantCtrl', 'InvitationAnswersCtrl','InvitationCtrl','IssueCreationCtrl',
-    'UserSrvc', 'SessionSrvc', 'AuthorizationSrvc', 'ConferenceSrvc', 'ParticipationSrvc', 'MessageSrvc', 'AttachementSrvc', 'EmailSrvc']);
+    'UserSrvc', 'SessionSrvc', 'AuthorizationSrvc', 'ConferenceSrvc', 'ParticipationSrvc', 'MessageSrvc', 'AttachementSrvc', 'EmailSrvc', 'IssueSrvc']);
 
 
 app.run(function($rootScope, $timeout) {

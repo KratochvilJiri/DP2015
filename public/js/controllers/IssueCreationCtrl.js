@@ -1,4 +1,4 @@
-angular.module('IssueCreationCtrl', []).controller('IssueCreationController',['$scope', '$filter','SessionService', function($scope, $filter, SessionService) {
+angular.module('IssueCreationCtrl', []).controller('IssueCreationController',['$scope', '$filter','SessionService','IssueService', function($scope, $filter, SessionService,IssueService) {
 
     $scope.session = SessionService;
 
