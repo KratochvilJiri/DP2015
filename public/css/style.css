@@ -59,10 +59,6 @@ div.app-content {
 	padding: 0px !important;
 }
 
-.ui.message{
-	padding: 40px !important;
-}
-
 @media (max-width: 767px) {
   	.ui.inverted.navbar{
 	}
