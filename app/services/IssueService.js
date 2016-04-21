@@ -53,6 +53,24 @@ module.exports = {
             });
         }
     },
+    
+    getAll: function(callback){
+        var validation = new ValidationResult([]);
+        
+        IssueModel.find(function(err, issues) {
+                // get all users error
+                if (err) {
+                    validation.addError("Nepodařilo se získat seznam problému");
+                    callback(validation);
+                    return;
+                }
+                // all users obtained
+                validation.data = issues;
+
+                callback(validation);
+                return;
+            });
+    },
 
     // user structure validation
     validate: function(issue) {
