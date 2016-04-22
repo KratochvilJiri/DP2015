@@ -3,35 +3,34 @@ angular.module('IssueCreationCtrl', []).controller('IssueCreationController', ['
     $scope.session = SessionService;
 
     $scope.priorities = [
-        { constant: 'LOW', name: "Nízká", color: "yellow" },
-        { constant: 'NORMAL', name: "Střední", color: "orange" },
-        { constant: 'HIGH', name: "Vysoká", color: "red" },
+        { constant: 'LOW', text: "Nízká", color: "yellow" },
+        { constant: 'NORMAL', text: "Střední", color: "orange" },
+        { constant: 'HIGH', text: "Vysoká", color: "red" },
     ];
 
     $scope.types = [
-        { constant: 'SYS_ERR', name: "Systémová chyba", color: "red" },
-        { constant: 'QUESTION', name: "Otázka", color: "blue" },
-        { constant: 'IMPROVEMENT_SUGG', name: "Návrh na zlepšení", color: "green" },
+        { constant: 'SYS_ERR', text: "Systémová chyba", color: "red" },
+        { constant: 'QUESTION', text: "Otázka", color: "blue" },
+        { constant: 'IMPROVEMENT_SUGG', text: "Návrh na zlepšení", color: "green" },
     ];
 
     $scope.issue = {};
-    $scope.issue.colors = {};
+    $scope.issue.state = {};
 
     $scope.setType = function(type) {
-        $scope.issue.type = type.constant;
-        $scope.issue.colors.type = type.color;
+        $scope.issue.type = type;
     }
 
     $scope.setPriority = function(priority) {
-        $scope.issue.priority = priority.constant;
-        $scope.issue.colors.priority = priority.color;
+        $scope.issue.priority = priority;
     }
 
     $scope.save = function() {
         if (!$scope.issue._id) {
             $scope.issue.date = $filter('date')(new Date(), "yyyy-MM-dd'T'HH:mm:ss.sss'Z'");
-            $scope.issue.state = "IN_PROGRESS";
-            $scope.issue.colors.state = "red";
+            $scope.issue.state.constant = "IN_PROGRESS";
+            $scope.issue.state.color = "red";
+            $scope.issue.state.text = "V řešení";
             $scope.issue.creator = $scope.session.currentUser._id;
         }
         

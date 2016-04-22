@@ -36,7 +36,7 @@ module.exports = {
                         }
                         else {
                             dbUser.createdIssues.push(dbIssue._id);
-                             dbUser.save(function(err) {
+                            dbUser.save(function(err) {
                                 // error check
                                 if (err) {
                                     validation.addError("Nepodařilo se uložit uživatele po přidání vytvořeného problému");
@@ -53,23 +53,26 @@ module.exports = {
             });
         }
     },
-    
-    getAll: function(callback){
-        var validation = new ValidationResult([]);
-        
-        IssueModel.find(function(err, issues) {
-                // get all users error
-                if (err) {
-                    validation.addError("Nepodařilo se získat seznam problému");
-                    callback(validation);
-                    return;
-                }
-                // all users obtained
-                validation.data = issues;
 
+    getAll: function(callback) {
+        var validation = new ValidationResult([]);
+
+        IssueModel.find()
+             .populate('creator', 'name')
+             .populate('supervisor', 'name')
+            .exec(function(err, issues) {
+            // get all users error
+            if (err) {
+                validation.addError("Nepodařilo se získat seznam problému");
                 callback(validation);
                 return;
-            });
+            }
+            // all users obtained
+            validation.data = issues;
+
+            callback(validation);
+            return;
+        });
     },
 
     // user structure validation
@@ -79,8 +82,13 @@ module.exports = {
 
         validation.checkIfIsDefinedAndNotEmpty('name', "Název problému je povinný");
         validation.checkIfIsDefinedAndNotEmpty('description', "Popis problému je povinný");
-        validation.checkIfIsDefinedAndNotEmpty('priority', "Priorita problému je povinná");
-        validation.checkIfIsDefinedAndNotEmpty('type', "Typ problému je povinný");
+
+        if (!issue.type) {
+            validation.addError("Typ problému je povinný");
+        }
+        if(!issue.priority){
+            validation.addError("Priorita problému je povinná");
+        }
 
         return validation;
     }

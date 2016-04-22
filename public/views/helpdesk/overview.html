@@ -94,20 +94,20 @@
         </div>
     </div>
 </form>
-<form class="ui form attached fluid segment" ng-repeat="issue in issues">
+<form class="ui form attached fluid segment issueForm" ng-repeat="issue in issues">
     <div class="field">
         <h4>{{issue.name}}</h4>
     </div>
     <div class="two fields">
         <div class="field">
             <p>{{issue.description}}</p>
-            <div class="ui {{issue.colors.state}} horizontal label">{{issue.state}} </div>
-            <div class="ui {{issue.colors.type}}  horizontal label">{{issue.type}}</div>
-            <div class="ui {{issue.colors.priority}}  horizontal label">{{issue.priority}}</div>
+            <div class="ui {{issue.state.color}} horizontal label">{{issue.state.text}} </div>
+            <div class="ui {{issue.type.color}}  horizontal label">{{issue.type.text}}</div>
+            <div class="ui {{issue.priority.color}}  horizontal label">{{issue.priority.text}}</div>
         </div>
         <div class="field">
-            <p> {{issue.messages.length}} <i class="comment outline icon"></i> (Kratochvíl) </p>
-            <p> Otevřeno před ... </p>
+            <p> <i class="user outline icon"></i> {{issue.creator.name}} <i class="doctor outline icon"></i>  {{issue.supervisor.name}} <i class="comment outline icon"></i> {{issue.messages.length}} </p>
+            <p> <b>Vytvořeno:</b> {{issue.date | date:'dd/MM/yyyy HH:mm:ss'}} (před {{issue.daysOpened}} dny).</p>
         </div>
     </div>
 </form>

@@ -15,28 +15,40 @@ module.exports = mongoose.model('Issue', {
         required: true
     },
     state: {
-        type: String,
-        enum: ['DONE', 'IN_PROGRESS'],
-        required: true
+        constant: {
+            type: String,
+            enum: ['DONE', 'IN_PROGRESS'],
+            required: true
+        },
+        color: {
+            type: String
+        },
+        text: {
+            type: String
+        }
     },
     type: {
-        type: String,
-        enum: ['SYS_ERR', 'QUESTION', 'IMPROVEMENT_SUGG'],
-        required: true
+        constant: {
+            type: String,
+            enum: ['SYS_ERR', 'QUESTION', 'IMPROVEMENT_SUGG'],
+            required: true
+        },
+        color: {
+            type: String
+        },
+        text: {
+            type: String
+        }
     },
     priority: {
-        type: String,
-        enum: ['LOW', 'NORMAL', 'HIGH'],
-        required: true
-    },
-    colors: {
-        state: {
+        constant: {
+            type: String,
+            enum: ['LOW', 'NORMAL', 'HIGH'],
+            required: true },
+        color: {
             type: String
         },
-        type: {
-            type: String
-        },
-        priority: {
+        text: {
             type: String
         }
     },

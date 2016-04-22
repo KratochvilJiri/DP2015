@@ -105,6 +105,11 @@ div.app-content {
 
 /* Other */
 
+.issueForm:hover{
+    background-color: #EBEBEB;
+    cursor: pointer;
+}
+
 .fontS185{
     font-size: 1.85rem;
 }
