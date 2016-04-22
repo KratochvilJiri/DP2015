@@ -45,7 +45,7 @@
                     <h4>Účastníků:</h4>
                 </td>
                 <td>
-                    <a href="">pozváno ({{conference.invited}})</a> / <a href="">přislíbeno ({{conference.approved}})</a> / <a href="">potvrzeno ({{conference.complete}})</a> / <a href="">odmítnuto ({{conference.cancelled}})</a>
+                    <a href="">pozváno ({{conference.invited}})</a> / <a href="">přislíbeno ({{conference.approved}})</a>                    / <a href="">potvrzeno ({{conference.complete}})</a> / <a href="">odmítnuto ({{conference.cancelled}})</a>
                 </td>
             </tr>
 
@@ -79,8 +79,12 @@
 
     <div class="row" ng-if="session.currentUser.permissions.AdministatorDashboardModule">
         <div class="column">
-            <button ui-sref="home.user" class="ui right floated button BGBlue fontGrey">Registrovat</button>
-            <button ui-sref="home.invitation" class="ui right floated button BGBlue fontGrey">Pozvat</button>
+            <a ui-sref="home.user" class="ui button basic right floated my-orange">
+                <i class="add user icon"></i> Registrovat
+            </a>
+            <a ui-sref="home.invitation" class="ui button basic right floated my-orange">
+                <i class="announcement icon"></i> Pozvat
+            </a>
         </div>
     </div>
 
@@ -120,12 +124,12 @@
             </tr>
             <tr>
                 <td>
-                    <a class="ui basic button bottom aligned" ui-sref="home.participant.documents">
+                    <a class="ui basic button bottom aligned my-orange" ui-sref="home.participant.documents">
                         <i class="edit icon"></i>Editovat dokumenty
                     </a>
                 </td>
                 <td>
-                    <a class="ui basic button bottom aligned" ui-sref="home.participant.representatives">
+                    <a class="ui basic button bottom aligned my-orange" ui-sref="home.participant.representatives">
                         <i class="edit icon"></i>Editovat zástupce
                     </a>
                 </td>

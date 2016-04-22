@@ -1,11 +1,9 @@
-angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope', '$filter', 'EmailService', 'ConferenceService','SessionService', function($scope, $filter, EmailService, ConferenceService, SessionService) {
+angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope', '$filter', 'EmailService', 'ConferenceService', 'SessionService', function($scope, $filter, EmailService, ConferenceService, SessionService) {
     $scope.newEmails = "...";
     $scope.getDaysRemaining = "...";
     $scope.conference = {};
     $scope.session = SessionService;
-    
-    console.log($scope.session);
-    
+
     //$scope.loader.emails = false;
 
     var getDaysRemaining = function(confDate) {
@@ -88,7 +86,6 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
         ConferenceService.get($scope.conferenceTemp)
             .success(function(data) {
                 if (data.isValid) {
-                    console.log(data);
                     $scope.conference = data.data;
                     getDaysRemaining(data.data.date);
                     getParticipationsInfo();
@@ -117,9 +114,14 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
             });
     }
 
-    getLast5();
-    getNewEmailsCount();
-    getParticAndConfInfo();
+    $scope.$watch('session.currentUser', function() {
+        if ($scope.session.currentUser) {
+            getLast5();
+            getNewEmailsCount();
+            getParticAndConfInfo();
+        }
+    });
+
 
 
     $scope.Loaded = function() {
