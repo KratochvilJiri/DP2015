@@ -1,224 +1,115 @@
-<div class="ui four column grid">
-    <!-- mobile only filters -->
-    <div class="mobile only sixteen wide column">
-        <div class="ui medium icon input fluid">
-            <input type="text" placeholder="Hledat...">
-            <i class="search icon"></i>
-        </div>
-    </div>
-
-    <div class="mobile only sixteen wide column paddingTop0">
-        <div class="ui floating labeled icon dropdown button fluid">
-            <i class="filter icon"></i>
-            <span class="text">Stav</span>
-            <div class="menu">
-                <div class="item">
-                    <div class="ui red empty circular label"></div>
-                    V řešení
-                </div>
-                <div class="item">
-                    <div class="ui green empty circular label"></div>
-                    Vyřešeno
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="mobile only sixteen wide column paddingTop0">
-        <div class="ui floating labeled icon dropdown button fluid">
-            <i class="filter icon"></i>
-            <span class="text">Typ</span>
-            <div class="menu">
-                <div class="item">
-                    <div class="ui red empty circular label"></div>
-                    Chyba systému
-                </div>
-                <div class="item">
-                    <div class="ui blue empty circular label"></div>
-                    Návrh na zlepšení
-                </div>
-                <div class="item">
-                    <div class="ui black empty circular label"></div>
-                    Dotaz
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="mobile only sixteen wide column paddingTop0">
-        <div class="ui floating labeled icon dropdown button fluid">
-            <i class="filter icon"></i>
-            <span class="text">Priorita</span>
-            <div class="menu">
-                <div class="item">
-                    <div class="ui yellow empty circular label"></div>
-                    Nízká
-                </div>
-                <div class="item">
-                    <div class="ui orange empty circular label"></div>
-                    Střední
-                </div>
-                <div class="item">
-                    <div class="ui red empty circular label"></div>
-                    Vysoká
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="mobile only sixteen wide column paddingTop0">
-        <div class="ui floating labeled icon dropdown button fluid">
-            <i class="filter icon"></i>
-            <span class="text">Přiřazeno</span>
-            <div class="menu">
-                <div class="item">
-                    Sadovská
-                </div>
-                <div class="item">
-                    Kreslíková
-                </div>
-                <div class="item">
-                    Zemčík
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="mobile only sixteen wide column paddingTop0">
-        <button ui-sref="home.helpdeskIssueCreation" class="ui button fontWhite BGBlue fluid">
-            Nový problém
-        </button>
-    </div>
-    <!-- mobile menu end -->
-
-    <div class="tablet only computer only four wide column">
-        <div class="ui medium icon input fluid">
-            <input type="text" placeholder="Hledat...">
-            <i class="search icon"></i>
-        </div>
-    </div>
-    <div class="tablet only computer only twelve wide column right aligned">
-        <button ui-sref="home.helpdeskIssueCreation" class="ui button fontWhite BGBlue">
-            Nový problém
-        </button>
-    </div>
-
-    <div class="tablet only computer only sixteen wide column paddingTop0">
-        <div class="ui floating labeled icon dropdown button">
-            <i class="filter icon"></i>
-            <span class="text">Stav</span>
-            <div class="menu">
-                <div class="item">
-                    <div class="ui red empty circular label"></div>
-                    V řešení
-                </div>
-                <div class="item">
-                    <div class="ui green empty circular label"></div>
-                    Vyřešeno
-                </div>
-            </div>
-        </div>
-
-        <div class="ui floating labeled icon dropdown button">
-            <i class="filter icon"></i>
-            <span class="text">Typ</span>
-            <div class="menu">
-                <div class="item">
-                    <div class="ui red empty circular label"></div>
-                    Chyba systému
-                </div>
-                <div class="item">
-                    <div class="ui blue empty circular label"></div>
-                    Návrh na zlepšení
-                </div>
-                <div class="item">
-                    <div class="ui black empty circular label"></div>
-                    Dotaz
-                </div>
-            </div>
-        </div>
-
-        <div class="ui floating labeled icon dropdown button">
-            <i class="filter icon"></i>
-            <span class="text">Priorita</span>
-            <div class="menu">
-                <div class="item">
-                    <div class="ui yellow empty circular label"></div>
-                    Nízká
-                </div>
-                <div class="item">
-                    <div class="ui orange empty circular label"></div>
-                    Střední
-                </div>
-                <div class="item">
-                    <div class="ui red empty circular label"></div>
-                    Vysoká
-                </div>
-            </div>
-        </div>
-
-        <div class="ui floating labeled icon dropdown button">
-            <i class="filter icon"></i>
-            <span class="text">Přiřazeno</span>
-            <div class="menu">
-                <div class="item">
-                    Sadovská
-                </div>
-                <div class="item">
-                    Kreslíková
-                </div>
-                <div class="item">
-                    Zemčík
-                </div>
-            </div>
-        </div>
+<div class="ui attached message">
+    <div class="header">
+        Helpdesk - přehled
     </div>
 </div>
+<form class="ui form attached fluid segment">
+    <div class="fields">
+        <div class="field">
+            <a class="ui basic button my-orange" ui-sref="home.helpdeskIssueCreation">
+                <i class="add icon"></i>Nový problém
+            </a>
+        </div>
+        <div class="four wide field">
+            <div class="ui medium icon input fluid">
+                <input type="text" placeholder="Hledat...">
+                <i class="search icon"></i>
+            </div>
+        </div>
+    </div>
+    <div class="fields">
+        <div class="field">
+            <div class="ui floating labeled icon dropdown button">
+                <i class="filter icon"></i>
+                <span class="text">Stav</span>
+                <div class="menu">
+                    <div class="item">
+                        <div class="ui red empty circular label"></div>
+                        V řešení
+                    </div>
+                    <div class="item">
+                        <div class="ui green empty circular label"></div>
+                        Vyřešeno
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui floating labeled icon dropdown button">
+                <i class="filter icon"></i>
+                <span class="text">Typ</span>
+                <div class="menu">
+                    <div class="item">
+                        <div class="ui red empty circular label"></div>
+                        Chyba systému
+                    </div>
+                    <div class="item">
+                        <div class="ui blue empty circular label"></div>
+                        Návrh na zlepšení
+                    </div>
+                    <div class="item">
+                        <div class="ui black empty circular label"></div>
+                        Dotaz
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field">
 
-<div class="ui grid">
-    <div class="two column stackable row">
-        <a ui-sref="home.helpdeskIssue" class="eight wide column">
-            <h3 class="ui header displayInline">Nelze změnit uživatelské heslo: </h3>
-            <p> Po změně uživatelského hesla, nelze provést uložení nastavení.... </p>
-            <div class="ui red horizontal label">V řešení</div>
-            <div class="ui blue horizontal label">Návrh na zlepšení</div>
-            <div class="ui yellow horizontal label">Nízká</div>
-        </a>
-        <a href="" class="column bottom aligned">
-            <p class="displayInline"> 68 <i class="comment outline icon"></i></p>
-            <h4 class="ui header displayInline">(Kratochvíl)</h4>
-            <p> Otevřeno před 54 dny. </p>
-        </a>
+            <div class="ui floating labeled icon dropdown button">
+                <i class="filter icon"></i>
+                <span class="text">Priorita</span>
+                <div class="menu">
+                    <div class="item">
+                        <div class="ui yellow empty circular label"></div>
+                        Nízká
+                    </div>
+                    <div class="item">
+                        <div class="ui orange empty circular label"></div>
+                        Střední
+                    </div>
+                    <div class="item">
+                        <div class="ui red empty circular label"></div>
+                        Vysoká
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui floating labeled icon dropdown button">
+                <i class="filter icon"></i>
+                <span class="text">Přiřazeno</span>
+                <div class="menu">
+                    <div class="item">
+                        Sadovská
+                    </div>
+                    <div class="item">
+                        Kreslíková
+                    </div>
+                    <div class="item">
+                        Zemčík
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="ui divider"></div>
-    <div class="two column stackable row">
-        <a href="" class="eight wide column">
-            <h3 class="ui header displayInline">Nelze změnit uživatelské heslo: </h3>
-            <p> Po změně uživatelského hesla, nelze provést uložení nastavení.... </p>
-            <div class="ui red horizontal label">V řešení</div>
-            <div class="ui blue horizontal label">Návrh na zlepšení</div>
-            <div class="ui yellow horizontal label">Nízká</div>
-        </a>
-        <a href="" class="column bottom aligned">
-            <p class="displayInline"> 68 <i class="comment outline icon"></i></p>
-            <h4 class="ui header displayInline">(Kratochvíl)</h4>
-            <p> Otevřeno před 54 dny. </p>
-        </a>
+</form>
+<form class="ui form attached fluid segment" ng-repeat="issue in issues">
+    <div class="field">
+        <h4>{{issue.name}}</h4>
     </div>
-    <div class="ui divider"></div>
-    <div class="two column stackable row">
-        <a href="" class="eight wide column">
-            <h3 class="ui header displayInline">Nelze změnit uživatelské heslo: </h3>
-            <p> Po změně uživatelského hesla, nelze provést uložení nastavení.... </p>
-            <div class="ui red horizontal label">V řešení</div>
-            <div class="ui blue horizontal label">Návrh na zlepšení</div>
-            <div class="ui yellow horizontal label">Nízká</div>
-        </a>
-        <a href="" class="column bottom aligned">
-            <p class="displayInline"> 68 <i class="comment outline icon"></i></p>
-            <h4 class="ui header displayInline">(Kratochvíl)</h4>
-            <p> Otevřeno před 54 dny. </p>
-        </a>
+    <div class="two fields">
+        <div class="field">
+            <p>{{issue.description}}</p>
+            <div class="ui {{issue.colors.state}} horizontal label">{{issue.state}} </div>
+            <div class="ui {{issue.colors.type}}  horizontal label">{{issue.type}}</div>
+            <div class="ui {{issue.colors.priority}}  horizontal label">{{issue.priority}}</div>
+        </div>
+        <div class="field">
+            <p> {{issue.messages.length}} <i class="comment outline icon"></i> (Kratochvíl) </p>
+            <p> Otevřeno před ... </p>
+        </div>
     </div>
-    <div class="ui divider"></div>
-</div>
+</form>
+
+

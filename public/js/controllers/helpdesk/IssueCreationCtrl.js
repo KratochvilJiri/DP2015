@@ -15,19 +15,23 @@ angular.module('IssueCreationCtrl', []).controller('IssueCreationController', ['
     ];
 
     $scope.issue = {};
+    $scope.issue.colors = {};
 
     $scope.setType = function(type) {
-        $scope.issue.type = type;
+        $scope.issue.type = type.constant;
+        $scope.issue.colors.type = type.color;
     }
 
     $scope.setPriority = function(priority) {
-        $scope.issue.priority = priority;
+        $scope.issue.priority = priority.constant;
+        $scope.issue.colors.priority = priority.color;
     }
 
     $scope.save = function() {
         if (!$scope.issue._id) {
             $scope.issue.date = $filter('date')(new Date(), "yyyy-MM-dd'T'HH:mm:ss.sss'Z'");
             $scope.issue.state = "IN_PROGRESS";
+            $scope.issue.colors.state = "red";
             $scope.issue.creator = $scope.session.currentUser._id;
         }
         

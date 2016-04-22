@@ -16,7 +16,7 @@
                 <i class="dropdown icon"></i>
                 <div class="default text">Priorita problému</div>
                 <div class="menu">
-                    <div ng-repeat="priority in priorities" class="item" ng-click="setPriority(priority.constant)">
+                    <div ng-repeat="priority in priorities" class="item" ng-click="setPriority(priority)">
                         <div class="ui {{priority.color}} empty circular label"></div>{{priority.name}}</div>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                 <i class="dropdown icon"></i>
                 <div class="default text">Typ problému</div>
                 <div class="menu">
-                    <div ng-repeat="type in types" class="item" ng-click="setType(type.constant)">
+                    <div ng-repeat="type in types" class="item" ng-click="setType(type)">
                         <div class="ui {{type.color}} empty circular label"></div>{{type.name}}</div>
                 </div>
             </div>

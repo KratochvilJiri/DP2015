@@ -1,13 +1,13 @@
 var mongoose = require('mongoose');
 
 // issue model
-module.exports = mongoose.model('Issue',{
-	name: {
-        type: String, 
+module.exports = mongoose.model('Issue', {
+    name: {
+        type: String,
         required: true
     },
-	description: {
-        type: String, 
+    description: {
+        type: String,
         required: true
     },
     date: {
@@ -15,19 +15,30 @@ module.exports = mongoose.model('Issue',{
         required: true
     },
     state: {
-        type: String,  
-        enum: ['DONE', 'IN_PROGRESS'], 
+        type: String,
+        enum: ['DONE', 'IN_PROGRESS'],
         required: true
     },
     type: {
         type: String,
         enum: ['SYS_ERR', 'QUESTION', 'IMPROVEMENT_SUGG'],
-        required: true  
+        required: true
     },
     priority: {
         type: String,
         enum: ['LOW', 'NORMAL', 'HIGH'],
-        required: true  
+        required: true
+    },
+    colors: {
+        state: {
+            type: String
+        },
+        type: {
+            type: String
+        },
+        priority: {
+            type: String
+        }
     },
     creator: {
         type: mongoose.Schema.Types.ObjectId,
@@ -38,8 +49,8 @@ module.exports = mongoose.model('Issue',{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-     messages: [{
-       type: mongoose.Schema.Types.ObjectId,
-       ref: 'Message'
-     }]
+    messages: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Message'
+    }]
 });
