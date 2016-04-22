@@ -1,10 +1,11 @@
 // probably useless
-angular.module('InvitationCtrl', []).controller('InvitationController', ['$scope', 'ConferenceService', 'UserService', 'EmailService', function($scope, ConferenceService, UserService, EmailService) {
+angular.module('InvitationCtrl', []).controller('InvitationController', ['$scope', 'ConferenceService', 'UserService', 'EmailService','SessionService', function($scope, ConferenceService, UserService, EmailService, SessionService) {
 
     $scope.addressees = [];
     $scope.uninvited = [];
     $scope.invitation = {};
     $scope.invitationEmail = {};
+    $scope.session = SessionService;
 
 
     var getUninvited = function(participants) {
@@ -31,7 +32,7 @@ angular.module('InvitationCtrl', []).controller('InvitationController', ['$scope
 
 
     var getInvitation = function() {
-        ConferenceService.getActive()
+        ConferenceService.get({_id: $scope.session.currentUser.conferenceID, filter: ""})
             .success(function(data) {
                 if (data.isValid) {
                     $scope.invitation.text = data.data.invitation;

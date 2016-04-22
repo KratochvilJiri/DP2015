@@ -16,8 +16,8 @@ angular.module('ConferenceSrvc', []).factory('ConferenceService', ["$http", func
             return $http.post("/api/conference", conference);
         },
 
-        getActive: function(attributes) {
-            return $http.post("/api/conference/active/" + attributes);
+        get: function(conference) {
+            return $http.post("/api/conference/get", conference);
         }
     }
 }]);

@@ -22,8 +22,8 @@ module.exports = function(app) {
         });
     });
 
-    app.post('/api/conference/active/:attributes', function(req, res) {
-        ConferenceService.getActive(req.params.attributes, function(validation) {
+    app.post('/api/conference/get', function(req, res) {
+        ConferenceService.get(req.body, function(validation) {
             res.json(validation);
         });
     })

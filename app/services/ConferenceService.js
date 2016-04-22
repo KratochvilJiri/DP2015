@@ -158,11 +158,11 @@ module.exports = {
         });
     },
 
-    getActive: function(attributes, callback) {
+    get: function(conference, callback) {
         var validation = new ValidationResult({});
 
-        if (attributes == "PARTICIPANTS") {
-            ConferenceModel.findOne({ "active": true }, "name date place sponsorshipLevels participations")
+        if (conference.filter == "PARTICIPANTS") {
+            ConferenceModel.findById(conference._id, "name date place sponsorshipLevels participations")
                 .populate({
                     path: 'participations', model: 'Participation', select: "state sponsorshipLevel"
                 })
@@ -181,7 +181,7 @@ module.exports = {
         }
 
         else {
-            ConferenceModel.findOne({ "active": true }, "invitation", function(err, conferenceDB) {
+            ConferenceModel.findById(conference._id, "invitation", function(err, conferenceDB) {
                 if (err) {
                     validation.addError(err);
                     callback(validation);

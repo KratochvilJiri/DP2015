@@ -23,7 +23,8 @@ module.exports = function (app) {
                     name: req.session.name,
                     role: req.session.role,
                     _id: req.session._id, 
-                    permissions: req.session.permissions}, 
+                    permissions: req.session.permissions,
+                    conferenceID: req.session.conferenceID}, 
                 error: null });
         }
         // if session is not set - return null

@@ -1,7 +1,11 @@
-angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope', '$filter', 'EmailService', 'ConferenceService', function($scope, $filter, EmailService, ConferenceService) {
+angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope', '$filter', 'EmailService', 'ConferenceService','SessionService', function($scope, $filter, EmailService, ConferenceService, SessionService) {
     $scope.newEmails = "...";
     $scope.getDaysRemaining = "...";
     $scope.conference = {};
+    $scope.session = SessionService;
+    
+    console.log($scope.session);
+    
     //$scope.loader.emails = false;
 
     var getDaysRemaining = function(confDate) {
@@ -75,11 +79,13 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                 })
             firstRound = false;
         })
-        console.log($scope.conference);
     }
 
     var getParticAndConfInfo = function() {
-        ConferenceService.getActive("PARTICIPANTS")
+        $scope.conferenceTemp = {};
+        $scope.conferenceTemp._id = $scope.session.currentUser.conferenceID;
+        $scope.conferenceTemp.filter = "PARTICIPANTS";
+        ConferenceService.get($scope.conferenceTemp)
             .success(function(data) {
                 if (data.isValid) {
                     console.log(data);
@@ -101,7 +107,6 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
             .success(function(data) {
                 if (data.isValid) {
                     $scope.otherConferences = data.data;
-                    console.log($scope.otherConferences);
                 }
                 else {
                     $scope.showErrors(data.errors);
