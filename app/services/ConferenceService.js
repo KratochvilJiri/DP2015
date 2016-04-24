@@ -199,13 +199,32 @@ module.exports = {
     getLast5: function(callback) {
         var validation = new ValidationResult({});
 
-        ConferenceModel.find({"active": false },'name date')
+        ConferenceModel.find({ "active": false }, 'name date')
             .limit(5)
             .sort('-date')
             .exec(function(err, allConference) {
+                // get all conference error
+                if (err) {
+                    validation.addError("Nepodařilo se získat seznam konferencí (getList)");
+                    callback(validation);
+                    return;
+                }
+                // all conference obtained
+                validation.data = allConference;
+
+                callback(validation);
+                return;
+            });
+    },
+
+    getListNames: function(callback) {
+        var validation = new ValidationResult([]);
+
+        // find all conference
+        ConferenceModel.find({}, 'name sponsorshipLevels', function(err, allConference) {
             // get all conference error
             if (err) {
-                validation.addError("Nepodařilo se získat seznam konferencí (getList)");
+                validation.addError("Nepodařilo se získat seznam konferencí.");
                 callback(validation);
                 return;
             }

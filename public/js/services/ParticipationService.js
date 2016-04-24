@@ -5,6 +5,9 @@ angular.module('ParticipationSrvc', []).factory('ParticipationService',["$http",
         },
         getList: function(participantID) {
             return $http.get("/api/participation/" + participantID);
-        }           
+        },
+        getListByConference: function(conferenceID) {
+            return $http.post("/api/participation/conference/" + conferenceID);
+        }            
     }    
 }]);

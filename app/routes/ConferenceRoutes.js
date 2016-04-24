@@ -21,6 +21,12 @@ module.exports = function(app) {
             res.json(validation);
         });
     });
+    
+   app.get('/api/conference/names', function(req, res) {
+        ConferenceService.getListNames(function(validation) {
+            res.json(validation);
+        });
+    });
 
     app.post('/api/conference/get', function(req, res) {
         ConferenceService.get(req.body, function(validation) {

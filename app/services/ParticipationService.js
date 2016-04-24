@@ -64,7 +64,7 @@ module.exports = {
                             return;
                         }
                         else {
-                            
+
                             dbUser.participations.push(dbParticipation._id);
                             console.log(dbUser);
 
@@ -130,7 +130,25 @@ module.exports = {
                     return;
                 }
 
-                
+                // user obtained
+                validation.data = participations;
+                callback(validation);
+            });
+    },
+
+    getListByConference: function(conferenceID, callback) {
+        var validation = new ValidationResult([]);
+        ParticipationModel
+            .find({ 'conference': conferenceID})
+            .populate('user', 'name email phone ICO')
+            .exec(function(err, participations) {
+                if (err) {
+                    validation.addError("Účasti se nepodařilo získat");
+                    callback(validation);
+                    return;
+                }
+
+
                 // user obtained
                 validation.data = participations;
                 callback(validation);

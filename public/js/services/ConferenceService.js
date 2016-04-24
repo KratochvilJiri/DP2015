@@ -3,6 +3,10 @@ angular.module('ConferenceSrvc', []).factory('ConferenceService', ["$http", func
         getAll: function() {
             return $http.get("/api/conference");
         },
+        
+        getListNames: function() {
+            return $http.get("/api/conference/names");
+        },
 
         getFilteredList: function(conferenceIDs) {
             return $http.post("/api/conference/getFilteredList", conferenceIDs);
