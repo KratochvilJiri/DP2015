@@ -25,7 +25,10 @@ module.exports = {
                     return;
                 }
 
-                // Update and save conference
+                if(user.newPassword){
+                    dbUser.password = user.newPassword;
+                }
+                // Update and save user
                 dbUser.name = user.name;
                 dbUser.role = user.role;
                 dbUser.email = user.email;
@@ -84,6 +87,10 @@ module.exports = {
             else if (!user.address.postal) {
                 validation.addError("Směrovací číslo sídla účastníka je povinné");
             }
+        }
+        
+        if(user.newPassword != user.newPassword1){
+            validation.addError("Nová hesla se neshodují");
         }
         // check required values
         validation.checkIfIsDefinedAndNotEmpty('email', "Email je povinný");

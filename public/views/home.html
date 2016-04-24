@@ -10,7 +10,7 @@
                 <a ui-sref-active="active" ui-sref="home.participants" class="item" ng-if="session.currentUser.permissions.ParticipantsModuleRead">účastníci</a>
                 <div class="right menu">
                     <a ui-sref-active="active" ui-sref="home.administration.conference" class="item" ng-if="session.currentUser.permissions.Administration">administrace</a>
-                    <a ui-sref-active="active" class="item">{{session.currentUser.name}}<i class="user icon"></i></a>
+                    <a ui-sref-active="active" class="item" ui-sref="home.user({userId: session.currentUser._id})">{{session.currentUser.name}}<i class="user icon"></i></a>
                     <a ui-sref-active="active" ui-sref="login" class="item" ng-click="deauthorize()"><i class="sign out icon"></i></a>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                 <a ui-sref-active="active" ui-sref="home.helpdeskOverview" class="item">helpdesk</a>
                 <a ui-sref-active="active" ui-sref="home.users" class="item" ng-if="session.currentUser.permissions.UserModuleRead">uživatelé</a>
                 <a ui-sref-active="active" ui-sref="home.administration.conference" class="item" ng-if="session.currentUser.permissions.Administration">administrace</a>
-                <a ui-sref-active="active" class="item">{{session.currentUser.name}}<i class="user icon floatNone"></i> </a>
+                <a ui-sref-active="active" ui-sref="home.user({userId: session.currentUser._id})" class="item">{{session.currentUser.name}}<i class="user icon floatNone"></i> </a>
                 <a ui-sref-active="active" ui-sref="login" class="item" ng-click="deauthorize()">logout<i class="sign out icon floatNone"></i></a>
             </div>
         </div>

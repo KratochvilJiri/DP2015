@@ -1,8 +1,14 @@
-angular.module('UserCtrl', []).controller('UserController', ['$scope', '$state', 'UserService', '$stateParams', function($scope, $state, UserService, $stateParams) {
+angular.module('UserCtrl', []).controller('UserController', ['$scope', '$state', 'UserService', '$stateParams','SessionService', function($scope, $state, UserService, $stateParams, SessionService) {
 
     // define user for binding
     $scope.user = {};
     $scope.user.address = {};
+    $scope.session = SessionService;
+    $scope.settings = false;
+
+    if($stateParams.userId == $scope.session.currentUser._id){
+        $scope.settings = true;
+    }
 
     // create new User
     $scope.save = function() {

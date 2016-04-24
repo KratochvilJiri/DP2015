@@ -79,6 +79,19 @@
         </div>
     </div>
 </form>
+<form class="ui form attached fluid segment" ng-if="settings">
+    <div class="two fields" ng-if="settings">
+        <div class="field">
+            <label>Nové heslo:</label>
+            <input placeholder="Heslo" type="password" ng-model="user.newPassword">
+        </div>
+        <div class="field">
+            <label>Nové heslo kontrola:</label>
+            <input placeholder="Heslo" type="password" ng-model="user.newPassword1">
+        </div>
+    </div>
+</form>
+
 <div class="ui bottom attached warning message">
     <a ng-click="save()" class="ui button basic my-orange">
         <i class="save icon"></i> Uložit
