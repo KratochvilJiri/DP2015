@@ -22,13 +22,13 @@ module.exports = mongoose.model('User', {
         required: true
     },
     phone: {
-        type: String
+        type: Number
     },
     ICO: {
-        type: String
+        type: Number
     },
     DIC: {
-        type: String
+        type: Number
     },
     address: {
         type: AddressStructure

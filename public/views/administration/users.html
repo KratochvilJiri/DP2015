@@ -53,7 +53,7 @@
                 <td>{{user.phone}}</td>
                 <td>{{roles[user.role]}}</td>
                 <td class="collapsing">
-                    <button class="ui basic icon button" data-content="Editovat"><i class="edit icon"></i></button>
+                    <button class="ui basic icon button" data-content="Editovat" ui-sref="home.user({userId: user._id})"><i class="edit icon"></i></button>
                     <button class="ui basic icon button" data-content="Odstranit" ng-click="removeUser(user._id)"><i class="remove red icon"></i></button>
                 </td>
             </tr>

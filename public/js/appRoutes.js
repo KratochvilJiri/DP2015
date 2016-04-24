@@ -108,7 +108,7 @@ app.config(function($stateProvider, $urlRouterProvider, filepickerProvider) {
         })
 
         .state('home.user', {
-            url: 'user',
+            url: 'user/{userId}',
             templateUrl: 'views/user.html',
             controller: 'UserController'
         });

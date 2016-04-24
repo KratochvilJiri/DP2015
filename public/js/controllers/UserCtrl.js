@@ -1,11 +1,8 @@
-angular.module('UserCtrl', []).controller('UserController', ['$scope', '$state', 'UserService', function($scope, $state, UserService) {
+angular.module('UserCtrl', []).controller('UserController', ['$scope', '$state', 'UserService', '$stateParams', function($scope, $state, UserService, $stateParams) {
 
     // define user for binding
     $scope.user = {};
     $scope.user.address = {};
-
-    // clear form
-    // $scope.formData = {};
 
     // create new User
     $scope.save = function() {
@@ -30,10 +27,24 @@ angular.module('UserCtrl', []).controller('UserController', ['$scope', '$state',
             });
     }
 
+    if ($stateParams.userId) {
+        UserService.get($stateParams.userId)
+            .success(function(data, status, headers, config) {
+                if (data.isValid) {
+                    $scope.user = data.data;
+                }
+                else {
+                    $scope.showErrors(data.errors);
+                }
+            })
+            .error(function(data, status) {
+                console.error('Error', status, data);
+            });
+    }
+
 
     //save the previous state
     $scope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
-        console.log(from.url);
         $scope.previousState = from.url;
     });
 

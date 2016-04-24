@@ -23,7 +23,6 @@ angular.module('ConferenceCtrl',[]).controller('ConferenceController',['$scope',
        $scope.allConference.forEach(function (conference) {
            if(conference.active){
                $scope.conference = conference;
-               console.log($scope.conference);
            }
        }) 
     }
