@@ -131,6 +131,22 @@ module.exports = {
 
     },
 
+    getUnsolvedCount: function(callback) {
+        var validation = new ValidationResult({});
+
+        IssueModel.count({ "state.constant" : "IN_PROGRESS" }, function(err, count) {
+            if (err) {
+                validation.addError("Počet nevyřešených problémů se nepodařilo získat");
+                callback(validation);
+                return;
+            }
+            // user obtained
+            validation.data = count;
+            callback(validation);
+        })
+
+    },
+
     // user structure validation
     validate: function(issue) {
         // validation init

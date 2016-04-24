@@ -1,10 +1,25 @@
-angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope', '$filter', 'EmailService', 'ConferenceService', 'SessionService', function($scope, $filter, EmailService, ConferenceService, SessionService) {
+angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope', '$filter', 'EmailService', 'ConferenceService', 'SessionService', 'IssueService', function($scope, $filter, EmailService, ConferenceService, SessionService, IssueService) {
     $scope.newEmails = "...";
     $scope.getDaysRemaining = "...";
     $scope.conference = {};
     $scope.session = SessionService;
 
     //$scope.loader.emails = false;
+
+    var loadUnsolvedIssuesCount = function() {
+        IssueService.getUnsolvedCount()
+            .success(function(data) {
+                if (data.isValid) {
+                    $scope.unsolvedIssues = data.data;
+                }
+                else {
+                    $scope.showErrors(data.errors);
+                }
+            })
+            .error(function(data, status) {
+                console.log('Error: ', status, data.error);
+            });
+    }
 
     var getDaysRemaining = function(confDate) {
         var today = $filter('date')(new Date(), "yyyy-MM-dd'T'HH:mm:ss.sss'Z'");
@@ -122,14 +137,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
         }
     });
 
-
-
-    $scope.Loaded = function() {
-        if ($loader.emails === true)
-            return true;
-        else
-            return false;
-    }
+   loadUnsolvedIssuesCount();
 
 
 }]);

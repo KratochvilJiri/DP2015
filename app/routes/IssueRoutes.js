@@ -20,5 +20,11 @@ module.exports = function(app) {
             res.json(validation);
         });
     });
+    
+        app.get('/api/issue/unsolved', function(req, res) {
+        IssueService.getUnsolvedCount(function(validation) {
+            res.json(validation);
+        });
+    });
 
 };
