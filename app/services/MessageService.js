@@ -1,5 +1,6 @@
 var MessageModel = require('./../models/MessageModel');
 var ParticipationModel = require('./../models/ParticipationModel');
+var IssueModel = require('./../models/IssueModel');
 var ValidationResult = require('./../models/ValidationResultsStructure');
 
 module.exports = {
@@ -27,36 +28,62 @@ module.exports = {
                 }
                 else {
 
-                    // to do add participation to user??
-                    ParticipationModel.findById(message.participation, function(err, dbParticipation) {
-                        if (err) {
-                            validation.addError("Nepodařilo se získat účast pro přidání zprávy");
-                            callback(validation);
-                            return;
-                        }
-                        else {
-
-                            dbParticipation.messages.push(dbMessage._id);
-
-                            dbParticipation.save(function(err) {
-                                // error check
-                                if (err) {
-                                    validation.addError("Nepodařilo se uložit účast po přidání zprávy");
-                                    callback(validation);
-                                    return;
-                                }
-                                // message created and pushed to the participation
+                    if (message.participation) {
+                        ParticipationModel.findById(message.participation, function(err, dbParticipation) {
+                            if (err) {
+                                validation.addError("Nepodařilo se získat účast pro přidání zprávy");
                                 callback(validation);
                                 return;
-                            });
-                        }
-                    });
+                            }
+                            else {
+
+                                dbParticipation.messages.push(dbMessage._id);
+
+                                dbParticipation.save(function(err) {
+                                    // error check
+                                    if (err) {
+                                        validation.addError("Nepodařilo se uložit účast po přidání zprávy");
+                                        callback(validation);
+                                        return;
+                                    }
+                                    // message created and pushed to the participation
+                                    callback(validation);
+                                    return;
+                                });
+                            }
+                        });
+                    }
+                    else {
+                        IssueModel.findById(message.issue, function(err, dbIssue) {
+                            if (err) {
+                                validation.addError("Nepodařilo se získat problém pro přidání zprávy");
+                                callback(validation);
+                                return;
+                            }
+                            else {
+
+                                dbIssue.messages.push(dbMessage._id);
+
+                                dbIssue.save(function(err) {
+                                    // error check
+                                    if (err) {
+                                        validation.addError("Nepodařilo se uložit problém po přidání zprávy");
+                                        callback(validation);
+                                        return;
+                                    }
+                                    // message created and pushed to the participation
+                                    callback(validation);
+                                    return;
+                                });
+                            }
+                        });
+                    }
                 }
             });
         }
     },
-    
-        // user structure validation
+
+    // user structure validation
     validate: function(message) {
         // validation init
         validation = new ValidationResult(message);

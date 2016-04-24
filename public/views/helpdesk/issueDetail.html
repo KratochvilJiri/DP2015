@@ -1,223 +1,112 @@
 <!-- Issue detail -->
-<div class="ui grid row grid-container">
-    <div class="fourteen wide column">
-        <h3>Nelze změnit uživatelské heslo: </h3>
-        <p> Po změně uživatelského hesla, nelze provést uložení nastavení.... </p>
-        <p>Otevřeno před: 30 dny.</p>
-    </div>
-
-    <div class="tablet only computer only two wide column">
-        <button class="ui button fontWhite BGOrange right floated">
-            Uložit
-        </button> 
-    </div>
-    <div class="tablet only computer only fourteen wide column">
-        <div class="ui selection dropdown">
-            <input type="hidden" name="state">
-            <i class="dropdown icon"></i>
-            <div class="text">
-                <div class="ui red empty circular label"></div> V řešení
-            </div>
-            <div class="menu">
-                <div class="item" data-value="inProgress">
-                    <div class="ui red empty circular label"></div> V řešení
-                </div>
-                <div class="item" data-value="done">
-                    <div class="ui green empty circular label"></div> Vyřešeno
-                </div>
-            </div>
-        </div>
-
-        <div class="ui selection dropdown">
-            <input type="hidden" name="state">
-            <i class="dropdown icon"></i>
-            <div class="text">
-                <div class="ui red empty circular label"></div> Chyba v systému
-            </div>
-            <div class="menu">
-                <div class="item" data-value="systemErr">
-                    <div class="ui red empty circular label"></div> Chyba v systému
-                </div>
-                <div class="item" data-value="improvement">
-                    <div class="ui blue empty circular label"></div> Návrh na zlepšení
-                </div>
-                <div class="item" data-value="question">
-                    <div class="ui black empty circular label"></div> Question
-                </div>
-            </div>
-        </div>
-
-        <div class="ui selection dropdown">
-            <input type="hidden" name="state">
-            <i class="dropdown icon"></i>
-            <div class="text">
-                <div class="ui red empty circular label"></div> Vysoká
-            </div>
-            <div class="menu">
-                <div class="item" data-value="low">
-                    <div class="ui yellow empty circular label"></div> Nízká
-                </div>
-                <div class="item" data-value="meddium">
-                    <div class="ui orange empty circular label"></div> Střední
-                </div>
-                <div class="item" data-value="high">
-                    <div class="ui red empty circular label"></div> Vysoká
-                </div>
-            </div>
-        </div>
-
-        <div class="ui selection dropdown">
-            <input type="hidden" name="state">
-            <i class="dropdown icon"></i>
-            <div class="text">
-                Kratochvíl
-            </div>
-            <div class="menu">
-                <div class="item" data-value="low">
-                    Kratochvíl
-                </div>
-                <div class="item" data-value="low">
-                    Sadovská
-                </div>
-                <div class="item" data-value="meddium">
-                    Kreslíková
-                </div>
-                <div class="item" data-value="high">
-                    Zemčík
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="mobile only sixteen wide column">
-        <button class="ui button fontWhite BGOrange fluid right floated">
-            Uložit
-        </button>
-    </div>
-
-    <div class=" mobile only sixteen wide column">
-        <div class="ui selection dropdown fluid">
-            <input type="hidden" name="state">
-            <i class="dropdown icon"></i>
-            <div class="text">
-                <div class="ui red empty circular label"></div> V řešení
-            </div>
-            <div class="menu">
-                <div class="item" data-value="inProgress">
-                    <div class="ui red empty circular label"></div> V řešení
-                </div>
-                <div class="item" data-value="done">
-                    <div class="ui green empty circular label"></div> Vyřešeno
-                </div>
-            </div>
-        </div>
-
-        <div class="ui selection dropdown fluid">
-            <input type="hidden" name="state">
-            <i class="dropdown icon"></i>
-            <div class="text">
-                <div class="ui red empty circular label"></div> Chyba v systému
-            </div>
-            <div class="menu">
-                <div class="item" data-value="systemErr">
-                    <div class="ui red empty circular label"></div> Chyba v systému
-                </div>
-                <div class="item" data-value="improvement">
-                    <div class="ui blue empty circular label"></div> Návrh na zlepšení
-                </div>
-                <div class="item" data-value="question">
-                    <div class="ui black empty circular label"></div> Question
-                </div>
-            </div>
-        </div>
-
-        <div class="ui selection dropdown fluid">
-            <input type="hidden" name="state">
-            <i class="dropdown icon"></i>
-            <div class="text">
-                <div class="ui red empty circular label"></div> Vysoká
-            </div>
-            <div class="menu">
-                <div class="item" data-value="low">
-                    <div class="ui yellow empty circular label"></div> Nízká
-                </div>
-                <div class="item" data-value="meddium">
-                    <div class="ui orange empty circular label"></div> Střední
-                </div>
-                <div class="item" data-value="high">
-                    <div class="ui red empty circular label"></div> Vysoká
-                </div>
-            </div>
-        </div>
-
-        <div class="ui selection dropdown fluid">
-            <input type="hidden" name="state">
-            <i class="dropdown icon"></i>
-            <div class="text">
-                Kratochvíl
-            </div>
-            <div class="menu">
-                <div class="item" data-value="low">
-                    Kratochvíl
-                </div>
-                <div class="item" data-value="low">
-                    Sadovská
-                </div>
-                <div class="item" data-value="meddium">
-                    Kreslíková
-                </div>
-                <div class="item" data-value="high">
-                    Zemčík
-                </div>
-            </div>
-        </div>
+<div class="ui attached message">
+    <div class="header">
+        Problém - detail
     </div>
 </div>
-
-<div class="ui divider"></div>
-<div class="ui grid row grid-container">
-    <div class="sixteen wide column">
-        <h4> Nová zpráva </h4>
-        <div class="ui form">
-            <div class="field">
-                <textarea>
-                </textarea>
+<form class="ui form attached fluid segment">
+    <div class="field">
+        <label>Název problému:</label>
+        <input ng-model="issue.name">
+    </div>
+    <div class="field">
+        <label> Vytvořeno:</label>
+        {{issue.date | date:'dd/MM/yyyy HH:mm:ss'}} (před {{issue.daysOpened}} dny)
+    </div>
+    <div class="two fields">
+        <div class="field">
+            <label>Priorita:</label>
+            <div class="ui fluid search selection dropdown">
+                <i class="dropdown icon"></i>
+                <div class="text">
+                    <div class="ui {{issue.priority.color}} empty circular label"></div> {{issue.priority.text}}
+                </div>
+                <div class="menu">
+                    <div ng-repeat="priority in priorities" class="item" ng-click="setPriority(priority)">
+                        <div class="ui {{priority.color}} empty circular label"></div>{{priority.text}}</div>
+                </div>
             </div>
-            <div class="field">
-                <button class="ui right floated button fontWhite BGOrange">
-                    Odeslat
-                </button>
+        </div>
+        <div class="field">
+            <label> Typ:</label>
+            <div class="ui fluid search selection dropdown">
+                <i class="dropdown icon"></i>
+                <div class="text">
+                    <div class="ui {{issue.type.color}} empty circular label"></div> {{issue.type.text}}
+                </div>
+                <div class="menu">
+                    <div ng-repeat="type in types" class="item" ng-click="setType(type)">
+                        <div class="ui {{type.color}} empty circular label"></div>{{type.text}}</div>
+                </div>
             </div>
         </div>
     </div>
+    <div class="two fields">
+        <div class="field">
+            <div class="field">
+                <label> Stav:</label>
+                <div class="ui fluid search selection dropdown">
+                    <i class="dropdown icon"></i>
+                    <div class="text">
+                        <div class="ui {{issue.state.color}} empty circular label"></div> {{issue.state.text}}
+                    </div>
+                    <div class="menu">
+                        <div ng-repeat="state in states" class="item" ng-click="">
+                            <div class="ui {{state.color}} empty circular label"></div>{{state.text}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label> Odpovědná osoba:</label>
+            <select class="ui dropdown" ng-options="item.name for item in supervisors track by item._id" ng-model="issue.supervisor">
+                <option value="" disabled selected>Odpovědná osoba</option>
+            </select>
+        </div>
+    </div>
+    <div class="field">
+        <label>Popis problému:</label>
+        <textarea ng-model="issue.description"></textarea>
+    </div>
+</form>
+<div class="ui bottom attached warning message">
+    <a ng-click="save()" class="ui button basic my-orange">
+        <i class="save icon"></i> Uložit
+    </a>
+</div>
 
+<div class="ui attached message">
+    <div class="header">
+        Komunikace problému:
+    </div>
+</div>
+<form class="ui form attached fluid segment marginBot3">
+    <div class=" aligned">
+        <label> Nová zpráva: </label>
+        <textarea ng-model="message.content">
+        </textarea>
+        <a ng-click="sendMessage()" class="ui right floated button basic my-orange">
+            <i class="save icon"></i> Odeslat
+        </a>
+        <div class="field"></div>
+    </div>
+</form>
 
-
-    <div class="twelve wide left floated column">
+<div class="ui grid row" ng-repeat="message in issue.messages">
+    <div class="twelve wide left floated column" ng-if="$even">
         <div class="ui small floating message">
             <div class="header">
-                Ing. Petr Novák - 24/3/2015 13:46
+                {{message.author.name}} - {{message.date | date:'dd/MM/yyyy HH:mm:ss'}}
             </div>
-            <p>Problém bude vyřešen dnes do 22:00.</p>
+            <p>{{message.content}}</p>
         </div>
     </div>
-
-    <div class="twelve wide right floated column">
+    <div class="twelve wide right floated column" ng-if="$odd">
         <div class="ui small floating message">
             <div class="header">
-                Jiří Kratochvíl - 23/3/2015 17:46
+                {{message.author.name}} - {{message.date | date:'dd/MM/yyyy HH:mm:ss'}}
             </div>
-            <p>Dobrý den, děkuji za upozornění. Chybu prověřím a budu Vás dále informovat o řešení.</p>
-        </div>
-    </div>
-
-    <div class="twelve wide column">
-        <div class="ui small floating message ">
-            <div class="header">
-                Jiří Kratochvíl - 10/3/2015 13:40
-            </div>
-            <p>Dobrý den, mám problém se změnou uživatelského hesla. Snažil jsem se změnit automaticky vygenerované heslo na
-                své vlastní. Uložení proběhlo úspěšně. Do systému se lze i přesto přihlásit pouze pomocí starého hesla.</p>
+            <p>{{message.content}}</p>
         </div>
     </div>
 </div>

@@ -18,6 +18,34 @@ module.exports = {
 
         // check if _Id is set
         if (issue._id) {
+            IssueModel.findById(issue._id, function(err, dbIssue) {
+                // error check
+                if (err) {
+                    validation.addError("Problém se nezdařilo nalézt v databázi");
+                    callback(validation);
+                    return;
+                }
+
+                // Update and save conference
+                dbIssue.name = issue.name;
+                dbIssue.description = issue.description;
+                dbIssue.priority = issue.priority;
+                dbIssue.type = issue.type;
+                dbIssue.state = issue.state;
+                dbIssue.supervisor = issue.supervisor;
+
+                // Save user
+                dbIssue.save(function(err) {
+                    if (err) {
+                        validation.addError("Problém se nepodařilo uložit");
+                        callback(validation);
+                        return;
+                    }
+
+                    callback(validation);
+                    return;
+                });
+            })
         }
         else {
             IssueModel.create(issue, function(err, dbIssue) {
@@ -58,21 +86,49 @@ module.exports = {
         var validation = new ValidationResult([]);
 
         IssueModel.find()
-             .populate('creator', 'name')
-             .populate('supervisor', 'name')
+            .populate('creator', 'name')
+            .populate('supervisor', 'name')
             .exec(function(err, issues) {
-            // get all users error
-            if (err) {
-                validation.addError("Nepodařilo se získat seznam problému");
+                // get all users error
+                if (err) {
+                    validation.addError("Nepodařilo se získat seznam problému");
+                    callback(validation);
+                    return;
+                }
+                // all users obtained
+                validation.data = issues;
+
                 callback(validation);
                 return;
-            }
-            // all users obtained
-            validation.data = issues;
+            });
+    },
 
+    get: function(issue, callback) {
+        var validation = new ValidationResult(issue);
+
+        if (!issue._id) {
+            validation.addError("Porblém nelze získat bez identifikátoru");
             callback(validation);
             return;
-        });
+        }
+
+        IssueModel.findById(issue._id)
+            .populate('creator', 'name')
+            .populate('supervisor', 'name')
+            .populate({
+                path: 'messages', model: 'Message', populate: { path: 'author', model: 'User', select: 'name' }
+            })
+            .exec(function(err, dbIssue) {
+                if (err) {
+                    validation.addError("Problém se nepodařilo získat");
+                    callback(validation);
+                    return;
+                }
+                // user obtained
+                validation.data = dbIssue;
+                callback(validation);
+            })
+
     },
 
     // user structure validation
@@ -86,7 +142,7 @@ module.exports = {
         if (!issue.type) {
             validation.addError("Typ problému je povinný");
         }
-        if(!issue.priority){
+        if (!issue.priority) {
             validation.addError("Priorita problému je povinná");
         }
 

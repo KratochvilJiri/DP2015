@@ -5,6 +5,9 @@ angular.module('IssueSrvc', []).factory('IssueService',["$http", function ($http
         },
         getAll: function () {
             return $http.get("/api/issue");
+        },
+        get: function (issueID) {
+            return $http.post("/api/issue/" + issueID); 
         }          
     }    
 }]);

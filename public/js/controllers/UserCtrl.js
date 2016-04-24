@@ -13,10 +13,13 @@ angular.module('UserCtrl', []).controller('UserController', ['$scope', '$state',
         UserService.save($scope.user)
             .success(function(data, status, headers, config) {
                 if (data.isValid) {
-                    if($scope.previousState == "participants")
+                    $scope.showSuccess("Uživatel byl úspěšně přidán/aktualizován.");
+                    if ($scope.previousState == "participants") {
                         $state.go('home.participants');
-                    else
+                    }
+                    else {
                         $state.go('home.administration.users');
+                    }
                 }
                 else {
                     $scope.showErrors(data.errors);
@@ -26,7 +29,7 @@ angular.module('UserCtrl', []).controller('UserController', ['$scope', '$state',
                 console.error('Error', status, data);
             });
     }
-   
+
 
     //save the previous state
     $scope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {

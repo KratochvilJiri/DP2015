@@ -41,14 +41,15 @@ app.config(function($stateProvider, $urlRouterProvider, filepickerProvider) {
         })
 
         .state('home.helpdeskIssue', {
-            url: 'helpdesk/issueDetail',
-            templateUrl: 'views/helpdesk/issueDetail.html'
+            url: 'helpdesk/issueDetail/{issueId}',
+            templateUrl: 'views/helpdesk/issueDetail.html',
+            controller: 'IssueDetailController'
         })
 
         .state('home.helpdeskIssueCreation', {
             url: 'helpdesk/issueCreation',
             templateUrl: 'views/helpdesk/issueCreation.html',
-            controller: 'IssueCreationController'
+            controller: 'IssueDetailController'
         })
 
         .state('home.participants', {

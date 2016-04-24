@@ -114,6 +114,22 @@ module.exports = {
 
         }
 
+        else if (filter == "NOT_PARTICIPANT") {
+            UserModel.find({ 'role': {$ne: 'PARTICIPANT'} }, 'name', function(err, users) {
+                // get all users error
+                if (err) {
+                    validation.addError("Nepodařilo se získat seznam účastníků");
+                    callback(validation);
+                    return;
+                }
+                // all users obtained
+                validation.data = users;
+
+                callback(validation);
+                return;
+            });
+        }
+
         else {
             // find all users
             UserModel.find(function(err, users) {
@@ -131,15 +147,15 @@ module.exports = {
             });
         }
     },
-    
-    getUninvited: function(conferenceID, callback){
-         var validation = new ValidationResult([]);
-         
-         console.log(conferenceID);
-         
-            UserModel.find({ 'role': 'PARTICIPANT'})
-             .populate({
-                path: 'participations', model: 'Participation', match: {"conference": conferenceID}, select: "_id"
+
+    getUninvited: function(conferenceID, callback) {
+        var validation = new ValidationResult([]);
+
+        console.log(conferenceID);
+
+        UserModel.find({ 'role': 'PARTICIPANT' })
+            .populate({
+                path: 'participations', model: 'Participation', match: { "conference": conferenceID }, select: "_id"
             })
             .exec(function(err, users) {
                 // get all users error
@@ -155,7 +171,7 @@ module.exports = {
                 return;
             });
 
-       
+
     },
 
     // get user by ID

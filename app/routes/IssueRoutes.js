@@ -13,4 +13,12 @@ module.exports = function(app) {
             res.json(validation);
         });
     });
+
+    app.post('/api/issue/:issueID', function(req, res) {
+        IssueService.get({
+               _id: req.params.issueID}, function(validation) {
+            res.json(validation);
+        });
+    });
+
 };
