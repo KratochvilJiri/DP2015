@@ -1,3 +1,26 @@
+<div class="ui attached message">
+    <div class="header">
+        Uživatelé
+    </div>
+</div>
+<form class="ui form attached fluid segment">
+    <div class="field">
+        <label> Typ účastníka: </label>
+        <div class="ui fluid selection dropdown">
+            <i class="filter icon"></i>
+            <div class="text">
+                 Vše
+            </div>
+            <div class="menu">
+                <div ng-repeat="role in roles2" class="item" ng-click="filterRole(role.constant)">
+                    {{role.text}}</div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
 <div class="ui grid">
     <!-- mobile filters -->
     <div class="mobile only sixteen wide column">
@@ -13,26 +36,6 @@
         </button>
     </div>
 
-    <div class="mobile only sixteen wide column paddingTop0">
-        <div class="ui floating labeled icon dropdown button fluid">
-            <i class="filter icon"></i>
-            <span class="text">Konference</span>
-            <div class="menu">
-                <div class="item">
-                    Vše
-                </div>
-                <div class="item">
-                    Excel@FIT 2015
-                </div>
-                <div class="item">
-                    Excel@FIT 2014
-                </div>
-                <div class="item">
-                    Glorius 2014
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- mobile filters end -->
     <!-- comupter/tablet filters -->
     <div class="tablet only computer only four wide column">
@@ -47,26 +50,6 @@
         </button>
     </div>
 
-    <div class="tablet only computer only sixteen wide column paddingTop0">
-        <div class="ui floating labeled icon dropdown button">
-            <i class="filter icon"></i>
-            <span class="text">Role</span>
-            <div class="menu">
-                <div class="item">
-                    Vše
-                </div>
-                <div class="item">
-                    Kontaktní osoba
-                </div>
-                <div class="item">
-                    Zástupce firmy
-                </div>
-                <div class="item">
-                    Administrátor
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- all users table -->
     <table class="ui celled selectable striped table">
@@ -80,12 +63,12 @@
             </tr>
         </thead>
 
-        <tbody ng-repeat="user in users">
+        <tbody ng-repeat="user in users | filter : {role: filter.role}: true">
             <tr>
                 <td>{{user.name}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.phone}}</td>
-                <td>{{user.role}}</td>
+                <td>{{roles[user.role]}}</td>
                 <td class="collapsing">
                     <button class="ui basic icon button" data-content="Editovat"><i class="edit icon"></i></button>
                     <button class="ui basic icon button" data-content="Odstranit" ng-click="removeUser(user._id)"><i class="remove red icon"></i></button>
