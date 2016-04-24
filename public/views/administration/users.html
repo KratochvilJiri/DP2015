@@ -5,50 +5,33 @@
 </div>
 <form class="ui form attached fluid segment">
     <div class="field">
-        <label> Typ účastníka: </label>
-        <div class="ui fluid selection dropdown">
-            <i class="filter icon"></i>
-            <div class="text">
-                 Vše
+        <a ui-sref="home.user" class="ui button basic my-orange">
+            <i class="add user icon"></i> Přidat
+        </a>
+    </div>
+    <div class="two fields">
+        <div class="field">
+            <label><i class="search icon"></i> Hledat:</label>
+            <div class="ui medium icon input fluid">
+                <input type="text" placeholder="Hledat..." ng-model="search">
+                <i class="search icon"></i>
             </div>
-            <div class="menu">
-                <div ng-repeat="role in roles2" class="item" ng-click="filterRole(role.constant)">
-                    {{role.text}}</div>
+        </div>
+        <div class="field">
+            <label><i class="filter icon"></i> Typ účastníka: </label>
+            <div class="ui fluid selection dropdown">
+                <i class="dropdown icon"></i>
+                <div class="text">
+                    Vše
+                </div>
+                <div class="menu">
+                    <div ng-repeat="role in roles2" class="item" ng-click="filterRole(role.constant)">
+                        {{role.text}}</div>
+                </div>
             </div>
         </div>
     </div>
 </form>
-
-
-
-<div class="ui grid">
-    <!-- mobile filters -->
-    <div class="mobile only sixteen wide column">
-        <div class="ui medium icon input fluid">
-            <input type="text" placeholder="Hledat...">
-            <i class="search icon"></i>
-        </div>
-    </div>
-
-    <div class="mobile only sixteen wide column paddingTop0">
-        <button ui-sref="home.user" class="ui button fontWhite BGBlue fluid">
-            Přidat
-        </button>
-    </div>
-
-    <!-- mobile filters end -->
-    <!-- comupter/tablet filters -->
-    <div class="tablet only computer only four wide column">
-        <div class="ui medium icon input fluid">
-            <input type="text" placeholder="Hledat...">
-            <i class="search icon"></i>
-        </div>
-    </div>
-    <div class="tablet only computer only twelve wide column right aligned">
-        <button ui-sref="home.user" class="ui button fontWhite BGBlue">
-            Přidat
-        </button>
-    </div>
 
 
     <!-- all users table -->
@@ -63,7 +46,7 @@
             </tr>
         </thead>
 
-        <tbody ng-repeat="user in users | filter : {role: filter.role}: true">
+        <tbody ng-repeat="user in users | filter : {role: filter.role}: true | filter:search">
             <tr>
                 <td>{{user.name}}</td>
                 <td>{{user.email}}</td>
