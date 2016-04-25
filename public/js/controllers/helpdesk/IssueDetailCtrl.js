@@ -1,4 +1,4 @@
-angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$scope', '$filter', 'SessionService', 'IssueService', '$stateParams', 'UserService','MessageService', function($scope, $filter, SessionService, IssueService, $stateParams, UserService, MessageService) {
+angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$scope', '$filter', 'SessionService', 'IssueService', '$stateParams', 'UserService', 'MessageService', function($scope, $filter, SessionService, IssueService, $stateParams, UserService, MessageService) {
 
     $scope.session = SessionService;
     $scope.supervisors = [];
@@ -61,6 +61,7 @@ angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$sco
             .success(function(data) {
                 if (data.isValid) {
                     $scope.issue = data.data;
+                    console.log($scope.issue);
                     openedDays();
                 }
                 else {
@@ -96,7 +97,7 @@ angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$sco
         UserService.getAll("NOT_PARTICIPANT")
             .success(function(data) {
                 if (data.isValid) {
-                     $scope.supervisors = data.data;
+                    $scope.supervisors = data.data;
                 }
                 else {
                     $scope.showErrors(data.errors);
@@ -106,16 +107,34 @@ angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$sco
                 console.error('Error', status, data);
             });
     }
-    
-        // send new message to the server
+
+    // send new message to the server
     $scope.sendMessage = function() {
         $scope.message.date = new Date();
         $scope.message.author = $scope.session.currentUser._id;
+        $scope.message.userRole = $scope.session.currentUser.role;
         $scope.message.issue = $scope.issue._id;
+        $scope.message.seen = false;
         MessageService.save($scope.message)
             .success(function(data, status, headers, config) {
                 if (data.isValid) {
                     $scope.showSuccess("Zpráva byla úspěšně odeslána.");
+                }
+                else {
+                    $scope.showErrors(data.errors);
+                }
+            })
+            .error(function(data, status) {
+                console.error('Error', status, data);
+            });
+    }
+
+    $scope.markAsSeen = function(message) {
+        message.seen = true;
+        MessageService.save(message)
+            .success(function(data, status, headers, config) {
+                if (data.isValid) {
+                    $scope.showSuccess("Zpráva byla označena za přečtenou.");
                 }
                 else {
                     $scope.showErrors(data.errors);

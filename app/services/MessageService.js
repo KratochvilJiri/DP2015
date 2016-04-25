@@ -24,7 +24,7 @@ module.exports = {
                     callback(validation);
                     return;
                 }
-                
+
                 // Update and save message
                 dbMessage.seen = message.seen;
 
@@ -87,10 +87,7 @@ module.exports = {
                                                 }
                                                 else {
                                                     dbMessages.reverse();
-                                                    console.log(message);
-                                                    dbMessages.forEach(function(message) {
-                                                        console.log(message);
-                                                    })
+
                                                     var marking = false;
                                                     var index = 0;
                                                     if (message.userRole == "PARTICIPANT") {
@@ -98,15 +95,12 @@ module.exports = {
                                                         if (dbMessages.length > 1) {
                                                             index = 1;
                                                             if (dbMessages[index].author.role == "PARTICIPANT") {
-                                                                console.log("neznacim, presdchozi zprava je taky moje - uz je oznaceno");
                                                                 callback(validation);
                                                                 return;
                                                             }
                                                             else {
                                                                 marking = true;
                                                                 while (index < dbMessages.length && marking) {
-                                                                    console.log("zacinam znacit");
-                                                                    console.log(dbMessages[index].author.role);
                                                                     if (dbMessages[index].author.role == "PARTICIPANT") {
                                                                         marking = false;
                                                                     }
@@ -128,19 +122,15 @@ module.exports = {
 
                                                     }
                                                     else {
-                                                        console.log("ADMIN/CONTAC|T");
-                                                        console.log(dbMessages[index].author.role);
                                                         if (dbMessages.length > 1) {
                                                             index = 1;
                                                             if (dbMessages[index].author.role != "PARTICIPANT") {
-                                                                console.log("neznacim, presdchozi zprava je taky moje - uz je oznaceno");
                                                                 callback(validation);
                                                                 return;
                                                             }
                                                             else {
                                                                 marking = true;
                                                                 while (index < dbMessages.length && marking) {
-                                                                    console.log("zacinam znacit");
                                                                     console.log(dbMessages[index].author.role);
                                                                     if (dbMessages[index].author.role != "PARTICIPANT") {
                                                                         marking = false;
@@ -189,6 +179,92 @@ module.exports = {
                                         validation.addError("Nepodařilo se uložit problém po přidání zprávy");
                                         callback(validation);
                                         return;
+                                    }
+                                    else {
+                                        MessageModel.find({ issue: dbIssue._id })
+                                            .populate({
+                                                path: 'author', model: 'User', select: "role"
+                                            })
+                                          
+                                            .exec(function(err, dbMessages) {
+
+                                                if (err) {
+                                                    validation.addError("Nepodařilo se získat původní zpravy a označit za přečtené.");
+                                                    callback(validation);
+                                                    return;
+                                                }
+                                                else {
+                                                      console.log(dbMessages);
+                                                    dbMessages.reverse();
+
+                                                    var marking = false;
+                                                    var index = 0;
+                                                    if (message.userRole == "PARTICIPANT") {
+                                                        console.log("PARTICIPANT");
+                                                        if (dbMessages.length > 1) {
+                                                            index = 1;
+                                                            if (dbMessages[index].author.role == "PARTICIPANT") {
+                                                                callback(validation);
+                                                                return;
+                                                            }
+                                                            else {
+                                                                marking = true;
+                                                                while (index < dbMessages.length && marking) {
+                                                                    if (dbMessages[index].author.role == "PARTICIPANT") {
+                                                                        marking = false;
+                                                                    }
+                                                                    else {
+                                                                        dbMessages[index].seen = true;
+                                                                        dbMessages[index].save(function(err) {
+                                                                            // error check
+                                                                            if (err) {
+                                                                                validation.addError("Nepodařilo se označit zprávu za přečtenou.");
+                                                                                callback(validation);
+                                                                                return;
+                                                                            }
+                                                                        });
+                                                                        index++;
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+
+                                                    }
+                                                    else {
+                                                        if (dbMessages.length > 1) {
+                                                            index = 1;
+                                                            if (dbMessages[index].author.role != "PARTICIPANT") {
+                                                                callback(validation);
+                                                                return;
+                                                            }
+                                                            else {
+                                                                marking = true;
+                                                                while (index < dbMessages.length && marking) {
+                                                                    console.log(dbMessages[index].author.role);
+                                                                    if (dbMessages[index].author.role != "PARTICIPANT") {
+                                                                        marking = false;
+                                                                    }
+                                                                    else {
+                                                                        dbMessages[index].seen = true;
+                                                                        dbMessages[index].save(function(err) {
+                                                                            // error check
+                                                                            if (err) {
+                                                                                validation.addError("Nepodařilo se označit zprávu za přečtenou.");
+                                                                                callback(validation);
+                                                                                return;
+                                                                            }
+                                                                        });
+                                                                        index++;
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+
+                                                    callback(validation);
+                                                    return;
+                                                }
+                                            });
                                     }
                                     // message created and pushed to the issue
                                     //callback(validation);
