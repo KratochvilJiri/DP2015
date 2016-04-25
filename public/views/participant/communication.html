@@ -16,18 +16,31 @@
 </form>
 
 <div class="ui grid row" ng-repeat="message in participation.messages">
-    <div class="twelve wide left floated column" ng-if="$even">
+    <div class="twelve wide left floated column" ng-if="message.author.role=='PARTICIPANT'">
         <div class="ui small floating message">
             <div class="header">
                 {{message.author.name}} - {{message.date | date:'dd/MM/yyyy HH:mm:ss'}}
+                <a class="ui basic mini disabled button right floated" ng-if="message.seen">
+                    <i class="checkmark icon"></i>Přečteno
+                </a>
+               
+                <a class="ui basic mini button right floated" ng-click="markAsSeen(message)" ng-if="!message.seen && ((message.author.role=='PARTICIPANT' && session.currentUser.role != 'PARTICIPANT') || ((message.author.role!='PARTICIPANT' && session.currentUser.role == 'PARTICIPANT')))">
+                    Označit jako přečtené
+                </a>
             </div>
             <p>{{message.content}}</p>
         </div>
     </div>
-    <div class="twelve wide right floated column" ng-if="$odd">
+    <div class="twelve wide right floated column" ng-if="message.author.role!='PARTICIPANT'">
         <div class="ui small floating message">
             <div class="header">
                 {{message.author.name}} - {{message.date | date:'dd/MM/yyyy HH:mm:ss'}}
+                <a class="ui basic mini disabled button right floated" ng-if="message.seen">
+                    <i class="checkmark icon"></i>Přečteno
+                </a>
+                <a class="ui basic mini button right floated" ng-click="markAsSeen(message)" ng-if="!message.seen && ((message.author.role=='PARTICIPANT' && session.currentUser.role != 'PARTICIPANT') || ((message.author.role!='PARTICIPANT' && session.currentUser.role == 'PARTICIPANT')))">
+                    Označit jako přečtené
+                </a>
             </div>
             <p>{{message.content}}</p>
         </div>

@@ -15,6 +15,10 @@ module.exports = mongoose.model('Message',{
         ref: 'User',
         required: true
     },
+    seen: {
+      type: Boolean,
+      required: true  
+    },
     issue: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Issue'

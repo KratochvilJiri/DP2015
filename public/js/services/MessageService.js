@@ -2,6 +2,6 @@ angular.module('MessageSrvc', []).factory('MessageService',["$http", function ($
     return {
         save: function (message) {
             return $http.post("/api/message", message);
-        }          
+        }      
     }    
 }]);

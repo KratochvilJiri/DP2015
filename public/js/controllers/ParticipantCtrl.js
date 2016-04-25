@@ -22,12 +22,29 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     //
     $scope.attachement = {};
 
+    $scope.markAsSeen = function(message) {
+        message.seen = true;
+        MessageService.save(message)
+            .success(function(data, status, headers, config) {
+                if (data.isValid) {
+                    $scope.showSuccess("Zpráva byla označena za přečtenou.");
+                }
+                else {
+                    $scope.showErrors(data.errors);
+                }
+            })
+            .error(function(data, status) {
+                console.error('Error', status, data);
+            });
+    }
 
     // send new message to the server
     $scope.sendMessage = function() {
         $scope.message.date = new Date();
         $scope.message.author = $scope.session.currentUser._id;
         $scope.message.participation = $scope.participation._id;
+        $scope.message.seen = false;
+        $scope.message.userRole = $scope.session.currentUser.role;
         MessageService.save($scope.message)
             .success(function(data, status, headers, config) {
                 if (data.isValid) {
@@ -101,7 +118,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                         console.error('Error', status, data);
                     });
             },
-            function(){
+            function() {
                 console.log("error");
             }
         );
@@ -160,18 +177,18 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     // save updated participation
     $scope.updateParticipation = function() {
         console.log($scope.participation);
-         ParticipationService.save($scope.participation)
-             .success(function(data, status, headers, config) {
-                 if (data.isValid) {
-                     $scope.showSuccess("Účast byla úspěšně atualizována.");
-                 }
-                 else {
-                     $scope.showErrors(data.errors);
-                 }
-             })
-             .error(function(data, status) {
-                 console.error('Error', status, data);
-             });
+        ParticipationService.save($scope.participation)
+            .success(function(data, status, headers, config) {
+                if (data.isValid) {
+                    $scope.showSuccess("Účast byla úspěšně atualizována.");
+                }
+                else {
+                    $scope.showErrors(data.errors);
+                }
+            })
+            .error(function(data, status) {
+                console.error('Error', status, data);
+            });
     }
 
     // set selected conference and its participation
@@ -188,10 +205,10 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             $scope.conference = $scope.ParticipatedConferences[0];
             $scope.participation = $scope.participations[0];
         }
-        if($scope.participation.messages){
+        if ($scope.participation.messages) {
             $scope.participation.messages = $scope.participation.messages.slice().reverse()
         }
-        if($scope.conference._id){
+        if ($scope.conference._id) {
             getAttachementTypes();
         }
     }
