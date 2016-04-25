@@ -134,7 +134,7 @@ module.exports = {
     getUnsolvedCount: function(callback) {
         var validation = new ValidationResult({});
 
-        IssueModel.count({ "state.constant" : "IN_PROGRESS" }, function(err, count) {
+        IssueModel.count({ "state.constant": "IN_PROGRESS" }, function(err, count) {
             if (err) {
                 validation.addError("Počet nevyřešených problémů se nepodařilo získat");
                 callback(validation);
@@ -143,8 +143,48 @@ module.exports = {
             // user obtained
             validation.data = count;
             callback(validation);
+            return;
         })
 
+    },
+
+    getUnseenMessages: function(userRole, callback) {
+        var validation = new ValidationResult({});
+
+        if (userRole != "PARTICIPANT") {
+            IssueModel.find()
+                .populate({ path: 'messages', model: 'Message', match: { "seen": false }, populate: { path: 'author', model: 'User', match: { "role": "PARTICIPANT" } } })
+                .exec(function(err, issues) {
+                    // get all users error
+                    if (err) {
+                        validation.addError("Nepodařilo se získat seznam problému");
+                        callback(validation);
+                        return;
+                    }
+                    // all users obtained
+                    validation.data = issues;
+
+                    callback(validation);
+                    return;
+                });
+        }
+        else {
+            IssueModel.find()
+                .populate({ path: 'messages', model: 'Message', match: { "seen": false }, populate: { path: 'author', model: 'User', match: { "role": { $ne: "PARTICIPANT"} } } })
+                .exec(function(err, issues) {
+                    // get all users error
+                    if (err) {
+                        validation.addError("Nepodařilo se získat seznam problému");
+                        callback(validation);
+                        return;
+                    }
+                    // all users obtained
+                    validation.data = issues;
+
+                    callback(validation);
+                    return;
+                });
+        }
     },
 
     // user structure validation

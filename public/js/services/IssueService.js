@@ -11,6 +11,9 @@ angular.module('IssueSrvc', []).factory('IssueService',["$http", function ($http
         },
         getUnsolvedCount: function (){
             return $http.get("/api/issue/unsolved");
+        },
+        getUnseenMessages: function (userRole) {
+            return $http.post("/api/issue/unseen/" + userRole)
         }
                   
     }    

@@ -21,7 +21,7 @@
                     <h4>Nezodpovězených zpráv:</h4>
                 </td>
                 <td>
-                    <a ui-sref="home.invitationAnswers"> odpovědi na pozvánky ({{newEmails}})</a> / <a href=""> helpdesk (10) </a>
+                    <a ui-sref="home.invitationAnswers"> odpovědi na pozvánky ({{newEmails}})</a> / <a href=""> helpdesk ({{unseenMessagesCount}}) </a> / <a href=""> komunikace ({{unseenParticipationMessagesCount}}) </a>
                 </td>
             </tr>
 
@@ -33,7 +33,7 @@
                     <h4>Nevyřešených problémů:</h4>
                 </td>
                 <td>
-                    <a href="">{{unsolvedIssues}}</a>
+                    <a ui-sref="home.helpdeskOverview">{{unsolvedIssues}}</a>
                 </td>
             </tr>
 
@@ -44,7 +44,7 @@
                 <td class="collapsing paddingLeft0">
                     <h4>Účastníků:</h4>
                 </td>
-                <td>
+                <td ui-sref="home.participants">
                     <a href="">pozváno ({{conference.invited}})</a> / <a href="">přislíbeno ({{conference.approved}})</a>/ <a href="">potvrzeno ({{conference.complete}})</a> / <a href="">odmítnuto ({{conference.cancelled}})</a>
                 </td>
             </tr>
@@ -56,7 +56,7 @@
                 <td class="collapsing paddingLeft0">
                     <h4>Sponzoské dary:</h4>
                 </td>
-                <td>
+                <td ui-sref="home.participants">
                     <a href="">přislíbeno ({{conference.approvedMoney}} Kč)</a> / <a href="">přijato ({{conference.receivedMoney}} Kč)</a>
                 </td>
             </tr>
@@ -69,7 +69,7 @@
                 <td class="collapsing paddingLeft0">
                     <h4>Úrovně sponzorství:</h4>
                 </td>
-                <td>
+                <td ui-sref="home.participants">
                     <a ng-repeat="sponsorshipLevel in conference.sponsorshipLevels" href="">{{sponsorshipLevel.name}}({{sponsorshipLevel.count}}) / </a>
                 </td>
             </tr>

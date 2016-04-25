@@ -8,6 +8,9 @@ angular.module('ParticipationSrvc', []).factory('ParticipationService',["$http",
         },
         getListByConference: function(conferenceID) {
             return $http.post("/api/participation/conference/" + conferenceID);
+        },
+        getUnseenMessages: function (data) {
+            return $http.post("/api/participation/conferenceUnseenMessages", data);
         }            
     }    
 }]);

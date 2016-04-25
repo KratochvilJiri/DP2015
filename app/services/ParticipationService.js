@@ -139,7 +139,7 @@ module.exports = {
     getListByConference: function(conferenceID, callback) {
         var validation = new ValidationResult([]);
         ParticipationModel
-            .find({ 'conference': conferenceID})
+            .find({ 'conference': conferenceID })
             .populate('user', 'name email phone ICO')
             .exec(function(err, participations) {
                 if (err) {
@@ -153,6 +153,35 @@ module.exports = {
                 validation.data = participations;
                 callback(validation);
             });
+    },
+
+    getUnseenMessages: function(data, callback) {
+        console.log(data);
+        var validation = new ValidationResult([]);
+
+        if (data.role != "PARTICIPANT") {
+            ParticipationModel
+                .find({ 'conference': data.conferenceID })
+                .populate({ path: 'messages', model: 'Message', match: { "seen": false }, populate: { path: 'author', model: 'User', match: { "role": "PARTICIPANT" } } })
+                .exec(function(err, participations) {
+                    if (err) {
+                        validation.addError("Účasti se nepodařilo získat");
+                        callback(validation);
+                        return;
+                    }
+
+                    // user obtained
+                    validation.data = participations;
+                    callback(validation);
+                    return;
+                });
+        }
+        
+        else{
+            callback(validation);
+            return;
+        }
+
     },
 
     // user structure validation

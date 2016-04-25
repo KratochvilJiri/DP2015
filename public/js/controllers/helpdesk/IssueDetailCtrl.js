@@ -30,6 +30,10 @@ angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$sco
     $scope.setPriority = function(priority) {
         $scope.issue.priority = priority;
     }
+    
+    $scope.setState = function(state) {
+        $scope.issue.state = state;
+    }
 
     $scope.save = function() {
         if (!$scope.issue._id) {
@@ -61,7 +65,7 @@ angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$sco
             .success(function(data) {
                 if (data.isValid) {
                     $scope.issue = data.data;
-                    console.log($scope.issue);
+                    $scope.issue.messages = $scope.issue.messages.reverse();
                     openedDays();
                 }
                 else {

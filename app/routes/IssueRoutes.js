@@ -21,8 +21,14 @@ module.exports = function(app) {
         });
     });
     
-        app.get('/api/issue/unsolved', function(req, res) {
+    app.get('/api/issue/unsolved', function(req, res) {
         IssueService.getUnsolvedCount(function(validation) {
+            res.json(validation);
+        });
+    });
+    
+   app.post('/api/issue/unseen/:userRole', function(req, res) {
+        IssueService.getUnseenMessages(req.params.userRole, function(validation) {
             res.json(validation);
         });
     });

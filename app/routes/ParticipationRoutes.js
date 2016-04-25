@@ -14,6 +14,12 @@ module.exports = function(app) {
             res.json(validation);
         });
     });
+    
+    app.post('/api/participation/conferenceUnseenMessages', function(req, res) {
+        ParticipationService.getUnseenMessages(req.body, function(validation) {
+            res.json(validation);
+        });
+    });
 
     app.post('/api/participation/conference/:conferenceID', function(req, res) {
         ParticipationService.getListByConference(req.params.conferenceID, function(validation) {

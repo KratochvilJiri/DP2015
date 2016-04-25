@@ -1,10 +1,57 @@
-angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope', '$filter', 'EmailService', 'ConferenceService', 'SessionService', 'IssueService', function($scope, $filter, EmailService, ConferenceService, SessionService, IssueService) {
+angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope', '$filter', 'EmailService', 'ConferenceService', 'SessionService', 'IssueService', 'ParticipationService', function($scope, $filter, EmailService, ConferenceService, SessionService, IssueService, ParticipationService) {
     $scope.newEmails = "...";
     $scope.getDaysRemaining = "...";
     $scope.conference = {};
     $scope.session = SessionService;
+    $scope.unseenMessagesCount = 0;
+    $scope.unseenParticipationMessagesCount = 0;
 
     //$scope.loader.emails = false;
+
+    var loadUnseenParticipationsMessages = function() {
+        ParticipationService.getUnseenMessages({ conferenceID: $scope.session.currentUser.conferenceID, role: $scope.session.currentUser.role })
+            .success(function(data) {
+                if (data.isValid) {
+                    $scope.data = data.data;
+                    $scope.data.forEach(function(participation) {
+                        participation.messages.forEach(function(message) {
+                            if (message.author)
+                                $scope.unseenParticipationMessagesCount++;
+                        })
+                    })
+                }
+                else {
+                    $scope.showErrors(data.errors);
+                }
+            })
+            .error(function(data, status) {
+                console.log('Error: ', status, data.error);
+            });
+    }
+
+
+    var loadUnseenIssueMessages = function() {
+        IssueService.getUnseenMessages($scope.session.currentUser.role)
+            .success(function(data) {
+                if (data.isValid) {
+                    $scope.data = data.data;
+                    $scope.data.forEach(function(issue) {
+                        issue.messages.forEach(function(message) {
+                            //console.log(message);
+                            if (message.author)
+                                $scope.unseenMessagesCount++;
+                        })
+                    })
+                    console.log($scope.unseenMessagesCount);
+                }
+                else {
+                    $scope.showErrors(data.errors);
+                }
+            })
+            .error(function(data, status) {
+                console.log('Error: ', status, data.error);
+            });
+    }
 
     var loadUnsolvedIssuesCount = function() {
         IssueService.getUnsolvedCount()
@@ -104,6 +151,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                     $scope.conference = data.data;
                     getDaysRemaining(data.data.date);
                     getParticipationsInfo();
+                    console.log($scope.conference);
                 }
                 else {
                     $scope.showErrors(data.errors);
@@ -134,10 +182,12 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
             getLast5();
             getNewEmailsCount();
             getParticAndConfInfo();
+            loadUnseenIssueMessages();
+            loadUnseenParticipationsMessages();
         }
     });
 
-   loadUnsolvedIssuesCount();
+    loadUnsolvedIssuesCount();
 
 
 }]);

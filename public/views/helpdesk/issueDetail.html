@@ -51,7 +51,7 @@
                         <div class="ui {{issue.state.color}} empty circular label"></div> {{issue.state.text}}
                     </div>
                     <div class="menu">
-                        <div ng-repeat="state in states" class="item" ng-click="">
+                        <div ng-repeat="state in states" class="item" ng-click="setState(state)">
                             <div class="ui {{state.color}} empty circular label"></div>{{state.text}}</div>
                     </div>
                 </div>
