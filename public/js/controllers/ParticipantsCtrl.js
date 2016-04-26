@@ -100,6 +100,23 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
         $scope.filter.state = state;
     }
 
+    $scope.removeUser = function(userID) {
+        UserService.delete(userID)
+            .success(function(data) {
+                if (data.isValid) {
+                    $state.go($state.current, {}, { reload: true});
+                    $scope.showSuccess("Uživatel byl úspěčně odstraněn");
+                }
+                else {
+                    $scope.showError(data.errors);
+                }
+                $scope.users = data.data;
+            })
+            .error(function(data, status) {
+                console.error('Error: ', status, data.error);
+            });
+    }
+
     loadConferences();
     loadParticipants();
 }]);

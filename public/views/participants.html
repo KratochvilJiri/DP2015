@@ -75,7 +75,7 @@
             <td class="collapsing">
                 <button class="ui basic icon button" data-content="Editovat" ui-sref="home.participant.information({participantId: participant._id})"><i class="edit icon"></i></button>
                 <button class="ui basic icon button" data-content="Komunikovat" ui-sref="home.participant.communication({participantId: participant._id})"><i class="comments icon"></i></button>
-                <button class="ui basic icon button" data-content="Odstranit"><i class="remove red icon"></i></button>
+                <button class="ui basic icon button" data-content="Odstranit" ng-click="removeUser(participant._id)"><i class="remove red icon"></i></button>
             </td>
         </tr>
 
