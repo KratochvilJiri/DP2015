@@ -23,7 +23,7 @@ app.run(function($rootScope, $timeout) {
 app.run(['$rootScope', '$state', 'SessionService', function($rootScope, $state, SessionService) {
     // location to change
     $rootScope.$on('$stateChangeStart', function(event, next) {
-
+        $('.ui.basic.icon.button').popup('destroy');
         SessionService.isSet()
             .success(function(data) {
                 if (data.isValid && SessionService.currentUser == null) {

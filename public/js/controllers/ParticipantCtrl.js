@@ -187,6 +187,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             $scope.ParticipatedConferences.push(participation.conference);
             if (participation.conference.active) {
                 $scope.conference = participation.conference;
+                setTimeout(function() { $('.ui.dropdown').dropdown(); }, 500);
                 $scope.participation = participation;
             }
         })
