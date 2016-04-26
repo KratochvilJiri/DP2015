@@ -11,7 +11,7 @@
             <select class="ui dropdown" ng-model="user.role">
                 <option value="" disabled selected>Role</option>
                 <option ng-if="session.currentUser.permissions.Administration" value="ADMINISTRATOR">Administrátor</option>
-                <option ng-if="session.currentUser.permissions.ParticipantAdministration" value="PARTICIPANT">Účastník</option>
+                <option value="PARTICIPANT">Účastník</option>
                 <option ng-if="session.currentUser.permissions.ContactPersonAdministration" value="CONTACT_PERSON">Kontaktní osoba</option>
             </select>
         </div>

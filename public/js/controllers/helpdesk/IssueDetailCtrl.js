@@ -1,4 +1,4 @@
-angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$scope', '$filter', 'SessionService', 'IssueService', '$stateParams', 'UserService', 'MessageService', function($scope, $filter, SessionService, IssueService, $stateParams, UserService, MessageService) {
+angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$scope','$state', '$filter', 'SessionService', 'IssueService', '$stateParams', 'UserService', 'MessageService', function($scope,$state, $filter, SessionService, IssueService, $stateParams, UserService, MessageService) {
 
     $scope.session = SessionService;
     $scope.supervisors = [];
@@ -48,6 +48,7 @@ angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$sco
             .success(function(data) {
                 if (data.isValid) {
                     $scope.showSuccess("Problém byl úspěšně vytvořen/aktualizován.");
+                    $state.go('home.helpdeskOverview');
                 }
                 else {
                     $scope.showErrors(data.errors);
@@ -122,6 +123,7 @@ angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$sco
             .success(function(data, status, headers, config) {
                 if (data.isValid) {
                     $scope.showSuccess("Zpráva byla úspěšně odeslána.");
+                    $state.go($state.current, {}, {reload: true}); 
                 }
                 else {
                     $scope.showErrors(data.errors);

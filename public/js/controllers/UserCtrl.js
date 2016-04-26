@@ -17,11 +17,14 @@ angular.module('UserCtrl', []).controller('UserController', ['$scope', '$state',
             .success(function(data, status, headers, config) {
                 if (data.isValid) {
                     $scope.showSuccess("Uživatel byl úspěšně přidán/aktualizován.");
-                    if ($scope.previousState == "participants") {
+                    if ($scope.previousState == "participants" && $scope.session.currentUser.role != "PARTICIPANT") {
                         $state.go('home.participants');
                     }
-                    else {
+                    else if($scope.session.currentUser.role != "PARTICIPANT") {
                         $state.go('home.administration.users');
+                    }
+                    else{
+                        $state.go('home.dashboard');
                     }
                 }
                 else {
@@ -38,6 +41,8 @@ angular.module('UserCtrl', []).controller('UserController', ['$scope', '$state',
             .success(function(data, status, headers, config) {
                 if (data.isValid) {
                     $scope.user = data.data;
+                    console.log($scope.user);
+                    setTimeout(function() { $('.ui.dropdown').dropdown(); }, 500);
                 }
                 else {
                     $scope.showErrors(data.errors);

@@ -5,6 +5,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
     $scope.session = SessionService;
     $scope.unseenMessagesCount = 0;
     $scope.unseenParticipationMessagesCount = 0;
+    $scope.activeConferenceParticipation = false;
 
     //$scope.loader.emails = false;
 
@@ -175,14 +176,84 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
             });
     }
 
+    var getUserParticipations = function() {
+        ParticipationService.getList($scope.session.currentUser._id)
+            .success(function(data) {
+                if (data.isValid) {
+                    $scope.participations = data.data;
+                    checkActiveConferenceParticipation();
+                }
+                else {
+                    $scope.showErrors(data.errors);
+                }
+            })
+            .error(function(data, status) {
+                console.log('Error: ', status, data.error);
+            });
+    }
+    
+    var checkActiveConferenceParticipation = function () {
+        $scope.participations.forEach(function (participation) {
+            if(participation.conference.active){
+                $scope.conference = participation.conference;
+                $scope.activeConferenceParticipation = true;
+                $scope.participation = participation;
+                getAttachementTypes();
+                getDaysRemaining($scope.conference.date);
+                newMessages();
+            }
+        })
+        console.log($scope.participation);
+    }
+    
+        // get sponsorshipLevel documents
+    var getAttachementTypes = function() {
+        $scope.attachementTypes = [];
+        $scope.conference.sponsorshipLevels.forEach(function(sponsorshipLevel) {
+            if (sponsorshipLevel._id === $scope.participation.sponsorshipLevel.type._id)
+                $scope.attachementTypes = sponsorshipLevel.attachementTypes;
+        })
+        
+        assignAttachement();
+    }
+
+    var assignAttachement = function() {
+
+        $scope.participation.attachements.forEach(function(attachement) {
+            $scope.attachementTypes.forEach(function(attachementType) {
+                if (attachementType.hash === attachement.hash)
+                    attachementType.attachement = attachement;
+            })
+        })       
+        console.log($scope.participation.conference);
+    }
+    
+    var newMessages = function() {
+        $scope.participation.newMessage = {};
+        $scope.participation.newMessage.check = false;
+        $scope.participation.messages.forEach(function(message){
+            if(!message.seen && message.author.role != "PARTICIPANT"){
+                console.log(message);
+                $scope.participation.newMessage.check = true;
+                $scope.participation.newMessage.author = message.author.name;
+            }
+        })
+    }
+    
+
     $scope.$watch('session.currentUser', function() {
         if ($scope.session.currentUser) {
-            console.log($scope.session);
-            getLast5();
-            getNewEmailsCount();
-            getParticAndConfInfo();
-            loadUnseenIssueMessages();
-            loadUnseenParticipationsMessages();
+            if ($scope.session.currentUser.role != "PARTICIPANT") {
+                getLast5();
+                getNewEmailsCount();
+                getParticAndConfInfo();
+                loadUnseenIssueMessages();
+                loadUnseenParticipationsMessages();
+            }
+
+            else if ($scope.session.currentUser.role == "PARTICIPANT") {
+                getUserParticipations();
+            }
         }
     });
 

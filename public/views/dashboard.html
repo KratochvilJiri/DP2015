@@ -21,7 +21,7 @@
                     <h4>Nezodpovězených zpráv:</h4>
                 </td>
                 <td>
-                    <a ui-sref="home.invitationAnswers"> odpovědi na pozvánky ({{newEmails}})</a> / <a href=""> helpdesk ({{unseenMessagesCount}}) </a> / <a ui-sref="home.communicationNews"> komunikace ({{unseenParticipationMessagesCount}}) </a>
+                    <a ui-sref="home.invitationAnswers"> odpovědi na pozvánky ({{newEmails}})</a> / <a href=""> helpdesk ({{unseenMessagesCount}}) </a>                    / <a ui-sref="home.communicationNews"> komunikace ({{unseenParticipationMessagesCount}}) </a>
                 </td>
             </tr>
 
@@ -45,7 +45,8 @@
                     <h4>Účastníků:</h4>
                 </td>
                 <td ui-sref="home.participants">
-                    <a href="">pozváno ({{conference.invited}})</a> / <a href="">přislíbeno ({{conference.approved}})</a>/ <a href="">potvrzeno ({{conference.complete}})</a> / <a href="">odmítnuto ({{conference.cancelled}})</a>
+                    <a href="">pozváno ({{conference.invited}})</a> / <a href="">přislíbeno ({{conference.approved}})</a>/
+                    <a href="">potvrzeno ({{conference.complete}})</a> / <a href="">odmítnuto ({{conference.cancelled}})</a>
                 </td>
             </tr>
 
@@ -90,52 +91,66 @@
 
     <!-- participant - dashboard -->
 
-    <table class="ui very basic table" ng-if="session.currentUser.permissions.ParticipantDashboardModule">
+    <table class="ui very basic table" ng-if="session.currentUser.permissions.ParticipantDashboardModule && activeConferenceParticipation">
         <tbody>
             <tr>
                 <td>
-                    <h4 class="ui header"><i class="fitted mail icon"></i>Máte novou zprávu od: Sadovská Sylva.</h4>
+                    <a ng-if="participation.newMessage.check" ui-sref="home.participant.communication({participantId: session.currentUser._id})">
+                        <h4 class="ui header"><i class="fitted mail icon"></i>Máte novou zprávu od: {{participation.newMessage.author}}.</h4></a>
+                    <h4 class="ui header" ng-if="!(participation.newMessage.check)"><i class="fitted mail icon"></i>Nemáte žádné nové zprávy.</h4>
                 </td>
                 <td class="eight wide">
-                    <h4 class="ui header"><i class="fitted trophy large icon"></i>Úroveň sponzorství: zlaté</h4>
+                    <h4 class="ui header"><i class="fitted trophy large icon"></i>Úroveň sponzorství: {{participation.sponsorshipLevel.type.name}} ({{participation.sponsorshipLevel.value}} Kč)</h4>
                 </td>
             </tr>
 
             <tr class="top aligned">
                 <td>
                     <div class="paddingBot1">
-                        <h5>Dokumenty (2/3):</h5></div>
-                    <div class="paddingLeft2 paddingBot1">
-                        <i class="ui green empty circular label"></i> Logo - odevzdáno </div>
-                    <div class="paddingLeft2 paddingBot1">
-                        <i class="ui green empty circular label"></i> Propagační stránka - odevzdáno </div>
-                    <div class="paddingLeft2 paddingBot1">
-                        <i class="ui red empty circular label"></i> Video prezentace - neodevzdáno </div>
+                        <h5>Dokumenty ({{participation.attachements.length}}/{{attachementTypes.length}}):</h5></div>
+                    <div class="paddingLeft2 paddingBot1" ng-repeat="attachementType in attachementTypes">
+                        <i class="ui green empty circular label" ng-if="attachementType.attachement"></i>
+                        <i class="ui red empty circular label" ng-if="!attachementType.attachement"></i>
+                        <span> {{attachementType.name}}</span>
+                        <span ng-if="attachementType.attachement"> ({{attachementType.attachement.date | date:'dd/MM/yyyy HH:mm:ss'}}) </span>
+                        <span ng-if="!attachementType.attachement"> (neodevzdáno) </span>
+                    </div>
                 </td>
                 <td>
                     <div class="paddingBot1">
-                        <h5>Zástupci firmy (5/6):</h5></div>
-                    <div class="paddingLeft2 paddingBot1">Bezděs Filip</div>
-                    <div class="paddingLeft2 paddingBot1">Novotný Jan</div>
-                    <div class="paddingLeft2 paddingBot1">Krpolová Petra</div>
-                    <div class="paddingLeft2 paddingBot1">Květovaná Jarmila</div>
-                    <div class="paddingLeft2 paddingBot1">Těžký Zdenek</div>
+                        <h5>Zástupci firmy na akci ({{participation.attendees.length}}/{{conference.attendeesNumber}}):</h5></div>
+                    <div class="paddingLeft2 paddingBot1" ng-repeat="attendee in participation.attendees">{{attendee.name}}</div>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a class="ui basic button bottom aligned my-orange" ui-sref="home.participant.documents">
+                    <a class="ui basic button bottom aligned my-orange" ui-sref="home.participant.documents({participantId: session.currentUser._id})">
                         <i class="edit icon"></i>Editovat dokumenty
                     </a>
                 </td>
                 <td>
-                    <a class="ui basic button bottom aligned my-orange" ui-sref="home.participant.representatives">
+                    <a class="ui basic button bottom aligned my-orange" ui-sref="home.participant.representatives({participantId: session.currentUser._id})">
                         <i class="edit icon"></i>Editovat zástupce
                     </a>
                 </td>
             </tr>
         </tbody>
     </table>
+
+    <div ng-if="!activeConferenceParticipation && session.currentUser.permissions.ParticipantDashboardModule">
+        <div class="row bottom aligned">
+            <div class="ten wide column">
+                <h1 class="ui header displayInline">{{conference.name}} </h1>
+                <p class="displayInline">{{conference.date | date:'dd/MM/yyyy'}}</p>
+                <p> {{conference.place}} </p>
+            </div>
+
+            <div class="six wide column right aligned">
+                <h5 class="ui displayInline">Zbývá {{dayRemaining}} dnů</h5>
+            </div>
+        </div>
+        <h4>Neúčastníte se aktualní konference, pro její účast kontaktujte ....</h4>
+    </div>
 
 </div>
 <!-- participant - dashboard -->
@@ -146,10 +161,18 @@
             <h3 class="ui header displayInline">Ostatní akce:</h3>
         </div>
     </div>
-    <div class="stackable seven column row grid-container" ng-repeat="conference in otherConferences">
+    <div ng-if="!session.currentUser.permissions.ParticipantDashboardModule" class="stackable seven column row grid-container"
+    ng-repeat="conference in otherConferences">
         <a class="column BGBlue ui segment marginRight075" ui-sref="home.administration.conference">
             <h4 class="ui header fontGrey">{{conference.name}}</h4>
             <span class="bottom alligned fontGrey">{{conference.date | date:'dd/MM/yyyy'}}</span>
+        </a>
+    </div>
+    <div ng-if="session.currentUser.permissions.ParticipantDashboardModule && (participation.conference._id != conference._id)" class="stackable seven column row grid-container"
+    ng-repeat="participation in participations">
+        <a class="column BGBlue ui segment marginRight075" ui-sref="home.participant.information({participantId: session.currentUser._id})">
+            <h4 class="ui header fontGrey">{{participation.conference.name}}</h4>
+            <span class="bottom alligned fontGrey">{{participation.conference.date | date:'dd/MM/yyyy'}}</span>
         </a>
     </div>
 </div>
