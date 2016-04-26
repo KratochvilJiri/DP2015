@@ -100,9 +100,10 @@
         <textarea ng-model="attachementType.description"></textarea>
     </div>
     <div class="field">
-        <a ng-click="removeAttachementType($index)" class="ui button basic">
+        <a ng-click="removeAttachementType($index)" class="ui button basic" ng-class="{'disabled' : attachementType.count > 0}">
             <i class="remove red icon"></i> Odstranit přílohu
         </a>
+          <span ng-if="attachementType.count > 0"> <i class="info icon"></i> Pokud chcete smazat typ přílohy, nejdříve odstraňte všechny existující přílohy tohoto typu (1).</span>
     </div>
 </form>
 

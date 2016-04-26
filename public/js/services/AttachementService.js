@@ -6,10 +6,12 @@ angular.module("AttachementSrvc", []).factory("AttachementService", ["$http", fu
 		},
 
 		remove: function(attachement){
-            console.log("fucker v service");
-            console.log(attachement);
 			return $http.post("/api/attachement/delete", attachement);
-		}
+		},
+        
+        existsAttachementType: function (attachementTypeHash) {
+            return $http.post("/api/attachement/exists/" + attachementTypeHash);
+        }
 	}
 
 }]);

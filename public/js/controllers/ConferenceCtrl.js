@@ -1,8 +1,18 @@
-angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope', '$timeout', '$state', 'ConferenceService', 'SessionService', function($scope, $timeout, $state, ConferenceService, SessionService) {
+angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope', '$timeout', '$state', 'ConferenceService', 'SessionService', 'AttachementService', function($scope, $timeout, $state, ConferenceService, SessionService, AttachementService) {
     $scope.session = SessionService;
     $scope.conference = {};
     $scope.conference.sponsorshipLevels = [];
     $scope.allConference = [];
+
+    var checkAttachements = function(count) {
+        console.log(count);
+        if(count > 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
     var loadAllConference = function() {
         ConferenceService.getAll()
@@ -42,13 +52,33 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
         console.log($scope.conference);
     }
 
+
+    var checkAttachements = function() {
+        $scope.conference.attachementTypes.forEach(function(type) {
+            AttachementService.existsAttachementType(type.hash)
+                .success(function(data) {
+                    if (data.isValid) {
+                        type.count = data.data;
+                    }
+                    else {
+                        $scope.showErrors(data.errors);
+                    }
+                })
+                .error(function(data, status) {
+                    console.log('Error: ', status, data.error);
+                });
+        })
+        console.log($scope.conference.attachementTypes);
+    }
+
     var setActiveConference = function() {
         $scope.allConference.forEach(function(conference) {
             if (conference.active) {
                 $scope.conference = conference;
-                console.log($scope.conference.sponsorshipLevels); 
+                checkAttachements();
+                console.log($scope.conference.sponsorshipLevels);
                 getAttachementTypesForLevel();
-                
+
             }
         })
     }
@@ -72,7 +102,7 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
 
     // add new document to conference
     $scope.addAttachementType = function() {
-        
+
         if (!$scope.conference.attachementTypes)
             $scope.conference.attachementTypes = [];
 
@@ -80,7 +110,7 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
         $scope.conference.attachementTypes.push({
             hash: GUID
         });
-        
+
         getAttachementTypesForLevel();
 
     }

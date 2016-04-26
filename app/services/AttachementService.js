@@ -7,7 +7,6 @@ module.exports = {
     // create attachement
     save: function(attachement, callback) {
 
-        console.log("save attachement");
         var validation = this.validate(attachement);
 
         if (!validation.isValid) {
@@ -47,6 +46,22 @@ module.exports = {
         }
     },
 
+    exists: function(attachementTypeHash, callback) {
+        var validation = this.validate({});
+
+        AttachementModel.count({ hash: attachementTypeHash }, function(err, count) {
+            // attachement creation error
+            if (err) {
+                validation.addError("Nepodařilo se vytvořit přílohu.");
+                callback(validation);
+                return;
+            }
+            validation.data = count;
+            callback(validation);
+            return;
+        });
+    },
+
     // user structure validation
     validate: function(attachement) {
         // validation init
@@ -59,7 +74,7 @@ module.exports = {
     remove: function(attachement, callback) {
         console.log(attachement);
         var validation = new ValidationResult(attachement);
-        
+
         console.log("fuckovina----------------------------");
         console.log(attachement);
         console.log("pariticpamnt----------------------------");
@@ -68,8 +83,8 @@ module.exports = {
         console.log(attachement._id);
 
         ParticipationModel.update(
-            { _id : attachement.participation },
-            { $pull: { attachements : attachement._id }}, 
+            { _id: attachement.participation },
+            { $pull: { attachements: attachement._id } },
             { safe: true },
             function(err, dbParticipation) {
                 if (err) {
@@ -78,7 +93,7 @@ module.exports = {
                     return;
                 }
                 else {
-                    AttachementModel.remove({ _id: attachement._id}, function(err, dbUser) {
+                    AttachementModel.remove({ _id: attachement._id }, function(err, dbUser) {
                         // attachement remove error
                         if (err) {
                             validation.addError("Přílohu se nepodařilo odebrat");
