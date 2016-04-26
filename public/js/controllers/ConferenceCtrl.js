@@ -65,7 +65,8 @@ angular.module('ConferenceCtrl',[]).controller('ConferenceController',['$scope',
     // save conference
     $scope.save = function () {
         $scope.conference.active = true;
-        $scope.session.currentUser.conferenceID = $scope.conference._id;
+        SessionService.currentUser.conferenceID = $scope.conference._id;
+        console.log($scope.conference);
         //console.log($scope.conference.attachementTypes);
         ConferenceService.save($scope.conference)
         .success(function(data){

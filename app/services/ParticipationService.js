@@ -140,7 +140,7 @@ module.exports = {
         var validation = new ValidationResult([]);
         ParticipationModel
             .find({ 'conference': conferenceID })
-            .populate('user', 'name email phone ICO')
+            .populate('user', 'name email phone ICO contactPerson')
             .exec(function(err, participations) {
                 if (err) {
                     validation.addError("Účasti se nepodařilo získat");

@@ -38,14 +38,14 @@
         </div>
         <div class="field" ng-if="filter.conferenceFilter">
             <label><i class="filter icon"></i> Úroveň: </label>
-            <select class="" ng-options="item.name for item in conference.sponsorshipLevels track by item._id" ng-model="filter.level">
+            <select class="ui dropdown" ng-options="item.name for item in conference.sponsorshipLevels track by item._id" ng-model="filter.level">
                 <option selected value="">Vše</option>
             </select>
         </div>
 
         <div class="field" ng-if="filter.conferenceFilter">
             <label><i class="filter icon"></i> Stav: </label>
-            <select class="" ng-options="item.text for item in states" ng-model="filter.state" ng-change="check()">
+            <select class="ui dropdown" ng-options="item.text for item in states" ng-model="filter.state">
                 <option selected value="">Vše</option>
             </select>
         </div>

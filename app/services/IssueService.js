@@ -97,7 +97,6 @@ module.exports = {
                 }
                 // all users obtained
                 validation.data = issues;
-
                 callback(validation);
                 return;
             });
@@ -151,7 +150,7 @@ module.exports = {
     getUnseenMessages: function(userRole, callback) {
         var validation = new ValidationResult({});
 
-        if (userRole != "PARTICIPANT") {
+        if (userRole != "PARTICIPANT") {           
             IssueModel.find()
                 .populate({ path: 'messages', model: 'Message', match: { "seen": false }, populate: { path: 'author', model: 'User', match: { "role": "PARTICIPANT" } } })
                 .exec(function(err, issues) {

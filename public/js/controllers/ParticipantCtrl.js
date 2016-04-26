@@ -58,15 +58,9 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                 console.error('Error', status, data);
             });
     }
-
-    function checkHash(hash) {
-        return
-    }
-
     // get sponsorshipLevel documents
     var getAttachementTypes = function() {
         $scope.conference.sponsorshipLevels.forEach(function(sponsorshipLevel) {
-            console.log(sponsorshipLevel);
             if (sponsorshipLevel._id === $scope.participation.sponsorshipLevel.type._id)
                 $scope.attachementTypes = sponsorshipLevel.attachementTypes;
         })
@@ -145,14 +139,11 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             },
             //attachement saved to filestack
             function(Blob) {
-                console.log(JSON.stringify(Blob));
                 $scope.attachement.data = Blob;
                 $scope.attachement.hash = attachementTypeHash;
                 $scope.attachement.date = Date.now();
                 $scope.attachement.participation = $scope.participation._id;
                 $scope.participation.attachements.push($scope.attachement);
-                console.log($scope.attachement);
-                console.log($scope.participation);
                 //$scope.$apply();
 
                 // save attachement to MongoDB
@@ -176,7 +167,6 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
 
     // save updated participation
     $scope.updateParticipation = function() {
-        console.log($scope.participation);
         ParticipationService.save($scope.participation)
             .success(function(data, status, headers, config) {
                 if (data.isValid) {
@@ -198,7 +188,6 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             if (participation.conference.active) {
                 $scope.conference = participation.conference;
                 $scope.participation = participation;
-                console.log($scope.participation);
             }
         })
         if (!$scope.conference) {

@@ -1,6 +1,6 @@
 <div class="ui attached message">
     <div class="header">
-        Konference
+        Akce
     </div>
 </div>
 
@@ -12,12 +12,12 @@
     </div>
     <div class="two fields">
         <div class="field">
-            <label>Aktuální konference:</label>
+            <label>Aktuální akce:</label>
             <select class="" ng-options="item.name for item in allConference track by item._id" ng-model="conference">
             </select>
         </div>
         <div class="field required">
-            <label>Název konference:</label>
+            <label>Název akce:</label>
             <input placeholder="Název konference" ng-model="conference.name">
         </div>
     </div>

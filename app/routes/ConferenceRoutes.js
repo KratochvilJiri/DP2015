@@ -4,7 +4,7 @@ module.exports = function(app) {
 
     // save or create conference
     app.post('/api/conference', function(req, res) {
-        ConferenceService.save(req.body, function(validation) {
+        ConferenceService.save(req, req.body, function(validation) {
             res.json(validation);
         });
     });

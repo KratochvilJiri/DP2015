@@ -4,7 +4,7 @@ var ValidationResult = require('./../models/ValidationResultsStructure');
 module.exports = {
 
     // save or create conference
-    save: function(conference, callback) {
+    save: function(req, conference, callback) {
         // conference validation
         var validation = this.validate(conference);
 
@@ -13,6 +13,7 @@ module.exports = {
             return;
         }
 
+        console.log(conference);
 
         this.deactivateAll(validation, function(validation) {
             //  conference already exists
@@ -24,7 +25,7 @@ module.exports = {
                         callback(validation);
                         return;
                     }
-
+                    req.session.conferenceID = conference._id;
                     // Update and save conference
                     dbConference.name = conference.name;
                     dbConference.date = conference.date;
@@ -48,12 +49,14 @@ module.exports = {
                             return;
                         }
 
+                        //validation.data = dbConference._id;
                         callback(validation);
                         return;
                     });
                 })
             }
             else {
+                console.log(conference);
                 ConferenceModel.create(conference, function(err, dbConference) {
                     // conference creation error
                     if (err) {
@@ -62,6 +65,7 @@ module.exports = {
                         callback(validation);
                         return;
                     }
+                    req.session.conferenceID = dbConference._id;
                     // conference created
                     callback(validation);
                     return

@@ -4,6 +4,7 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
     $scope.filter = {};
     $scope.filter.conferenceFilter = false;
     $scope.states = [
+        { constant: undefined, text: "Vše" },
         { constant: "INVITED", text: "Pozván" },
         { constant: "CANCELLED", text: "Odmítnuto" },
         { constant: "APPROVED", text: "Přislíbeno" },
@@ -12,6 +13,7 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
         { constant: "CONTRACT_SIGNED", text: "Smlouva podepsána" },
     ];
     $scope.groups = [];
+    $scope.pushedAll = true;
 
     var loadParticipants = function() {
         UserService.getAll("PARTICIPANTS")
@@ -49,15 +51,19 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
         $scope.participants = [];
         $scope.participations.forEach(function(participation) {
             participation.user.state = participation.state;
-            participation.user.level = participation.sponsorshipLevel.type._id;
+            if (participation.sponsorshipLevel.type) {
+                participation.user.level = participation.sponsorshipLevel.type._id;
+            }
             $scope.participants.push(participation.user);
         });
-        console.log($scope.participants);
     }
 
     $scope.filterConference = function(conference) {
-        console.log($scope.filter);
         if (conference._id) {
+            if ($scope.pushedAll) {
+                conference.sponsorshipLevels.unshift({ _id: undefined, name: "Vše" });
+                $scope.pushedAll = false;
+            }
             $scope.conference = conference;
             $scope.filter.conferenceFilter = true;
             $scope.filter.state = {};
@@ -81,25 +87,17 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
             // to do - dotaz na participations dle konference id, vcetne uzivatelu 
         }
         else {
-            $scope.participants =  $scope.participantsBackup;
+            $scope.participants = $scope.participantsBackup;
             $scope.filter.conferenceFilter = false;
         }
     }
 
-    $scope.check = function(){
-        console.log($scope.filter);
-    }
-    
-    
-
     $scope.filterLevel = function(level) {
         $scope.filter.level = level;
-        console.log($scope.filter);
     }
 
     $scope.filterState = function(state) {
         $scope.filter.state = state;
-        console.log($scope.filter);
     }
 
     loadConferences();

@@ -42,7 +42,6 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                                 $scope.unseenMessagesCount++;
                         })
                     })
-                    console.log($scope.unseenMessagesCount);
                 }
                 else {
                     $scope.showErrors(data.errors);
@@ -151,7 +150,6 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                     $scope.conference = data.data;
                     getDaysRemaining(data.data.date);
                     getParticipationsInfo();
-                    console.log($scope.conference);
                 }
                 else {
                     $scope.showErrors(data.errors);
@@ -179,6 +177,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
 
     $scope.$watch('session.currentUser', function() {
         if ($scope.session.currentUser) {
+            console.log($scope.session);
             getLast5();
             getNewEmailsCount();
             getParticAndConfInfo();
