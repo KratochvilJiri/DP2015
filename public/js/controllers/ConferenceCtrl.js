@@ -27,8 +27,6 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
             // console.log(level);
             $scope.conference.attachementTypes.forEach(function(type) {
                 level.attachementTypes.forEach(function(attachementTypeInLevel) {
-                    console.log(type);
-                    console.log(attachementTypeInLevel);
                     if (type.hash == attachementTypeInLevel.hash) {
                         isAssigned = false;
                     }
@@ -41,14 +39,16 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
                 }
             })
         })
-        console.log($scope.conference.sponsorshipLevels);
+        console.log($scope.conference);
     }
 
     var setActiveConference = function() {
         $scope.allConference.forEach(function(conference) {
             if (conference.active) {
                 $scope.conference = conference;
+                console.log($scope.conference.sponsorshipLevels); 
                 getAttachementTypesForLevel();
+                
             }
         })
     }
@@ -72,6 +72,7 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
 
     // add new document to conference
     $scope.addAttachementType = function() {
+        
         if (!$scope.conference.attachementTypes)
             $scope.conference.attachementTypes = [];
 
@@ -79,19 +80,22 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
         $scope.conference.attachementTypes.push({
             hash: GUID
         });
+        
+        getAttachementTypesForLevel();
+
     }
 
     // remove document
     $scope.removeAttachementType = function(index) {
-        removeAttachTypeFromSponsorshipLvl(index);
+        removeAttachTypeFromSponsorshipLvl($scope.conference.attachementTypes[index].hash);
         $scope.conference.attachementTypes.splice(index, 1);
+        getAttachementTypesForLevel();
     }
 
     // save conference
     $scope.save = function() {
         $scope.conference.active = true;
         SessionService.currentUser.conferenceID = $scope.conference._id;
-        console.log($scope.conference);
         //console.log($scope.conference.attachementTypes);
         ConferenceService.save($scope.conference)
             .success(function(data) {
@@ -110,12 +114,12 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
     }
 
     // remove deleted Attachement from SponsorshipLevels
-    var removeAttachTypeFromSponsorshipLvl = function(index) {
+    var removeAttachTypeFromSponsorshipLvl = function(deletedHash) {
         $scope.conference.sponsorshipLevels.forEach(function(sponsorShipLevel) {
             if (sponsorShipLevel.attachementTypes) {
-                sponsorShipLevel.attachementTypes.forEach(function(attachementType, index, attachementTypes) {
-                    if (attachementType.hash === $scope.conference.attachementTypes[index].hash) {
-                        attachementTypes.splice(index, 1);
+                sponsorShipLevel.attachementTypes.forEach(function(attachementType, index) {
+                    if (attachementType.hash === deletedHash) {
+                        sponsorShipLevel.attachementTypes.splice(index, 1);
                     }
                 })
             }
