@@ -28,6 +28,13 @@ app.config(function($stateProvider, $urlRouterProvider, filepickerProvider) {
             controller: 'DashboardController'
         })
 
+        .state('home.communicationNews', {
+            url: 'communicationNews',
+            templateUrl: 'views/communicationNews.html',
+            controller: 'CommunicationNewsController'
+        })
+
+
         .state('home.invitationAnswers', {
             url: 'invitationAnswers',
             templateUrl: 'views/invitationAnswers.html',
