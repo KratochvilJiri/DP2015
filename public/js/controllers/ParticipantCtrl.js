@@ -205,9 +205,6 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             $scope.conference = $scope.ParticipatedConferences[0];
             $scope.participation = $scope.participations[0];
         }
-        if ($scope.participation.messages) {
-            $scope.participation.messages = $scope.participation.messages.slice().reverse()
-        }
         if ($scope.conference._id) {
             getAttachementTypes();
         }

@@ -65,7 +65,6 @@ angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$sco
             .success(function(data) {
                 if (data.isValid) {
                     $scope.issue = data.data;
-                    $scope.issue.messages = $scope.issue.messages.reverse();
                     openedDays();
                 }
                 else {

@@ -116,7 +116,7 @@ module.exports = {
             .populate('creator', 'name')
             .populate('supervisor', 'name')
             .populate({
-                path: 'messages', model: 'Message', populate: { path: 'author', model: 'User', select: 'name role' }
+                path: 'messages', model: 'Message', options: { sort: { 'date': -1 } }, populate: { path: 'author', model: 'User', select: 'name role' }
             })
             .exec(function(err, dbIssue) {
                 if (err) {

@@ -120,7 +120,7 @@ module.exports = {
             .find({ 'user': participantID })
             .populate('conference', 'name date notification active sponsorshipLevels attachementTypes place attendeesNumber invitation email')
             .populate({
-                path: 'messages', model: 'Message', populate: { path: 'author', model: 'User', select: 'name role' }
+                path: 'messages', model: 'Message', options: { sort: { 'date': -1 } }, populate: { path: 'author', model: 'User', select: 'name role' }
             })
             .populate({ path: 'attachements', model: 'Attachement' })
             .exec(function(err, participations) {

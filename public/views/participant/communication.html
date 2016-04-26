@@ -16,7 +16,7 @@
 </form>
 
 <div class="ui grid row" ng-repeat="message in participation.messages">
-    <div class="twelve wide left floated column" ng-if="message.author.role=='PARTICIPANT'">
+    <div class="twelve wide left floated column" ng-show="message.author.role=='PARTICIPANT'">
         <div class="ui small floating message">
             <div class="header">
                 {{message.author.name}} - {{message.date | date:'dd/MM/yyyy HH:mm:ss'}}
@@ -31,7 +31,7 @@
             <p>{{message.content}}</p>
         </div>
     </div>
-    <div class="twelve wide right floated column" ng-if="message.author.role!='PARTICIPANT'">
+    <div class="twelve wide right floated column" ng-show="message.author.role!='PARTICIPANT'">
         <div class="ui small floating message">
             <div class="header">
                 {{message.author.name}} - {{message.date | date:'dd/MM/yyyy HH:mm:ss'}}
