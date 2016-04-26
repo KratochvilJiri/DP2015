@@ -22,6 +22,18 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     //
     $scope.attachement = {};
 
+    $scope.changeConference = function() {
+        $scope.participations.forEach(function(participation) {
+            if(participation.conference._id == $scope.conference._id){
+                $scope.participation = participation;
+                setTimeout(function() { $('.ui.dropdown').dropdown(); }, 500);
+            }
+            console.log(participation.conference._id);
+        });
+        console.log($scope.conference);
+        getAttachementTypes();
+    }
+
     $scope.markAsSeen = function(message) {
         message.seen = true;
         MessageService.save(message)
@@ -60,6 +72,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     }
     // get sponsorshipLevel documents
     var getAttachementTypes = function() {
+        $scope.attachementTypes = [];
         $scope.conference.sponsorshipLevels.forEach(function(sponsorshipLevel) {
             if (sponsorshipLevel._id === $scope.participation.sponsorshipLevel.type._id)
                 $scope.attachementTypes = sponsorshipLevel.attachementTypes;
@@ -97,8 +110,6 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
         filepickerService.remove(
             attachement.data,
             function() {
-                console.log("Removed");
-                console.log(attachement);
                 AttachementService.remove(attachement)
                     .success(function(data, status, headers, config) {
                         if (data.isValid) {
@@ -171,6 +182,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             .success(function(data, status, headers, config) {
                 if (data.isValid) {
                     $scope.showSuccess("Účast byla úspěšně atualizována.");
+                    $state.go('home.participants');
                 }
                 else {
                     $scope.showErrors(data.errors);

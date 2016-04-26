@@ -32,5 +32,4 @@ module.exports = function (app) {
             res.json({ isValid: false, data: null, error: null });
         }
     });
-
 };
