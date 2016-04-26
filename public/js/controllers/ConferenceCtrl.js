@@ -1,4 +1,5 @@
-angular.module('ConferenceCtrl',[]).controller('ConferenceController',['$scope','$timeout','$state', 'ConferenceService' ,function($scope,$timeout,$state, ConferenceService){
+angular.module('ConferenceCtrl',[]).controller('ConferenceController',['$scope','$timeout','$state', 'ConferenceService','SessionService' ,function($scope,$timeout,$state, ConferenceService, SessionService){
+    $scope.session = SessionService;
     $scope.conference = {};
     $scope.conference.sponsorshipLevels = [];
     $scope.allConference = [];
@@ -64,12 +65,14 @@ angular.module('ConferenceCtrl',[]).controller('ConferenceController',['$scope',
     // save conference
     $scope.save = function () {
         $scope.conference.active = true;
+        $scope.session.currentUser.conferenceID = $scope.conference._id;
         //console.log($scope.conference.attachementTypes);
         ConferenceService.save($scope.conference)
         .success(function(data){
             if(data.isValid){
                 $scope.showSuccess("Konference byla úspěšně aktualizována/přidána");
-                loadAllConference();
+                $state.go('home.dashboard');
+                //loadAllConference();
             }
             else{
                 $scope.showErrors(data.errors);

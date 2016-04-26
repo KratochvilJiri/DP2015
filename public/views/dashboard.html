@@ -147,7 +147,7 @@
         </div>
     </div>
     <div class="stackable seven column row grid-container" ng-repeat="conference in otherConferences">
-        <a href="" class="column BGBlue ui segment marginRight075">
+        <a class="column BGBlue ui segment marginRight075" ui-sref="home.administration.conference">
             <h4 class="ui header fontGrey">{{conference.name}}</h4>
             <span class="bottom alligned fontGrey">{{conference.date | date:'dd/MM/yyyy'}}</span>
         </a>
