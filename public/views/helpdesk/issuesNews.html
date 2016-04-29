@@ -1,0 +1,29 @@
+<div class="ui attached message">
+    <div class="header">
+        Helpdesk - nové zprávy
+    </div>
+</div>
+
+<table class="ui selectable celled striped table">
+    <thead>
+        <tr>
+            <th>Odesílatel</th>
+            <th> Problém </th>
+            <th>Datum odeslání</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody ng-repeat="item in communicationNews">
+        <tr>
+            <td>{{item.author}}</td>
+            <td>{{item.issueName}}</td>
+            <td>{{item.date | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+            <td class="collapsing">
+                <a class="ui basic button" ui-sref="home.helpdeskIssue({issueId: item.issueID})">
+                    <i class="comments outline icon"></i>Přejít na komunikaci
+                </a>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
