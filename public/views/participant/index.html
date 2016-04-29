@@ -4,14 +4,21 @@
     </div>
 </div>
 <form class="ui form attached fluid segment">
-    <div class="two fields">
         <div class="field">
             <label>Zvolená konference:</label>
-            <select class="ui dropdown" ng-options="item.name for item in ParticipatedConferences track by item._id" ng-model="conference" ng-change="changeConference()">
+            <div class="ui action inline">
+                <select class="ui dropdown" ng-options="item.name for item in ParticipatedConferences track by item._id" ng-model="conference"
+                    ng-change="changeConference()">
                 <option value="" disabled selected> Vyberte konferenci</option>
             </select>
+                <a class="ui basic button" ng-click="removeParticipation()" ng-class="{'disabled': participation.attachements.length > 0}">
+                    <i class="remove red icon"></i>Odstranit účast
+                </a>
+            </div>
         </div>
-    </div>
+        <div class="field"" ng-if="participation.attachements.length > 0">
+             <p><i class="info icon"></i>Pro odstranění účasti je nutné nejdříve odstranit všechny přílohy.</p>
+        </div> 
     <div class="two fields">
         <div class="field" ng-if="session.currentUser.permissions.ParticipantAdministration">
             <label>Nová účast:</label>

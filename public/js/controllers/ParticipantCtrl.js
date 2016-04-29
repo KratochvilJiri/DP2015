@@ -1,4 +1,4 @@
-angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$scope', '$state', '$stateParams', '$timeout', 'UserService', 'ConferenceService', 'ParticipationService', 'SessionService', 'MessageService', 'filepickerService', 'AttachementService', function($scope, $state, $stateParams, $timeout, UserService, ConferenceService, ParticipationService, SessionService, MessageService, filepickerService, AttachementService) {
+angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$scope', '$state', '$stateParams', '$timeout', 'UserService', 'ConferenceService', 'ParticipationService', 'SessionService', 'MessageService', 'filepickerService', 'AttachementService', function ($scope, $state, $stateParams, $timeout, UserService, ConferenceService, ParticipationService, SessionService, MessageService, filepickerService, AttachementService) {
     // session structure
     $scope.session = SessionService;
     // participant (user)
@@ -22,11 +22,30 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     //
     $scope.attachement = {};
 
-    $scope.changeConference = function() {
-        $scope.participations.forEach(function(participation) {
+    $scope.removeParticipation = function () {
+        var deletedParticipation = {};
+        deletedParticipation._id = $scope.participation._id;
+        deletedParticipation.user = $scope.participation.user;
+        deletedParticipation.conference = $scope.participation.conference._id;
+        ParticipationService.delete(deletedParticipation)
+            .success(function (data, status, headers, config) {
+                if (data.isValid) {
+                    $scope.showSuccess("Účast byla úspěšně odebrána.");
+                }
+                else {
+                    $scope.showErrors(data.errors);
+                }
+            })
+            .error(function (data, status) {
+                console.error('Error', status, data);
+            });
+    }
+
+    $scope.changeConference = function () {
+        $scope.participations.forEach(function (participation) {
             if (participation.conference._id == $scope.conference._id) {
                 $scope.participation = participation;
-                setTimeout(function() { $('.ui.dropdown').dropdown(); }, 500);
+                setTimeout(function () { $('.ui.dropdown').dropdown(); }, 500);
             }
             console.log(participation.conference._id);
         });
@@ -34,10 +53,10 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
         getAttachementTypes();
     }
 
-    $scope.markAsSeen = function(message) {
+    $scope.markAsSeen = function (message) {
         message.seen = true;
         MessageService.save(message)
-            .success(function(data, status, headers, config) {
+            .success(function (data, status, headers, config) {
                 if (data.isValid) {
                     $scope.showSuccess("Zpráva byla označena za přečtenou.");
                 }
@@ -45,20 +64,20 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.error('Error', status, data);
             });
     }
 
     // send new message to the server
-    $scope.sendMessage = function() {
+    $scope.sendMessage = function () {
         $scope.message.date = new Date();
         $scope.message.author = $scope.session.currentUser._id;
         $scope.message.participation = $scope.participation._id;
         $scope.message.seen = false;
         $scope.message.userRole = $scope.session.currentUser.role;
         MessageService.save($scope.message)
-            .success(function(data, status, headers, config) {
+            .success(function (data, status, headers, config) {
                 if (data.isValid) {
                     $scope.showSuccess("Zpráva byla úspěšně odeslána.");
                     $state.go($state.current, {}, { reload: true });
@@ -67,24 +86,26 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.error('Error', status, data);
             });
     }
     // get sponsorshipLevel documents
-    var getAttachementTypes = function() {
+    var getAttachementTypes = function () {
         $scope.attachementTypes = [];
-        $scope.conference.sponsorshipLevels.forEach(function(sponsorshipLevel) {
-            if (sponsorshipLevel._id === $scope.participation.sponsorshipLevel.type._id)
-                $scope.attachementTypes = sponsorshipLevel.attachementTypes;
-        })
+        if ($scope.participation.sponsorshipLevel) {
+            $scope.conference.sponsorshipLevels.forEach(function (sponsorshipLevel) {
+                if (sponsorshipLevel._id === $scope.participation.sponsorshipLevel.type._id)
+                    $scope.attachementTypes = sponsorshipLevel.attachementTypes;
+            })
+        }
         assignAttachement();
     }
 
-    var assignAttachement = function() {
+    var assignAttachement = function () {
 
-        $scope.participation.attachements.forEach(function(attachement) {
-            $scope.attachementTypes.forEach(function(attachementType) {
+        $scope.participation.attachements.forEach(function (attachement) {
+            $scope.attachementTypes.forEach(function (attachementType) {
                 if (attachementType.hash === attachement.hash)
                     attachementType.attachement = attachement;
             })
@@ -92,7 +113,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     }
 
     // add attendee to the array
-    $scope.addAttendee = function() {
+    $scope.addAttendee = function () {
         if (!$scope.participation.attendees)
             $scope.participation.attendees = [];
 
@@ -100,19 +121,19 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     }
 
     // remove sponsorShipLevel
-    $scope.removeAttendee = function(index) {
+    $scope.removeAttendee = function (index) {
         $scope.participation.attendees.splice(index, 1);
     }
 
-    $scope.removeAttachement = function(attachement) {
+    $scope.removeAttachement = function (attachement) {
         console.log(attachement.data);
 
 
         filepickerService.remove(
             attachement.data,
-            function() {
+            function () {
                 AttachementService.remove(attachement)
-                    .success(function(data, status, headers, config) {
+                    .success(function (data, status, headers, config) {
                         if (data.isValid) {
                             $state.go($state.current, {}, { reload: true, inherit: true, notify: true });
                             $scope.showSuccess("Příloha byla úspěšně odstraněna.");
@@ -121,28 +142,28 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                             $scope.showErrors(data.errors);
                         }
                     })
-                    .error(function(data, status) {
+                    .error(function (data, status) {
                         console.error('Error', status, data);
                     });
             },
-            function() {
+            function () {
                 console.log("error");
             }
         );
     }
 
-    $scope.downloadAttachement = function(attachement) {
+    $scope.downloadAttachement = function (attachement) {
         console.log(attachement);
         filepickerService.exportFile(
             attachement,
             { language: 'cs' },
-            function(Blob) {
+            function (Blob) {
                 console.log(Blob.url);
             }
         );
     }
 
-    $scope.uploadAttachement = function(attachementTypeHash) {
+    $scope.uploadAttachement = function (attachementTypeHash) {
         filepickerService.pick(
             {
                 mimetype: 'application/pdf',
@@ -151,7 +172,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                 openTo: 'COMPUTER'
             },
             //attachement saved to filestack
-            function(Blob) {
+            function (Blob) {
                 $scope.attachement.data = Blob;
                 $scope.attachement.hash = attachementTypeHash;
                 $scope.attachement.date = Date.now();
@@ -161,16 +182,16 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
 
                 // save attachement to MongoDB
                 AttachementService.save($scope.attachement)
-                    .success(function(data, status, headers, config) {
+                    .success(function (data, status, headers, config) {
                         if (data.isValid) {
-                            $state.go($state.current, {}, { reload: true});
+                            $state.go($state.current, {}, { reload: true });
                             $scope.showSuccess("Příloha byla úspěšně uložena.");
                         }
                         else {
                             $scope.showErrors(data.errors);
                         }
                     })
-                    .error(function(data, status) {
+                    .error(function (data, status) {
                         console.error('Error', status, data);
                     });
 
@@ -180,9 +201,9 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     };
 
     // save updated participation
-    $scope.updateParticipation = function() {
+    $scope.updateParticipation = function () {
         ParticipationService.save($scope.participation)
-            .success(function(data, status, headers, config) {
+            .success(function (data, status, headers, config) {
                 if (data.isValid) {
                     $scope.showSuccess("Účast byla úspěšně atualizována.");
                     $state.go('home.participants');
@@ -191,18 +212,18 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.error('Error', status, data);
             });
     }
 
     // set selected conference and its participation
-    var setConferenceAndParticipation = function() {
-        $scope.participations.forEach(function(participation) {
+    var setConferenceAndParticipation = function () {
+        $scope.participations.forEach(function (participation) {
             $scope.ParticipatedConferences.push(participation.conference);
             if (participation.conference.active) {
                 $scope.conference = participation.conference;
-                setTimeout(function() { $('.ui.dropdown').dropdown(); }, 500);
+                setTimeout(function () { $('.ui.dropdown').dropdown(); }, 500);
                 $scope.participation = participation;
             }
         })
@@ -216,28 +237,28 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     }
 
     // create new participation of participant
-    $scope.addParticipation = function() {
+    $scope.addParticipation = function () {
         $scope.newParticipation.user = $scope.participant._id;
         $scope.newParticipation.state = "APPROVED";
         ParticipationService.save($scope.newParticipation)
-            .success(function(data, status, headers, config) {
+            .success(function (data, status, headers, config) {
                 if (data.isValid) {
-                    $state.go($state.current, {}, { reload: true});
+                    $state.go($state.current, {}, { reload: true });
                     $scope.showSuccess("Účastník byl úspěšně přidán na konferenci.");
                 }
                 else {
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.error('Error', status, data);
             });
     }
 
     // load participant detail
-    var loadParticipant = function() {
+    var loadParticipant = function () {
         UserService.get($stateParams.participantId)
-            .success(function(data, status, headers, config) {
+            .success(function (data, status, headers, config) {
                 if (data.isValid) {
                     $scope.participant = data.data;
                     loadParticipations();
@@ -246,15 +267,15 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.error('Error', status, data);
             });
     }
 
     // load conferences, which participant didnt participate
-    var loadOtherConferences = function() {
+    var loadOtherConferences = function () {
         ConferenceService.getFilteredList(getConferencesIDs($scope.participations))
-            .success(function(data, status, headers, config) {
+            .success(function (data, status, headers, config) {
                 if (data.isValid) {
                     $scope.otherConferences = data.data;
                 }
@@ -262,24 +283,24 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.error('Error', status, data);
             });
     }
 
     // get conferences IDs from participations
-    var getConferencesIDs = function(array) {
+    var getConferencesIDs = function (array) {
         var IDsArray = [];
-        array.forEach(function(object) {
+        array.forEach(function (object) {
             IDsArray.push(object.conference._id);
         });
         return IDsArray;
     }
 
     // get all pariticipations of user
-    var loadParticipations = function() {
+    var loadParticipations = function () {
         ParticipationService.getList($scope.participant._id)
-            .success(function(data, status, headers, config) {
+            .success(function (data, status, headers, config) {
                 if (data.isValid) {
                     $scope.participations = data.data;
                     setConferenceAndParticipation();
@@ -289,27 +310,27 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.error('Error', status, data);
             });
     }
 
     // save changes in participant(user)
-    $scope.saveParticipant = function() {
+    $scope.saveParticipant = function () {
         if (!$scope.participant.address) {
             $scope.participant.address = {};
         }
         UserService.save($scope.participant)
-            .success(function(data) {
+            .success(function (data) {
                 if (data.isValid) {
-                    $state.go($state.current, {}, { reload: true});
+                    $state.go($state.current, {}, { reload: true });
                     $scope.showSuccess("Účastník byl úspěšně aktualizován");
                 }
                 else {
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.error('Error', status, data);
             });
     }
