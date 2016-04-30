@@ -1,12 +1,13 @@
 var UserModel = require('./../models/UserModel');
+var ConferenceModel = require('./../models/ConferenceModel');
 var ValidationResult = require('./../models/ValidationResultsStructure');
+var EmailService = require('./EmailService');
+var nodemailer = require('nodemailer');
 
 module.exports = {
 
     // create user
-    save: function(user, callback) {
-
-        user.password = "1";
+    save: function (user, callback) {
         // user validation
         var validation = this.validate(user);
 
@@ -17,7 +18,7 @@ module.exports = {
 
         // check if _Id is set
         if (user._id) {
-            UserModel.findById(user._id, function(err, dbUser) {
+            UserModel.findById(user._id, function (err, dbUser) {
                 // error check
                 if (err) {
                     validation.addError("Uživatele se nezdařilo nalézt v databázi");
@@ -25,7 +26,7 @@ module.exports = {
                     return;
                 }
 
-                if(user.newPassword){
+                if (user.newPassword) {
                     dbUser.password = user.newPassword;
                 }
                 // Update and save user
@@ -42,7 +43,7 @@ module.exports = {
                 }
 
                 // Save user
-                dbUser.save(function(err) {
+                dbUser.save(function (err) {
                     if (err) {
                         validation.addError("Uživatele se nepodařilo uložit");
                         callback(validation);
@@ -55,23 +56,68 @@ module.exports = {
             })
         }
         else {
-            UserModel.create(user, function(err, dbUser) {
+            user.password = this.generatePassword();
+            UserModel.create(user, function (err, dbUser) {
                 // user creation error
                 if (err) {
-                    validation.addError("Nepodařilo se vytvořit uživatele.");
+                    console.log(err);
+                    validation.addError("Nepodařilo se vytvořit uživatele." + err);
                     callback(validation);
                     return;
                 }
+                console.log("ssss");
+                ConferenceModel.findOne({ "active": true }, "email emailPort emailPassword _id", function (err, dbConference) {
+                    if (err) {
+                        validation.addError(err);
+                        callback(validation);
+                        return;
+                    }
+                    console.log("asdadad");
+                    console.log(dbConference);
+                    var temp = dbConference.email.split("@");
+                    var imapServer = temp[1];
 
-                // user created
-                callback(validation);
-                return
+                    var smtpConfig = {
+                        host: ("smtp." + imapServer),
+                        port: 465,
+                        secure: true, // SSL
+                        auth: {
+                            user: dbConference.email,
+                            pass: dbConference.emailPassword
+                        }
+                    };
+
+                    var transporter = nodemailer.createTransport(smtpConfig);
+
+                    var emailBody = "Dobrý den, <br /> vítáme Vás v systému pro podporu komunikace a zajištění externích účastníků akce. <br /> Vaše přihlašovací údaje jsou: email:" + user.email + "<br /> heslo:" + user.password + "<br /> <br /> S pozdravem, <br /> vývojařský tým aplikace.";
+                    var mailOptions = {
+                        from: (dbConference.name + dbConference.email), // sender address
+                        to: user.email, // list of receivers
+                        subject: "Registrační údaje - systém pro podporu komunikace.", // Subject line
+                        text: emailBody, // plaintext body
+                        html: emailBody // html body
+                    };
+
+                    transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                            console.log(error);
+                            validation.addError(error);
+                            callback(validation);
+                            return;
+                        }
+                        else {
+                            console.log('Message sent: ' + info.response);
+                            callback(validation);
+                            return;
+                        }
+                    });
+                });
             });
         }
     },
 
     // user structure validation
-    validate: function(user) {
+    validate: function (user) {
         // validation init
         validation = new ValidationResult(user);
 
@@ -88,8 +134,8 @@ module.exports = {
                 validation.addError("Směrovací číslo sídla účastníka je povinné");
             }
         }
-        
-        if(user.newPassword != user.newPassword1){
+
+        if (user.newPassword != user.newPassword1) {
             validation.addError("Nová hesla se neshodují");
         }
         // check required values
@@ -101,11 +147,11 @@ module.exports = {
     },
 
     // get users
-    getList: function(filter, callback) {
+    getList: function (filter, callback) {
         var validation = new ValidationResult([]);
 
         if (filter == "PARTICIPANTS") {
-            UserModel.find({ 'role': 'PARTICIPANT' }, function(err, users) {
+            UserModel.find({ 'role': 'PARTICIPANT' }, function (err, users) {
                 // get all users error
                 if (err) {
                     validation.addError("Nepodařilo se získat seznam účastníků");
@@ -122,7 +168,7 @@ module.exports = {
         }
 
         else if (filter == "NOT_PARTICIPANT") {
-            UserModel.find({ 'role': {$ne: 'PARTICIPANT'} }, 'name', function(err, users) {
+            UserModel.find({ 'role': { $ne: 'PARTICIPANT' } }, 'name', function (err, users) {
                 // get all users error
                 if (err) {
                     validation.addError("Nepodařilo se získat seznam účastníků");
@@ -139,7 +185,7 @@ module.exports = {
 
         else {
             // find all users
-            UserModel.find(function(err, users) {
+            UserModel.find(function (err, users) {
                 // get all users error
                 if (err) {
                     validation.addError("Nepodařilo se získat seznam uživatelů");
@@ -155,7 +201,7 @@ module.exports = {
         }
     },
 
-    getUninvited: function(conferenceID, callback) {
+    getUninvited: function (conferenceID, callback) {
         var validation = new ValidationResult([]);
 
         console.log(conferenceID);
@@ -164,7 +210,7 @@ module.exports = {
             .populate({
                 path: 'participations', model: 'Participation', match: { "conference": conferenceID }, select: "_id"
             })
-            .exec(function(err, users) {
+            .exec(function (err, users) {
                 // get all users error
                 if (err) {
                     validation.addError("Nepodařilo se získat seznam účastníků");
@@ -182,7 +228,7 @@ module.exports = {
     },
 
     // get user by ID
-    get: function(user, callback) {
+    get: function (user, callback) {
         var validation = new ValidationResult(user);
         // _id is needed for get user
         if (!user._id) {
@@ -191,7 +237,7 @@ module.exports = {
             return;
         }
 
-        UserModel.findById(user._id, function(err, dbUser) {
+        UserModel.findById(user._id, function (err, dbUser) {
             if (err) {
                 validation.addError("Uživatele se nepodařilo získat");
                 callback(validation);
@@ -205,7 +251,7 @@ module.exports = {
     },
 
     // remove use by id
-    remove: function(user, callback) {
+    remove: function (user, callback) {
         var validation = new ValidationResult(user);
 
         // _id is needed for remove
@@ -215,7 +261,7 @@ module.exports = {
             return;
         }
 
-        UserModel.remove(user, function(err, dbUser) {
+        UserModel.remove(user, function (err, dbUser) {
             // user remove error
             if (err) {
                 validation.addError("Uživatele se nezdařilo odebrat");
@@ -225,5 +271,24 @@ module.exports = {
             // user removed
             callback(validation);
         });
+    },
+
+    sendCredentials: function (user) {
+        var email = {};
+        email.recipient = user.email;
+        email.text = "Dobrý den, \n vítáme Vás v systému pro podporu komunikace a zajištění externích účastníků akce. \n Vaše přihlašovací údaje jsou: email:" + user.email + "\n heslo:" + user.password + "\n S pozdravem, \n vývojařský tým aplikace.";
+        EmailService.send(email, function (validation) {
+            return validation;
+        });
+    },
+
+    generatePassword: function () {
+        var length = 8,
+            charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+            password = "";
+        for (var i = 0, n = charset.length; i < length; ++i) {
+            password += charset.charAt(Math.floor(Math.random() * n));
+        }
+        return password;
     }
 }

@@ -363,12 +363,17 @@ module.exports = {
                         pass: dbConference.emailPassword
                     }
                 };
+                
+                var to = "";
+                email.addressees.forEach(function(addressee){
+                    to = to + addressee.name;
+                })
 
                 var transporter = nodemailer.createTransport(smtpConfig);
 
                 var mailOptions = {
                     from: (dbConference.name + dbConference.email), // sender address
-                    to: 'juurakratochvil@gmail.com', // list of receivers
+                    to: to, // list of receivers
                     subject: email.subject, // Subject line
                     text: email.text, // plaintext body
                     html: email.text // html body
