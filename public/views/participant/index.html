@@ -11,7 +11,7 @@
                     ng-change="changeConference()">
                 <option value="" disabled selected> Vyberte konferenci</option>
             </select>
-                <a class="ui basic button" ng-click="removeParticipation()" ng-class="{'disabled': participation.attachements.length > 0}">
+                <a class="ui basic button" ng-click="removeParticipation()" ng-class="{'disabled': participation.attachements.length > 0}" ng-if="session.currentUser.permissions.ParticipantAdministration">
                     <i class="remove red icon"></i>Odstranit účast
                 </a>
             </div>
