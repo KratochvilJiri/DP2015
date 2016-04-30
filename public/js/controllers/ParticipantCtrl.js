@@ -80,7 +80,8 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             .success(function (data, status, headers, config) {
                 if (data.isValid) {
                     $scope.showSuccess("Zpráva byla úspěšně odeslána.");
-                    $state.go($state.current, {}, { reload: true });
+                    loadParticipant();
+                    $scope.message = {};
                 }
                 else {
                     $scope.showErrors(data.errors);
@@ -135,7 +136,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                 AttachementService.remove(attachement)
                     .success(function (data, status, headers, config) {
                         if (data.isValid) {
-                            $state.go($state.current, {}, { reload: true, inherit: true, notify: true });
+                            loadParticipant();
                             $scope.showSuccess("Příloha byla úspěšně odstraněna.");
                         }
                         else {
@@ -184,7 +185,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                 AttachementService.save($scope.attachement)
                     .success(function (data, status, headers, config) {
                         if (data.isValid) {
-                            $state.go($state.current, {}, { reload: true });
+                            loadParticipant();
                             $scope.showSuccess("Příloha byla úspěšně uložena.");
                         }
                         else {
@@ -243,7 +244,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
         ParticipationService.save($scope.newParticipation)
             .success(function (data, status, headers, config) {
                 if (data.isValid) {
-                    $state.go($state.current, {}, { reload: true });
+                    $state.go('home.participants');
                     $scope.showSuccess("Účastník byl úspěšně přidán na konferenci.");
                 }
                 else {
@@ -323,7 +324,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
         UserService.save($scope.participant)
             .success(function (data) {
                 if (data.isValid) {
-                    $state.go($state.current, {}, { reload: true });
+                    $state.go('home.participants');
                     $scope.showSuccess("Účastník byl úspěšně aktualizován");
                 }
                 else {

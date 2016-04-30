@@ -1,4 +1,4 @@
-angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$scope','$state', '$filter', 'SessionService', 'IssueService', '$stateParams', 'UserService', 'MessageService', function($scope,$state, $filter, SessionService, IssueService, $stateParams, UserService, MessageService) {
+angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$scope', '$state', '$filter', 'SessionService', 'IssueService', '$stateParams', 'UserService', 'MessageService', function ($scope, $state, $filter, SessionService, IssueService, $stateParams, UserService, MessageService) {
 
     $scope.session = SessionService;
     $scope.supervisors = [];
@@ -23,19 +23,19 @@ angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$sco
     $scope.issue = {};
     $scope.issue.state = {};
 
-    $scope.setType = function(type) {
+    $scope.setType = function (type) {
         $scope.issue.type = type;
     }
 
-    $scope.setPriority = function(priority) {
+    $scope.setPriority = function (priority) {
         $scope.issue.priority = priority;
     }
-    
-    $scope.setState = function(state) {
+
+    $scope.setState = function (state) {
         $scope.issue.state = state;
     }
 
-    $scope.save = function() {
+    $scope.save = function () {
         if (!$scope.issue._id) {
             $scope.issue.date = $filter('date')(new Date(), "yyyy-MM-dd'T'HH:mm:ss.sss'Z'");
             $scope.issue.state.constant = "IN_PROGRESS";
@@ -45,7 +45,7 @@ angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$sco
         }
 
         IssueService.save($scope.issue)
-            .success(function(data) {
+            .success(function (data) {
                 if (data.isValid) {
                     $scope.showSuccess("Problém byl úspěšně vytvořen/aktualizován.");
                     $state.go('home.helpdeskOverview');
@@ -54,16 +54,16 @@ angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$sco
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.error('Error', status, data);
             });
 
         console.log($scope.issue);
     }
 
-    var loadIssue = function() {
+    var loadIssue = function () {
         IssueService.get($stateParams.issueId)
-            .success(function(data) {
+            .success(function (data) {
                 if (data.isValid) {
                     $scope.issue = data.data;
                     openedDays();
@@ -72,12 +72,12 @@ angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$sco
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.error('Error', status, data);
             });
     }
 
-    var openedDays = function() {
+    var openedDays = function () {
         var today = $filter('date')(new Date(), "yyyy-MM-dd'T'HH:mm:ss.sss'Z'");
         var timestamp1 = new Date(today);
 
@@ -97,9 +97,9 @@ angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$sco
         }
     }
 
-    var loadSupervisors = function() {
+    var loadSupervisors = function () {
         UserService.getAll("NOT_PARTICIPANT")
-            .success(function(data) {
+            .success(function (data) {
                 if (data.isValid) {
                     $scope.supervisors = data.data;
                 }
@@ -107,37 +107,39 @@ angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$sco
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.error('Error', status, data);
             });
     }
 
     // send new message to the server
-    $scope.sendMessage = function() {
+    $scope.sendMessage = function () {
         $scope.message.date = new Date();
         $scope.message.author = $scope.session.currentUser._id;
         $scope.message.userRole = $scope.session.currentUser.role;
         $scope.message.issue = $scope.issue._id;
         $scope.message.seen = false;
         MessageService.save($scope.message)
-            .success(function(data, status, headers, config) {
+            .success(function (data, status, headers, config) {
                 if (data.isValid) {
                     $scope.showSuccess("Zpráva byla úspěšně odeslána.");
-                    $state.go($state.current, {}, {reload: true}); 
+                    $scope.message = {};
+                    loadIssue();
+                    loadSupervisors();
                 }
                 else {
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.error('Error', status, data);
             });
     }
 
-    $scope.markAsSeen = function(message) {
+    $scope.markAsSeen = function (message) {
         message.seen = true;
         MessageService.save(message)
-            .success(function(data, status, headers, config) {
+            .success(function (data, status, headers, config) {
                 if (data.isValid) {
                     $scope.showSuccess("Zpráva byla označena za přečtenou.");
                 }
@@ -145,7 +147,7 @@ angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$sco
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.error('Error', status, data);
             });
     }

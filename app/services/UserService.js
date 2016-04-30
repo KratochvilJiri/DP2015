@@ -68,7 +68,14 @@ module.exports = {
                     })
                 }
                 else {
-                    user.password = this.generatePassword();
+                    // pass generation
+                    var length = 8,
+                        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+                        password = "";
+                    for (var i = 0, n = charset.length; i < length; ++i) {
+                        user.password += charset.charAt(Math.floor(Math.random() * n));
+                    }
+                    
                     UserModel.create(user, function (err, dbUser) {
                         // user creation error
                         if (err) {
@@ -77,15 +84,14 @@ module.exports = {
                             callback(validation);
                             return;
                         }
-                        console.log("ssss");
+
                         ConferenceModel.findOne({ "active": true }, "email emailPort emailPassword _id", function (err, dbConference) {
                             if (err) {
                                 validation.addError(err);
                                 callback(validation);
                                 return;
                             }
-                            console.log("asdadad");
-                            console.log(dbConference);
+
                             var temp = dbConference.email.split("@");
                             var imapServer = temp[1];
 

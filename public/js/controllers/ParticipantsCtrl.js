@@ -1,4 +1,4 @@
-angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$scope', '$state', 'UserService', 'ConferenceService', 'ParticipationService', function($scope, $state, UserService, ConferenceService, ParticipationService) {
+angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$scope', '$state', 'UserService', 'ConferenceService', 'ParticipationService', function ($scope, $state, UserService, ConferenceService, ParticipationService) {
 
     $scope.participants = [];
     $scope.filter = {};
@@ -15,9 +15,9 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
     $scope.groups = [];
     $scope.pushedAll = true;
 
-    var loadParticipants = function() {
+    var loadParticipants = function () {
         UserService.getAll("PARTICIPANTS")
-            .success(function(data, status, headers, config) {
+            .success(function (data, status, headers, config) {
                 if (data.isValid) {
                     $scope.participants = data.data;
                     $scope.participantsBackup = data.data;
@@ -26,14 +26,14 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.error('Error', status, data);
             });
     }
 
-    var loadConferences = function() {
+    var loadConferences = function () {
         ConferenceService.getListNames()
-            .success(function(data, status, headers, config) {
+            .success(function (data, status, headers, config) {
                 if (data.isValid) {
                     $scope.conferences = data.data;
                     $scope.conferences.push({ name: "Vše", _id: undefined });
@@ -42,14 +42,14 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.error('Error', status, data);
             });
     }
 
-    var getParticipants = function() {
+    var getParticipants = function () {
         $scope.participants = [];
-        $scope.participations.forEach(function(participation) {
+        $scope.participations.forEach(function (participation) {
             participation.user.state = participation.state;
             if (participation.sponsorshipLevel.type) {
                 participation.user.level = participation.sponsorshipLevel.type._id;
@@ -58,7 +58,7 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
         });
     }
 
-    $scope.filterConference = function(conference) {
+    $scope.filterConference = function (conference) {
         if (conference._id) {
             if ($scope.pushedAll) {
                 conference.sponsorshipLevels.unshift({ _id: undefined, name: "Vše" });
@@ -68,10 +68,10 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
             $scope.filter.conferenceFilter = true;
             $scope.filter.state = {};
             $scope.filter.level = {};
-            setTimeout(function() { $('.ui.dropdown').dropdown(); }, 500);
+            setTimeout(function () { $('.ui.dropdown').dropdown(); }, 500);
 
             ParticipationService.getListByConference(conference._id)
-                .success(function(data, status, headers, config) {
+                .success(function (data, status, headers, config) {
                     if (data.isValid) {
                         $scope.participations = data.data;
                         getParticipants();
@@ -80,7 +80,7 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
                         $scope.showErrors(data.errors);
                     }
                 })
-                .error(function(data, status) {
+                .error(function (data, status) {
                     console.error('Error', status, data);
                 });
 
@@ -92,27 +92,28 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
         }
     }
 
-    $scope.filterLevel = function(level) {
+    $scope.filterLevel = function (level) {
         $scope.filter.level = level;
     }
 
-    $scope.filterState = function(state) {
+    $scope.filterState = function (state) {
         $scope.filter.state = state;
     }
 
-    $scope.removeUser = function(userID) {
+    $scope.removeUser = function (userID) {
         UserService.delete(userID)
-            .success(function(data) {
+            .success(function (data) {
                 if (data.isValid) {
-                    $state.go($state.current, {}, { reload: true});
-                    $scope.showSuccess("Uživatel byl úspěčně odstraněn");
+                    loadConferences();
+                    loadParticipants();
+                    $scope.showSuccess("Uživatel byl úspěšně odstraněn");
                 }
                 else {
                     $scope.showError(data.errors);
                 }
                 $scope.users = data.data;
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.error('Error: ', status, data.error);
             });
     }
