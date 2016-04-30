@@ -16,104 +16,118 @@ module.exports = {
             return;
         }
 
-        // check if _Id is set
-        if (user._id) {
-            UserModel.findById(user._id, function (err, dbUser) {
-                // error check
-                if (err) {
-                    validation.addError("Uživatele se nezdařilo nalézt v databázi");
-                    callback(validation);
-                    return;
-                }
-
-                if (user.newPassword) {
-                    dbUser.password = user.newPassword;
-                }
-                // Update and save user
-                dbUser.name = user.name;
-                dbUser.role = user.role;
-                dbUser.email = user.email;
-                dbUser.phone = user.phone;
-
-                if (user.role == "PARTICIPANT") {
-                    dbUser.contactPerson = user.contactPerson;
-                    dbUser.ICO = user.ICO;
-                    dbUser.DIC = user.DIC;
-                    dbUser.address = user.address;
-                }
-
-                // Save user
-                dbUser.save(function (err) {
-                    if (err) {
-                        validation.addError("Uživatele se nepodařilo uložit");
-                        callback(validation);
-                        return;
-                    }
-
-                    callback(validation);
-                    return;
-                });
-            })
-        }
-        else {
-            user.password = this.generatePassword();
-            UserModel.create(user, function (err, dbUser) {
-                // user creation error
-                if (err) {
-                    console.log(err);
-                    validation.addError("Nepodařilo se vytvořit uživatele." + err);
-                    callback(validation);
-                    return;
-                }
-                console.log("ssss");
-                ConferenceModel.findOne({ "active": true }, "email emailPort emailPassword _id", function (err, dbConference) {
-                    if (err) {
-                        validation.addError(err);
-                        callback(validation);
-                        return;
-                    }
-                    console.log("asdadad");
-                    console.log(dbConference);
-                    var temp = dbConference.email.split("@");
-                    var imapServer = temp[1];
-
-                    var smtpConfig = {
-                        host: ("smtp." + imapServer),
-                        port: 465,
-                        secure: true, // SSL
-                        auth: {
-                            user: dbConference.email,
-                            pass: dbConference.emailPassword
-                        }
-                    };
-
-                    var transporter = nodemailer.createTransport(smtpConfig);
-
-                    var emailBody = "Dobrý den, <br /> vítáme Vás v systému pro podporu komunikace a zajištění externích účastníků akce. <br /> Vaše přihlašovací údaje jsou: email:" + user.email + "<br /> heslo:" + user.password + "<br /> <br /> S pozdravem, <br /> vývojařský tým aplikace.";
-                    var mailOptions = {
-                        from: (dbConference.name + dbConference.email), // sender address
-                        to: user.email, // list of receivers
-                        subject: "Registrační údaje - systém pro podporu komunikace.", // Subject line
-                        text: emailBody, // plaintext body
-                        html: emailBody // html body
-                    };
-
-                    transporter.sendMail(mailOptions, function (error, info) {
-                        if (error) {
-                            console.log(error);
-                            validation.addError(error);
+        UserModel.find({ email: user.email }, function (err, users) {
+            if (err) {
+                validation.addError("Nepodařilo se získat počet duplicit v emailu uživatele.");
+                callback(validation);
+                return;
+            }
+            if (users.length > 0 && (!user._id || user._id != users[0]._id)) {
+                validation.addError("Uživatel s tímto emailem již existuje");
+                callback(validation);
+                return;
+            }
+            else {
+                // check if _Id is set
+                if (user._id) {
+                    UserModel.findById(user._id, function (err, dbUser) {
+                        // error check
+                        if (err) {
+                            validation.addError("Uživatele se nezdařilo nalézt v databázi");
                             callback(validation);
                             return;
                         }
-                        else {
-                            console.log('Message sent: ' + info.response);
+
+                        if (user.newPassword) {
+                            dbUser.password = user.newPassword;
+                        }
+                        // Update and save user
+                        dbUser.name = user.name;
+                        dbUser.role = user.role;
+                        dbUser.email = user.email;
+                        dbUser.phone = user.phone;
+
+                        if (user.role == "PARTICIPANT") {
+                            dbUser.contactPerson = user.contactPerson;
+                            dbUser.ICO = user.ICO;
+                            dbUser.DIC = user.DIC;
+                            dbUser.address = user.address;
+                        }
+
+                        // Save user
+                        dbUser.save(function (err) {
+                            if (err) {
+                                validation.addError("Uživatele se nepodařilo uložit");
+                                callback(validation);
+                                return;
+                            }
+
+                            callback(validation);
+                            return;
+                        });
+                    })
+                }
+                else {
+                    user.password = this.generatePassword();
+                    UserModel.create(user, function (err, dbUser) {
+                        // user creation error
+                        if (err) {
+                            console.log(err);
+                            validation.addError("Nepodařilo se vytvořit uživatele." + err);
                             callback(validation);
                             return;
                         }
+                        console.log("ssss");
+                        ConferenceModel.findOne({ "active": true }, "email emailPort emailPassword _id", function (err, dbConference) {
+                            if (err) {
+                                validation.addError(err);
+                                callback(validation);
+                                return;
+                            }
+                            console.log("asdadad");
+                            console.log(dbConference);
+                            var temp = dbConference.email.split("@");
+                            var imapServer = temp[1];
+
+                            var smtpConfig = {
+                                host: ("smtp." + imapServer),
+                                port: 465,
+                                secure: true, // SSL
+                                auth: {
+                                    user: dbConference.email,
+                                    pass: dbConference.emailPassword
+                                }
+                            };
+
+                            var transporter = nodemailer.createTransport(smtpConfig);
+
+                            var emailBody = "Dobrý den, <br /> vítáme Vás v systému pro podporu komunikace a zajištění externích účastníků akce. <br /> Vaše přihlašovací údaje jsou: email:" + user.email + "<br /> heslo:" + user.password + "<br /> <br /> S pozdravem, <br /> vývojařský tým aplikace.";
+                            var mailOptions = {
+                                from: (dbConference.name + dbConference.email), // sender address
+                                to: user.email, // list of receivers
+                                subject: "Registrační údaje - systém pro podporu komunikace.", // Subject line
+                                text: emailBody, // plaintext body
+                                html: emailBody // html body
+                            };
+
+                            transporter.sendMail(mailOptions, function (error, info) {
+                                if (error) {
+                                    console.log(error);
+                                    validation.addError(error);
+                                    callback(validation);
+                                    return;
+                                }
+                                else {
+                                    console.log('Message sent: ' + info.response);
+                                    callback(validation);
+                                    return;
+                                }
+                            });
+                        });
                     });
-                });
-            });
-        }
+                }
+            }
+        });
     },
 
     // user structure validation
