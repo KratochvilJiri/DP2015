@@ -100,7 +100,10 @@
                     <h4 class="ui header" ng-if="!(participation.newMessage.check)"><i class="fitted mail icon"></i>Nemáte žádné nové zprávy.</h4>
                 </td>
                 <td class="eight wide">
-                    <h4 class="ui header"><i class="fitted trophy large icon"></i>Úroveň sponzorství: {{participation.sponsorshipLevel.type.name}} ({{participation.sponsorshipLevel.value}} Kč)</h4>
+                    <h4 class="ui header">
+                        <span ng-if="!participation.sponsorshipLevel"><i class="fitted trophy large icon"></i>Úroveň sponzorství: není přiřazeno.</span>
+                        <span ng-if="participation.sponsorshipLevel"><i class="fitted trophy large icon"></i> Úroveň sponzorství: {{participation.sponsorshipLevel.type.name}} ({{participation.sponsorshipLevel.value}} Kč)</span>
+                    </h4>
                 </td>
             </tr>
 
@@ -153,26 +156,24 @@
     </div>
 
 </div>
+<div class="ui divider marginTopAndBot3"></div>
 <!-- participant - dashboard -->
-
-<div class="ui grid BGWhite paddingBot3">
-    <div class="row">
-        <div class="column">
-            <h3 class="ui header displayInline">Ostatní akce:</h3>
-        </div>
-    </div>
-    <div ng-if="!session.currentUser.permissions.ParticipantDashboardModule" class="stackable seven column row grid-container"
-    ng-repeat="conference in otherConferences">
-        <a class="column BGBlue ui segment marginRight075" ui-sref="home.administration.conference">
-            <h4 class="ui header fontGrey">{{conference.name}}</h4>
-            <span class="bottom alligned fontGrey">{{conference.date | date:'dd/MM/yyyy'}}</span>
+<div class="ui grid">
+    <h3 class="ui header displayInline">Ostatní akce:</h3>
+    <div class="center aligned five column stackable row" ng-if="!session.currentUser.permissions.ParticipantDashboardModule">
+        <a ui-sref="home.administration.conference" class="column" ng-repeat="conference in otherConferences">
+            <div class="ui segment otherAction">
+                <h3 class="ui header fontGrey">{{conference.name}}</h3>
+                <span class="bottom alligned fontGrey">{{conference.date | date:'dd/MM/yyyy'}}</span>
+            </div>
         </a>
     </div>
-    <div ng-if="session.currentUser.permissions.ParticipantDashboardModule && (participation.conference._id != conference._id)" class="stackable seven column row grid-container"
-    ng-repeat="participation in participations">
-        <a class="column BGBlue ui segment marginRight075" ui-sref="home.participant.information({participantId: session.currentUser._id})">
-            <h4 class="ui header fontGrey">{{participation.conference.name}}</h4>
-            <span class="bottom alligned fontGrey">{{participation.conference.date | date:'dd/MM/yyyy'}}</span>
+    <div class="center aligned five column stackable row" ng-if="session.currentUser.permissions.ParticipantDashboardModule && (participation.conference._id != conference._id)">
+        <a ui-sref="home.participant.information({participantId: session.currentUser._id})" class="column" ng-repeat="participation in participations">
+            <div class="ui segment otherAction">
+                <h3 class="ui header fontGrey">{{participation.conference.name}}</h3>
+                <span class="bottom alligned fontGrey">{{participation.conference.date | date:'dd/MM/yyyy'}}</span>
+            </div>
         </a>
     </div>
 </div>

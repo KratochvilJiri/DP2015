@@ -196,6 +196,14 @@ a.whiteLink {
 	display: inline;
 }
 
+.otherAction{
+    border-right: white solid 2em;
+    margin-bottom: 2em !important;
+    background-color: #428BCA !important;
+    min-height: 7em;
+    color: #EBEBEB !important;
+}
+
 .marginRight075{
 	margin-right: 0.75em !important;
 }
@@ -206,6 +214,11 @@ a.whiteLink {
 
 .marginTop3{
     margin-top: 3em;
+}
+
+.marginTopAndBot3{
+    margin-top: 3em !important;
+    margin-bottom: 3em !important;
 }
 
 .paddingLeft0{

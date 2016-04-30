@@ -130,14 +130,16 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                         $scope.conference.complete++;
                     }
 
-                    if (firstRound && participation.sponsorshipLevel.value && participation.state === "APPROVED")
-                        $scope.conference.approvedMoney = $scope.conference.approvedMoney + participation.sponsorshipLevel.value;
+                    if (participation.sponsorshipLevel) {
+                        if (firstRound && participation.sponsorshipLevel.value && participation.state === "APPROVED")
+                            $scope.conference.approvedMoney = $scope.conference.approvedMoney + participation.sponsorshipLevel.value;
 
-                    else if (firstRound && participation.sponsorshipLevel.value && participation.state === "COMPLETE")
-                        $scope.conference.completeMoney = $scope.conference.completeMoney + participation.sponsorshipLevel.value;
+                        else if (firstRound && participation.sponsorshipLevel.value && participation.state === "COMPLETE")
+                            $scope.conference.completeMoney = $scope.conference.completeMoney + participation.sponsorshipLevel.value;
 
-                    if (level._id === participation.sponsorshipLevel.type._id) {
-                        level.count++;
+                        if (level._id === participation.sponsorshipLevel.type._id) {
+                            level.count++;
+                        }
                     }
                 })
             firstRound = false;
@@ -212,8 +214,13 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
     var getAttachementTypes = function () {
         $scope.attachementTypes = [];
         $scope.conference.sponsorshipLevels.forEach(function (sponsorshipLevel) {
-            if (sponsorshipLevel._id === $scope.participation.sponsorshipLevel.type._id)
-                $scope.attachementTypes = sponsorshipLevel.attachementTypes;
+            if ($scope.participation.sponsorshipLevel) {
+                if (sponsorshipLevel._id === $scope.participation.sponsorshipLevel.type._id)
+                    $scope.attachementTypes = sponsorshipLevel.attachementTypes;
+            }
+            else {
+                $scope.attachementTypes = [];
+            }
         })
 
         assignAttachement();
