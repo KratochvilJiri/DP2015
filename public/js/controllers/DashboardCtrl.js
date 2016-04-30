@@ -1,4 +1,4 @@
-angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope', '$filter', 'EmailService', 'ConferenceService', 'SessionService', 'IssueService', 'ParticipationService', function ($scope, $filter, EmailService, ConferenceService, SessionService, IssueService, ParticipationService) {
+angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope', '$filter', 'EmailService', 'ConferenceService', 'SessionService', 'IssueService', 'ParticipationService','$rootScope', function ($scope, $filter, EmailService, ConferenceService, SessionService, IssueService, ParticipationService, $rootScope) {
     $scope.newEmails = "...";
     $scope.getDaysRemaining = "...";
     $scope.conference = {};
@@ -8,6 +8,8 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
 
     $scope.session.conferenceID = undefined;
     $scope.session.currentUser = SessionService.updateCurrentUser();
+    
+    $rootScope.loader = true;
     //$scope.session = SessionService;
 
     //$scope.loader.emails = false;
@@ -86,9 +88,11 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
             .success(function (data) {
                 if (data.isValid) {
                     $scope.newEmails = data.data.newEmailsCount;
+                    $rootScope.loader = false;
                 }
                 else {
                     $scope.showErrors(data.errors);
+                    $rootScope.loader = false;
                 }
             })
             .error(function (data, status) {
@@ -245,6 +249,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                 $scope.participation.newMessage.author = message.author.name;
             }
         })
+        $rootScope.loader = false;
     }
 
 
@@ -264,7 +269,6 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
             }
         }
     });
-
     loadUnsolvedIssuesCount();
 
 

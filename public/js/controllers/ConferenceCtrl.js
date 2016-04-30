@@ -1,12 +1,9 @@
-angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope', '$timeout', '$state', 'ConferenceService', 'SessionService', 'AttachementService', function ($scope, $timeout, $state, ConferenceService, SessionService, AttachementService) {
+angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope', '$timeout', '$state', 'ConferenceService', 'SessionService', 'AttachementService','$rootScope', function ($scope, $timeout, $state, ConferenceService, SessionService, AttachementService, $rootScope) {
     $scope.session = SessionService;
     $scope.conference = {};
     $scope.conference.sponsorshipLevels = [];
     $scope.allConference = [];
-
-    $scope.isActive = function (viewLocation) {
-        return $scope.loader;
-    };
+    $rootScope.loader = true;
 
     $scope.removeConference = function () {
         ConferenceService.delete($scope.conference._id)
@@ -69,7 +66,7 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
                 }
             })
         })
-        console.log($scope.conference);
+        $rootScope.loader = false;
     }
 
 
@@ -98,7 +95,6 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
                 checkAttachements();
                 console.log($scope.conference.sponsorshipLevels);
                 getAttachementTypesForLevel();
-
             }
         })
     }
@@ -145,7 +141,7 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
 
     // save conference
     $scope.save = function () {
-        $scope.loader = true;
+        $rootScope.loader = true;
         $scope.conference.active = true;
         SessionService.currentUser.conferenceID = $scope.conference._id;
         //console.log($scope.conference.attachementTypes);
@@ -153,12 +149,12 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
             .success(function (data) {
                 if (data.isValid) {
                     $scope.showSuccess("Konference byla úspěšně aktualizována/přidána");
-                    $scope.loader = false;
+                    $rootScope.loader = false;
                     //loadAllConference();
                 }
                 else {
                     $scope.showErrors(data.errors);
-                    $scope.loader = false;
+                    $rootScope.loader = false;
                 }
             })
             .error(function (data, status) {

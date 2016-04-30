@@ -1,17 +1,13 @@
-angular.module('InvitationAnswersCtrl', []).controller('InvitationAnswersController', ['$scope', '$state', 'EmailService', function($scope, $state, EmailService) {
+angular.module('InvitationAnswersCtrl', []).controller('InvitationAnswersController', ['$scope', '$state', 'EmailService','$rootScope', function($scope, $state, EmailService, $rootScope) {
 
     $scope.emails = [];
-    $scope.loader = true;
-
-    $scope.isActive = function(viewLocation) {
-        return $scope.loader;
-    };
+    $rootScope.loader = true;
 
     EmailService.getAll()
         .success(function(data, status, headers, config) {
             if (data.isValid) {
                 $scope.emails = data.data.reverse();
-                $scope.loader = false;
+                $rootScope.loader = false;
                 setTimeout(function() { $('.ui.accordion').accordion(); }, 500);
 
             }

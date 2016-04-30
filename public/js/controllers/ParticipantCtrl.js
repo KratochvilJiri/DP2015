@@ -1,4 +1,4 @@
-angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$scope', '$state', '$stateParams', '$timeout', 'UserService', 'ConferenceService', 'ParticipationService', 'SessionService', 'MessageService', 'filepickerService', 'AttachementService', function ($scope, $state, $stateParams, $timeout, UserService, ConferenceService, ParticipationService, SessionService, MessageService, filepickerService, AttachementService) {
+angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$scope', '$state', '$stateParams', '$timeout', 'UserService', 'ConferenceService', 'ParticipationService', 'SessionService', 'MessageService', 'filepickerService', 'AttachementService','$rootScope', function ($scope, $state, $stateParams, $timeout, UserService, ConferenceService, ParticipationService, SessionService, MessageService, filepickerService, AttachementService, $rootScope) {
     // session structure
     $scope.session = SessionService;
     // participant (user)
@@ -21,6 +21,8 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     $scope.message = {};
     //
     $scope.attachement = {};
+    
+    $rootScope.loader = true;
 
     $scope.removeParticipation = function () {
         var deletedParticipation = {};
@@ -235,6 +237,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
         if ($scope.conference._id) {
             getAttachementTypes();
         }
+        $rootScope.loader = false;
     }
 
     // create new participation of participant

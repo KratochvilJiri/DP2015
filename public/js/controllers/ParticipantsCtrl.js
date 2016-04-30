@@ -1,5 +1,6 @@
-angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$scope', '$state', 'UserService', 'ConferenceService', 'ParticipationService', function ($scope, $state, UserService, ConferenceService, ParticipationService) {
+angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$scope', '$state', 'UserService', 'ConferenceService', 'ParticipationService','$rootScope', function ($scope, $state, UserService, ConferenceService, ParticipationService, $rootScope) {
 
+    $rootScope.loader = true;
     $scope.participants = [];
     $scope.filter = {};
     $scope.filter.conferenceFilter = false;
@@ -21,6 +22,7 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
                 if (data.isValid) {
                     $scope.participants = data.data;
                     $scope.participantsBackup = data.data;
+                    $rootScope.loader = false;
                 }
                 else {
                     $scope.showErrors(data.errors);
