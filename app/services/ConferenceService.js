@@ -1,10 +1,11 @@
 var ConferenceModel = require('./../models/ConferenceModel');
 var ValidationResult = require('./../models/ValidationResultsStructure');
+var inbox = require("inbox");
 
 module.exports = {
 
     // save or create conference
-    save: function(req, conference, callback) {
+    save: function (req, conference, callback) {
         // conference validation
         var validation = this.validate(conference);
 
@@ -13,69 +14,100 @@ module.exports = {
             return;
         }
 
-        console.log(conference);
+        var temp = conference.email.split("@");
+        var imapServer = temp[1];
+        // create connection
+        var client = inbox.createConnection(conference.emailPort, ("imap." + imapServer), {
+            secureConnection: true,
+            auth: {
+                user: conference.email,
+                pass: conference.emailPassword
+            }
+        });
+        // connect to client
+        client.connect();
 
-        this.deactivateAll(validation, function(validation) {
-            //  conference already exists
-            if (conference._id) {
-                ConferenceModel.findById(conference._id, function(err, dbConference) {
-                    // error check
-                    if (err) {
-                        validation.addError("Konferenci se nezdařilo nalézt v databázi");
-                        callback(validation);
-                        return;
+        client.on("connect", function () {
+            // client.close();
+            ConferenceModel.update({}, { active: false }, { multi: true }, function (err, conferences) {
+                if (err) {
+                    validation.addError("Nepodařila se nastavit neaktivita konferencí");
+                    callback(validation);
+                    return;
+                }
+                else {
+                    //  conference already exists
+                    if (conference._id) {
+                        ConferenceModel.findById(conference._id, function (err, dbConference) {
+                            // error check
+                            if (err) {
+                                validation.addError("Konferenci se nezdařilo nalézt v databázi");
+                                callback(validation);
+                                return;
+                            }
+                            req.session.conferenceID = conference._id;
+                            // Update and save conference
+                            dbConference.name = conference.name;
+                            dbConference.date = conference.date;
+                            dbConference.notification = conference.notification;
+                            dbConference.active = conference.active;
+                            dbConference.invitation = conference.invitation;
+                            dbConference.place = conference.place;
+                            dbConference.email = conference.email;
+                            dbConference.emailPassword = conference.emailPassword;
+                            dbConference.emailPort = conference.emailPort;
+                            dbConference.attendeesNumber = conference.attendeesNumber;
+                            dbConference.sponsorshipLevels = conference.sponsorshipLevels;
+                            dbConference.attachementTypes = conference.attachementTypes;
+
+
+                            // Save conference
+                            dbConference.save(function (err) {
+                                if (err) {
+                                    validation.addError("Konferenci se nezdařilo uložit");
+                                    callback(validation);
+                                    return;
+                                }
+
+                                callback(validation);
+                                return;
+                            });
+                        })
                     }
-                    req.session.conferenceID = conference._id;
-                    // Update and save conference
-                    dbConference.name = conference.name;
-                    dbConference.date = conference.date;
-                    dbConference.notification = conference.notification;
-                    dbConference.active = conference.active;
-                    dbConference.invitation = conference.invitation;
-                    dbConference.place = conference.place;
-                    dbConference.email = conference.email;
-                    dbConference.emailPassword = conference.emailPassword;
-                    dbConference.emailPort = conference.emailPort;
-                    dbConference.attendeesNumber = conference.attendeesNumber;
-                    dbConference.sponsorshipLevels = conference.sponsorshipLevels;
-                    dbConference.attachementTypes = conference.attachementTypes;
+                    else {
+                        console.log(conference);
+                        ConferenceModel.create(conference, function (err, dbConference) {
+                            // conference creation error
+                            if (err) {
+                                validation.addError(err);
+                                validation.addError("Nepodařilo se vytvořit konferenci");
+                                callback(validation);
+                                return;
+                            }
+                            req.session.conferenceID = dbConference._id;
+                            // conference created
 
-
-                    // Save conference
-                    dbConference.save(function(err) {
-                        if (err) {
-                            validation.addError("Konferenci se nezdařilo uložit");
                             callback(validation);
                             return;
-                        }
-
-                        //validation.data = dbConference._id;
-                        callback(validation);
-                        return;
-                    });
-                })
-            }
-            else {
-                console.log(conference);
-                ConferenceModel.create(conference, function(err, dbConference) {
-                    // conference creation error
-                    if (err) {
-                        validation.addError(err);
-                        validation.addError("Nepodařilo se vytvořit konferenci");
-                        callback(validation);
-                        return;
+                        });
                     }
-                    req.session.conferenceID = dbConference._id;
-                    // conference created
-                    callback(validation);
-                    return
-                });
+                }
+            });
+        });
+
+        // wrong credentials
+        client.on("error", function (err) {
+            console.log(err);
+            if (err.errorType == "TimeoutError") {
+                validation.addError("Zadané přihlašovací údaje k emailu nejsou správné.");
+                callback(validation);
+                return;
             }
         });
     },
 
     // conference structure validation
-    validate: function(conference) {
+    validate: function (conference) {
         // validation init
         validation = new ValidationResult(conference);
 
@@ -87,7 +119,7 @@ module.exports = {
         validation.checkIfIsDefinedAndNotEmpty('emailPort', "Port k emailu konference je povinný");
 
         if (validation.data.attachementTypes) {
-            validation.data.attachementTypes.forEach(function(attachementType) {
+            validation.data.attachementTypes.forEach(function (attachementType) {
                 if (!attachementType.name) {
                     validation.addError("Název typu přílohy je povinný");
                 }
@@ -98,7 +130,7 @@ module.exports = {
         }
 
         if (validation.data.sponsorshipLevels) {
-            validation.data.sponsorshipLevels.forEach(function(sponsorshipLevel) {
+            validation.data.sponsorshipLevels.forEach(function (sponsorshipLevel) {
                 if (!sponsorshipLevel.name) {
                     validation.addError("Název úrovně sponzorství je povinné");
                 }
@@ -107,15 +139,14 @@ module.exports = {
         return validation;
     },
 
-    deactivateAll: function(validation, callback) {
-        ConferenceModel.update({}, { active: false }, { multi: true }, function(err, conferences) {
+    deactivateAll: function (validation, callback) {
+        ConferenceModel.update({}, { active: false }, { multi: true }, function (err, conferences) {
             if (err) {
                 validation.addError("Nepodařila se nastavit neaktivita konferencí");
                 callback(validation);
                 return;
             }
             else {
-                console.log("Neaktivni:", conferences);
                 callback(validation);
                 return;
             }
@@ -123,11 +154,11 @@ module.exports = {
     },
 
     // get all conference
-    getList: function(callback) {
+    getList: function (callback) {
         var validation = new ValidationResult([]);
 
         // find all conference
-        ConferenceModel.find({}, 'name date notification active sponsorshipLevels attachementTypes place attendeesNumber invitation email emailPassword emailPort', function(err, allConference) {
+        ConferenceModel.find({}, 'name date notification active sponsorshipLevels attachementTypes place attendeesNumber invitation email emailPassword emailPort participations', function (err, allConference) {
             // get all conference error
             if (err) {
                 validation.addError("Nepodařilo se získat seznam konferencí (getList)");
@@ -143,11 +174,11 @@ module.exports = {
     },
 
     // get conference, which arent in conferenceIDs collection 
-    getFilteredList: function(conferenceIDs, callback) {
+    getFilteredList: function (conferenceIDs, callback) {
         var validation = new ValidationResult([]);
 
         // find all conference
-        ConferenceModel.find({ "_id": { $nin: conferenceIDs } }, function(err, conference) {
+        ConferenceModel.find({ "_id": { $nin: conferenceIDs } }, function (err, conference) {
             // erro check
             if (err) {
                 validation.addError("Nepodařilo se získat upřesněný seznam konferencí (getFilteredList)");
@@ -162,7 +193,7 @@ module.exports = {
         });
     },
 
-    get: function(conference, callback) {
+    get: function (conference, callback) {
         var validation = new ValidationResult({});
 
         if (conference.filter == "PARTICIPANTS") {
@@ -170,7 +201,7 @@ module.exports = {
                 .populate({
                     path: 'participations', model: 'Participation', select: "state sponsorshipLevel"
                 })
-                .exec(function(err, conferenceDB) {
+                .exec(function (err, conferenceDB) {
                     if (err) {
                         validation.addError(err);
                         callback(validation);
@@ -185,7 +216,7 @@ module.exports = {
         }
 
         else {
-            ConferenceModel.findById(conference._id, "invitation", function(err, conferenceDB) {
+            ConferenceModel.findById(conference._id, "invitation", function (err, conferenceDB) {
                 if (err) {
                     validation.addError(err);
                     callback(validation);
@@ -200,13 +231,13 @@ module.exports = {
         }
     },
 
-    getLast5: function(callback) {
+    getLast5: function (callback) {
         var validation = new ValidationResult({});
 
         ConferenceModel.find({ "active": false }, 'name date')
             .limit(5)
             .sort('-date')
-            .exec(function(err, allConference) {
+            .exec(function (err, allConference) {
                 // get all conference error
                 if (err) {
                     validation.addError("Nepodařilo se získat seznam konferencí (getList)");
@@ -221,11 +252,11 @@ module.exports = {
             });
     },
 
-    getListNames: function(callback) {
+    getListNames: function (callback) {
         var validation = new ValidationResult([]);
 
         // find all conference
-        ConferenceModel.find({}, 'name sponsorshipLevels', function(err, allConference) {
+        ConferenceModel.find({}, 'name sponsorshipLevels', function (err, allConference) {
             // get all conference error
             if (err) {
                 validation.addError("Nepodařilo se získat seznam konferencí.");
@@ -238,5 +269,55 @@ module.exports = {
             callback(validation);
             return;
         });
+    },
+
+    remove: function (req, conference, callback) {
+        var validation = new ValidationResult(conference);
+
+        // _id is needed for remove
+        if (!conference._id) {
+            validation.addError("Konferenci nelze smazat bez identifikátoru");
+            callback(validation);
+            return;
+        }
+
+        ConferenceModel.remove(conference, function (err, dbUser) {
+            // conference remove error
+            if (err) {
+                validation.addError("Konferenci se nezdařilo odebrat");
+                callback(validation);
+                return;
+            }
+        });
+
+        ConferenceModel.findOne({ "$query": { active: false }, "$orderby": { "date": -1 } }, function (err, conferenceDB) {
+            if (err) {
+                validation.addError("Konferenci se nezdařilo získat" + err);
+                callback(validation);
+                return;
+            }
+            req.session.conferenceID = conferenceDB._id;
+
+            console.log(req.session.conferenceID);
+            conferenceDB.active = true;
+            conferenceDB.save(function (err) {
+                if (err) {
+                    validation.addError("Konferenci se nezdařilo uložit");
+                    callback(validation);
+                    return;
+                }
+
+                //validation.data = dbConference._id;
+                callback(validation);
+                return;
+            });
+
+        });
+        console.log("asdada");
+    },
+
+    getActive: function (session, callback) {
+        console.log(session);
     }
+
 }

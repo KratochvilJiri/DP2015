@@ -9,10 +9,10 @@ var MailParser = require("mailparser").MailParser;
 
 module.exports = {
 
-    remove: function(emailUID, callback) {
+    remove: function (emailUID, callback) {
         var validation = new ValidationResult([]);
 
-        ConferenceModel.findOne({ "active": true }, "email emailPort emailPassword", function(err, conferenceDB) {
+        ConferenceModel.findOne({ "active": true }, "email emailPort emailPassword", function (err, conferenceDB) {
             if (err) {
                 validation.addError(err);
                 callback(validation);
@@ -35,9 +35,9 @@ module.exports = {
                 // connect to client
                 client.connect();
 
-                client.on("connect", function() {
+                client.on("connect", function () {
                     // open INBOX
-                    client.openMailbox("INBOX", function(error, info) {
+                    client.openMailbox("INBOX", function (error, info) {
 
                         // can not open INBOX
                         if (error) {
@@ -47,7 +47,7 @@ module.exports = {
                         }
 
                         // get last 20 email
-                        client.deleteMessage(emailUID, function(err) {
+                        client.deleteMessage(emailUID, function (err) {
                             if (err) {
                                 validation.addError(err);
                                 callback(validation);
@@ -65,10 +65,10 @@ module.exports = {
         })
     },
 
-    mark: function(emailUID, callback) {
+    mark: function (emailUID, callback) {
         var validation = new ValidationResult([]);
 
-        ConferenceModel.findOne({ "active": true }, "email emailPort emailPassword", function(err, conferenceDB) {
+        ConferenceModel.findOne({ "active": true }, "email emailPort emailPassword", function (err, conferenceDB) {
             if (err) {
                 validation.addError(err);
                 callback(validation);
@@ -91,9 +91,9 @@ module.exports = {
                 // connect to client
                 client.connect();
 
-                client.on("connect", function() {
+                client.on("connect", function () {
                     // open INBOX
-                    client.openMailbox("INBOX", function(error, info) {
+                    client.openMailbox("INBOX", function (error, info) {
 
                         // can not open INBOX
                         if (error) {
@@ -103,7 +103,7 @@ module.exports = {
                         }
 
                         // get last 20 email
-                        client.addFlags(emailUID, ["\\Seen"], function(err, flags) {
+                        client.addFlags(emailUID, ["\\Seen"], function (err, flags) {
                             if (err) {
                                 validation.addError(err);
                                 callback(validation);
@@ -121,11 +121,11 @@ module.exports = {
         })
     },
 
-    getNewEmailsCount: function(callback) {
+    getNewEmailsCount: function (callback) {
         var validation = new ValidationResult({});
 
         // get conference-email info
-        ConferenceModel.findOne({ "active": true }, "email emailPort emailPassword", function(err, conferenceDB) {
+        ConferenceModel.findOne({ "active": true }, "email emailPort emailPassword", function (err, conferenceDB) {
             if (err) {
                 validation.addError(err);
                 callback(validation);
@@ -148,10 +148,20 @@ module.exports = {
                 // connect to client
                 client.connect();
 
+                client.on("error", function (err) {
+                    console.log(err);
+                    if (err.errorType == "TimeoutError") {
+                        validation.addError("Zadané přihlašovací údaje k emailu nejsou správné.");
+                        callback(validation);
+                        return;
+                    }
+                });
+
                 // if connected
-                client.on("connect", function() {
+                client.on("connect", function () {
+
                     // open INBOX
-                    client.openMailbox("INBOX", function(error, info) {
+                    client.openMailbox("INBOX", function (error, info) {
 
                         // can not open INBOX
                         if (error) {
@@ -159,11 +169,19 @@ module.exports = {
                             callback(validation);
                             return;
                         }
+                        console.log("inbox");
 
                         var counter = 0;
                         // get last 20 email
-                        client.listFlags(-20, function(err, messages) {
-                            messages.forEach(function(message) {
+                        client.listFlags(-20, function (err, messages) {
+
+                            if (err) {
+                                validation.addError(err);
+                                callback(validation);
+                                return;
+                            }
+
+                            messages.forEach(function (message) {
                                 if (!isSeen(message.flags)) {
                                     counter++;
                                 }
@@ -181,7 +199,7 @@ module.exports = {
 
         function isSeen(flags) {
             var seen = false;
-            flags.forEach(function(flag) {
+            flags.forEach(function (flag) {
                 //console.log(flag);
                 if (flag === "\\Seen") {
                     seen = true;
@@ -192,12 +210,12 @@ module.exports = {
 
     },
 
-    getAll: function(callback) {
+    getAll: function (callback) {
 
         var validation = new ValidationResult([]);
 
         // get conference-email info
-        ConferenceModel.findOne({ "active": true }, "email emailPort emailPassword", function(err, conferenceDB) {
+        ConferenceModel.findOne({ "active": true }, "email emailPort emailPassword", function (err, conferenceDB) {
             if (err) {
                 validation.addError(err);
                 callback(validation);
@@ -222,7 +240,7 @@ module.exports = {
 
                 // parse one email-string to structure
                 function parseEmail(email) {
-                    return new Promise(function(resolve, reject) {
+                    return new Promise(function (resolve, reject) {
                         var mailparser = new MailParser();
                         var chunks = [];
                         var chunklength = 0;
@@ -231,14 +249,14 @@ module.exports = {
                         var messageStream = client.createMessageStream(email.UID);
 
                         // fetch a part of data
-                        messageStream.on("data", function(chunk) {
+                        messageStream.on("data", function (chunk) {
                             // push chunk to chunks
                             chunks.push(chunk);
                             chunklength += chunk.length;
                         });
 
                         // all data fetched
-                        messageStream.on("end", function() {
+                        messageStream.on("end", function () {
                             // concatenate to Buffer and convert to string
                             var body = Buffer.concat(chunks);
                             var emailStr = body.toString();
@@ -247,7 +265,7 @@ module.exports = {
                             mailparser.end(emailStr);
                         });
 
-                        mailparser.on("end", function(mail_object) {
+                        mailparser.on("end", function (mail_object) {
                             resolve(mail_object);
                         });
 
@@ -264,8 +282,8 @@ module.exports = {
                     function next() {
                         if (index < emails.length) {
                             // fetch email data
-                            client.fetchData(emails[index].UID, function(error, emailData) {
-                                parseEmail(emailData).then(function(parsedEmail) {
+                            client.fetchData(emails[index].UID, function (error, emailData) {
+                                parseEmail(emailData).then(function (parsedEmail) {
                                     // email parser, create object for client
                                     var mailToSend = {
                                         from: parsedEmail.from,
@@ -294,9 +312,9 @@ module.exports = {
                 }
 
                 // if connected
-                client.on("connect", function() {
+                client.on("connect", function () {
                     // open INBOX
-                    client.openMailbox("INBOX", function(error, info) {
+                    client.openMailbox("INBOX", function (error, info) {
 
                         // can not open INBOX
                         if (error) {
@@ -306,7 +324,7 @@ module.exports = {
                         }
 
                         // get last 20 email
-                        client.listFlags(-20, function(err, messages) {
+                        client.listFlags(-20, function (err, messages) {
                             parseEmails(messages);
                         });
                     });
@@ -316,7 +334,7 @@ module.exports = {
         })
     },
 
-    send: function(email, callback) {
+    send: function (email, callback) {
         console.log(email);
         var validation = this.validate(email);
 
@@ -325,7 +343,7 @@ module.exports = {
             return;
         }
 
-        ConferenceModel.findOne({ "active": true }, "email emailPort emailPassword _id", function(err, dbConference) {
+        ConferenceModel.findOne({ "active": true }, "email emailPort emailPassword _id", function (err, dbConference) {
             if (err) {
                 validation.addError(err);
                 callback(validation);
@@ -358,7 +376,7 @@ module.exports = {
 
 
 
-                transporter.sendMail(mailOptions, function(error, info) {
+                transporter.sendMail(mailOptions, function (error, info) {
                     if (error) {
                         console.log(error);
                         validation.addError(error);
@@ -369,7 +387,7 @@ module.exports = {
                         console.log('Message sent: ' + info.response);
 
                         // create new participations
-                        email.addressees.forEach(function(addressee) {
+                        email.addressees.forEach(function (addressee) {
                             var participation = {
                                 user: addressee._id,
                                 state: "INVITED",
@@ -377,7 +395,7 @@ module.exports = {
                             }
 
                             // participation create
-                            ParticipationModel.create(participation, function(err, dbParticipation) {
+                            ParticipationModel.create(participation, function (err, dbParticipation) {
                                 // participation creation error
                                 if (err) {
                                     validation.addError("Nepodařilo se vytvořit účast po pozvání.");
@@ -386,7 +404,7 @@ module.exports = {
                                 }
                                 else {
                                     // find addressee
-                                    UserModel.findById(addressee._id, function(err, dbUser) {
+                                    UserModel.findById(addressee._id, function (err, dbUser) {
                                         // error - find addressee
                                         if (err) {
                                             validation.addError("Nepodařilo se získat uživatele pro přidání účasti po pozvání.");
@@ -400,7 +418,7 @@ module.exports = {
                                             console.log(dbUser.name);
                                             dbUser.participations.push(dbParticipation._id);
                                             // save addressee
-                                            dbUser.save(function(err) {
+                                            dbUser.save(function (err) {
                                                 // error check
                                                 if (err) {
                                                     validation.addError("Nepodařilo se uložit uživatele po přidání účasti");
@@ -410,7 +428,7 @@ module.exports = {
                                                 // addressee saved
                                                 else {
                                                     // find conference
-                                                    ConferenceModel.findOne({ "active": true }, "participations", function(err, dbConference) {
+                                                    ConferenceModel.findOne({ "active": true }, "participations", function (err, dbConference) {
                                                         if (err) {
                                                             validation.addError(err);
                                                             callback(validation);
@@ -423,7 +441,7 @@ module.exports = {
                                                             console.log(dbParticipation._id);
                                                             console.log(dbConference.name);
                                                             // save conference
-                                                            dbConference.save(function(err) {
+                                                            dbConference.save(function (err) {
                                                                 // error check
                                                                 if (err) {
                                                                     console.log(err);
@@ -452,7 +470,7 @@ module.exports = {
     },
 
     // user structure validation
-    validate: function(message) {
+    validate: function (message) {
         // validation init
         validation = new ValidationResult(message);
 

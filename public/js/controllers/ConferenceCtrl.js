@@ -1,22 +1,42 @@
-angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope', '$timeout', '$state', 'ConferenceService', 'SessionService', 'AttachementService', function($scope, $timeout, $state, ConferenceService, SessionService, AttachementService) {
+angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope', '$timeout', '$state', 'ConferenceService', 'SessionService', 'AttachementService', function ($scope, $timeout, $state, ConferenceService, SessionService, AttachementService) {
     $scope.session = SessionService;
     $scope.conference = {};
     $scope.conference.sponsorshipLevels = [];
     $scope.allConference = [];
 
-    var checkAttachements = function(count) {
+    $scope.isActive = function (viewLocation) {
+        return $scope.loader;
+    };
+
+    $scope.removeConference = function () {
+        ConferenceService.delete($scope.conference._id)
+            .success(function (data) {
+                if (data.isValid) {
+                    $scope.showSuccess("Konference byla úspěšně odstraněna");
+                    $state.go('home.dashboard');
+                }
+                else {
+                    $scope.showErrors(data.errors);
+                }
+            })
+            .error(function (data, status) {
+                console.log('Error: ', status, data.error);
+            });
+    }
+
+    var checkAttachements = function (count) {
         console.log(count);
-        if(count > 0){
+        if (count > 0) {
             return true;
         }
-        else{
+        else {
             return false;
         }
     }
 
-    var loadAllConference = function() {
+    var loadAllConference = function () {
         ConferenceService.getAll()
-            .success(function(data) {
+            .success(function (data) {
                 if (data.isValid) {
                     $scope.allConference = data.data;
                     setActiveConference();
@@ -25,18 +45,18 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.log('Error: ', status, data.error);
             });
     }
 
-    var getAttachementTypesForLevel = function() {
+    var getAttachementTypesForLevel = function () {
         var isAssigned = true;
-        $scope.conference.sponsorshipLevels.forEach(function(level) {
+        $scope.conference.sponsorshipLevels.forEach(function (level) {
             level.possibleAttachementTypes = [];
             // console.log(level);
-            $scope.conference.attachementTypes.forEach(function(type) {
-                level.attachementTypes.forEach(function(attachementTypeInLevel) {
+            $scope.conference.attachementTypes.forEach(function (type) {
+                level.attachementTypes.forEach(function (attachementTypeInLevel) {
                     if (type.hash == attachementTypeInLevel.hash) {
                         isAssigned = false;
                     }
@@ -53,10 +73,10 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
     }
 
 
-    var checkAttachements = function() {
-        $scope.conference.attachementTypes.forEach(function(type) {
+    var checkAttachements = function () {
+        $scope.conference.attachementTypes.forEach(function (type) {
             AttachementService.existsAttachementType(type.hash)
-                .success(function(data) {
+                .success(function (data) {
                     if (data.isValid) {
                         type.count = data.data;
                     }
@@ -64,15 +84,15 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
                         $scope.showErrors(data.errors);
                     }
                 })
-                .error(function(data, status) {
+                .error(function (data, status) {
                     console.log('Error: ', status, data.error);
                 });
         })
         console.log($scope.conference.attachementTypes);
     }
 
-    var setActiveConference = function() {
-        $scope.allConference.forEach(function(conference) {
+    var setActiveConference = function () {
+        $scope.allConference.forEach(function (conference) {
             if (conference.active) {
                 $scope.conference = conference;
                 checkAttachements();
@@ -83,12 +103,13 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
         })
     }
 
-    $scope.addConference = function() {
+    $scope.addConference = function () {
         $scope.conference = {};
+        setTimeout(function () { $('.ui.dropdown').dropdown(); }, 20);
     }
 
     // add sponsorShipLevel
-    $scope.addSponsorshipLevel = function() {
+    $scope.addSponsorshipLevel = function () {
         if (!$scope.conference.sponsorshipLevels)
             $scope.conference.sponsorshipLevels = [];
 
@@ -96,12 +117,12 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
     }
 
     // remove sponsorShipLevel
-    $scope.removeSponsorshipLevel = function(index) {
+    $scope.removeSponsorshipLevel = function (index) {
         $scope.conference.sponsorshipLevels.splice(index, 1);
     }
 
     // add new document to conference
-    $scope.addAttachementType = function() {
+    $scope.addAttachementType = function () {
 
         if (!$scope.conference.attachementTypes)
             $scope.conference.attachementTypes = [];
@@ -116,38 +137,40 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
     }
 
     // remove document
-    $scope.removeAttachementType = function(index) {
+    $scope.removeAttachementType = function (index) {
         removeAttachTypeFromSponsorshipLvl($scope.conference.attachementTypes[index].hash);
         $scope.conference.attachementTypes.splice(index, 1);
         getAttachementTypesForLevel();
     }
 
     // save conference
-    $scope.save = function() {
+    $scope.save = function () {
+        $scope.loader = true;
         $scope.conference.active = true;
         SessionService.currentUser.conferenceID = $scope.conference._id;
         //console.log($scope.conference.attachementTypes);
         ConferenceService.save($scope.conference)
-            .success(function(data) {
+            .success(function (data) {
                 if (data.isValid) {
                     $scope.showSuccess("Konference byla úspěšně aktualizována/přidána");
-                    $state.go('home.dashboard');
+                    $scope.loader = false;
                     //loadAllConference();
                 }
                 else {
                     $scope.showErrors(data.errors);
+                    $scope.loader = false;
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.log('Error: ', status, data.error);
             });
     }
 
     // remove deleted Attachement from SponsorshipLevels
-    var removeAttachTypeFromSponsorshipLvl = function(deletedHash) {
-        $scope.conference.sponsorshipLevels.forEach(function(sponsorShipLevel) {
+    var removeAttachTypeFromSponsorshipLvl = function (deletedHash) {
+        $scope.conference.sponsorshipLevels.forEach(function (sponsorShipLevel) {
             if (sponsorShipLevel.attachementTypes) {
-                sponsorShipLevel.attachementTypes.forEach(function(attachementType, index) {
+                sponsorShipLevel.attachementTypes.forEach(function (attachementType, index) {
                     if (attachementType.hash === deletedHash) {
                         sponsorShipLevel.attachementTypes.splice(index, 1);
                     }

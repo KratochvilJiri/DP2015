@@ -1,3 +1,6 @@
+    <div ng-class="{ active: isActive(true)}" class="ui dimmer">
+        <div class="ui indeterminate text loader">Probíhá ukládání konference a pokus o připojení k emailovému klientu.</div>
+    </div>
 <div class="ui attached message">
     <div class="header">
         Akce
@@ -9,11 +12,14 @@
         <a class="ui basic button" ng-click="addConference()">
             <i class="add icon"></i>Přidat konferenci
         </a>
+        <a ng-class="{'disabled' :  !conference._id || conference.participations.length > 0}" class="ui basic button" ng-click="removeConference()">
+            <i class="remove red icon"></i>Odebrat konferenci
+        </a>
     </div>
     <div class="two fields">
         <div class="field">
             <label>Aktuální akce:</label>
-            <select class="" ng-options="item.name for item in allConference track by item._id" ng-model="conference">
+            <select class="ui dropdown" ng-options="item.name for item in allConference track by item._id" ng-model="conference">
             </select>
         </div>
         <div class="field required">
@@ -103,7 +109,7 @@
         <a ng-click="removeAttachementType($index)" class="ui button basic" ng-class="{'disabled' : attachementType.count > 0}">
             <i class="remove red icon"></i> Odstranit přílohu
         </a>
-          <span ng-if="attachementType.count > 0"> <i class="info icon"></i> Pokud chcete smazat typ přílohy, nejdříve odstraňte všechny existující přílohy tohoto typu (1).</span>
+        <span ng-if="attachementType.count > 0"> <i class="info icon"></i> Pokud chcete smazat typ přílohy, nejdříve odstraňte všechny existující přílohy tohoto typu (1).</span>
     </div>
 </form>
 

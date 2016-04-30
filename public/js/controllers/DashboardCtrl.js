@@ -1,21 +1,24 @@
-angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope', '$filter', 'EmailService', 'ConferenceService', 'SessionService', 'IssueService', 'ParticipationService', function($scope, $filter, EmailService, ConferenceService, SessionService, IssueService, ParticipationService) {
+angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope', '$filter', 'EmailService', 'ConferenceService', 'SessionService', 'IssueService', 'ParticipationService', function ($scope, $filter, EmailService, ConferenceService, SessionService, IssueService, ParticipationService) {
     $scope.newEmails = "...";
     $scope.getDaysRemaining = "...";
     $scope.conference = {};
-    $scope.session = SessionService;
     $scope.unseenMessagesCount = 0;
     $scope.unseenParticipationMessagesCount = 0;
     $scope.activeConferenceParticipation = false;
 
+    $scope.session.conferenceID = undefined;
+    $scope.session.currentUser = SessionService.updateCurrentUser();
+    //$scope.session = SessionService;
+
     //$scope.loader.emails = false;
 
-    var loadUnseenParticipationsMessages = function() {
+    var loadUnseenParticipationsMessages = function () {
         ParticipationService.getUnseenMessages({ conferenceID: $scope.session.currentUser.conferenceID, role: $scope.session.currentUser.role })
-            .success(function(data) {
+            .success(function (data) {
                 if (data.isValid) {
                     $scope.data = data.data;
-                    $scope.data.forEach(function(participation) {
-                        participation.messages.forEach(function(message) {
+                    $scope.data.forEach(function (participation) {
+                        participation.messages.forEach(function (message) {
                             if (message.author)
                                 $scope.unseenParticipationMessagesCount++;
                         })
@@ -25,19 +28,19 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.log('Error: ', status, data.error);
             });
     }
 
 
-    var loadUnseenIssueMessages = function() {
+    var loadUnseenIssueMessages = function () {
         IssueService.getUnseenMessages($scope.session.currentUser.role)
-            .success(function(data) {
+            .success(function (data) {
                 if (data.isValid) {
                     $scope.data = data.data;
-                    $scope.data.forEach(function(issue) {
-                        issue.messages.forEach(function(message) {
+                    $scope.data.forEach(function (issue) {
+                        issue.messages.forEach(function (message) {
                             //console.log(message);
                             if (message.author)
                                 $scope.unseenMessagesCount++;
@@ -48,14 +51,14 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.log('Error: ', status, data.error);
             });
     }
 
-    var loadUnsolvedIssuesCount = function() {
+    var loadUnsolvedIssuesCount = function () {
         IssueService.getUnsolvedCount()
-            .success(function(data) {
+            .success(function (data) {
                 if (data.isValid) {
                     $scope.unsolvedIssues = data.data;
                 }
@@ -63,12 +66,12 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.log('Error: ', status, data.error);
             });
     }
 
-    var getDaysRemaining = function(confDate) {
+    var getDaysRemaining = function (confDate) {
         var today = $filter('date')(new Date(), "yyyy-MM-dd'T'HH:mm:ss.sss'Z'");
 
         var timestamp1 = new Date(today);
@@ -78,9 +81,9 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
         $scope.dayRemaining = Math.floor(diff / 86400000);
     }
 
-    var getNewEmailsCount = function() {
+    var getNewEmailsCount = function () {
         EmailService.getNewEmailsCount()
-            .success(function(data) {
+            .success(function (data) {
                 if (data.isValid) {
                     $scope.newEmails = data.data.newEmailsCount;
                 }
@@ -88,12 +91,12 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.log('Error: ', status, data.error);
             });
     }
 
-    var getParticipationsInfo = function() {
+    var getParticipationsInfo = function () {
         var firstRound = true;
         $scope.conference.approvedMoney = 0;
         $scope.conference.receivedMoney = 0;
@@ -103,10 +106,10 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
         $scope.conference.complete = 0;
         $scope.conference.contractInProgress = 0;
         $scope.conference.ContractSigned = 0;
-        $scope.conference.sponsorshipLevels.forEach(function(level) {
+        $scope.conference.sponsorshipLevels.forEach(function (level) {
             level.count = 0;
             ['INVITED', 'CANCELLED', 'APPROVED', 'COMPLETE', 'CONTRACT_IN_PROGRESS', 'CONTRACT_SIGNED'],
-                $scope.conference.participations.forEach(function(participation) {
+                $scope.conference.participations.forEach(function (participation) {
 
                     if (participation.state === "APPROVED" && firstRound) {
                         $scope.conference.approved++;
@@ -141,12 +144,12 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
         })
     }
 
-    var getParticAndConfInfo = function() {
+    var getParticAndConfInfo = function () {
         $scope.conferenceTemp = {};
         $scope.conferenceTemp._id = $scope.session.currentUser.conferenceID;
         $scope.conferenceTemp.filter = "PARTICIPANTS";
         ConferenceService.get($scope.conferenceTemp)
-            .success(function(data) {
+            .success(function (data) {
                 if (data.isValid) {
                     $scope.conference = data.data;
                     getDaysRemaining(data.data.date);
@@ -156,14 +159,14 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.log('Error: ', status, data.error);
             });
     }
 
-    var getLast5 = function() {
+    var getLast5 = function () {
         ConferenceService.getLast5()
-            .success(function(data) {
+            .success(function (data) {
                 if (data.isValid) {
                     $scope.otherConferences = data.data;
                 }
@@ -171,14 +174,14 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.log('Error: ', status, data.error);
             });
     }
 
-    var getUserParticipations = function() {
+    var getUserParticipations = function () {
         ParticipationService.getList($scope.session.currentUser._id)
-            .success(function(data) {
+            .success(function (data) {
                 if (data.isValid) {
                     $scope.participations = data.data;
                     checkActiveConferenceParticipation();
@@ -187,14 +190,14 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.log('Error: ', status, data.error);
             });
     }
-    
+
     var checkActiveConferenceParticipation = function () {
         $scope.participations.forEach(function (participation) {
-            if(participation.conference.active){
+            if (participation.conference.active) {
                 $scope.conference = participation.conference;
                 $scope.activeConferenceParticipation = true;
                 $scope.participation = participation;
@@ -203,47 +206,45 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                 newMessages();
             }
         })
-        console.log($scope.participation);
     }
-    
-        // get sponsorshipLevel documents
-    var getAttachementTypes = function() {
+
+    // get sponsorshipLevel documents
+    var getAttachementTypes = function () {
         $scope.attachementTypes = [];
-        $scope.conference.sponsorshipLevels.forEach(function(sponsorshipLevel) {
+        $scope.conference.sponsorshipLevels.forEach(function (sponsorshipLevel) {
             if (sponsorshipLevel._id === $scope.participation.sponsorshipLevel.type._id)
                 $scope.attachementTypes = sponsorshipLevel.attachementTypes;
         })
-        
+
         assignAttachement();
     }
 
-    var assignAttachement = function() {
+    var assignAttachement = function () {
 
-        $scope.participation.attachements.forEach(function(attachement) {
-            $scope.attachementTypes.forEach(function(attachementType) {
+        $scope.participation.attachements.forEach(function (attachement) {
+            $scope.attachementTypes.forEach(function (attachementType) {
                 if (attachementType.hash === attachement.hash)
                     attachementType.attachement = attachement;
             })
-        })       
-        console.log($scope.participation.conference);
+        })
     }
-    
-    var newMessages = function() {
+
+    var newMessages = function () {
         $scope.participation.newMessage = {};
         $scope.participation.newMessage.check = false;
-        $scope.participation.messages.forEach(function(message){
-            if(!message.seen && message.author.role != "PARTICIPANT"){
-                console.log(message);
+        $scope.participation.messages.forEach(function (message) {
+            if (!message.seen && message.author.role != "PARTICIPANT") {
                 $scope.participation.newMessage.check = true;
                 $scope.participation.newMessage.author = message.author.name;
             }
         })
     }
-    
 
-    $scope.$watch('session.currentUser', function() {
+
+
+    $scope.$watch('session.currentUser', function () {
         if ($scope.session.currentUser) {
-            if ($scope.session.currentUser.role != "PARTICIPANT") {
+            if ($scope.session.currentUser.role != "PARTICIPANT" && $scope.session.currentUser.conferenceID) {
                 getLast5();
                 getNewEmailsCount();
                 getParticAndConfInfo();
