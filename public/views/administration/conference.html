@@ -10,12 +10,12 @@
 <form class="ui form attached fluid segment">
     <div class="field">
         <a class="ui basic button" ng-click="addConference()">
-            <i class="add icon"></i>Přidat konferenci
+            <i class="add icon"></i>Přidat akci
         </a>
         <a ng-class="{'disabled' :  !conference._id || conference.participations.length > 0}" class="ui basic button" ng-click="removeConference()">
-            <i class="remove red icon"></i>Odebrat konferenci
+            <i class="remove red icon"></i>Odebrat akci
         </a>
-        <span><i class="info icon"></i> Konferenci lze odebrat pouze pokud neobsahuje žádné účasti.</span>
+        <span><i class="info icon"></i> Akci lze odebrat pouze pokud neobsahuje žádné účasti.</span>
     </div>
     <div class="two fields">
         <div class="field">
@@ -45,7 +45,7 @@
             <input type="number" ng-model="conference.attendeesNumber" placeholder="Maximální počet účastníků">
         </div>
         <div class="field required">
-            <label> Upozornění na odevzdání dokumentů:</label>
+            <label> Upozornění na odevzdání příloh:</label>
             <select class="ui dropdown" ng-model="conference.notification">
                 <option value="" disabled selected>Vyberte počet dnů</option>
                 <option value="5">5 dnů</option>
@@ -57,17 +57,17 @@
     </div>
     <div class="two fields">
         <div class="field required">
-            <label> Konferenční email:</label>
+            <label> Email akce:</label>
             <input type="email" ng-model="conference.email" placeholder="email">
         </div>
         <div class="field required">
-            <label> Heslo - konferenční email:</label>
+            <label> Heslo - email akce:</label>
             <input type="password" ng-model="conference.emailPassword" placeholder="password">
         </div>
     </div>
     <div class="two fields">
         <div class="field required">
-            <label> IMAP port (běžně 993):</label>
+            <label> IMAP port emailu (běžně 993):</label>
             <input type="number" ng-model="conference.emailPort" placeholder="Port">
         </div>
     </div>
