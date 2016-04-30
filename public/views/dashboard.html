@@ -159,7 +159,8 @@
 <div class="ui divider marginTopAndBot3"></div>
 <!-- participant - dashboard -->
 <div class="ui grid">
-    <h3 class="ui header displayInline">Ostatní akce:</h3>
+    <h3 class="ui header">Ostatní akce:</h3>
+    <h4 class="ui header" ng-if="participations.length < 2"> Nemáte žádné jiné akce </h4>
     <div class="center aligned five column stackable row" ng-if="!session.currentUser.permissions.ParticipantDashboardModule">
         <a ui-sref="home.administration.conference" class="column" ng-repeat="conference in otherConferences">
             <div class="ui segment otherAction">
@@ -168,8 +169,8 @@
             </div>
         </a>
     </div>
-    <div class="center aligned five column stackable row" ng-if="session.currentUser.permissions.ParticipantDashboardModule && (participation.conference._id != conference._id)">
-        <a ui-sref="home.participant.information({participantId: session.currentUser._id})" class="column" ng-repeat="participation in participations">
+    <div class="center aligned five column stackable row" ng-if="session.currentUser.permissions.ParticipantDashboardModule">
+        <a ng-if="participation.conference._id != conference._id" ui-sref="home.participant.information({participantId: session.currentUser._id})" class="column" ng-repeat="participation in participations">
             <div class="ui segment otherAction">
                 <h3 class="ui header fontGrey">{{participation.conference.name}}</h3>
                 <span class="bottom alligned fontGrey">{{participation.conference.date | date:'dd/MM/yyyy'}}</span>

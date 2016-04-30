@@ -33,6 +33,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             .success(function (data, status, headers, config) {
                 if (data.isValid) {
                     $scope.showSuccess("Účast byla úspěšně odebrána.");
+                    $state.go('home.participants');
                 }
                 else {
                     $scope.showErrors(data.errors);
