@@ -240,7 +240,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                 $scope.participation = participation;
             }
         })
-        if (!$scope.conference) {
+        if (!$scope.conference._id) {
             $scope.conference = $scope.ParticipatedConferences[0];
             $scope.participation = $scope.participations[0];
         }
