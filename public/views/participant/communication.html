@@ -3,7 +3,8 @@
         Komunikace:
     </div>
 </div>
-<form class="ui form attached fluid segment marginBot3">
+{{partici}}
+<form class="ui form attached fluid segment marginBot3" ng-if="participation._id">
     <div class=" aligned">
         <label> Nová zpráva: </label>
         <textarea ng-model="message.content">
