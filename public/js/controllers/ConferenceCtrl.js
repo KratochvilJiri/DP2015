@@ -1,18 +1,27 @@
-angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope', '$timeout', '$state', 'ConferenceService', 'SessionService', 'AttachementService','$rootScope', function ($scope, $timeout, $state, ConferenceService, SessionService, AttachementService, $rootScope) {
+angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope', '$timeout', '$state', 'ConferenceService', 'SessionService', 'AttachementService', '$rootScope', function ($scope, $timeout, $state, ConferenceService, SessionService, AttachementService, $rootScope) {
     $scope.session = SessionService;
     $scope.conference = {};
     $scope.conference.sponsorshipLevels = [];
     $scope.allConference = [];
     $rootScope.loader = true;
 
+    $scope.showModal = function () {
+        setTimeout(function () { $('.small.modal').modal('show'); }, 50);
+    }
+    $scope.closeModal = function () {
+        setTimeout(function () { $('.small.modal').modal('hide'); }, 50);
+    }
+
     $scope.removeConference = function () {
         ConferenceService.delete($scope.conference._id)
             .success(function (data) {
                 if (data.isValid) {
+                    setTimeout(function () { $('.small.modal').modal('hide'); }, 50);
                     $scope.showSuccess("Konference byla úspěšně odstraněna");
                     $state.go('home.dashboard');
                 }
                 else {
+                    setTimeout(function () { $('.small.modal').modal('hide'); }, 50);
                     $scope.showErrors(data.errors);
                 }
             })

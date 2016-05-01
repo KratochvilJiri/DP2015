@@ -12,7 +12,7 @@
         <a class="ui basic button" ng-click="addConference()">
             <i class="add icon"></i>Přidat akci
         </a>
-        <a ng-class="{'disabled' :  !conference._id || conference.participations.length > 0}" class="ui basic button" ng-click="removeConference()">
+        <a ng-class="{'disabled' :  !conference._id || conference.participations.length > 0}" class="ui basic button" ng-click="showModal()">
             <i class="remove red icon"></i>Odebrat akci
         </a>
         <span><i class="info icon"></i> Akci lze odebrat pouze pokud neobsahuje žádné účasti.</span>
@@ -159,4 +159,29 @@
     <a ng-click="save()" class="ui button basic my-orange">
         <i class="save icon"></i> Uložit
     </a>
+</div>
+
+<div class="ui small modal">
+    <i class="close icon"></i>
+    <div class="header">
+        Smazání akce.
+    </div>
+    <div class="image content">
+        <div class="image">
+            <i class="remove icon"></i>
+        </div>
+        <div class="description">
+            <p>Opravdu chcete smazat akci?</p>
+        </div>
+    </div>
+    <div class="actions">
+
+        <div class="ui red basic button" ng-click="closeModal()">
+            <i class="remove icon"></i> Ne
+        </div>
+        <div class="ui green basic button" ng-click="removeConference()">
+            <i class="checkmark icon"></i> Ano
+        </div>
+
+    </div>
 </div>
