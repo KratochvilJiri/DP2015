@@ -1,6 +1,3 @@
-    <div ng-class="{ active: isActive(true)}" class="ui dimmer">
-        <div class="ui indeterminate text loader">Probíhá ukládání konference a pokus o připojení k emailovému klientu.</div>
-    </div>
 <div class="ui attached message">
     <div class="header">
         Akce
@@ -15,7 +12,7 @@
         <a ng-class="{'disabled' :  !conference._id || conference.participations.length > 0}" class="ui basic button" ng-click="showModal()">
             <i class="remove red icon"></i>Odebrat akci
         </a>
-        <span><i class="info icon"></i> Akci lze odebrat pouze pokud neobsahuje žádné účasti.</span>
+        <span ng-if="conference.participations.length > 0"><i class="info icon"></i> Akci lze odebrat pouze pokud neobsahuje žádné účasti.</span>
     </div>
     <div class="two fields">
         <div class="field">

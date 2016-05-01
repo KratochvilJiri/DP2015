@@ -75,6 +75,7 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
                 }
             })
         })
+        setTimeout(function () { $('.ui.dropdown').dropdown(); }, 20);
         $rootScope.loader = false;
     }
 
