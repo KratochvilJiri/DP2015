@@ -284,6 +284,7 @@ module.exports = {
         UserModel.remove(user, function (err, dbUser) {
             // user remove error
             if (err) {
+                console.log(err);
                 validation.addError("Uživatele se nezdařilo odebrat");
                 callback(validation);
                 return;

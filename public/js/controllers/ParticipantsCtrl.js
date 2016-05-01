@@ -1,5 +1,6 @@
-angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$scope', '$state', 'UserService', 'ConferenceService', 'ParticipationService','$rootScope', function ($scope, $state, UserService, ConferenceService, ParticipationService, $rootScope) {
+angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$scope', '$state', 'UserService', 'ConferenceService', 'ParticipationService', '$rootScope', function ($scope, $state, UserService, ConferenceService, ParticipationService, $rootScope) {
 
+    $scope.deletingUser = "";
     $rootScope.loader = true;
     $scope.participants = [];
     $scope.filter = {};
@@ -15,6 +16,15 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
     ];
     $scope.groups = [];
     $scope.pushedAll = true;
+
+    $scope.showModal = function (participantID) {
+        $scope.deletingUser = participantID;
+        setTimeout(function () { $('.small.modal').modal('show'); }, 50);
+    }
+    $scope.closeModal = function () {
+        setTimeout(function () { $('.small.modal').modal('hide'); }, 50);
+        $scope.deletingUser = "";
+    }
 
     var loadParticipants = function () {
         UserService.getAll("PARTICIPANTS")
@@ -53,7 +63,7 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
         $scope.participants = [];
         $scope.participations.forEach(function (participation) {
             participation.user.state = participation.state;
-            if (participation.sponsorshipLevel.type) {
+            if (participation.sponsorshipLevel && participation.sponsorshipLevel.type) {
                 participation.user.level = participation.sponsorshipLevel.type._id;
             }
             $scope.participants.push(participation.user);
@@ -102,16 +112,18 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
         $scope.filter.state = state;
     }
 
-    $scope.removeUser = function (userID) {
-        UserService.delete(userID)
+    $scope.removeUser = function () {
+        UserService.delete($scope.deletingUser)
             .success(function (data) {
                 if (data.isValid) {
                     loadConferences();
                     loadParticipants();
+                    setTimeout(function () { $('.small.modal').modal('hide'); }, 50);
                     $scope.showSuccess("Uživatel byl úspěšně odstraněn");
                 }
                 else {
-                    $scope.showError(data.errors);
+                    setTimeout(function () { $('.small.modal').modal('hide'); }, 50);
+                    $scope.showErrors(data.errors);
                 }
                 $scope.users = data.data;
             })

@@ -63,8 +63,8 @@
             <th></th>
         </tr>
     </thead>
-    <tbody ng-repeat="participant in participants  | filter : {state: filter.state.constant}: true | filter : {level: filter.level._id}: true | filter:search">
-        <tr>
+    <tbody>
+        <tr ng-repeat="participant in participants  | filter : {state: filter.state.constant}: true | filter : {level: filter.level._id}: true | filter:search">
             <td>{{participant.name}}</td>
             <td>{{participant.ICO}}</td>
             <td>{{participant.contactPerson}}</td>
@@ -74,9 +74,34 @@
             <td class="collapsing">
                 <button class="ui basic icon button" data-content="Editovat" ui-sref="home.participant.information({participantId: participant._id})"><i class="edit icon"></i></button>
                 <button class="ui basic icon button" data-content="Komunikovat" ui-sref="home.participant.communication({participantId: participant._id})"><i class="comments icon"></i></button>
-                <button class="ui basic icon button" data-content="Odstranit" ng-click="removeUser(participant._id)"><i class="remove red icon"></i></button>
+                <button class="ui basic icon button" data-content="Odstranit" ng-click="showModal(participant._id)"><i class="remove red icon"></i></button>
             </td>
         </tr>
 
     </tbody>
 </table>
+
+<div class="ui small modal">
+    <i class="close icon"></i>
+    <div class="header">
+        Smazání účastníka (uživatele)
+    </div>
+    <div class="image content">
+        <div class="image">
+            <i class="remove user icon"></i>
+        </div>
+        <div class="description">
+            <p>Opravdu chcete smazat účastnika?</p>
+        </div>
+    </div>
+    <div class="actions">
+
+        <div class="ui red basic button" ng-click="closeModal()">
+            <i class="remove icon"></i> Ne
+        </div>
+        <div class="ui green basic button" ng-click="removeUser()">
+            <i class="checkmark icon"></i> Ano
+        </div>
+
+    </div>
+</div>
