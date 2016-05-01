@@ -3,7 +3,7 @@
         Účast:
     </div>
 </div>
-<form class="ui form attached fluid segment">
+<form class="ui form attached fluid segment" ng-if="participation._id">
     <div class="two fields">
         <div class="field required" ng-if="session.currentUser.permissions.ParticipantAdministration">
             <label>Stav:</label>
@@ -40,7 +40,7 @@
         </textarea>
     </div>
 </form>
-<div class="ui attached message">
+<div class="ui attached message" ng-if="participation._id">
     <div class="header">
         <h5>Vyslaní zástupci účastníka na akci ({{participation.attendees.length}}/{{conference.attendeesNumber}}):</h5>
     </div>
@@ -65,7 +65,7 @@
         </div>
     </div>
 </form>
-<div class="ui bottom attached warning message">
+<div class="ui bottom attached warning message" ng-if="participation._id">
     <a ng-click="updateParticipation()" class="ui button basic my-orange">
         <i class="save icon"></i> Uložit
     </a>

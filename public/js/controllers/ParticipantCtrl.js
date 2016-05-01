@@ -240,11 +240,12 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                 $scope.participation = participation;
             }
         })
+        console.log($scope.conference); 
         if (!$scope.conference._id) {
             $scope.conference = $scope.ParticipatedConferences[0];
             $scope.participation = $scope.participations[0];
         }
-        if ($scope.conference._id) {
+        if ($scope.conference) {
             getAttachementTypes();
         }
         $rootScope.loader = false;

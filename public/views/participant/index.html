@@ -1,15 +1,15 @@
 <div class="ui attached message">
     <div class="header">
-        Konference:
+        Detail účasti na akci:
     </div>
 </div>
 <form class="ui form attached fluid segment">
     <div class="field">
-        <label>Zvolená konference:</label>
+        <label>Zvolená akce:</label>
         <div class="ui action input">
             <select class="ui dropdown" ng-options="item.name for item in ParticipatedConferences track by item._id" ng-model="conference"
                 ng-change="changeConference()">
-                <option value="" disabled selected> Vyberte konferenci</option>
+                <option value="" disabled selected> Vyberte akci</option>
             </select>
             <a class="ui basic button" ng-click="showModal()" ng-class="{'disabled': participation.attachements.length > 0}"
                 ng-if="session.currentUser.permissions.ParticipantAdministration">
@@ -25,7 +25,7 @@
             <label>Nová účast:</label>
             <div class="ui action input">
                 <select class="ui  dropdown" ng-options="item._id as item.name for item in otherConferences track by item._id" ng-model="newParticipation.conference">
-                    <option value="" disabled selected> Vyberte konferenci</option>
+                    <option value="" disabled selected> Vyberte akci</option>
             
                 </select>
                 <a class="ui basic button" ng-click="addParticipation()">
@@ -37,7 +37,7 @@
 </form>
 
 <div class="ui four item stackable tabs menu">
-    <a ui-sref-active="active" ui-sref="home.participant.information" class="item">Informace</a>
+    <a ui-sref-active="active" ui-sref="home.participant.information" class="item">Účastník</a>
     <a ui-sref-active="active" ui-sref="home.participant.documents" class="item">Přílohy</a>
     <a ui-sref-active="active" ui-sref="home.participant.representatives" class="item">Obecné</a>
     <a ui-sref-active="active" ui-sref="home.participant.communication" class="item">Komunikace</a>
