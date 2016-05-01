@@ -159,6 +159,7 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
                 if (data.isValid) {
                     $scope.showSuccess("Konference byla úspěšně aktualizována/přidána");
                     $rootScope.loader = false;
+                    $state.go('home.dashboard');
                     //loadAllConference();
                 }
                 else {
