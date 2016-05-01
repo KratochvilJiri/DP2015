@@ -6,7 +6,7 @@
 <form class="ui form attached fluid segment">
     <div class="field">
         <label>Zvolená konference:</label>
-        <div class="ui action inline">
+        <div class="ui action input">
             <select class="ui dropdown" ng-options="item.name for item in ParticipatedConferences track by item._id" ng-model="conference"
                 ng-change="changeConference()">
                 <option value="" disabled selected> Vyberte konferenci</option>

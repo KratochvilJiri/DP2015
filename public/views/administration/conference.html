@@ -9,7 +9,7 @@
         <a class="ui basic button" ng-click="addConference()">
             <i class="add icon"></i>Přidat akci
         </a>
-        <a ng-class="{'disabled' :  !conference._id || conference.participations.length > 0}" class="ui basic button" ng-click="showModal()">
+        <a class="ui basic button" ng-class="{'disabled' :  !conference._id || conference.participations.length > 0}" ng-click="showModal()">
             <i class="remove red icon"></i>Odebrat akci
         </a>
         <span ng-if="conference.participations.length > 0"><i class="info icon"></i> Akci lze odebrat pouze pokud neobsahuje žádné účasti.</span>
