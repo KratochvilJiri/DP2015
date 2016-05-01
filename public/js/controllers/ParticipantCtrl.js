@@ -1,4 +1,4 @@
-angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$scope', '$state', '$stateParams', '$timeout', 'UserService', 'ConferenceService', 'ParticipationService', 'SessionService', 'MessageService', 'filepickerService', 'AttachementService','$rootScope', function ($scope, $state, $stateParams, $timeout, UserService, ConferenceService, ParticipationService, SessionService, MessageService, filepickerService, AttachementService, $rootScope) {
+angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$scope', '$state', '$stateParams', '$timeout', 'UserService', 'ConferenceService', 'ParticipationService', 'SessionService', 'MessageService', 'filepickerService', 'AttachementService', '$rootScope', function ($scope, $state, $stateParams, $timeout, UserService, ConferenceService, ParticipationService, SessionService, MessageService, filepickerService, AttachementService, $rootScope) {
     // session structure
     $scope.session = SessionService;
     // participant (user)
@@ -21,8 +21,15 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     $scope.message = {};
     //
     $scope.attachement = {};
-    
+
     $rootScope.loader = true;
+
+    $scope.showModal = function () {
+        setTimeout(function () { $('.small.modal').modal('show'); }, 50);
+    }
+    $scope.closeModal = function () {
+        setTimeout(function () { $('.small.modal').modal('hide'); }, 50);
+    }
 
     $scope.removeParticipation = function () {
         var deletedParticipation = {};
@@ -34,9 +41,11 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                 if (data.isValid) {
                     $scope.showSuccess("Účast byla úspěšně odebrána.");
                     $state.go('home.participants');
+                    setTimeout(function () { $('.small.modal').modal('hide'); }, 50);
                 }
                 else {
                     $scope.showErrors(data.errors);
+                    setTimeout(function () { $('.small.modal').modal('hide'); }, 50);
                 }
             })
             .error(function (data, status) {

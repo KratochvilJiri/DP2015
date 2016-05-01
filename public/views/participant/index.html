@@ -4,21 +4,22 @@
     </div>
 </div>
 <form class="ui form attached fluid segment">
-        <div class="field">
-            <label>Zvolená konference:</label>
-            <div class="ui action inline">
-                <select class="ui dropdown" ng-options="item.name for item in ParticipatedConferences track by item._id" ng-model="conference"
-                    ng-change="changeConference()">
+    <div class="field">
+        <label>Zvolená konference:</label>
+        <div class="ui action inline">
+            <select class="ui dropdown" ng-options="item.name for item in ParticipatedConferences track by item._id" ng-model="conference"
+                ng-change="changeConference()">
                 <option value="" disabled selected> Vyberte konferenci</option>
             </select>
-                <a class="ui basic button" ng-click="removeParticipation()" ng-class="{'disabled': participation.attachements.length > 0}" ng-if="session.currentUser.permissions.ParticipantAdministration">
-                    <i class="remove red icon"></i>Odstranit účast
-                </a>
-            </div>
+            <a class="ui basic button" ng-click="showModal()" ng-class="{'disabled': participation.attachements.length > 0}"
+                ng-if="session.currentUser.permissions.ParticipantAdministration">
+                <i class="remove red icon"></i>Odstranit účast
+            </a>
         </div>
-        <div class="field"" ng-if="participation.attachements.length > 0">
-             <p><i class="info icon"></i>Pro odstranění účasti je nutné nejdříve odstranit všechny přílohy.</p>
-        </div> 
+    </div>
+    <div class="field" " ng-if="participation.attachements.length> 0">
+        <p><i class="info icon"></i>Pro odstranění účasti je nutné nejdříve odstranit všechny přílohy.</p>
+    </div>
     <div class="two fields">
         <div class="field" ng-if="session.currentUser.permissions.ParticipantAdministration">
             <label>Nová účast:</label>
@@ -46,4 +47,29 @@
 
 <div class="ui grid-container">
     <ui-view></ui-view>
+</div>
+
+<div class="ui small modal">
+    <i class="close icon"></i>
+    <div class="header">
+        Odstranění účasti na akci.
+    </div>
+    <div class="image content">
+        <div class="image">
+            <i class="remove icon"></i>
+        </div>
+        <div class="description">
+            <p>Opravdu chcete odstranit účastnika z akce?</p>
+        </div>
+    </div>
+    <div class="actions">
+
+        <div class="ui red basic button" ng-click="closeModal()">
+            <i class="remove icon"></i> Ne
+        </div>
+        <div class="ui green basic button" ng-click="removeParticipation()">
+            <i class="checkmark icon"></i> Ano
+        </div>
+
+    </div>
 </div>
