@@ -34,30 +34,55 @@
 </form>
 
 
-    <!-- all users table -->
-    <table class="ui celled selectable striped table">
-        <thead>
-            <tr>
-                <th>Jméno</th>
-                <th>Email</th>
-                <th>Telefon</th>
-                <th>Role</th>
-                <th></th>
-            </tr>
-        </thead>
+<!-- all users table -->
+<table class="ui celled selectable striped table">
+    <thead>
+        <tr>
+            <th>Jméno</th>
+            <th>Email</th>
+            <th>Telefon</th>
+            <th>Role</th>
+            <th></th>
+        </tr>
+    </thead>
 
-        <tbody ng-repeat="user in users | filter : {role: filter.role}: true | filter:search">
-            <tr>
-                <td>{{user.name}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.phone}}</td>
-                <td>{{roles[user.role]}}</td>
-                <td class="collapsing">
-                    <button class="ui basic icon button" data-content="Editovat" ui-sref="home.user({userId: user._id})"><i class="edit icon"></i></button>
-                    <button class="ui basic icon button" data-content="Odstranit" ng-click="removeUser(user._id)"><i class="remove red icon"></i></button>
-                </td>
-            </tr>
-        </tbody>
+    <tbody ng-repeat="user in users | filter : {role: filter.role}: true | filter:search">
+        <tr>
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.phone}}</td>
+            <td>{{roles[user.role]}}</td>
+            <td class="collapsing">
+                <button class="ui basic icon button" data-content="Editovat" ui-sref="home.user({userId: user._id})"><i class="edit icon"></i></button>
+                <button class="ui basic icon button" data-content="Odstranit" ng-click="showModal(user._id)"><i class="remove red icon"></i></button>
+            </td>
+        </tr>
+    </tbody>
 
-    </table>
-    <!-- all users table - end -->
+</table>
+
+<div class="ui small modal">
+    <i class="close icon"></i>
+    <div class="header">
+        Smazání uživatele.
+    </div>
+    <div class="image content">
+        <div class="image">
+            <i class="remove user icon"></i>
+        </div>
+        <div class="description">
+            <p>Opravdu chcete smazat uživatele?</p>
+        </div>
+    </div>
+    <div class="actions">
+
+        <div class="ui red basic button" ng-click="closeModal()">
+            <i class="remove icon"></i> Ne
+        </div>
+        <div class="ui green basic button" ng-click="removeUser()">
+            <i class="checkmark icon"></i> Ano
+        </div>
+
+    </div>
+</div>
+<!-- all users table - end -->
