@@ -1,4 +1,15 @@
 angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope', '$timeout', '$state', 'ConferenceService', 'SessionService', 'AttachementService', '$rootScope', function ($scope, $timeout, $state, ConferenceService, SessionService, AttachementService, $rootScope) {
+
+    $rootScope.menu = {
+        dashboard: false,
+        actionAdministration: false,
+        helpdesk: false,
+        participants: false,
+        administration: true,
+        profile: false
+    }
+
+
     $scope.session = SessionService;
     $scope.conference = {};
     $scope.conference.sponsorshipLevels = [];

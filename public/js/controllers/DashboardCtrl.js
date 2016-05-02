@@ -1,4 +1,14 @@
-angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope', '$filter', 'EmailService', 'ConferenceService', 'SessionService', 'IssueService', 'ParticipationService','$rootScope', function ($scope, $filter, EmailService, ConferenceService, SessionService, IssueService, ParticipationService, $rootScope) {
+angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope', '$filter', 'EmailService', 'ConferenceService', 'SessionService', 'IssueService', 'ParticipationService', '$rootScope', function ($scope, $filter, EmailService, ConferenceService, SessionService, IssueService, ParticipationService, $rootScope) {
+
+    $rootScope.menu = {
+        dashboard: true,
+        actionAdministration: false,
+        helpdesk: false,
+        participants: false,
+        administration: false,
+        profile: false
+    }
+
     $scope.newEmails = "...";
     $scope.getDaysRemaining = "...";
     $scope.conference = {};
@@ -8,7 +18,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
 
     $scope.session.conferenceID = undefined;
     $scope.session.currentUser = SessionService.updateCurrentUser();
-    
+
     $rootScope.loader = true;
     //$scope.session = SessionService;
 

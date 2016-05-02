@@ -1,4 +1,27 @@
 angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$scope', '$state', '$stateParams', '$timeout', 'UserService', 'ConferenceService', 'ParticipationService', 'SessionService', 'MessageService', 'filepickerService', 'AttachementService', '$rootScope', function ($scope, $state, $stateParams, $timeout, UserService, ConferenceService, ParticipationService, SessionService, MessageService, filepickerService, AttachementService, $rootScope) {
+
+    if (SessionService.currentUser.role == "PARTICIPANT") {
+        $rootScope.menu = {
+            dashboard: false,
+            actionAdministration: true,
+            helpdesk: false,
+            participants: false,
+            administration: false,
+            profile: false
+        }
+    }
+    else {
+        $rootScope.menu = {
+            dashboard: false,
+            actionAdministration: false,
+            helpdesk: false,
+            participants: true,
+            administration: false,
+            profile: false
+        }
+    }
+
+
     // session structure
     $scope.session = SessionService;
     // participant (user)
@@ -240,7 +263,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                 $scope.participation = participation;
             }
         })
-        console.log($scope.conference); 
+        console.log($scope.conference);
         if (!$scope.conference._id) {
             $scope.conference = $scope.ParticipatedConferences[0];
             $scope.participation = $scope.participations[0];

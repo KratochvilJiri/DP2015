@@ -1,5 +1,14 @@
 angular.module('HomeCtrl', []).controller('HomeController', ['$scope', 'SessionService', 'AuthorizationService', '$rootScope', function ($scope, SessionService, AuthorizationService, $rootScope) {
 
+    $rootScope.menu = {
+        dashboard: false,
+        actionAdministration: false,
+        helpdesk: false,
+        participants: false,
+        administration: false,
+        profile: false
+    }
+    
     $scope.errors = [];
     $scope.session = SessionService;
 

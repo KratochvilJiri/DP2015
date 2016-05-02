@@ -1,5 +1,14 @@
 angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$scope', '$state', 'UserService', 'ConferenceService', 'ParticipationService', '$rootScope', function ($scope, $state, UserService, ConferenceService, ParticipationService, $rootScope) {
 
+    $rootScope.menu = {
+        dashboard: false,
+        actionAdministration: false,
+        helpdesk: false,
+        participants: true,
+        administration: false,
+        profile: false
+    }
+
     $scope.deletingUser = "";
     $rootScope.loader = true;
     $scope.participants = [];

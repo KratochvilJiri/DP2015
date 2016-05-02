@@ -9,6 +9,7 @@ module.exports = {
         ParticipantAdministration: true,
         Administration: true,
         ContactPersonAdministration: true,
+        ContactPersonOnly: false
     },
     'CONTACT_PERSON': {
         UserModuleRead: false,
@@ -20,6 +21,7 @@ module.exports = {
         ParticipantAdministration: true,
         ContactPersonAdministration: false,
         Administration: false,
+        ContactPersonOnly: true
     },
     'PARTICIPANT': {
         UserModuleRead: false,
@@ -31,5 +33,6 @@ module.exports = {
         ParticipantAdministration: false,
         ContactPersonAdministration: false,
         Administration: false,
+        ContactPersonOnly: false
     }
 }

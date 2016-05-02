@@ -1,5 +1,14 @@
 // probably useless
-angular.module('OverviewCtrl', []).controller('OverviewController', ['$scope', 'IssueService', '$filter', function($scope, IssueService, $filter) {
+angular.module('OverviewCtrl', []).controller('OverviewController', ['$scope', 'IssueService', '$filter','$rootScope', function ($scope, IssueService, $filter,$rootScope) {
+
+    $rootScope.menu = {
+        dashboard: false,
+        actionAdministration: false,
+        helpdesk: true,
+        participants: false,
+        administration: false,
+        profile: false
+    }
 
     $scope.filter = {};
 
@@ -23,9 +32,9 @@ angular.module('OverviewCtrl', []).controller('OverviewController', ['$scope', '
         { constant: 'DONE', text: "Vyřešeno", color: "green" },
     ]
     //
-    var getIssues = function() {
+    var getIssues = function () {
         IssueService.getAll()
-            .success(function(data) {
+            .success(function (data) {
                 if (data.isValid) {
                     $scope.issues = data.data;
                     console.log($scope.issues);
@@ -35,15 +44,15 @@ angular.module('OverviewCtrl', []).controller('OverviewController', ['$scope', '
                     $scope.showErrors(data.errors);
                 }
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 console.error('Error', status, data);
             });
     }
 
-    var openedDays = function() {
+    var openedDays = function () {
         var today = $filter('date')(new Date(), "yyyy-MM-dd'T'HH:mm:ss.sss'Z'");
         var timestamp1 = new Date(today);
-        $scope.issues.forEach(function(issue) {
+        $scope.issues.forEach(function (issue) {
             if (!issue.supervisor) {
                 issue.supervisor = {};
                 issue.supervisor.name = "nepřiřazeno";
@@ -61,15 +70,15 @@ angular.module('OverviewCtrl', []).controller('OverviewController', ['$scope', '
         })
     }
 
-    $scope.filterState = function(state) {
+    $scope.filterState = function (state) {
         $scope.filter.state = state;
     }
 
-    $scope.filterType = function(type) {
+    $scope.filterType = function (type) {
         $scope.filter.type = type;
     }
 
-    $scope.filterPriority = function(priority) {
+    $scope.filterPriority = function (priority) {
         $scope.filter.priority = priority;
     }
 
