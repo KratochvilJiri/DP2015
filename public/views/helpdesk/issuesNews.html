@@ -3,8 +3,13 @@
         Helpdesk - nové zprávy
     </div>
 </div>
+<form class="ui form attached fluid segment" ng-if="!(communicationNews.length > 0)">
+    <div class="field">
+        <h4> Nemáte žádné nové zprávy </h4>
+    </div>
+</form>
 
-<table class="ui selectable celled striped table">
+<table class="ui selectable celled striped table" ng-if="communicationNews.length > 0">
     <thead>
         <tr>
             <th>Odesílatel</th>
