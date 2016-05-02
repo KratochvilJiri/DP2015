@@ -11,6 +11,7 @@ app.run(function($rootScope, $timeout) {
             $('.ui.dropdown').dropdown();
             $('.menu .item').tab();
             $('.ui.basic.icon.button').popup();
+            $('.info.icon').popup();
             $('.message .close').on('click', function() {
                 $(this).closest('.message').fadeOut(200);
             });
@@ -24,6 +25,7 @@ app.run(['$rootScope', '$state', 'SessionService', function($rootScope, $state, 
     // location to change
     $rootScope.$on('$stateChangeStart', function(event, next) {
         $('.ui.basic.icon.button').popup('destroy');
+        $('.info.icon').popup('destroy');
         SessionService.isSet()
             .success(function(data) {
                 if (data.isValid && SessionService.currentUser == null) {
