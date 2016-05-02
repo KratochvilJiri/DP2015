@@ -11,9 +11,23 @@ angular.module('LoginCtrl', []).controller('LoginController', ['$scope', '$state
                 }
                 else {
                     // to do - error function
-                    console.log("wrong pass/login - to do - print error function");
+                    $scope.showErrors(["Nesprávný email nebo heslo."]);
                 }
             });
+    }
+    
+        // showing errors
+    $scope.showErrors = function (errors) {
+        $scope.errors = errors;
+        $('html,body').animate({ scrollTop: 0 }, 'slow');
+        $('.message.status-alert').fadeIn();
+    }
+
+    // showing success operation
+    $scope.showSuccess = function (message) {
+        $scope.message = message;
+        $('html,body').animate({ scrollTop: 0 }, 'slow');
+        $('.message.status-success').fadeIn().delay(2000).fadeOut();
     }
 
 }]);
