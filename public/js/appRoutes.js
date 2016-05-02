@@ -1,6 +1,6 @@
 // public/js/appRoutes.js
 
-app.config(function($stateProvider, $urlRouterProvider, filepickerProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, filepickerProvider) {
 
     filepickerProvider.setKey('ACDqZHX5DTLWEBMNdU2Jpz');
 
@@ -12,6 +12,12 @@ app.config(function($stateProvider, $urlRouterProvider, filepickerProvider) {
             url: '/login',
             templateUrl: 'views/login.html',
             controller: 'LoginController'
+        })
+
+        .state('passwordRecovery', {
+            url: '/passwordRecovery',
+            templateUrl: 'views/passwordRecovery.html',
+            controller: 'PasswordRecoveryController'
         })
 
         .state('home', {
@@ -58,7 +64,7 @@ app.config(function($stateProvider, $urlRouterProvider, filepickerProvider) {
             templateUrl: 'views/helpdesk/issueCreation.html',
             controller: 'IssueDetailController'
         })
-        
+
         .state('home.helpdeskNews', {
             url: 'helpdesk/news',
             templateUrl: 'views/helpdesk/issuesNews.html',

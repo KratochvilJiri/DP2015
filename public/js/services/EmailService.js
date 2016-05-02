@@ -15,7 +15,10 @@ angular.module("EmailSrvc", []).factory("EmailService", ["$http", function($http
 		},
         send: function(emailStructure){
             return $http.post("/api/email/send", emailStructure);
-        }
+        },
+		recoveryPassword: function(email) {
+			return $http.post("/api/email/recoveryPassword", email);
+		}
 	}
 
 }]);

@@ -363,9 +363,9 @@ module.exports = {
                         pass: dbConference.emailPassword
                     }
                 };
-                
+
                 var to = "";
-                email.addressees.forEach(function(addressee){
+                email.addressees.forEach(function (addressee) {
                     to = to + addressee.name;
                 })
 
@@ -472,6 +472,75 @@ module.exports = {
                 });
             }
         });
+    },
+
+    recoveryPassword: function (user, callback) {
+        validation = new ValidationResult(user);
+        validation.checkIfIsDefinedAndNotEmpty('email', "Příjemci pozvánky jsou povinní");
+
+        if (!validation.isValid) {
+            callback(validation);
+            return;
+        }
+
+        UserModel.findOne({ email: user.email }, function (err, dbUser) {
+            if (err) {
+                validation.addError("Nepodařilo se uložit konferenci po přidání účastníka");
+                callback(validation);
+                return;
+            }
+            if (dbUser) {
+                ConferenceModel.findOne({ "active": true }, "email emailPort emailPassword _id", function (err, dbConference) {
+                    if (err) {
+                        validation.addError(err);
+                        callback(validation);
+                        return;
+                    }
+
+                    var temp = dbConference.email.split("@");
+                    var imapServer = temp[1];
+
+                    var smtpConfig = {
+                        host: ("smtp." + imapServer),
+                        port: 465,
+                        secure: true, // SSL
+                        auth: {
+                            user: dbConference.email,
+                            pass: dbConference.emailPassword
+                        }
+                    };
+
+                    var transporter = nodemailer.createTransport(smtpConfig);
+
+                    var emailBody = "Dobrý den, <br /> Vaše přihlašovací údaje jsou: <br /> email: " + dbUser.email + "<br /> heslo: " + dbUser.password + "<br />";
+                    var mailOptions = {
+                        from: (dbConference.name + dbConference.email), // sender address
+                        to: user.email, // list of receivers
+                        subject: "Obnova přihlašovacích údajů", // Subject line
+                        text: emailBody, // plaintext body
+                        html: emailBody // html body
+                    };
+
+                    transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                            console.log(error);
+                            validation.addError(error);
+                            callback(validation);
+                            return;
+                        }
+                        else {
+                            callback(validation);
+                            return;
+                        }
+                    });
+                });
+            }
+            else {
+                validation.addError("Uživatel se zadaným emailem neexistuje");
+                callback(validation);
+                return;
+            }
+        })
     },
 
     // user structure validation
