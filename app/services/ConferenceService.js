@@ -117,6 +117,7 @@ module.exports = {
         validation.checkIfIsDefinedAndNotEmpty('email', "Email konference je povinný");
         validation.checkIfIsDefinedAndNotEmpty('emailPassword', "Heslo k emailu konference je povinný");
         validation.checkIfIsDefinedAndNotEmpty('emailPort', "Port k emailu konference je povinný");
+        validation.checkIfIsDefinedAndNotEmpty('notification', "Upozornění na odevzdání příloh je povinné")
 
         if (validation.data.attachementTypes) {
             validation.data.attachementTypes.forEach(function (attachementType) {

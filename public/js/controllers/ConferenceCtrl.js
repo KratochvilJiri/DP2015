@@ -122,6 +122,7 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
 
     $scope.addConference = function () {
         $scope.conference = {};
+        $scope.conference.notification = "5";
         setTimeout(function () { $('.ui.dropdown').dropdown(); }, 20);
     }
 
