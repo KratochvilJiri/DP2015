@@ -75,7 +75,7 @@ module.exports = {
                     for (var i = 0, n = charset.length; i < length; ++i) {
                         user.password += charset.charAt(Math.floor(Math.random() * n));
                     }
-                    
+
                     UserModel.create(user, function (err, dbUser) {
                         // user creation error
                         if (err) {
@@ -305,5 +305,23 @@ module.exports = {
             password += charset.charAt(Math.floor(Math.random() * n));
         }
         return password;
+    },
+
+    init: function (user) {
+        UserModel.count({}, function (err, count) {
+            if (err) {
+                console.log(err);
+            }
+            if (count > 0) {
+                return;
+            }
+            user.role = "ADMINISTRATOR";
+            user.email = "admin";
+            user.password = "1234";
+            UserService.save(user, function (err, user) {
+                if (err)
+                    console.log(err);
+            });
+        })
     }
 }
