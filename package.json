@@ -14,6 +14,7 @@
         "inbox": "latest",
         "mailparser": "latest",
         "nodemailer": "latest",
-        "node-schedule": "latest"
+        "node-schedule": "latest",
+        "dateformat": "latest"
     }
 }
