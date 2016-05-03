@@ -207,7 +207,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     $scope.uploadAttachement = function (attachementTypeHash) {
         filepickerService.pick(
             {
-                mimetype: 'application/pdf',
+                mimetypes: ['application/pdf', 'image/png'],
                 language: 'cs',
                 services: ['COMPUTER', 'DROPBOX', 'GOOGLE_DRIVE'],
                 openTo: 'COMPUTER'
