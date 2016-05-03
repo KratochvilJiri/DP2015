@@ -79,7 +79,6 @@ module.exports = {
                     UserModel.create(user, function (err, dbUser) {
                         // user creation error
                         if (err) {
-                            console.log(err);
                             validation.addError("Nepodařilo se vytvořit uživatele." + err);
                             callback(validation);
                             return;
@@ -118,13 +117,11 @@ module.exports = {
 
                             transporter.sendMail(mailOptions, function (error, info) {
                                 if (error) {
-                                    console.log(error);
                                     validation.addError(error);
                                     callback(validation);
                                     return;
                                 }
                                 else {
-                                    console.log('Message sent: ' + info.response);
                                     callback(validation);
                                     return;
                                 }
@@ -224,8 +221,6 @@ module.exports = {
     getUninvited: function (conferenceID, callback) {
         var validation = new ValidationResult([]);
 
-        console.log(conferenceID);
-
         UserModel.find({ 'role': 'PARTICIPANT' })
             .populate({
                 path: 'participations', model: 'Participation', match: { "conference": conferenceID }, select: "_id"
@@ -284,7 +279,6 @@ module.exports = {
         UserModel.remove(user, function (err, dbUser) {
             // user remove error
             if (err) {
-                console.log(err);
                 validation.addError("Uživatele se nezdařilo odebrat");
                 callback(validation);
                 return;

@@ -13,7 +13,6 @@ angular.module('ParticipationSrvc', []).factory('ParticipationService', ["$http"
             return $http.post("/api/participation/conferenceUnseenMessages", data);
         },
         delete: function (participation) {
-            console.log(participation);
             return $http.post("/api/participation/delete", participation);
         }
 

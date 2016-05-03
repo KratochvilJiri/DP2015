@@ -67,7 +67,6 @@ module.exports = {
                         else {
 
                             dbUser.participations.push(dbParticipation._id);
-                            console.log(dbUser);
 
                             dbUser.save(function (err) {
                                 // error check
@@ -95,7 +94,6 @@ module.exports = {
                                             dbConference.save(function (err) {
                                                 // error check
                                                 if (err) {
-                                                    console.log(err);
                                                     validation.addError("Nepodařilo se uložit konferenci po přidání účastníka");
                                                     callback(validation);
                                                     return;
@@ -186,8 +184,6 @@ module.exports = {
 
     remove: function (participation, callback) {
         var validation = new ValidationResult({});
-
-        console.log(participation);
 
         if (!participation._id) {
             validation.addError("Účast se nezdařilo nalézt v databázi");

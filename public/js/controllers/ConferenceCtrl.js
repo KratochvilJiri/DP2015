@@ -42,7 +42,6 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
     }
 
     var checkAttachements = function (count) {
-        console.log(count);
         if (count > 0) {
             return true;
         }
@@ -71,7 +70,6 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
         var isAssigned = true;
         $scope.conference.sponsorshipLevels.forEach(function (level) {
             level.possibleAttachementTypes = [];
-            // console.log(level);
             $scope.conference.attachementTypes.forEach(function (type) {
                 level.attachementTypes.forEach(function (attachementTypeInLevel) {
                     if (type.hash == attachementTypeInLevel.hash) {
@@ -106,7 +104,6 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
                     console.log('Error: ', status, data.error);
                 });
         })
-        console.log($scope.conference.attachementTypes);
     }
 
     var setActiveConference = function () {
@@ -114,7 +111,6 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
             if (conference.active) {
                 $scope.conference = conference;
                 checkAttachements();
-                console.log($scope.conference.sponsorshipLevels);
                 getAttachementTypesForLevel();
             }
         })
@@ -180,7 +176,6 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
         $scope.conference.active = true;
         uploadATypesAtSLevels();
         SessionService.currentUser.conferenceID = $scope.conference._id;
-        //console.log($scope.conference.attachementTypes);
         ConferenceService.save($scope.conference)
             .success(function (data) {
                 if (data.isValid) {

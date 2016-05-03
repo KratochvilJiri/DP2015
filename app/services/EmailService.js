@@ -149,7 +149,6 @@ module.exports = {
                 client.connect();
 
                 client.on("error", function (err) {
-                    console.log(err);
                     if (err.errorType == "TimeoutError") {
                         validation.addError("Zadané přihlašovací údaje k emailu nejsou správné.");
                         callback(validation);
@@ -169,7 +168,6 @@ module.exports = {
                             callback(validation);
                             return;
                         }
-                        console.log("inbox");
 
                         var counter = 0;
                         // get last 20 email
@@ -200,7 +198,6 @@ module.exports = {
         function isSeen(flags) {
             var seen = false;
             flags.forEach(function (flag) {
-                //console.log(flag);
                 if (flag === "\\Seen") {
                     seen = true;
                 }
@@ -335,7 +332,6 @@ module.exports = {
     },
 
     send: function (email, callback) {
-        console.log(email);
         var validation = this.validate(email);
 
         if (!validation.isValid) {
@@ -383,13 +379,11 @@ module.exports = {
 
                 transporter.sendMail(mailOptions, function (error, info) {
                     if (error) {
-                        console.log(error);
                         validation.addError(error);
                         callback(validation);
                         return;
                     }
                     else {
-                        console.log('Message sent: ' + info.response);
 
                         // create new participations
                         email.addressees.forEach(function (addressee) {
@@ -419,8 +413,6 @@ module.exports = {
                                         // addressee found
                                         else {
                                             // push participation to addressee
-                                            console.log(dbParticipation._id);
-                                            console.log(dbUser.name);
                                             dbUser.participations.push(dbParticipation._id);
                                             // save addressee
                                             dbUser.save(function (err) {
@@ -443,13 +435,10 @@ module.exports = {
                                                         else {
                                                             // add participation to conference
                                                             dbConference.participations.push(dbParticipation._id);
-                                                            console.log(dbParticipation._id);
-                                                            console.log(dbConference.name);
                                                             // save conference
                                                             dbConference.save(function (err) {
                                                                 // error check
                                                                 if (err) {
-                                                                    console.log(err);
                                                                     validation.addError("Nepodařilo se uložit konferenci po přidání účastníka");
                                                                     callback(validation);
                                                                     return;
@@ -523,7 +512,6 @@ module.exports = {
 
                     transporter.sendMail(mailOptions, function (error, info) {
                         if (error) {
-                            console.log(error);
                             validation.addError(error);
                             callback(validation);
                             return;

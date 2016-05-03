@@ -44,8 +44,6 @@ module.exports = {
                                                 })
                                                 // is not --> send notification
                                                 if (!uploaded) {
-                                                    console.log("notification");
-                                                    console.log(participation.user.email);
                                                     if (!transporter) {
                                                         createConnection(conference.email, conference.emailPassword, function () {
                                                             sendEmail(conference.name, conference.email, participation.user.email, type.name, type.date);

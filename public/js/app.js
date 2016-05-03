@@ -29,7 +29,6 @@ app.run(['$rootScope', '$state', 'SessionService', function ($rootScope, $state,
         if ($state.current.name != "login" && $state.current.name != "passwordRecovery") {
             SessionService.isSet()
                 .success(function (data) {
-                    console.log($state.current.name);
                     if (data.isValid && SessionService.currentUser == null) {
                         SessionService.updateCurrentUser();
                     }

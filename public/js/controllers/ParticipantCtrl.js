@@ -82,9 +82,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                 $scope.participation = participation;
                 setTimeout(function () { $('.ui.dropdown').dropdown(); }, 500);
             }
-            console.log(participation.conference._id);
         });
-        console.log($scope.conference);
         getAttachementTypes();
     }
 
@@ -130,7 +128,6 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     var getAttachementTypes = function () {
         $scope.attachementTypes = [];
         if ($scope.participation.sponsorshipLevel) {
-            console.log($scope.conference);
             $scope.conference.sponsorshipLevels.forEach(function (sponsorshipLevel) {
                 if (sponsorshipLevel._id === $scope.participation.sponsorshipLevel.type._id) {
                     $scope.attachementTypes = sponsorshipLevel.attachementTypes;
@@ -173,8 +170,6 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     }
 
     $scope.removeAttachement = function (attachement) {
-        console.log(attachement.data);
-
 
         filepickerService.remove(
             attachement.data,
@@ -200,7 +195,6 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     }
 
     $scope.downloadAttachement = function (attachement) {
-        console.log(attachement);
         filepickerService.exportFile(
             attachement,
             { language: 'cs' },
@@ -274,7 +268,6 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                 $scope.participation = participation;
             }
         })
-        console.log($scope.conference);
         if (!$scope.conference._id) {
             $scope.conference = $scope.ParticipatedConferences[0];
             $scope.participation = $scope.participations[0];

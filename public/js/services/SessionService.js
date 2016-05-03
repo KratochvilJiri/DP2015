@@ -12,7 +12,6 @@ angular.module("SessionSrvc", []).factory("SessionService", ["$http", function($
 
         // update frontend session form server-session
         updateCurrentUser: function() {
-            console.log("service-updateCurrentUser");
             $http.get("/api/session/update")
                 .success(function(data) {
                     return Session.currentUser = data.data;

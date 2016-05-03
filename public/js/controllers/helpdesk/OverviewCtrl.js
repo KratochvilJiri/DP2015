@@ -37,7 +37,6 @@ angular.module('OverviewCtrl', []).controller('OverviewController', ['$scope', '
             .success(function (data) {
                 if (data.isValid) {
                     $scope.issues = data.data;
-                    console.log($scope.issues);
                     openedDays();
                 }
                 else {

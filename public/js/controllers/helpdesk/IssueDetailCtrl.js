@@ -58,7 +58,6 @@ angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$sco
                 console.error('Error', status, data);
             });
 
-        console.log($scope.issue);
     }
 
     var loadIssue = function () {

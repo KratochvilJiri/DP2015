@@ -6,8 +6,6 @@ module.exports = {
     // create user
     save: function(issue, callback) {
 
-        console.log(issue);
-
         // participation validation
         var validation = this.validate(issue);
 

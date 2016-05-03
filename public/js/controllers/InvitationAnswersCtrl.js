@@ -22,7 +22,6 @@ angular.module('InvitationAnswersCtrl', []).controller('InvitationAnswersControl
     $scope.isSeen = function (flags) {
         $scope.seen = false;
         flags.forEach(function (flag) {
-            //console.log(flag);
             if (flag === "\\Seen") {
                 $scope.seen = true;
             }

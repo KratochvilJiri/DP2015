@@ -68,7 +68,6 @@ angular.module('UserCtrl', []).controller('UserController', ['$scope', '$state',
             .success(function (data, status, headers, config) {
                 if (data.isValid) {
                     $scope.user = data.data;
-                    console.log($scope.user);
                     setTimeout(function () { $('.ui.dropdown').dropdown(); }, 500);
                 }
                 else {

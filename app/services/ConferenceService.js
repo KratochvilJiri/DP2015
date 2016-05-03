@@ -38,9 +38,6 @@ module.exports = {
                 else {
                     //  conference already exists
                     if (conference._id) {
-                        conference.sponsorshipLevels.forEach(function (level) {
-                            console.log(level.attachementTypes);
-                        });
 
                         ConferenceModel.findById(conference._id, function (err, dbConference) {
                             // error check
@@ -77,7 +74,6 @@ module.exports = {
                         })
                     }
                     else {
-                        console.log(conference);
                         ConferenceModel.create(conference, function (err, dbConference) {
                             // conference creation error
                             if (err) {
@@ -102,7 +98,6 @@ module.exports = {
 
         // wrong credentials
         client.on("error", function (err) {
-            console.log(err);
             if (err.errorType == "TimeoutError") {
                 validation.addError("Zadané přihlašovací údaje k emailu nejsou správné.");
                 callback(validation);
@@ -304,7 +299,6 @@ module.exports = {
             }
             req.session.conferenceID = conferenceDB._id;
 
-            console.log(req.session.conferenceID);
             conferenceDB.active = true;
             conferenceDB.save(function (err) {
                 if (err) {
@@ -319,11 +313,10 @@ module.exports = {
             });
 
         });
-        console.log("asdada");
     },
 
     getActive: function (session, callback) {
-        console.log(session);
+        // nothing
     }
 
 }

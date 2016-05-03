@@ -53,7 +53,6 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                     $scope.data = data.data;
                     $scope.data.forEach(function (issue) {
                         issue.messages.forEach(function (message) {
-                            //console.log(message);
                             if (message.author)
                                 $scope.unseenMessagesCount++;
                         })

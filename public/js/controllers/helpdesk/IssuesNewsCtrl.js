@@ -8,7 +8,6 @@ angular.module('IssuesNewsCtrl', []).controller('IssuesNewsController', ['$scope
                 if (data.isValid) {
                     $scope.data = data.data;
                     $scope.data.forEach(function (issue) {
-                        console.log(issue);
                         issue.messages.forEach(function (message) {
                             if (message.author) {
                                 var temp = {};

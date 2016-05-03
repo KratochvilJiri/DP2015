@@ -72,15 +72,7 @@ module.exports = {
 
     // remove use by id
     remove: function(attachement, callback) {
-        console.log(attachement);
         var validation = new ValidationResult(attachement);
-
-        console.log("fuckovina----------------------------");
-        console.log(attachement);
-        console.log("pariticpamnt----------------------------");
-        console.log(attachement.participation);
-        console.log("_id----------------------------");
-        console.log(attachement._id);
 
         ParticipationModel.update(
             { _id: attachement.participation },

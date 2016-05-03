@@ -91,7 +91,6 @@ module.exports = {
                                                     var marking = false;
                                                     var index = 0;
                                                     if (message.userRole == "PARTICIPANT") {
-                                                        console.log("PARTICIPANT");
                                                         if (dbMessages.length > 1) {
                                                             index = 1;
                                                             if (dbMessages[index].author.role == "PARTICIPANT") {
@@ -131,7 +130,6 @@ module.exports = {
                                                             else {
                                                                 marking = true;
                                                                 while (index < dbMessages.length && marking) {
-                                                                    console.log(dbMessages[index].author.role);
                                                                     if (dbMessages[index].author.role != "PARTICIPANT") {
                                                                         marking = false;
                                                                     }
@@ -194,13 +192,11 @@ module.exports = {
                                                     return;
                                                 }
                                                 else {
-                                                      console.log(dbMessages);
                                                     dbMessages.reverse();
 
                                                     var marking = false;
                                                     var index = 0;
                                                     if (message.userRole == "PARTICIPANT") {
-                                                        console.log("PARTICIPANT");
                                                         if (dbMessages.length > 1) {
                                                             index = 1;
                                                             if (dbMessages[index].author.role == "PARTICIPANT") {
@@ -240,7 +236,6 @@ module.exports = {
                                                             else {
                                                                 marking = true;
                                                                 while (index < dbMessages.length && marking) {
-                                                                    console.log(dbMessages[index].author.role);
                                                                     if (dbMessages[index].author.role != "PARTICIPANT") {
                                                                         marking = false;
                                                                     }

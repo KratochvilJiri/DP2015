@@ -21,7 +21,6 @@ angular.module('CommunicationNewsCtrl', []).controller('CommunicationNewsControl
         ParticipationService.getUnseenMessages({ conferenceID: $scope.session.currentUser.conferenceID, role: $scope.session.currentUser.role })
             .success(function(data) {
                 if (data.isValid) {
-                    console.log(data.data);
                     $scope.data = data.data;
                     processNews();
                 }
