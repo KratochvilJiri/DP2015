@@ -108,7 +108,6 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
             // to do - dotaz na participations dle konference id, vcetne uzivatelu 
         }
         else {
-            console.log("aůůůůů");
             $scope.participants = $scope.participantsBackup;
             $scope.filter.conferenceFilter = false;
             $scope.filter.level = undefined;

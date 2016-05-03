@@ -360,9 +360,10 @@ module.exports = {
                     }
                 };
 
+                console.log(email);
                 var to = "";
                 email.addressees.forEach(function (addressee) {
-                    to = to + addressee.name;
+                    to = to + addressee.email + ",";
                 })
 
                 var transporter = nodemailer.createTransport(smtpConfig);
@@ -379,6 +380,7 @@ module.exports = {
 
                 transporter.sendMail(mailOptions, function (error, info) {
                     if (error) {
+                        console.log(error);
                         validation.addError(error);
                         callback(validation);
                         return;
