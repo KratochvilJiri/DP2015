@@ -73,8 +73,10 @@ module.exports = {
                         charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
                         password = "";
                     for (var i = 0, n = charset.length; i < length; ++i) {
-                        user.password += charset.charAt(Math.floor(Math.random() * n));
+                        password += charset.charAt(Math.floor(Math.random() * n));
                     }
+                    
+                    user.password = password;
 
                     UserModel.create(user, function (err, dbUser) {
                         // user creation error

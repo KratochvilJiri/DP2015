@@ -148,7 +148,6 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                             $scope.conference.approvedMoney = $scope.conference.approvedMoney + participation.sponsorshipLevel.value;
 
                         else if (firstRound && participation.sponsorshipLevel.value && (participation.state == "COMPLETE" || participation.state == "CONTRACT_SIGNED")){
-                            console.log("participation");
                             $scope.conference.receivedMoney = $scope.conference.receivedMoney + participation.sponsorshipLevel.value;}
 
                         if (level._id === participation.sponsorshipLevel.type._id) {
