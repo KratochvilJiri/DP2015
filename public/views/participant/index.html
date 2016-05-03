@@ -17,7 +17,7 @@
             </a>
         </div>
     </div>
-    <div class="field" " ng-if="participation.attachements.length> 0">
+    <div class="field" " ng-if="participation.attachements.length> 0 && session.currentUser.permissions.ParticipantAdministration">
         <p><i class="info icon"></i>Pro odstranění účasti je nutné nejdříve odstranit všechny přílohy.</p>
     </div>
     <div class="two fields">

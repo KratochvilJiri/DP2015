@@ -104,6 +104,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
 
     // send new message to the server
     $scope.sendMessage = function () {
+        $rootScope.loader = true;
         $scope.message.date = new Date();
         $scope.message.author = $scope.session.currentUser._id;
         $scope.message.participation = $scope.participation._id;
@@ -115,6 +116,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                     $scope.showSuccess("Zpráva byla úspěšně odeslána.");
                     loadParticipant();
                     $scope.message = {};
+                    $rootScope.loader = false;
                 }
                 else {
                     $scope.showErrors(data.errors);

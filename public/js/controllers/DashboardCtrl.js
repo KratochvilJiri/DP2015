@@ -25,6 +25,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
     //$scope.loader.emails = false;
 
     var loadUnseenParticipationsMessages = function () {
+        $scope.unseenParticipationMessagesCount = 0;
         ParticipationService.getUnseenMessages({ conferenceID: $scope.session.currentUser.conferenceID, role: $scope.session.currentUser.role })
             .success(function (data) {
                 if (data.isValid) {
@@ -47,6 +48,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
 
 
     var loadUnseenIssueMessages = function () {
+        $scope.unseenMessagesCount = 0;
         IssueService.getUnseenMessages($scope.session.currentUser.role)
             .success(function (data) {
                 if (data.isValid) {

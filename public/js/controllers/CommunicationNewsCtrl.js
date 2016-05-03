@@ -1,6 +1,7 @@
-angular.module('CommunicationNewsCtrl', []).controller('CommunicationNewsController', ['$scope', 'ParticipationService', function($scope, ParticipationService) {
+angular.module('CommunicationNewsCtrl', []).controller('CommunicationNewsController', ['$scope', 'ParticipationService','$rootScope', function($scope, ParticipationService, $rootScope) {
 
     $scope.communicationNews = [];
+    $rootScope.loader = true;
 
     var processNews = function() {
         $scope.data.forEach(function(participation) {
@@ -13,6 +14,7 @@ angular.module('CommunicationNewsCtrl', []).controller('CommunicationNewsControl
                     $scope.communicationNews.push(temp);      
                 }         
             })
+            $rootScope.loader = false;
         })
     }
 

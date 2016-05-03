@@ -156,18 +156,20 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
         $scope.conference.attachementTypes.splice(index, 1);
         getAttachementTypesForLevel();
     }
-    
-    var uploadATypesAtSLevels = function(){
-        $scope.conference.sponsorshipLevels.forEach(function(level){
-            level.attachementTypes.forEach(function(LType){
-                $scope.conference.attachementTypes.forEach(function(AType){
-                    if(LType.hash == AType.hash){
-                        LType.date = AType.date;
-                        LType.name = AType.name;
-                    }
+
+    var uploadATypesAtSLevels = function () {
+        if ($scope.conference.sponsorshipLevels) {
+            $scope.conference.sponsorshipLevels.forEach(function (level) {
+                level.attachementTypes.forEach(function (LType) {
+                    $scope.conference.attachementTypes.forEach(function (AType) {
+                        if (LType.hash == AType.hash) {
+                            LType.date = AType.date;
+                            LType.name = AType.name;
+                        }
+                    })
                 })
             })
-        })
+        }
     }
 
     // save conference
@@ -206,11 +208,11 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
             }
         })
     }
-    
-    if($scope.session.currentUser.conferenceID){
-            loadAllConference();
+
+    if ($scope.session.currentUser.conferenceID) {
+        loadAllConference();
     }
-    else{
+    else {
         $rootScope.loader = false;
     }
 

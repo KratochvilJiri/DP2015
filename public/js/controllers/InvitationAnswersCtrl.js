@@ -3,21 +3,23 @@ angular.module('InvitationAnswersCtrl', []).controller('InvitationAnswersControl
     $scope.emails = [];
     $rootScope.loader = true;
 
-    EmailService.getAll()
-        .success(function (data, status, headers, config) {
-            if (data.isValid) {
-                $scope.emails = data.data.reverse();
-                $rootScope.loader = false;
-                setTimeout(function () { $('.ui.accordion').accordion(); }, 500);
+    var getAll = function () {
+        EmailService.getAll()
+            .success(function (data, status, headers, config) {
+                if (data.isValid) {
+                    $scope.emails = data.data.reverse();
+                    $rootScope.loader = false;
+                    setTimeout(function () { $('.ui.accordion').accordion(); }, 500);
 
-            }
-            else {
-                $scope.showErrors(data.errors);
-            }
-        })
-        .error(function (data, status) {
-            console.error('Error', status, data);
-        });
+                }
+                else {
+                    $scope.showErrors(data.errors);
+                }
+            })
+            .error(function (data, status) {
+                console.error('Error', status, data);
+            });
+    }
 
     $scope.isSeen = function (flags) {
         $scope.seen = false;
@@ -30,10 +32,12 @@ angular.module('InvitationAnswersCtrl', []).controller('InvitationAnswersControl
     }
 
     $scope.markAsSeen = function (UID) {
+        $rootScope.loader = true;
         EmailService.markAsSeen(UID)
             .success(function (data, status, headers, config) {
                 if (data.isValid) {
                     $scope.showSuccess("Email byl označen jako přečtený.");
+                    getAll();
                 }
                 else {
                     $scope.showErrors(data.errors);
@@ -45,10 +49,12 @@ angular.module('InvitationAnswersCtrl', []).controller('InvitationAnswersControl
     }
 
     $scope.remove = function (UID) {
+        $rootScope.loader = true;
         EmailService.remove(UID)
             .success(function (data, status, headers, config) {
                 if (data.isValid) {
                     $scope.showSuccess("Email byl smazán.");
+                    getAll();
                 }
                 else {
                     $scope.showErrors(data.errors);
@@ -58,5 +64,7 @@ angular.module('InvitationAnswersCtrl', []).controller('InvitationAnswersControl
                 console.error('Error', status, data);
             });
     }
+
+    getAll();
 
 }]);
