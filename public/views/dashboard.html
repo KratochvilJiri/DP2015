@@ -1,4 +1,4 @@
-<div class="ui grid">
+<div class="ui grid" ng-if="session.currentUser.conferenceID">
     <div class="row bottom aligned">
         <div class="ten wide column">
             <h1 class="ui header displayInline">{{conference.name}} </h1>
@@ -156,9 +156,9 @@
     </div>
 
 </div>
-<div class="ui divider marginTopAndBot3"></div>
+<div class="ui divider marginTopAndBot3" ng-if="session.currentUser.conferenceID"></div>
 <!-- participant - dashboard -->
-<div class="ui grid">
+<div class="ui grid" ng-if="session.currentUser.conferenceID">
     <h3 class="ui header">Ostatní akce:</h3>
     <h4 class="ui header" ng-if="participations.length < 2"> Nemáte žádné jiné akce </h4>
     <div class="center aligned five column stackable row" ng-if="!session.currentUser.permissions.ParticipantDashboardModule">
@@ -185,3 +185,5 @@
         </a>
     </div>
 </div>
+
+<h3> Momentálně není vytvořena žádná akce, pokračujte nabídkou administrace - akce.</h3>

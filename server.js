@@ -67,7 +67,7 @@ var CronService = require('./app/services/CronService');
 CronService.start();
 
 var UserService = require('./app/services/UserService');
-UserService.init();
+UserService.init({});
 // start app ===============================================
 // startup our app at http://localhost:8080
 app.listen(port);

@@ -1,12 +1,12 @@
-module.exports = function(app) {
+module.exports = function (app) {
     var User = require('./../models/UserModel');
     var Permissions = require('./../security/Permissions');
     var ConferenceModel = require('./../models/ConferenceModel');
 
 
 
-    app.post("/api/authorization/authorize", function(req, res) {
-        User.findOne({ 'email': req.body.email }, function(err, user) {
+    app.post("/api/authorization/authorize", function (req, res) {
+        User.findOne({ 'email': req.body.email }, function (err, user) {
             if (err) {
                 //throw err;
                 res.json({ isValid: false, data: null, error: err });
@@ -28,12 +28,14 @@ module.exports = function(app) {
                     req.session.role = user.role;
                     req.session.permissions = Permissions[req.session.role];
 
-                    ConferenceModel.findOne({ "active": true }, "_id", function(err, conferenceDB) {
+                    ConferenceModel.findOne({ "active": true }, "_id", function (err, conferenceDB) {
                         if (err) {
                             res.json({ isValid: false, data: null, error: err });
                         }
                         else {
-                            req.session.conferenceID = conferenceDB._id;
+                            if (conferenceDB) {
+                                req.session.conferenceID = conferenceDB._id;
+                            }
                             res.json({ isValid: true, data: null, error: null });
                         }
                     });
@@ -43,7 +45,7 @@ module.exports = function(app) {
     });
 
     // deauthorization - set session to null
-    app.get("/api/authorization/deauthorize", function(req, res) {
+    app.get("/api/authorization/deauthorize", function (req, res) {
         req.session._id = null;
         req.session.name = null;
         req.session.role = null;

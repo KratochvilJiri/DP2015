@@ -276,6 +276,9 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
             else if ($scope.session.currentUser.role == "PARTICIPANT") {
                 getUserParticipations();
             }
+            else{
+                $rootScope.loader = false;
+            }
         }
     });
     loadUnsolvedIssuesCount();

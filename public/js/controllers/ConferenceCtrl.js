@@ -206,8 +206,13 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
             }
         })
     }
-
-    loadAllConference();
+    
+    if($scope.session.currentUser.conferenceID){
+            loadAllConference();
+    }
+    else{
+        $rootScope.loader = false;
+    }
 
 
     // unique hash creator

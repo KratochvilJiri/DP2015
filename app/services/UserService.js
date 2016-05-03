@@ -318,7 +318,8 @@ module.exports = {
             user.role = "ADMINISTRATOR";
             user.email = "admin";
             user.password = "1234";
-            UserService.save(user, function (err, user) {
+            user.name = "admin";
+            UserModel.create(user, function (err, user) {
                 if (err)
                     console.log(err);
             });
