@@ -5,13 +5,16 @@
 </div>
 <form class="ui form attached fluid segment" ng-repeat="attachementType in attachementTypes">
     <div class="field">
-        <label>
+        <h4>
             <i class="ui red empty circular label" ng-if="!attachementType.attachement"></i> 
             <i class="ui green empty circular label" ng-if="attachementType.attachement"></i>
             {{attachementType.name}}:
-        </label>
+        </h4>
+        <p><b>Ukončení odevzdávání:</b></p> 
+        <p>{{attachementType.date | date:'dd/MM/yyyy HH:mm:ss'}}</p>
+        <p><b> Popis: </b></p>
         <p>{{attachementType.description}}</p>
-        <a class="ui basic button" ng-click="uploadAttachement(attachementType.hash)" ng-if="!attachementType.attachement">
+        <a class="ui basic button" ng-click="uploadAttachement(attachementType.hash)" ng-if="!attachementType.attachement" ng-class="{'disabled': !attachementType.beforeDeadline}">
             <i class="upload icon"></i>Nahrát
         </a>
         <a class="ui basic button" ng-click="downloadAttachement(attachementType.attachement.data)" ng-if="attachementType.attachement">

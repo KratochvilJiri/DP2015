@@ -21,7 +21,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
         }
     }
 
-
+    $scope.today = new Date();
     // session structure
     $scope.session = SessionService;
     // participant (user)
@@ -130,9 +130,20 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     var getAttachementTypes = function () {
         $scope.attachementTypes = [];
         if ($scope.participation.sponsorshipLevel) {
+            console.log($scope.conference);
             $scope.conference.sponsorshipLevels.forEach(function (sponsorshipLevel) {
-                if (sponsorshipLevel._id === $scope.participation.sponsorshipLevel.type._id)
+                if (sponsorshipLevel._id === $scope.participation.sponsorshipLevel.type._id) {
                     $scope.attachementTypes = sponsorshipLevel.attachementTypes;
+                    $scope.attachementTypes.forEach(function (type) {
+                        type.beforeDeadline = true;
+                        var today = new Date($scope.today);
+                        var typeDate = new Date(type.date);
+                        if (typeDate < today) {
+                            type.beforeDeadline = false;
+                        }
+                    })
+                }
+
             })
         }
         assignAttachement();

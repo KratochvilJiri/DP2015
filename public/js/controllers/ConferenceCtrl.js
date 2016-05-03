@@ -160,11 +160,25 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
         $scope.conference.attachementTypes.splice(index, 1);
         getAttachementTypesForLevel();
     }
+    
+    var uploadATypesAtSLevels = function(){
+        $scope.conference.sponsorshipLevels.forEach(function(level){
+            level.attachementTypes.forEach(function(LType){
+                $scope.conference.attachementTypes.forEach(function(AType){
+                    if(LType.hash == AType.hash){
+                        LType.date = AType.date;
+                        LType.name = AType.name;
+                    }
+                })
+            })
+        })
+    }
 
     // save conference
     $scope.save = function () {
         $rootScope.loader = true;
         $scope.conference.active = true;
+        uploadATypesAtSLevels();
         SessionService.currentUser.conferenceID = $scope.conference._id;
         //console.log($scope.conference.attachementTypes);
         ConferenceService.save($scope.conference)
