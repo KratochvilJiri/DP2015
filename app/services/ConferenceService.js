@@ -38,10 +38,10 @@ module.exports = {
                 else {
                     //  conference already exists
                     if (conference._id) {
-                        conference.sponsorshipLevels.forEach(function(level){
-                            console.log(level.attachementTypes);    
+                        conference.sponsorshipLevels.forEach(function (level) {
+                            console.log(level.attachementTypes);
                         });
-                        
+
                         ConferenceModel.findById(conference._id, function (err, dbConference) {
                             // error check
                             if (err) {
@@ -72,9 +72,7 @@ module.exports = {
                                     callback(validation);
                                     return;
                                 }
-
-                                callback(validation);
-                                return;
+                                client.close();
                             });
                         })
                     }
@@ -90,13 +88,16 @@ module.exports = {
                             }
                             req.session.conferenceID = dbConference._id;
                             // conference created
-
-                            callback(validation);
-                            return;
+                            client.close();
                         });
                     }
                 }
             });
+        });
+
+        client.on('close', function () {
+            callback(validation);
+            return;
         });
 
         // wrong credentials
