@@ -100,8 +100,6 @@ module.exports = {
         client.on("error", function (err) {
             if (err.errorType == "TimeoutError") {
                 validation.addError("Zadané přihlašovací údaje k emailu nejsou správné.");
-                callback(validation);
-                return;
             }
         });
     },

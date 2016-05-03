@@ -160,7 +160,8 @@
 <!-- participant - dashboard -->
 <div class="ui grid" ng-if="session.currentUser.conferenceID">
     <h3 class="ui header">Ostatní akce:</h3>
-    <h4 class="ui header" ng-if="participations.length < 2"> Nemáte žádné jiné akce </h4>
+    <p ng-if="participations.length < 2"> Nemáte žádné jiné akce </p>
+    <p ng-if="otherConferences.length < 1"> Nemáte žádné jiné akce. </p>
     <div class="center aligned five column stackable row" ng-if="!session.currentUser.permissions.ParticipantDashboardModule">
         <a ui-sref="home.participants" class="column" ng-repeat="conference in otherConferences" ng-if="session.currentUser.permissions.ContactPersonOnly">
             <div class="ui segment otherAction">
@@ -186,4 +187,4 @@
     </div>
 </div>
 
-<h3> Momentálně není vytvořena žádná akce, pokračujte nabídkou administrace - akce.</h3>
+<h3 ng-if="!session.currentUser.conferenceID"> Momentálně není vytvořena žádná akce, pokračujte nabídkou administrace - akce.</h3>
