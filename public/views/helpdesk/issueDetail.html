@@ -16,7 +16,7 @@
     <div class="two fields">
         <div class="field">
             <label>Priorita:</label>
-            <div class="ui fluid search selection dropdown">
+            <div class="ui fluid search selection dropdown" ng-class="{'disabled': !(session.currentUser.permissions.AdministatorDashboardModule)}">
                 <i class="dropdown icon"></i>
                 <div class="text">
                     <div class="ui {{issue.priority.color}} empty circular label"></div> {{issue.priority.text}}
@@ -29,7 +29,7 @@
         </div>
         <div class="field">
             <label> Typ:</label>
-            <div class="ui fluid search selection dropdown">
+            <div class="ui fluid search selection dropdown" ng-class="{'disabled': !(session.currentUser.permissions.AdministatorDashboardModule)}">
                 <i class="dropdown icon"></i>
                 <div class="text">
                     <div class="ui {{issue.type.color}} empty circular label"></div> {{issue.type.text}}
@@ -45,7 +45,7 @@
         <div class="field">
             <div class="field">
                 <label> Stav:</label>
-                <div class="ui fluid search selection dropdown">
+                <div class="ui fluid search selection dropdown" ng-class="{'disabled': !(session.currentUser.permissions.AdministatorDashboardModule)}">
                     <i class="dropdown icon"></i>
                     <div class="text">
                         <div class="ui {{issue.state.color}} empty circular label"></div> {{issue.state.text}}
@@ -59,7 +59,7 @@
         </div>
         <div class="field">
             <label> Odpovědná osoba:</label>
-            <select class="ui dropdown" ng-options="item.name for item in supervisors track by item._id" ng-model="issue.supervisor">
+            <select class="ui dropdown" ng-options="item.name for item in supervisors track by item._id" ng-model="issue.supervisor" ng-class="{'disabled': !(session.currentUser.permissions.AdministatorDashboardModule)}">
                 <option value="" disabled selected>Odpovědná osoba</option>
             </select>
         </div>
