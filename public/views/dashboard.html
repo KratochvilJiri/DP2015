@@ -95,9 +95,10 @@
         <tbody>
             <tr>
                 <td>
-                    <a ng-if="participation.newMessage.check" ui-sref="home.participant.communication({participantId: session.currentUser._id})">
-                        <h4 class="ui header"><i class="fitted mail icon"></i>Máte novou zprávu od: {{participation.newMessage.author}}.</h4></a>
-                    <h4 class="ui header" ng-if="!(participation.newMessage.check)"><i class="fitted mail icon"></i>Nemáte žádné nové zprávy.</h4>
+                    <a ui-sref="home.participant.communication({participantId: session.currentUser._id})">
+                        <h4 class="ui header" ng-if="participation.newMessage.check"><i class="fitted mail icon"></i>Máte novou zprávu od: {{participation.newMessage.author}}.</h4>
+                        <h4 class="ui header" ng-if="!(participation.newMessage.check)"><i class="fitted mail icon"></i>Nemáte žádné nové zprávy.</h4>
+                    </a>
                 </td>
                 <td class="eight wide">
                     <h4 class="ui header">
