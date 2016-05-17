@@ -13,12 +13,6 @@ h1, h2, h3, h4, h5{
      font-family: 'Ubuntu', sans-serif !important;
 }
 
-.ui.column.grid > .column, 
-.ui.column.grid > .row > .column {
-  display: block;
-  float: left;
-}
-
 .redText{
     color: red;
 }
