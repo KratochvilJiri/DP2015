@@ -25,7 +25,7 @@ app.run(['$rootScope', '$state', 'SessionService', function ($rootScope, $state,
     // location to change
     $rootScope.$on('$stateChangeStart', function (event, next) {
         $('.ui.basic.icon.button').popup('destroy');
-        $('.info.icon').popup('destroy');
+        //$('.info.icon').popup('destroy');
         if ($state.current.name != "login" && $state.current.name != "passwordRecovery") {
             SessionService.isSet()
                 .success(function (data) {

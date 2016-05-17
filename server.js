@@ -17,7 +17,7 @@ var path = require('path');
 var db = require('./config/db');
 
 // set our port
-var port = process.env.PORT || 8088;
+var port = process.env.PORT || 8085;
 
 // connect to our mongoDB database 
 // mongoose.connect(db.url);
@@ -72,7 +72,7 @@ UserService.init({});
 app.listen(port).on('error', function(err) {
     if(err){
         if(err.code = "EADDRINUSE"){
-            console.log("Port: " + port + "je používán jinou aplikací. Můžete jej změnit v server.js - řádek 20.");
+            console.log("Port: " + port + " je používán jinou aplikací. Můžete jej změnit v server.js - řádek 20.");
         }
         else{
             console.log(err);    

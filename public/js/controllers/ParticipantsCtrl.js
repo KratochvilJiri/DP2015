@@ -74,7 +74,7 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
             participation.user.state = participation.state;
             if (participation.sponsorshipLevel && participation.sponsorshipLevel.type) {
                 participation.user.level = participation.sponsorshipLevel.type._id;
-            }
+            }           
             $scope.participants.push(participation.user);
         });
     }
