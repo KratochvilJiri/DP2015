@@ -21,7 +21,9 @@
                     <h4>Nezodpovězených zpráv:</h4>
                 </td>
                 <td>
-                    <a ui-sref="home.invitationAnswers"> odpovědi na pozvánky ({{newEmails}})</a> / <a ui-sref="home.helpdeskNews"> helpdesk ({{unseenMessagesCount}}) </a>                    / <a ui-sref="home.communicationNews"> komunikace ({{unseenParticipationMessagesCount}}) </a>
+                    <a ui-sref="home.invitationAnswers"> odpovědi na pozvánky (<b ng-class="{'redText': newEmails > 0, 'greenText': newEmails == 0}">{{newEmails}}</b>)</a> / 
+                    <a ui-sref="home.helpdeskNews"> helpdesk (<b ng-class="{'redText': unseenMessagesCount > 0, 'greenText': unseenMessagesCount == 0}">{{unseenMessagesCount}}</b>) </a> / 
+                    <a ui-sref="home.communicationNews"> komunikace (<b ng-class="{'redText': unseenParticipationMessagesCount > 0, 'greenText': unseenParticipationMessagesCount == 0}">{{unseenParticipationMessagesCount}}</b>) </a>
                 </td>
             </tr>
 
@@ -33,7 +35,7 @@
                     <h4>Nevyřešených problémů:</h4>
                 </td>
                 <td>
-                    <a ui-sref="home.helpdeskOverview">{{unsolvedIssues}}</a>
+                    <a ui-sref="home.helpdeskOverview"><b ng-class="{'redText': unsolvedIssues > 0, 'greenText': unsolvedIssues == 0}">{{unsolvedIssues}}</b></a>
                 </td>
             </tr>
 
@@ -45,8 +47,8 @@
                     <h4>Účastníků:</h4>
                 </td>
                 <td ui-sref="home.participants">
-                    <a href="">pozváno ({{conference.invited}})</a> / <a href="">přislíbeno ({{conference.approved}})</a>/
-                    <a href="">potvrzeno ({{conference.complete}})</a> / <a href="">odmítnuto ({{conference.cancelled}})</a>
+                    <a href="">pozváno (<b>{{conference.invited}}</b>)</a> / <a href="">přislíbeno (<b>{{conference.approved}}</b>)</a> /
+                    <a href="">potvrzeno (<b>{{conference.complete}}</b>)</a> / <a href="">odmítnuto (<b>{{conference.cancelled}}</b>)</a>
                 </td>
             </tr>
 
@@ -58,7 +60,7 @@
                     <h4>Sponzoské dary:</h4>
                 </td>
                 <td ui-sref="home.participants">
-                    <a href="">přislíbeno ({{conference.approvedMoney}} Kč)</a> / <a href="">přijato ({{conference.receivedMoney}} Kč)</a>
+                    <a href="">přislíbeno (<b>{{conference.approvedMoney}}</b> Kč)</a> / <a href="">přijato (<b>{{conference.receivedMoney}}</b> Kč)</a>
                 </td>
             </tr>
 
@@ -71,7 +73,7 @@
                     <h4>Úrovně sponzorství:</h4>
                 </td>
                 <td ui-sref="home.participants">
-                    <a ng-repeat="sponsorshipLevel in conference.sponsorshipLevels" href="">{{sponsorshipLevel.name}}({{sponsorshipLevel.count}}) / </a>
+                    <span ng-repeat="sponsorshipLevel in conference.sponsorshipLevels"><a href=""> {{sponsorshipLevel.name}}(<b>{{sponsorshipLevel.count}}</b>) </a> <span ng-if="!$last">/</span></span>
                 </td>
             </tr>
 
