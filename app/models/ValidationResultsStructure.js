@@ -1,3 +1,5 @@
+
+// validaiton result structure
 module.exports = function (data) {
     // inicialization
     this.data = data;

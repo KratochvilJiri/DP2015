@@ -4,10 +4,10 @@ var IssueModel = require('./../models/IssueModel');
 var ValidationResult = require('./../models/ValidationResultsStructure');
 
 module.exports = {
-    // create user
+    // save message
     save: function(message, callback) {
 
-        // participation validation
+        // message validation
         var validation = this.validate(message);
 
         if (!validation.isValid) {
@@ -29,7 +29,7 @@ module.exports = {
                 dbMessage.seen = message.seen;
 
 
-                // Save user
+                // Save message
                 dbMessage.save(function(err) {
                     if (err) {
                         validation.addError("Zprávu se nepodařilo uložit");
@@ -44,7 +44,7 @@ module.exports = {
         }
         else {
             MessageModel.create(message, function(err, dbMessage) {
-                // participation creation error
+                // message creation error
                 if (err) {
                     validation.addError("Nepodařilo se uložit zprávu.");
                     callback(validation);

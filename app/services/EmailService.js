@@ -8,7 +8,7 @@ var inbox = require("inbox");
 var MailParser = require("mailparser").MailParser;
 
 module.exports = {
-
+    // remove email by ID
     remove: function (emailUID, callback) {
         var validation = new ValidationResult([]);
 
@@ -64,7 +64,7 @@ module.exports = {
             }
         })
     },
-
+    // mark as seen email by ID
     mark: function (emailUID, callback) {
         var validation = new ValidationResult([]);
 
@@ -120,7 +120,7 @@ module.exports = {
             }
         })
     },
-
+    // get new emails count
     getNewEmailsCount: function (callback) {
         var validation = new ValidationResult({});
 
@@ -206,7 +206,7 @@ module.exports = {
         }
 
     },
-
+    // get all
     getAll: function (callback) {
 
         var validation = new ValidationResult([]);
@@ -330,7 +330,7 @@ module.exports = {
             }
         })
     },
-
+    // send email
     send: function (email, callback) {
         var validation = this.validate(email);
 
@@ -464,7 +464,7 @@ module.exports = {
             }
         });
     },
-
+    // pass recovery
     recoveryPassword: function (user, callback) {
         validation = new ValidationResult(user);
         validation.checkIfIsDefinedAndNotEmpty('email', "Příjemci pozvánky jsou povinní");

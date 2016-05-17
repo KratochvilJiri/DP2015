@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-// attachement general(type) model
+// address structure
 module.exports = {
 	city: {
         type: String, 

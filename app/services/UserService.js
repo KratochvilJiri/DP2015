@@ -219,7 +219,7 @@ module.exports = {
             });
         }
     },
-
+    // get all unvited to the action
     getUninvited: function (conferenceID, callback) {
         var validation = new ValidationResult([]);
 
@@ -289,7 +289,7 @@ module.exports = {
             callback(validation);
         });
     },
-
+    // send credentials
     sendCredentials: function (user) {
         var email = {};
         email.recipient = user.email;
@@ -298,7 +298,7 @@ module.exports = {
             return validation;
         });
     },
-
+    // generate password
     generatePassword: function () {
         var length = 8,
             charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
@@ -308,7 +308,7 @@ module.exports = {
         }
         return password;
     },
-
+    // init after instalattion
     init: function (user) {
         UserModel.count({}, function (err, count) {
             if (err) {

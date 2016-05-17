@@ -4,11 +4,10 @@ module.exports = function (app) {
     var ConferenceModel = require('./../models/ConferenceModel');
 
 
-
+    // user authorization
     app.post("/api/authorization/authorize", function (req, res) {
         User.findOne({ 'email': req.body.email }, function (err, user) {
             if (err) {
-                //throw err;
                 res.json({ isValid: false, data: null, error: err });
             }
 

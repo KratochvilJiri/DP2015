@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var AttachementTypeStructure = require('./AttachementTypeStructure');
 var SponsorshipLevelStructure = require('./SponsorshipLevelStructure'); 
 
-// attachement general(type) model
+// actuion (conference) general model
 module.exports = mongoose.model('Conference',{
 	name: {
         type: String, 

@@ -138,6 +138,7 @@ module.exports = {
         return validation;
     },
 
+    // deactive all other conferences
     deactivateAll: function (validation, callback) {
         ConferenceModel.update({}, { active: false }, { multi: true }, function (err, conferences) {
             if (err) {
@@ -192,6 +193,7 @@ module.exports = {
         });
     },
 
+    // get conference by ID
     get: function (conference, callback) {
         var validation = new ValidationResult({});
 
@@ -230,6 +232,7 @@ module.exports = {
         }
     },
 
+    // get last 5 conference
     getLast5: function (callback) {
         var validation = new ValidationResult({});
 
@@ -251,6 +254,7 @@ module.exports = {
             });
     },
 
+    // get conferences - names
     getListNames: function (callback) {
         var validation = new ValidationResult([]);
 
@@ -270,6 +274,7 @@ module.exports = {
         });
     },
 
+    // remove conference by ID
     remove: function (req, conference, callback) {
         var validation = new ValidationResult(conference);
 

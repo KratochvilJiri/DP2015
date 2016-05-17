@@ -3,7 +3,7 @@ var UserModel = require('./../models/UserModel');
 var ValidationResult = require('./../models/ValidationResultsStructure');
 
 module.exports = {
-    // create user
+    // save issue
     save: function(issue, callback) {
 
         // participation validation
@@ -79,7 +79,7 @@ module.exports = {
             });
         }
     },
-
+    // get alll issues
     getAll: function(callback) {
         var validation = new ValidationResult([]);
 
@@ -99,7 +99,7 @@ module.exports = {
                 return;
             });
     },
-
+    // get by ID
     get: function(issue, callback) {
         var validation = new ValidationResult(issue);
 
@@ -127,7 +127,7 @@ module.exports = {
             })
 
     },
-
+    // get unsolved issues count
     getUnsolvedCount: function(callback) {
         var validation = new ValidationResult({});
 
@@ -144,7 +144,7 @@ module.exports = {
         })
 
     },
-
+    // all unseen messages
     getUnseenMessages: function(userRole, callback) {
         var validation = new ValidationResult({});
 

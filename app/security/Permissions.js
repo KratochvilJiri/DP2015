@@ -1,3 +1,4 @@
+// users permissions
 module.exports = {
     'ADMINISTRATOR': {
         UserModuleRead: true,

@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-// attachement general(type) model
+// attachement model
 module.exports = {
 	name: {
         type: String, 

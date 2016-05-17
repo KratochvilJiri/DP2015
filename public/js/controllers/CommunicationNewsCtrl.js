@@ -18,7 +18,6 @@ angular.module('CommunicationNewsCtrl', []).controller('CommunicationNewsControl
         })
     }
 
-
     var loadUnseenParticipationsMessages = function() {
         ParticipationService.getUnseenMessages({ conferenceID: $scope.session.currentUser.conferenceID, role: $scope.session.currentUser.role })
             .success(function(data) {

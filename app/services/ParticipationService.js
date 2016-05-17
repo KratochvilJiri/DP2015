@@ -6,7 +6,7 @@ var ValidationResult = require('./../models/ValidationResultsStructure');
 
 module.exports = {
 
-    // create user
+    // save participation
     save: function (participation, callback) {
 
         // participation validation
@@ -112,7 +112,7 @@ module.exports = {
             });
         }
     },
-
+    // get list participation by participant
     getList: function (participantID, callback) {
         var validation = new ValidationResult([]);
         ParticipationModel
@@ -134,7 +134,7 @@ module.exports = {
                 callback(validation);
             });
     },
-
+    // get pariticipation by conference ID
     getListByConference: function (conferenceID, callback) {
         var validation = new ValidationResult([]);
         ParticipationModel
@@ -153,7 +153,7 @@ module.exports = {
                 callback(validation);
             });
     },
-
+    // unseen messages
     getUnseenMessages: function (data, callback) {
         var validation = new ValidationResult([]);
 
@@ -181,7 +181,7 @@ module.exports = {
         }
 
     },
-
+    // remove
     remove: function (participation, callback) {
         var validation = new ValidationResult({});
 
