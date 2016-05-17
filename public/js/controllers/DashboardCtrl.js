@@ -25,10 +25,10 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
     //$scope.loader.emails = false;
 
     var loadUnseenParticipationsMessages = function () {
-        $scope.unseenParticipationMessagesCount = 0;
         ParticipationService.getUnseenMessages({ conferenceID: $scope.session.currentUser.conferenceID, role: $scope.session.currentUser.role })
             .success(function (data) {
                 if (data.isValid) {
+                    $scope.unseenParticipationMessagesCount = 0;
                     $scope.data = data.data;
                     $scope.data.forEach(function (participation) {
                         participation.messages.forEach(function (message) {
