@@ -17,16 +17,15 @@ var path = require('path');
 var db = require('./config/db');
 
 // set our port
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 8088;
 
 // connect to our mongoDB database 
 // mongoose.connect(db.url);
-
 mongoose.connect('mongodb://admin:juromil@ds054118.mongolab.com:54118/excel_fit', function (err) {
     if (err) {
         console.log(err);
     } else {
-        console.log('Connected');
+        console.log('Server spuštěn, připojeno k databázi.');
     }
 });
 
@@ -70,10 +69,17 @@ var UserService = require('./app/services/UserService');
 UserService.init({});
 // start app ===============================================
 // startup our app at http://localhost:8080
-app.listen(port);
-
-// shoutout to the user                     
-console.log('Magic happens on port ' + port);
+app.listen(port).on('error', function(err) {
+    if(err){
+        if(err.code = "EADDRINUSE"){
+            console.log("Port: " + port + "je používán jinou aplikací. Můžete jej změnit v server.js - řádek 20.");
+        }
+        else{
+            console.log(err);    
+        }
+        process.exit(1);
+    }
+ });         
 
 // expose app           
 exports = module.exports = app;   
