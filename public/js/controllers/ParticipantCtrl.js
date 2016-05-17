@@ -46,12 +46,23 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     $scope.attachement = {};
 
     $rootScope.loader = true;
+    
+    $scope.deletingAttachement = {};
 
     $scope.showModal = function () {
         setTimeout(function () { $('.small.modal').modal('show'); }, 50);
     }
     $scope.closeModal = function () {
         setTimeout(function () { $('.small.modal').modal('hide'); }, 50);
+    }
+    
+   $scope.showModalAttachement = function (attachement) {
+        $scope.deletingAttachement = attachement;
+        setTimeout(function () { $('.small.modal.attachement').modal('show'); }, 50);
+    }
+    $scope.closeModalAttachement = function () {
+        setTimeout(function () { $('.small.modal.attachement').modal('hide'); }, 50);
+        $scope.deletingAttachement = {};
     }
 
     $scope.removeParticipation = function () {
@@ -171,15 +182,16 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
         $scope.participation.attendees.splice(index, 1);
     }
 
-    $scope.removeAttachement = function (attachement) {
+    $scope.removeAttachement = function () {
 
         filepickerService.remove(
-            attachement.data,
+            $scope.deletingAttachement.data,
             function () {
-                AttachementService.remove(attachement)
+                AttachementService.remove($scope.deletingAttachement)
                     .success(function (data, status, headers, config) {
                         if (data.isValid) {
                             loadParticipant();
+                            $scope.closeModalAttachement();
                             $scope.showSuccess("Příloha byla úspěšně odstraněna.");
                         }
                         else {

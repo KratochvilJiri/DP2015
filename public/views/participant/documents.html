@@ -23,8 +23,33 @@
         <a class="ui basic button" href="{{attachementType.attachement.data.url}}" target="_blank" ng-if="attachementType.attachement">
             <i class="unhide icon"></i>Zobrazit
         </a>
-        <a class="ui basic button" ng-click="removeAttachement(attachementType.attachement)" ng-if="attachementType.attachement">
+        <a class="ui basic button" ng-click="showModalAttachement(attachementType.attachement)" ng-if="attachementType.attachement">
             <i class="remove red icon"></i>Smazat
         </a>
     </div>
 </form>
+
+
+<div class="ui small modal attachement">
+    <i class="close icon"></i>
+    <div class="header">
+        Smazání akce.
+    </div>
+    <div class="image content">
+        <div class="image">
+            <i class="remove icon"></i>
+        </div>
+        <div class="description">
+            <p>Opravdu chcete smazat přílohu?</p>
+        </div>
+    </div>
+    <div class="actions">
+
+        <div class="ui red basic button" ng-click="closeModalAttachement()">
+            <i class="remove icon"></i> Ne
+        </div>
+        <div class="ui green basic button" ng-click="removeAttachement()">
+            <i class="checkmark icon"></i> Ano
+        </div>
+
+    </div>
