@@ -1,3 +1,7 @@
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
+
 var UserModel = require('./../models/UserModel');
 var ConferenceModel = require('./../models/ConferenceModel');
 var ValidationResult = require('./../models/ValidationResultsStructure');
@@ -75,7 +79,7 @@ module.exports = {
                     for (var i = 0, n = charset.length; i < length; ++i) {
                         password += charset.charAt(Math.floor(Math.random() * n));
                     }
-                    
+
                     user.password = password;
 
                     UserModel.create(user, function (err, dbUser) {

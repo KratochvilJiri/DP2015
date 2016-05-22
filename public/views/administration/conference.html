@@ -28,7 +28,10 @@
     <div class="two fields">
         <div class="field required">
             <label>Datum začátku:</label>
-            <input type="date" ng-model="conference.date" format-date>
+            <div class="ui icon input">
+                <input type="text" class="datepicker" ng-model="conference.date">
+                <i class="calendar icon"></i>
+            </div>
         </div>
         <div class="field">
             <label>Místo konání:</label>
@@ -96,7 +99,10 @@
         </div>
         <div class="field required">
             <label>Konečný termín odevzdání:</label>
-            <input type="date" ng-model="attachementType.date" format-date>
+            <div class="ui icon input">
+                <input type="text" class="datepicker" ng-model="attachementType.date">
+                <i class="calendar icon"></i>
+            </div>
         </div>
     </div>
     <div class="field required">

@@ -1,15 +1,19 @@
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
+
 var mongoose = require('mongoose');
 var AttachementTypeStructure = require('./AttachementTypeStructure');
-var SponsorshipLevelStructure = require('./SponsorshipLevelStructure'); 
+var SponsorshipLevelStructure = require('./SponsorshipLevelStructure');
 
-// actuion (conference) general model
-module.exports = mongoose.model('Conference',{
-	name: {
-        type: String, 
+// actuion (conference) model
+module.exports = mongoose.model('Conference', {
+    name: {
+        type: String,
         required: true
     },
-	date: {
-        type: Date, 
+    date: {
+        type: Date,
         required: true
     },
     place: {
@@ -27,9 +31,9 @@ module.exports = mongoose.model('Conference',{
     },
     email: {
         type: String,
-        required: true  
+        required: true
     },
-    emailPassword: {
+    emailPassword:  {
         type: String,
         required: true
     },
@@ -41,12 +45,12 @@ module.exports = mongoose.model('Conference',{
         type: String,
     },
     attendeesNumber: {
-        type: Number,  
+        type: Number,
     },
-    sponsorshipLevels: 
-        [SponsorshipLevelStructure],
-    attachementTypes: 
-        [AttachementTypeStructure],
+    sponsorshipLevels:
+    [SponsorshipLevelStructure],
+    attachementTypes:
+    [AttachementTypeStructure],
     participations: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Participation'

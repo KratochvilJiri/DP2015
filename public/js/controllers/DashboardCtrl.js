@@ -1,3 +1,7 @@
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
+
 angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope', '$filter', 'EmailService', 'ConferenceService', 'SessionService', 'IssueService', 'ParticipationService', '$rootScope', function ($scope, $filter, EmailService, ConferenceService, SessionService, IssueService, ParticipationService, $rootScope) {
 
     $rootScope.menu = {
@@ -149,8 +153,9 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                         if (firstRound && participation.sponsorshipLevel.value && participation.state == "APPROVED")
                             $scope.conference.approvedMoney = $scope.conference.approvedMoney + participation.sponsorshipLevel.value;
 
-                        else if (firstRound && participation.sponsorshipLevel.value && (participation.state == "COMPLETE" || participation.state == "CONTRACT_SIGNED")){
-                            $scope.conference.receivedMoney = $scope.conference.receivedMoney + participation.sponsorshipLevel.value;}
+                        else if (firstRound && participation.sponsorshipLevel.value && (participation.state == "COMPLETE" || participation.state == "CONTRACT_SIGNED")) {
+                            $scope.conference.receivedMoney = $scope.conference.receivedMoney + participation.sponsorshipLevel.value;
+                        }
 
                         if (level._id === participation.sponsorshipLevel.type._id) {
                             level.count++;
@@ -278,7 +283,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
             else if ($scope.session.currentUser.role == "PARTICIPANT") {
                 getUserParticipations();
             }
-            else{
+            else {
                 $rootScope.loader = false;
             }
         }

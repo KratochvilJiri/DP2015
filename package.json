@@ -1,3 +1,6 @@
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
 {
     "name": "coomunication-tool",
     "version": "0.0.0",

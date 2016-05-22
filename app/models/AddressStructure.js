@@ -1,11 +1,15 @@
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
+
 var mongoose = require('mongoose');
 
 // address structure
 module.exports = {
-	city: {
-        type: String, 
+    city: {
+        type: String,
     },
-	country: {
+    country: {
         type: String,
     },
     street: {

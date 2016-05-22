@@ -1,6 +1,8 @@
-// server.js
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
 
-// set up ========================
+// set up
 var express = require('express');
 var session = require('express-session');
 var app = express();                    // create our app w/ express
@@ -11,17 +13,15 @@ var methodOverride = require('method-override');   // simulate DELETE and PUT (e
 var path = require('path');
 
 
-// configuration ===========================================
-
+// configuration
 // config files
 var db = require('./config/db');
 
 // set our port
-var port = process.env.PORT || 8085;
+var port = process.env.PORT || 8080;
 
 // connect to our mongoDB database 
-// mongoose.connect(db.url);
-mongoose.connect('mongodb://admin:juromil@ds054118.mongolab.com:54118/excel_fit', function (err) {
+mongoose.connect(db.url, function (err) {
     if (err) {
         console.log(err);
     } else {
@@ -50,7 +50,7 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 // set the static files location /public/img will be /img for users
 app.use(express.static(__dirname + '/public'));
 
-// routes ==================================================
+// routes
 require('./app/routes/UserRoutes')(app);
 require('./app/routes/AuthorizationRoutes')(app);
 require('./app/routes/SessionRoutes')(app);
@@ -62,24 +62,26 @@ require('./app/routes/EmailRoutes')(app);
 require('./app/routes/IssueRoutes')(app);
 require('./app/routes/XRoutes')(app);
 
+// cron start
 var CronService = require('./app/services/CronService');
 CronService.start();
 
+// app init
 var UserService = require('./app/services/UserService');
 UserService.init({});
-// start app ===============================================
-// startup our app at http://localhost:8080
-app.listen(port).on('error', function(err) {
-    if(err){
-        if(err.code = "EADDRINUSE"){
+
+// start app
+app.listen(port).on('error', function (err) {
+    if (err) {
+        if (err.code = "EADDRINUSE") {
             console.log("Port: " + port + " je používán jinou aplikací. Můžete jej změnit v server.js - řádek 20.");
         }
-        else{
-            console.log(err);    
+        else {
+            console.log(err);
         }
         process.exit(1);
     }
- });         
+});
 
 // expose app           
 exports = module.exports = app;   

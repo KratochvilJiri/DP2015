@@ -1,22 +1,26 @@
-angular.module("EmailSrvc", []).factory("EmailService", ["$http", function($http){
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
 
-	return{
-		getAll: function(){
+angular.module("EmailSrvc", []).factory("EmailService", ["$http", function ($http) {
+
+	return {
+		getAll: function () {
 			return $http.post("/api/email");
 		},
-        getNewEmailsCount: function(){
+        getNewEmailsCount: function () {
 			return $http.post("/api/email/newEmailsCount");
 		},
-        markAsSeen: function(emailID){
-			return $http.post("/api/email/mark/"  + emailID);
+        markAsSeen: function (emailID) {
+			return $http.post("/api/email/mark/" + emailID);
 		},
-        remove: function(emailID){
-			return $http.post("/api/email/remove/"  + emailID);
+        remove: function (emailID) {
+			return $http.post("/api/email/remove/" + emailID);
 		},
-        send: function(emailStructure){
+        send: function (emailStructure) {
             return $http.post("/api/email/send", emailStructure);
         },
-		recoveryPassword: function(email) {
+		recoveryPassword: function (email) {
 			return $http.post("/api/email/recoveryPassword", email);
 		}
 	}

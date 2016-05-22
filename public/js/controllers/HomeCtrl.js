@@ -1,3 +1,7 @@
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
+
 angular.module('HomeCtrl', []).controller('HomeController', ['$scope', 'SessionService', 'AuthorizationService', '$rootScope', function ($scope, SessionService, AuthorizationService, $rootScope) {
 
     $rootScope.menu = {

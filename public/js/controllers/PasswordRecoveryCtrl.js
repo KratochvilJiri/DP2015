@@ -1,3 +1,7 @@
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
+
 angular.module('PasswordRecoveryCtrl', []).controller('PasswordRecoveryController', ['$scope', 'EmailService', function ($scope, EmailService) {
 
     $scope.user = {};

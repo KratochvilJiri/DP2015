@@ -1,3 +1,7 @@
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
+
 angular.module('ConferenceSrvc', []).factory('ConferenceService', ["$http", function ($http) {
     return {
         getAll: function () {

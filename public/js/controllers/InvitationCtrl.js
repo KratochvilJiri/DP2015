@@ -1,5 +1,8 @@
-// probably useless
-angular.module('InvitationCtrl', []).controller('InvitationController', ['$scope', 'ConferenceService', 'UserService', 'EmailService', 'SessionService','$rootScope', function ($scope, ConferenceService, UserService, EmailService, SessionService, $rootScope) {
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
+
+angular.module('InvitationCtrl', []).controller('InvitationController', ['$scope', 'ConferenceService', 'UserService', 'EmailService', 'SessionService', '$rootScope', function ($scope, ConferenceService, UserService, EmailService, SessionService, $rootScope) {
 
     $rootScope.menu = {
         dashboard: false,

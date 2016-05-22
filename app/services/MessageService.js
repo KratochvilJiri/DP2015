@@ -1,3 +1,7 @@
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
+
 var MessageModel = require('./../models/MessageModel');
 var ParticipationModel = require('./../models/ParticipationModel');
 var IssueModel = require('./../models/IssueModel');
@@ -5,7 +9,7 @@ var ValidationResult = require('./../models/ValidationResultsStructure');
 
 module.exports = {
     // save message
-    save: function(message, callback) {
+    save: function (message, callback) {
 
         // message validation
         var validation = this.validate(message);
@@ -17,7 +21,7 @@ module.exports = {
 
         // check if _Id is set
         if (message._id) {
-            MessageModel.findById(message._id, function(err, dbMessage) {
+            MessageModel.findById(message._id, function (err, dbMessage) {
                 // error check
                 if (err) {
                     validation.addError("Zprávu se nezdařilo nalézt v databázi");
@@ -30,7 +34,7 @@ module.exports = {
 
 
                 // Save message
-                dbMessage.save(function(err) {
+                dbMessage.save(function (err) {
                     if (err) {
                         validation.addError("Zprávu se nepodařilo uložit");
                         callback(validation);
@@ -43,7 +47,7 @@ module.exports = {
             });
         }
         else {
-            MessageModel.create(message, function(err, dbMessage) {
+            MessageModel.create(message, function (err, dbMessage) {
                 // message creation error
                 if (err) {
                     validation.addError("Nepodařilo se uložit zprávu.");
@@ -53,7 +57,7 @@ module.exports = {
                 else {
 
                     if (message.participation) {
-                        ParticipationModel.findById(message.participation, function(err, dbParticipation) {
+                        ParticipationModel.findById(message.participation, function (err, dbParticipation) {
                             if (err) {
                                 validation.addError("Nepodařilo se získat účast pro přidání zprávy");
                                 callback(validation);
@@ -63,7 +67,7 @@ module.exports = {
 
                                 dbParticipation.messages.push(dbMessage._id);
 
-                                dbParticipation.save(function(err) {
+                                dbParticipation.save(function (err) {
                                     // error check
                                     if (err) {
                                         validation.addError("Nepodařilo se uložit účast po přidání zprávy");
@@ -78,7 +82,7 @@ module.exports = {
                                             .populate({
                                                 path: 'author', model: 'User', select: "role"
                                             })
-                                            .exec(function(err, dbMessages) {
+                                            .exec(function (err, dbMessages) {
 
                                                 if (err) {
                                                     validation.addError("Nepodařilo se získat původní zpravy a označit za přečtené.");
@@ -105,7 +109,7 @@ module.exports = {
                                                                     }
                                                                     else {
                                                                         dbMessages[index].seen = true;
-                                                                        dbMessages[index].save(function(err) {
+                                                                        dbMessages[index].save(function (err) {
                                                                             // error check
                                                                             if (err) {
                                                                                 validation.addError("Nepodařilo se označit zprávu za přečtenou.");
@@ -135,7 +139,7 @@ module.exports = {
                                                                     }
                                                                     else {
                                                                         dbMessages[index].seen = true;
-                                                                        dbMessages[index].save(function(err) {
+                                                                        dbMessages[index].save(function (err) {
                                                                             // error check
                                                                             if (err) {
                                                                                 validation.addError("Nepodařilo se označit zprávu za přečtenou.");
@@ -161,7 +165,7 @@ module.exports = {
                         });
                     }
                     else {
-                        IssueModel.findById(message.issue, function(err, dbIssue) {
+                        IssueModel.findById(message.issue, function (err, dbIssue) {
                             if (err) {
                                 validation.addError("Nepodařilo se získat problém pro přidání zprávy");
                                 callback(validation);
@@ -171,7 +175,7 @@ module.exports = {
 
                                 dbIssue.messages.push(dbMessage._id);
 
-                                dbIssue.save(function(err) {
+                                dbIssue.save(function (err) {
                                     // error check
                                     if (err) {
                                         validation.addError("Nepodařilo se uložit problém po přidání zprávy");
@@ -183,8 +187,8 @@ module.exports = {
                                             .populate({
                                                 path: 'author', model: 'User', select: "role"
                                             })
-                                          
-                                            .exec(function(err, dbMessages) {
+
+                                            .exec(function (err, dbMessages) {
 
                                                 if (err) {
                                                     validation.addError("Nepodařilo se získat původní zpravy a označit za přečtené.");
@@ -211,7 +215,7 @@ module.exports = {
                                                                     }
                                                                     else {
                                                                         dbMessages[index].seen = true;
-                                                                        dbMessages[index].save(function(err) {
+                                                                        dbMessages[index].save(function (err) {
                                                                             // error check
                                                                             if (err) {
                                                                                 validation.addError("Nepodařilo se označit zprávu za přečtenou.");
@@ -241,7 +245,7 @@ module.exports = {
                                                                     }
                                                                     else {
                                                                         dbMessages[index].seen = true;
-                                                                        dbMessages[index].save(function(err) {
+                                                                        dbMessages[index].save(function (err) {
                                                                             // error check
                                                                             if (err) {
                                                                                 validation.addError("Nepodařilo se označit zprávu za přečtenou.");
@@ -273,12 +277,12 @@ module.exports = {
         }
     },
 
-    markSeenMessages: function() {
+    markSeenMessages: function () {
 
     },
 
     // user structure validation
-    validate: function(message) {
+    validate: function (message) {
         // validation init
         validation = new ValidationResult(message);
         return validation;

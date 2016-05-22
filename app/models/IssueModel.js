@@ -1,3 +1,7 @@
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
+
 var mongoose = require('mongoose');
 
 // issue model
@@ -44,7 +48,8 @@ module.exports = mongoose.model('Issue', {
         constant: {
             type: String,
             enum: ['LOW', 'NORMAL', 'HIGH'],
-            required: true },
+            required: true
+        },
         color: {
             type: String
         },

@@ -1,3 +1,7 @@
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
+
 angular.module('AUsersCtrl', []).controller('AUsersController', ['$scope', 'UserService', function ($scope, UserService) {
 
     $scope.filter = {};

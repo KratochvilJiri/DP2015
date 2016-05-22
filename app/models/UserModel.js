@@ -1,5 +1,9 @@
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
+
 var mongoose = require('mongoose');
-var AddressStructure = require('./AddressStructure'); 
+var AddressStructure = require('./AddressStructure');
 
 // user model
 module.exports = mongoose.model('User', {
@@ -36,7 +40,7 @@ module.exports = mongoose.model('User', {
     contactPerson: {
         type: String
     },
-    
+
     participations: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Participantion'

@@ -1,4 +1,6 @@
-// public/js/app.js
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
 
 var app = angular.module('conferenceApp', ['ui.router', 'multipleSelect', 'formatters', 'angular-filepicker',
     'MainCtrl', 'LoginCtrl', 'DashboardCtrl', 'AUsersCtrl', 'UserCtrl', 'HomeCtrl', 'ConferenceCtrl', 'ParticipantsCtrl', 'ParticipantCtrl', 'InvitationAnswersCtrl', 'InvitationCtrl', 'IssueDetailCtrl', 'OverviewCtrl', 'CommunicationNewsCtrl', 'IssuesNewsCtrl', 'PasswordRecoveryCtrl',
@@ -12,6 +14,9 @@ app.run(function ($rootScope, $timeout) {
             $('.menu .item').tab();
             $('.ui.basic.icon.button').popup();
             $('.info.icon').popup();
+            $( "input.datepicker" ).datepicker({
+                dateFormat: "yy/mm/dd"
+            });
             $('.message .close').on('click', function () {
                 $(this).closest('.message').fadeOut(200);
             });

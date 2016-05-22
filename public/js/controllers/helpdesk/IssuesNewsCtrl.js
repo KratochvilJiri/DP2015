@@ -1,3 +1,7 @@
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
+
 angular.module('IssuesNewsCtrl', []).controller('IssuesNewsController', ['$scope', 'IssueService', function ($scope, IssueService) {
 
     $scope.communicationNews = [];

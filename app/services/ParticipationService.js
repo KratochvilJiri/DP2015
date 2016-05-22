@@ -1,3 +1,7 @@
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
+
 var ParticipationModel = require('./../models/ParticipationModel');
 var ConferenceModel = require('./../models/ConferenceModel');
 var UserModel = require('./../models/UserModel');
@@ -216,7 +220,7 @@ module.exports = {
 
         UserModel.update(
             { _id: participation.user },
-            { $pull: { participations: participation._id }  },
+            { $pull: { participations: participation._id } },
             { safe: true },
             function (err) {
                 if (err) {
@@ -225,14 +229,14 @@ module.exports = {
                     return;
                 }
             });
-            
-            MessageModel.remove({participation: participation._id}, function(err){
-                if (err) {
-                    validation.addError("Zprávy dané účasti se nezdařilo odebrat");
-                    callback(validation);
-                    return;
-                }
-            })
+
+        MessageModel.remove({ participation: participation._id }, function (err) {
+            if (err) {
+                validation.addError("Zprávy dané účasti se nezdařilo odebrat");
+                callback(validation);
+                return;
+            }
+        })
 
         callback(validation);
         return;

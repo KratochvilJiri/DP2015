@@ -1,4 +1,8 @@
-angular.module("SessionSrvc", []).factory("SessionService", ["$http", function($http) {
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
+
+angular.module("SessionSrvc", []).factory("SessionService", ["$http", function ($http) {
 
 
     var Session = {
@@ -6,20 +10,20 @@ angular.module("SessionSrvc", []).factory("SessionService", ["$http", function($
         currentUser: null,
 
         // isSet user-session on server?
-        isSet: function() {
+        isSet: function () {
             return $http.get("api/session");
         },
 
         // update frontend session form server-session
-        updateCurrentUser: function() {
+        updateCurrentUser: function () {
             $http.get("/api/session/update")
-                .success(function(data) {
+                .success(function (data) {
                     return Session.currentUser = data.data;
                 });
         },
 
         // remove frontend session
-        removeCurrentUser: function() {
+        removeCurrentUser: function () {
             return Session.currentUser = null;
         }
     };

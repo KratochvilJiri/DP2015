@@ -1,3 +1,7 @@
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
+
 module.exports = function (app) {
 
     var ConferenceService = require('./../services/ConferenceService');
@@ -28,7 +32,7 @@ module.exports = function (app) {
         });
     });
     // get all conference - only names
-    app.get('/api/conference/active', function(req,res){
+    app.get('/api/conference/active', function (req, res) {
         ConferenceService.getActive(req.session, function (validation) {
             res.json(validation);
         });

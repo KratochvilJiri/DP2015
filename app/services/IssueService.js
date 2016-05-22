@@ -1,3 +1,7 @@
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
+
 var IssueModel = require('./../models/IssueModel');
 var UserModel = require('./../models/UserModel');
 var ValidationResult = require('./../models/ValidationResultsStructure');

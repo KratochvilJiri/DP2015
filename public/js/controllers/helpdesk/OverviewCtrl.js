@@ -1,4 +1,7 @@
-// probably useless
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
+
 angular.module('OverviewCtrl', []).controller('OverviewController', ['$scope', 'IssueService', '$filter','$rootScope', function ($scope, IssueService, $filter,$rootScope) {
 
     $rootScope.menu = {

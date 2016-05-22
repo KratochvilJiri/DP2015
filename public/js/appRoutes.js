@@ -1,4 +1,6 @@
-// public/js/appRoutes.js
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
 
 app.config(function ($stateProvider, $urlRouterProvider, filepickerProvider) {
 

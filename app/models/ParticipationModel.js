@@ -1,8 +1,12 @@
+/* Autor: Jiri Kratochvil 
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+*/
+
 var mongoose = require('mongoose');
 var SponsorshipLevelStructure = require('./SponsorshipLevelStructure');
-var Attendee = require('./AttendeeStructure');  
+var Attendee = require('./AttendeeStructure');
 
-// attendee model
+// participation model
 module.exports = mongoose.model('Participation', {
     state: {
         type: String,
