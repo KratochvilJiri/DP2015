@@ -226,6 +226,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                 newMessages();
             }
         })
+        $rootScope.loader = false;
     }
 
     // get sponsorshipLevel documents

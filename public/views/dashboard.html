@@ -21,8 +21,8 @@
                     <h4>Nezodpovězených zpráv:</h4>
                 </td>
                 <td>
-                    <a ui-sref="home.invitationAnswers"> odpovědi na pozvánky (<b ng-class="{'redText': newEmails > 0, 'greenText': newEmails == 0}">{{newEmails}}</b>)</a> / 
-                    <a ui-sref="home.helpdeskNews"> helpdesk (<b ng-class="{'redText': unseenMessagesCount > 0, 'greenText': unseenMessagesCount == 0}">{{unseenMessagesCount}}</b>) </a> / 
+                    <a ui-sref="home.invitationAnswers"> odpovědi na pozvánky (<b ng-class="{'redText': newEmails > 0, 'greenText': newEmails == 0}">{{newEmails}}</b>)</a>                    /
+                    <a ui-sref="home.helpdeskNews"> helpdesk (<b ng-class="{'redText': unseenMessagesCount > 0, 'greenText': unseenMessagesCount == 0}">{{unseenMessagesCount}}</b>) </a>                    /
                     <a ui-sref="home.communicationNews"> komunikace (<b ng-class="{'redText': unseenParticipationMessagesCount > 0, 'greenText': unseenParticipationMessagesCount == 0}">{{unseenParticipationMessagesCount}}</b>) </a>
                 </td>
             </tr>
@@ -47,7 +47,7 @@
                     <h4>Účastníků:</h4>
                 </td>
                 <td ui-sref="home.participants">
-                    <a href="">pozváno (<b>{{conference.invited}}</b>)</a> / <a href="">přislíbeno (<b>{{conference.approved}}</b>)</a> /
+                    <a href="">pozváno (<b>{{conference.invited}}</b>)</a> / <a href="">přislíbeno (<b>{{conference.approved}}</b>)</a>                    /
                     <a href="">potvrzeno (<b>{{conference.complete}}</b>)</a> / <a href="">odmítnuto (<b>{{conference.cancelled}}</b>)</a>
                 </td>
             </tr>
@@ -142,23 +142,12 @@
             </tr>
         </tbody>
     </table>
+</div>
 
     <div ng-if="!activeConferenceParticipation && session.currentUser.permissions.ParticipantDashboardModule">
-        <div class="row bottom aligned">
-            <div class="ten wide column">
-                <h1 class="ui header displayInline">{{conference.name}} </h1>
-                <p class="displayInline">{{conference.date | date:'dd/MM/yyyy'}}</p>
-                <p> {{conference.place}} </p>
-            </div>
-
-            <div class="six wide column right aligned">
-                <h5 class="ui displayInline">Zbývá {{dayRemaining}} dnů</h5>
-            </div>
-        </div>
-        <h4>Neúčastníte se aktualní akce, pro její účast kontaktujte ....</h4>
+        <h4>Neúčastníte se aktualní akce.</h4>
     </div>
 
-</div>
 <div class="ui divider marginTopAndBot3" ng-if="session.currentUser.conferenceID"></div>
 <!-- participant - dashboard -->
 <div class="ui grid" ng-if="session.currentUser.conferenceID">
