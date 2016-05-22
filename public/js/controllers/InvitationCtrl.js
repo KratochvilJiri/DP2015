@@ -3,7 +3,7 @@
 */
 
 angular.module('InvitationCtrl', []).controller('InvitationController', ['$scope', 'ConferenceService', 'UserService', 'EmailService', 'SessionService', '$rootScope', function ($scope, ConferenceService, UserService, EmailService, SessionService, $rootScope) {
-
+    // active menu structure
     $rootScope.menu = {
         dashboard: false,
         actionAdministration: false,
@@ -13,21 +13,21 @@ angular.module('InvitationCtrl', []).controller('InvitationController', ['$scope
         profile: false
     }
 
-
+    // initialization
     $scope.addressees = [];
     $scope.uninvited = [];
     $scope.invitation = {};
     $scope.invitationEmail = {};
     $scope.session = SessionService;
 
-
+    // get uninvited participants
     var getUninvited = function (participants) {
         participants.forEach(function (participant) {
             if (participant.participations.length == 0)
                 $scope.uninvited.push(participant);
         })
     }
-
+    // load all participants
     var loadParticipants = function (conferenceID) {
         UserService.getUninvited(conferenceID)
             .success(function (data, status, headers, config) {
@@ -43,7 +43,7 @@ angular.module('InvitationCtrl', []).controller('InvitationController', ['$scope
             });
     }
 
-
+    // get invitation
     var getInvitation = function () {
         ConferenceService.get({ _id: $scope.session.currentUser.conferenceID, filter: "" })
             .success(function (data) {
@@ -59,7 +59,7 @@ angular.module('InvitationCtrl', []).controller('InvitationController', ['$scope
                 console.log('Error: ', status, data.error);
             });
     }
-
+    // send invitations
     $scope.sendInvitations = function () {
         EmailService.send($scope.invitation)
             .success(function (data) {

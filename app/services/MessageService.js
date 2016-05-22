@@ -75,8 +75,6 @@ module.exports = {
                                         return;
                                     }
                                     // message created and pushed to the participation
-                                    //callback(validation);
-                                    //return;
                                     else {
                                         MessageModel.find({ participation: dbParticipation._id })
                                             .populate({

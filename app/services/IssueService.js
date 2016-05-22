@@ -28,7 +28,7 @@ module.exports = {
                     return;
                 }
 
-                // Update and save conference
+                // Update and save issue
                 dbIssue.name = issue.name;
                 dbIssue.description = issue.description;
                 dbIssue.priority = issue.priority;
@@ -36,7 +36,7 @@ module.exports = {
                 dbIssue.state = issue.state;
                 dbIssue.supervisor = issue.supervisor;
 
-                // Save user
+                // Save issue
                 dbIssue.save(function(err) {
                     if (err) {
                         validation.addError("Problém se nepodařilo uložit");
@@ -51,7 +51,7 @@ module.exports = {
         }
         else {
             IssueModel.create(issue, function(err, dbIssue) {
-                // participation creation error
+                // issue creation error
                 if (err) {
                     validation.addError("Nepodařilo se vytvořit problém.");
                     callback(validation);
@@ -91,13 +91,13 @@ module.exports = {
             .populate('creator', 'name')
             .populate('supervisor', 'name')
             .exec(function(err, issues) {
-                // get all users error
+                // get all issues error
                 if (err) {
                     validation.addError("Nepodařilo se získat seznam problému");
                     callback(validation);
                     return;
                 }
-                // all users obtained
+                // all issues obtained
                 validation.data = issues;
                 callback(validation);
                 return;
@@ -125,7 +125,7 @@ module.exports = {
                     callback(validation);
                     return;
                 }
-                // user obtained
+                // issue obtained
                 validation.data = dbIssue;
                 callback(validation);
             })
@@ -156,13 +156,13 @@ module.exports = {
             IssueModel.find()
                 .populate({ path: 'messages', model: 'Message', match: { "seen": false }, populate: { path: 'author', model: 'User', match: { "role": "PARTICIPANT" } } })
                 .exec(function(err, issues) {
-                    // get all users error
+                    // get all issues error
                     if (err) {
                         validation.addError("Nepodařilo se získat seznam problému");
                         callback(validation);
                         return;
                     }
-                    // all users obtained
+                    // all issues obtained
                     validation.data = issues;
 
                     callback(validation);
@@ -173,13 +173,13 @@ module.exports = {
             IssueModel.find()
                 .populate({ path: 'messages', model: 'Message', match: { "seen": false }, populate: { path: 'author', model: 'User', match: { "role": { $ne: "PARTICIPANT"} } } })
                 .exec(function(err, issues) {
-                    // get all users error
+                    // get all issues error
                     if (err) {
                         validation.addError("Nepodařilo se získat seznam problému");
                         callback(validation);
                         return;
                     }
-                    // all users obtained
+                    // all issues obtained
                     validation.data = issues;
 
                     callback(validation);

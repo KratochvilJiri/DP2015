@@ -2,7 +2,7 @@
    Nástroj pro podporu komunikace externích účastníků akce (diplomová práce) 2016
 */
 angular.module('LoginCtrl', []).controller('LoginController', ['$scope', '$state', 'AuthorizationService', function($scope, $state, AuthorizationService) {
-
+    // initialization
     $scope.user = {};
 
     // user authorization by email and password

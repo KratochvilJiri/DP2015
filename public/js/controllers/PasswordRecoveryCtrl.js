@@ -3,9 +3,10 @@
 */
 
 angular.module('PasswordRecoveryCtrl', []).controller('PasswordRecoveryController', ['$scope', 'EmailService', function ($scope, EmailService) {
-
+    // initialization
     $scope.user = {};
     $scope.user.email = "";
+    // recovery
     $scope.recoveryPassword = function () {
         EmailService.recoveryPassword($scope.user)
             .success(function (data) {

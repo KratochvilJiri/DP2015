@@ -3,9 +3,9 @@
 */
 
 angular.module('IssuesNewsCtrl', []).controller('IssuesNewsController', ['$scope', 'IssueService', function ($scope, IssueService) {
-
+    // initialization
     $scope.communicationNews = [];
-
+    // load unseen issue messages
     var loadUnseenIssueMessages = function () {
         IssueService.getUnseenMessages($scope.session.currentUser.role)
             .success(function (data) {

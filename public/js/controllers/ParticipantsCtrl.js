@@ -3,7 +3,7 @@
 */
 
 angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$scope', '$state', 'UserService', 'ConferenceService', 'ParticipationService', '$rootScope', function ($scope, $state, UserService, ConferenceService, ParticipationService, $rootScope) {
-
+    // active menu structure
     $rootScope.menu = {
         dashboard: false,
         actionAdministration: false,
@@ -12,7 +12,7 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
         administration: false,
         profile: false
     }
-
+    // initialization
     $scope.deletingUser = "";
     $rootScope.loader = true;
     $scope.participants = [];
@@ -30,6 +30,7 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
     $scope.groups = [];
     $scope.pushedAll = true;
 
+    // show modal for confirm operation
     $scope.showModal = function (participantID) {
         $scope.deletingUser = participantID;
         setTimeout(function () { $('.small.modal').modal('show'); }, 50);
@@ -38,7 +39,7 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
         setTimeout(function () { $('.small.modal').modal('hide'); }, 50);
         $scope.deletingUser = "";
     }
-
+    // load participants
     var loadParticipants = function () {
         UserService.getAll("PARTICIPANTS")
             .success(function (data, status, headers, config) {
@@ -55,7 +56,7 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
                 console.error('Error', status, data);
             });
     }
-
+    // load conferences
     var loadConferences = function () {
         ConferenceService.getListNames()
             .success(function (data, status, headers, config) {
@@ -71,7 +72,7 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
                 console.error('Error', status, data);
             });
     }
-
+    // get participants - proces informations
     var getParticipants = function () {
         $scope.participants = [];
         $scope.participations.forEach(function (participation) {
@@ -82,7 +83,7 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
             $scope.participants.push(participation.user);
         });
     }
-
+    // filter participants by conference
     $scope.filterConference = function (conference) {
         if (conference._id) {
             if ($scope.pushedAll) {
@@ -119,15 +120,15 @@ angular.module('ParticipantsCtrl', []).controller('ParticipantsController', ['$s
             
         }
     }
-
+    // filter participants by level
     $scope.filterLevel = function (level) {
         $scope.filter.level = level;
     }
-
+    // filter participants by state
     $scope.filterState = function (state) {
         $scope.filter.state = state;
     }
-
+    // remove participant
     $scope.removeUser = function () {
         UserService.delete($scope.deletingUser)
             .success(function (data) {

@@ -66,7 +66,7 @@ module.exports = {
         });
     },
 
-    // user structure validation
+    // attachement structure validation
     validate: function (attachement) {
         // validation init
         validation = new ValidationResult(attachement);
@@ -74,7 +74,7 @@ module.exports = {
         return validation;
     },
 
-    // remove use by id
+    // remove attachement by id
     remove: function (attachement, callback) {
         var validation = new ValidationResult(attachement);
 

@@ -3,7 +3,7 @@
 */
 
 angular.module('HomeCtrl', []).controller('HomeController', ['$scope', 'SessionService', 'AuthorizationService', '$rootScope', function ($scope, SessionService, AuthorizationService, $rootScope) {
-
+    // active menu structure
     $rootScope.menu = {
         dashboard: false,
         actionAdministration: false,
@@ -12,10 +12,10 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', 'SessionS
         administration: false,
         profile: false
     }
-    
+    // initialization  
     $scope.errors = [];
     $scope.session = SessionService;
-
+    // deauthorize user
     $scope.deauthorize = function () {
         AuthorizationService.deauthorize()
             .success(function (data) {

@@ -30,7 +30,7 @@ module.exports = {
                     callback(validation);
                     return;
                 }
-                // Update and save conference
+                // Update and save pariticipation
                 dbParticipation.attendees = participation.attendees;
                 dbParticipation.attachements = participation.attachements;
                 dbParticipation.messages = participation.messages;
@@ -38,7 +38,7 @@ module.exports = {
                 dbParticipation.state = participation.state;
                 dbParticipation.communicationSummary = participation.communicationSummary;
 
-                // Save user
+                // Save participation
                 dbParticipation.save(function (err) {
                     if (err) {
                         validation.addError("Účast se nepodařilo uložit" + err);
@@ -133,7 +133,7 @@ module.exports = {
                     return;
                 }
 
-                // user obtained
+                // participations obtained
                 validation.data = participations;
                 callback(validation);
             });
@@ -152,7 +152,7 @@ module.exports = {
                 }
 
 
-                // user obtained
+                // participations obtained
                 validation.data = participations;
                 callback(validation);
             });
@@ -205,7 +205,7 @@ module.exports = {
                     return;
                 }
             });
-
+        // conference update
         ConferenceModel.update(
             { _id: participation.conference },
             { $pull: { participations: participation._id } },
@@ -217,7 +217,7 @@ module.exports = {
                     return;
                 }
             });
-
+        // user update
         UserModel.update(
             { _id: participation.user },
             { $pull: { participations: participation._id } },
@@ -229,7 +229,7 @@ module.exports = {
                     return;
                 }
             });
-
+        // messages remove
         MessageModel.remove({ participation: participation._id }, function (err) {
             if (err) {
                 validation.addError("Zprávy dané účasti se nezdařilo odebrat");
@@ -243,7 +243,7 @@ module.exports = {
 
     },
 
-    // user structure validation
+    // participation structure validation
     validate: function (participation) {
         // validation init
         validation = new ValidationResult(participation);

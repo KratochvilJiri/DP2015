@@ -3,7 +3,7 @@
 */
 
 angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$scope', '$state', '$stateParams', '$timeout', 'UserService', 'ConferenceService', 'ParticipationService', 'SessionService', 'MessageService', 'filepickerService', 'AttachementService', '$rootScope', function ($scope, $state, $stateParams, $timeout, UserService, ConferenceService, ParticipationService, SessionService, MessageService, filepickerService, AttachementService, $rootScope) {
-
+    // active menu structure
     if (SessionService.currentUser.role == "PARTICIPANT") {
         $rootScope.menu = {
             dashboard: false,
@@ -24,7 +24,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             profile: false
         }
     }
-
+    // initialization
     $scope.today = new Date();
     // session structure
     $scope.session = SessionService;
@@ -46,13 +46,13 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     $scope.otherConferences = [];
     // new message
     $scope.message = {};
-    //
+    // attachement
     $scope.attachement = {};
-
+    // loader - active
     $rootScope.loader = true;
-    
+    // deleting attachement
     $scope.deletingAttachement = {};
-
+    // show and close modal for confirm operation
     $scope.showModal = function () {
         setTimeout(function () { $('.small.modal').modal('show'); }, 50);
     }
@@ -68,7 +68,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
         setTimeout(function () { $('.small.modal.attachement').modal('hide'); }, 50);
         $scope.deletingAttachement = {};
     }
-
+    // remvove participation
     $scope.removeParticipation = function () {
         var deletedParticipation = {};
         deletedParticipation._id = $scope.participation._id;
@@ -90,7 +90,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
                 console.error('Error', status, data);
             });
     }
-
+    // change conference for detail
     $scope.changeConference = function () {
         $scope.participations.forEach(function (participation) {
             if (participation.conference._id == $scope.conference._id) {
@@ -100,7 +100,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
         });
         getAttachementTypes();
     }
-
+    // mark message as seen
     $scope.markAsSeen = function (message) {
         message.seen = true;
         MessageService.save(message)
@@ -162,9 +162,8 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
         }
         assignAttachement();
     }
-
+    // assign attachement to atttachement type
     var assignAttachement = function () {
-
         $scope.participation.attachements.forEach(function (attachement) {
             $scope.attachementTypes.forEach(function (attachementType) {
                 if (attachementType.hash === attachement.hash)
@@ -185,7 +184,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
     $scope.removeAttendee = function (index) {
         $scope.participation.attendees.splice(index, 1);
     }
-
+    // remove attachement
     $scope.removeAttachement = function () {
 
         filepickerService.remove(
@@ -211,7 +210,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             }
         );
     }
-
+    // download attachement
     $scope.downloadAttachement = function (attachement) {
         filepickerService.exportFile(
             attachement,
@@ -221,7 +220,7 @@ angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$sco
             }
         );
     }
-
+    // upload attachement
     $scope.uploadAttachement = function (attachementTypeHash) {
         filepickerService.pick(
             {

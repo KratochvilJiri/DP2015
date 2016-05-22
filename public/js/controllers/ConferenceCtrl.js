@@ -3,7 +3,7 @@
 */
 
 angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope','$filter', '$timeout', '$state', 'ConferenceService', 'SessionService', 'AttachementService', '$rootScope', function ($scope,$filter, $timeout, $state, ConferenceService, SessionService, AttachementService, $rootScope) {
-
+    // active menu structure
     $rootScope.menu = {
         dashboard: false,
         actionAdministration: false,
@@ -13,20 +13,20 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
         profile: false
     }
 
-
+    // initialization
     $scope.session = SessionService;
     $scope.conference = {};
     $scope.conference.sponsorshipLevels = [];
     $scope.allConference = [];
     $rootScope.loader = true;
-
+    // show and close modals for confirm operations
     $scope.showModal = function () {
         setTimeout(function () { $('.small.modal').modal('show'); }, 50);
     }
     $scope.closeModal = function () {
         setTimeout(function () { $('.small.modal').modal('hide'); }, 50);
     }
-
+    // remove conference
     $scope.removeConference = function () {
         ConferenceService.delete($scope.conference._id)
             .success(function (data) {
@@ -44,7 +44,7 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
                 console.log('Error: ', status, data.error);
             });
     }
-
+    // check attachements count of conference
     var checkAttachements = function (count) {
         if (count > 0) {
             return true;
@@ -53,7 +53,7 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
             return false;
         }
     }
-
+    // load all conference
     var loadAllConference = function () {
         ConferenceService.getAll()
             .success(function (data) {
@@ -69,7 +69,7 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
                 console.log('Error: ', status, data.error);
             });
     }
-
+    // get attachements types for conference
     var getAttachementTypesForLevel = function () {
         var isAssigned = true;
         $scope.conference.sponsorshipLevels.forEach(function (level) {
@@ -92,7 +92,7 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
         $rootScope.loader = false;
     }
 
-
+    // check attachements
     var checkAttachements = function () {
         $scope.conference.attachementTypes.forEach(function (type) {
             AttachementService.existsAttachementType(type.hash)
@@ -109,7 +109,7 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
                 });
         })
     }
-
+    // set active conference
     var setActiveConference = function () {
         $scope.allConference.forEach(function (conference) {
             if (conference.active) {
@@ -126,7 +126,7 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
             }
         })
     }
-
+    // add new conference
     $scope.addConference = function () {
         $scope.conference = {};
         $scope.conference.notification = "5";
@@ -167,7 +167,7 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
         $scope.conference.attachementTypes.splice(index, 1);
         getAttachementTypesForLevel();
     }
-
+    // upload attachement types in levels
     var uploadATypesAtSLevels = function () {
         if ($scope.conference.sponsorshipLevels) {
             $scope.conference.sponsorshipLevels.forEach(function (level) {

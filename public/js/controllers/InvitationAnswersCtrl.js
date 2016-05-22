@@ -3,10 +3,10 @@
 */
 
 angular.module('InvitationAnswersCtrl', []).controller('InvitationAnswersController', ['$scope', '$state', 'EmailService', '$rootScope', function ($scope, $state, EmailService, $rootScope) {
-
+    // initialization
     $scope.emails = [];
     $rootScope.loader = true;
-
+    // get all messages
     var getAll = function () {
         EmailService.getAll()
             .success(function (data, status, headers, config) {
@@ -24,7 +24,7 @@ angular.module('InvitationAnswersCtrl', []).controller('InvitationAnswersControl
                 console.error('Error', status, data);
             });
     }
-
+    // which emails are seen?
     $scope.isSeen = function (flags) {
         $scope.seen = false;
         flags.forEach(function (flag) {
@@ -34,7 +34,7 @@ angular.module('InvitationAnswersCtrl', []).controller('InvitationAnswersControl
         });
         return $scope.seen;
     }
-
+    // mark email as seen
     $scope.markAsSeen = function (UID) {
         $rootScope.loader = true;
         EmailService.markAsSeen(UID)
@@ -51,7 +51,7 @@ angular.module('InvitationAnswersCtrl', []).controller('InvitationAnswersControl
                 console.error('Error', status, data);
             });
     }
-
+    // remove email
     $scope.remove = function (UID) {
         $rootScope.loader = true;
         EmailService.remove(UID)

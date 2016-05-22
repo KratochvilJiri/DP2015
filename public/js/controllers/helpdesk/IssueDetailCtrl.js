@@ -3,7 +3,7 @@
 */
 
 angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$scope', '$state', '$filter', 'SessionService', 'IssueService', '$stateParams', 'UserService', 'MessageService', function ($scope, $state, $filter, SessionService, IssueService, $stateParams, UserService, MessageService) {
-
+    // initialization
     $scope.session = SessionService;
     $scope.supervisors = [];
 
@@ -26,19 +26,19 @@ angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$sco
 
     $scope.issue = {};
     $scope.issue.state = {};
-
+    // set issue type
     $scope.setType = function (type) {
         $scope.issue.type = type;
     }
-
+    // set issue priority
     $scope.setPriority = function (priority) {
         $scope.issue.priority = priority;
     }
-
+    // set issue state
     $scope.setState = function (state) {
         $scope.issue.state = state;
     }
-
+    // save issue
     $scope.save = function () {
         if (!$scope.issue._id) {
             $scope.issue.date = $filter('date')(new Date(), "yyyy-MM-dd'T'HH:mm:ss.sss'Z'");
@@ -63,7 +63,7 @@ angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$sco
             });
 
     }
-
+    // load issues (edit)
     var loadIssue = function () {
         IssueService.get($stateParams.issueId)
             .success(function (data) {
@@ -79,7 +79,7 @@ angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$sco
                 console.error('Error', status, data);
             });
     }
-
+    // get openedDays of issue
     var openedDays = function () {
         var today = $filter('date')(new Date(), "yyyy-MM-dd'T'HH:mm:ss.sss'Z'");
         var timestamp1 = new Date(today);
@@ -99,7 +99,7 @@ angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$sco
             $scope.issue.daysOpened = $scope.dayRemaining;
         }
     }
-
+    // load supervisors of issue
     var loadSupervisors = function () {
         UserService.getAll("NOT_PARTICIPANT")
             .success(function (data) {
@@ -138,7 +138,7 @@ angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$sco
                 console.error('Error', status, data);
             });
     }
-
+    // mark message as seen
     $scope.markAsSeen = function (message) {
         message.seen = true;
         MessageService.save(message)

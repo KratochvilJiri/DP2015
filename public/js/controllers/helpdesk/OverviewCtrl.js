@@ -3,7 +3,7 @@
 */
 
 angular.module('OverviewCtrl', []).controller('OverviewController', ['$scope', 'IssueService', '$filter','$rootScope', function ($scope, IssueService, $filter,$rootScope) {
-
+    // active menu structure
     $rootScope.menu = {
         dashboard: false,
         actionAdministration: false,
@@ -12,7 +12,7 @@ angular.module('OverviewCtrl', []).controller('OverviewController', ['$scope', '
         administration: false,
         profile: false
     }
-
+    // initialization
     $scope.filter = {};
 
     $scope.priorities = [
@@ -34,7 +34,7 @@ angular.module('OverviewCtrl', []).controller('OverviewController', ['$scope', '
         { constant: 'IN_PROGRESS', text: "V řešení", color: "red" },
         { constant: 'DONE', text: "Vyřešeno", color: "green" },
     ]
-    //
+    // get all issues
     var getIssues = function () {
         IssueService.getAll()
             .success(function (data) {
@@ -50,7 +50,7 @@ angular.module('OverviewCtrl', []).controller('OverviewController', ['$scope', '
                 console.error('Error', status, data);
             });
     }
-
+    // get opened days of issues
     var openedDays = function () {
         var today = $filter('date')(new Date(), "yyyy-MM-dd'T'HH:mm:ss.sss'Z'");
         var timestamp1 = new Date(today);
@@ -71,15 +71,15 @@ angular.module('OverviewCtrl', []).controller('OverviewController', ['$scope', '
             }
         })
     }
-
+    // filter issues by state
     $scope.filterState = function (state) {
         $scope.filter.state = state;
     }
-
+    // filter issues by type
     $scope.filterType = function (type) {
         $scope.filter.type = type;
     }
-
+    // filter issues by priority
     $scope.filterPriority = function (priority) {
         $scope.filter.priority = priority;
     }

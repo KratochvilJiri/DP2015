@@ -3,12 +3,12 @@
 */
 
 angular.module('UserCtrl', []).controller('UserController', ['$scope', '$state', 'UserService', '$stateParams', 'SessionService', '$rootScope', function ($scope, $state, UserService, $stateParams, SessionService, $rootScope) {
-    // define user for binding
+    // initialization
     $scope.user = {};
     $scope.user.address = {};
     $scope.session = SessionService;
     $scope.settings = false;
-
+    // active menu structure
     if ($stateParams.userId == $scope.session.currentUser._id) {
         $scope.settings = true;
         $rootScope.menu = {
@@ -41,9 +41,8 @@ angular.module('UserCtrl', []).controller('UserController', ['$scope', '$state',
         }
     }
 
-    // create new User
+    // save user
     $scope.save = function () {
-
         UserService.save($scope.user)
             .success(function (data, status, headers, config) {
                 if (data.isValid) {
@@ -66,7 +65,7 @@ angular.module('UserCtrl', []).controller('UserController', ['$scope', '$state',
                 console.error('Error', status, data);
             });
     }
-
+    // edit user --> load user detail
     if ($stateParams.userId) {
         UserService.get($stateParams.userId)
             .success(function (data, status, headers, config) {

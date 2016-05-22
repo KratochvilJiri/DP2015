@@ -3,10 +3,10 @@
 */
 
 angular.module('CommunicationNewsCtrl', []).controller('CommunicationNewsController', ['$scope', 'ParticipationService','$rootScope', function($scope, ParticipationService, $rootScope) {
-
+    // initialization    
     $scope.communicationNews = [];
     $rootScope.loader = true;
-
+    // process news
     var processNews = function() {
         $scope.data.forEach(function(participation) {
             participation.messages.forEach(function(message) {
@@ -21,7 +21,7 @@ angular.module('CommunicationNewsCtrl', []).controller('CommunicationNewsControl
             $rootScope.loader = false;
         })
     }
-
+    // load unseen participations messages
     var loadUnseenParticipationsMessages = function() {
         ParticipationService.getUnseenMessages({ conferenceID: $scope.session.currentUser.conferenceID, role: $scope.session.currentUser.role })
             .success(function(data) {

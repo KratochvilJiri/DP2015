@@ -3,7 +3,7 @@
 */
 
 angular.module('AUsersCtrl', []).controller('AUsersController', ['$scope', 'UserService', function ($scope, UserService) {
-
+    // initialization
     $scope.filter = {};
     $scope.deletingUser = "";
     $scope.roles = [];
@@ -18,11 +18,11 @@ angular.module('AUsersCtrl', []).controller('AUsersController', ['$scope', 'User
     $scope.roles["ADMINISTRATOR"] = "Administrátor";
     $scope.roles["PARTICIPANT"] = "Účastník";
     $scope.roles["CONTACT_PERSON"] = "Kontaktní osoba";
-
+    // filter users by role
     $scope.filterRole = function (role) {
         $scope.filter.role = role;
     }
-
+    // show and close modal for confirm operation
     $scope.showModal = function (participantID) {
         $scope.deletingUser = participantID;
         setTimeout(function () { $('.small.modal').modal('show'); }, 50);

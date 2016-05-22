@@ -3,7 +3,7 @@
 */
 
 angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope', '$filter', 'EmailService', 'ConferenceService', 'SessionService', 'IssueService', 'ParticipationService', '$rootScope', function ($scope, $filter, EmailService, ConferenceService, SessionService, IssueService, ParticipationService, $rootScope) {
-
+    // active menu structure
     $rootScope.menu = {
         dashboard: true,
         actionAdministration: false,
@@ -12,7 +12,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
         administration: false,
         profile: false
     }
-
+    // initialization
     $scope.newEmails = "...";
     $scope.getDaysRemaining = "...";
     $scope.conference = {};
@@ -24,10 +24,8 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
     $scope.session.currentUser = SessionService.updateCurrentUser();
 
     $rootScope.loader = true;
-    //$scope.session = SessionService;
-
-    //$scope.loader.emails = false;
-
+    
+    // load unseen participations messages
     var loadUnseenParticipationsMessages = function () {
         ParticipationService.getUnseenMessages({ conferenceID: $scope.session.currentUser.conferenceID, role: $scope.session.currentUser.role })
             .success(function (data) {
@@ -50,7 +48,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
             });
     }
 
-
+    // load unseen issue messages
     var loadUnseenIssueMessages = function () {
         $scope.unseenMessagesCount = 0;
         IssueService.getUnseenMessages($scope.session.currentUser.role)
@@ -72,7 +70,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                 console.log('Error: ', status, data.error);
             });
     }
-
+    // load unsolved issues count
     var loadUnsolvedIssuesCount = function () {
         IssueService.getUnsolvedCount()
             .success(function (data) {
@@ -87,7 +85,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                 console.log('Error: ', status, data.error);
             });
     }
-
+    // get days remaining
     var getDaysRemaining = function (confDate) {
         var today = $filter('date')(new Date(), "yyyy-MM-dd'T'HH:mm:ss.sss'Z'");
 
@@ -97,7 +95,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
 
         $scope.dayRemaining = Math.floor(diff / 86400000);
     }
-
+    // get new emails count
     var getNewEmailsCount = function () {
         EmailService.getNewEmailsCount()
             .success(function (data) {
@@ -114,7 +112,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                 console.log('Error: ', status, data.error);
             });
     }
-
+    // get participations info
     var getParticipationsInfo = function () {
         var firstRound = true;
         $scope.conference.approvedMoney = 0;
@@ -165,7 +163,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
             firstRound = false;
         })
     }
-
+    // get participations and conference indo
     var getParticAndConfInfo = function () {
         $scope.conferenceTemp = {};
         $scope.conferenceTemp._id = $scope.session.currentUser.conferenceID;
@@ -185,7 +183,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                 console.log('Error: ', status, data.error);
             });
     }
-
+    // get last 5 conference
     var getLast5 = function () {
         ConferenceService.getLast5()
             .success(function (data) {
@@ -200,7 +198,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                 console.log('Error: ', status, data.error);
             });
     }
-
+    // get user participations
     var getUserParticipations = function () {
         ParticipationService.getList($scope.session.currentUser._id)
             .success(function (data) {
@@ -216,7 +214,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
                 console.log('Error: ', status, data.error);
             });
     }
-
+    // check particitipations of active conference
     var checkActiveConferenceParticipation = function () {
         $scope.participations.forEach(function (participation) {
             if (participation.conference.active) {
@@ -245,7 +243,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
 
         assignAttachement();
     }
-
+    // assign attachements
     var assignAttachement = function () {
 
         $scope.participation.attachements.forEach(function (attachement) {
@@ -255,7 +253,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
             })
         })
     }
-
+    // get new messages
     var newMessages = function () {
         $scope.participation.newMessage = {};
         $scope.participation.newMessage.check = false;
@@ -269,7 +267,7 @@ angular.module('DashboardCtrl', []).controller('DashboardController', ['$scope',
     }
 
 
-
+    // load all if user is logged in
     $scope.$watch('session.currentUser', function () {
         if ($scope.session.currentUser) {
             if ($scope.session.currentUser.role != "PARTICIPANT" && $scope.session.currentUser.conferenceID) {
