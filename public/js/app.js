@@ -2,7 +2,7 @@
    Nástroj pro podporu komunikace externích účastníků akce (diplomová práce) 2016
 */
 
-var app = angular.module('conferenceApp', ['ui.router', 'multipleSelect', 'formatters', 'angular-filepicker',
+var app = angular.module('conferenceApp', ['ui.router', 'multipleSelect', 'angular-filepicker',
     'MainCtrl', 'LoginCtrl', 'DashboardCtrl', 'AUsersCtrl', 'UserCtrl', 'HomeCtrl', 'ConferenceCtrl', 'ParticipantsCtrl', 'ParticipantCtrl', 'InvitationAnswersCtrl', 'InvitationCtrl', 'IssueDetailCtrl', 'OverviewCtrl', 'CommunicationNewsCtrl', 'IssuesNewsCtrl', 'PasswordRecoveryCtrl',
     'UserSrvc', 'SessionSrvc', 'AuthorizationSrvc', 'ConferenceSrvc', 'ParticipationSrvc', 'MessageSrvc', 'AttachementSrvc', 'EmailSrvc', 'IssueSrvc']);
 

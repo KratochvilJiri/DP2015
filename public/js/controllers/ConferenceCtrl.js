@@ -115,7 +115,6 @@ angular.module('ConferenceCtrl', []).controller('ConferenceController', ['$scope
             if (conference.active) {
                 $scope.conference = conference;
                 $scope.conference.date = $filter('date')($scope.conference.date, "yyyy/MM/dd");
-                console.log($scope.conference);
                 if($scope.conference.attachementTypes){
                     $scope.conference.attachementTypes.forEach(function(attachementType){
                         attachementType.date = $filter('date')(attachementType.date, "yyyy/MM/dd");
