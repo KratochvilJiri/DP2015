@@ -1,5 +1,5 @@
 /* Autor: Jiri Kratochvil 
-   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce) 2016
 */
 
 angular.module('InvitationCtrl', []).controller('InvitationController', ['$scope', 'ConferenceService', 'UserService', 'EmailService', 'SessionService', '$rootScope', function ($scope, ConferenceService, UserService, EmailService, SessionService, $rootScope) {

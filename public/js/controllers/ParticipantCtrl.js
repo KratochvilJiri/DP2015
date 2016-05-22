@@ -1,5 +1,5 @@
 /* Autor: Jiri Kratochvil 
-   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce) 2016
 */
 
 angular.module('ParticipantCtrl', []).controller('ParticipantController', ['$scope', '$state', '$stateParams', '$timeout', 'UserService', 'ConferenceService', 'ParticipationService', 'SessionService', 'MessageService', 'filepickerService', 'AttachementService', '$rootScope', function ($scope, $state, $stateParams, $timeout, UserService, ConferenceService, ParticipationService, SessionService, MessageService, filepickerService, AttachementService, $rootScope) {

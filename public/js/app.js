@@ -1,5 +1,5 @@
 /* Autor: Jiri Kratochvil 
-   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce) 2016
 */
 
 var app = angular.module('conferenceApp', ['ui.router', 'multipleSelect', 'formatters', 'angular-filepicker',

@@ -1,5 +1,5 @@
 /* Autor: Jiri Kratochvil 
-   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce) 2016
 */
 
 angular.module('CommunicationNewsCtrl', []).controller('CommunicationNewsController', ['$scope', 'ParticipationService','$rootScope', function($scope, ParticipationService, $rootScope) {

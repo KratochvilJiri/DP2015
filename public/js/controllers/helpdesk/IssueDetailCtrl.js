@@ -1,5 +1,5 @@
 /* Autor: Jiri Kratochvil 
-   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce)
+   Nástroj pro podporu komunikace externích účastníků akce (diplomová práce) 2016
 */
 
 angular.module('IssueDetailCtrl', []).controller('IssueDetailController', ['$scope', '$state', '$filter', 'SessionService', 'IssueService', '$stateParams', 'UserService', 'MessageService', function ($scope, $state, $filter, SessionService, IssueService, $stateParams, UserService, MessageService) {
